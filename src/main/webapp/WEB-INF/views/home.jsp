@@ -11,7 +11,7 @@
 	id : <input type="text" name="id" id="id"/>
 	pw : <input type="password" name="pw" id="pw"/>
 	name : <input type="text" name="name" id="name"/>
-	<button>입력</button>
+	<button type="submit">입력</button>
 </form>
 </body>
 </html>
