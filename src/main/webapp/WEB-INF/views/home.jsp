@@ -12,7 +12,6 @@
 	pw : <input type="password" name="pw" id="pw"/>
 	name : <input type="text" name="name" id="name"/>
 	<button type="submit">입력</button>
-	s
 </form>
 </body>
 </html>
