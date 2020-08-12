@@ -155,3 +155,5 @@ $RECYCLE.BIN/
 *.MF
 *.properties
 *.MF
+target/m2e-wtp/web-resources/META-INF/maven/com.team2/simpleOrder/pom.properties
+*.properties
