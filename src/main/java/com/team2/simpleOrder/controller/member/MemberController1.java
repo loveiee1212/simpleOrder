@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.team2.simpleOrder.dto.Member;
 import com.team2.simpleOrder.service.member.MemberMM1;
 import com.team2.simpleOrder.service.member.MemberMM2;
 import com.team2.simpleOrder.service.member.MemberMM3;
@@ -26,4 +27,9 @@ public class MemberController1 {
 	
 	ModelAndView mav;
 
+	@RequestMapping(value = "/insertMember")
+	public ModelAndView insertMember(Member mb) {
+		mav = mm1.insertMember(mb);
+		return null;
+	}
 }
