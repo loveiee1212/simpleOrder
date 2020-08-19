@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: 29
-=======
 Built-By: Choi Min Kyu
->>>>>>> 695c8541403fa16af44fa3c6fc5c766d37eddc29
 Build-Jdk: 1.8.0_251
 Created-By: Maven Integration for Eclipse
 
