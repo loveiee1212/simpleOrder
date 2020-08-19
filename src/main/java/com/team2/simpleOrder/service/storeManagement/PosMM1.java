@@ -1,13 +1,13 @@
-package com.team2.simpleOrder.service.pos;
+package com.team2.simpleOrder.service.storeManagement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team2.simpleOrder.dao.pos.IPosDao1;
-import com.team2.simpleOrder.dao.pos.IPosDao2;
-import com.team2.simpleOrder.dao.pos.IPosDao3;
-import com.team2.simpleOrder.dto.Pos;
+import com.team2.simpleOrder.dao.posManagement.IPosDao1;
+import com.team2.simpleOrder.dao.posManagement.IPosDao2;
+import com.team2.simpleOrder.dao.posManagement.IPosDao3;
+import com.team2.simpleOrder.dto.StoreManagement;
 
 @Service
 public class PosMM1 {

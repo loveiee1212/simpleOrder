@@ -1,0 +1,43 @@
+	#calendar {
+		border: 1px solid gold;
+		float: left;
+		width: 1000px;
+		height: 770px;
+		margin-right: 30px;
+		padding: 15px;
+	}
+	#controller {
+		border: 1px solid blue;
+		float: right;
+		width: 430px;
+		height : 800px;
+	}
+	#calendar_top {
+		text-align: right;
+	}
+	.moveButton{
+		width: 100px;
+		height: 50px;
+		background-color: white;
+		font-size: x-large;
+		font-weight: bolder;
+		border-radius: 8px;
+		border: 2px solid gray;	
+		color: gray;
+	}
+	#calendar_main table,tr,td{
+		border: 1px solid orange;
+		font-size: 20px;
+	}
+	#calendar_main tr,td{
+		width: 150px;
+	}
+	#yearMonth{
+		font-size: xx-large;
+		font-weight: bolder;
+		color: gray;
+	}
+
+	div.text{
+		height: 75px;
+	}

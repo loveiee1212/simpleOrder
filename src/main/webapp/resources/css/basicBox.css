@@ -1,0 +1,18 @@
+body{
+  padding: 0;
+}
+#baseBox{
+  border: 1px solid black;
+  float: left;
+  padding:2%;
+  transform: translate(-50%, 0%);
+  margin: 0% 50%;
+}
+#baseinnerBox{
+  float: left;
+  border: pink 1px solid;
+  width: 1500px;
+  padding: 30px;
+  height: 800px;
+  
+}

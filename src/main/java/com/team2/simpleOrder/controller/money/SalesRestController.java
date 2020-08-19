@@ -6,20 +6,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team2.simpleOrder.service.money.MoneyMM1;
-import com.team2.simpleOrder.service.money.MoneyMM2;
+import com.team2.simpleOrder.service.money.VaultCashMM;
+import com.team2.simpleOrder.service.money.SalesMM;
 
 
 @RestController
 @RequestMapping("/rest")
-public class MoneyRestController1 {
-	//Only Money Rest Controller Number1
+public class SalesRestController {
+	//Only Money Rest Controller Number2
 	
 	@Autowired
-	MoneyMM1 mom1;
+	VaultCashMM mom1;
 	
 	@Autowired
-	MoneyMM2 mom2;
+	SalesMM mom2;
 	
 	ModelAndView mav;
 

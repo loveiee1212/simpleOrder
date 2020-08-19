@@ -4,18 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team2.simpleOrder.dao.money.IMoneyDao1;
-import com.team2.simpleOrder.dao.money.IMoneyDao2;
+import com.team2.simpleOrder.dao.money.IVaultCashDao;
+import com.team2.simpleOrder.dao.money.ISalesDao;
 import com.team2.simpleOrder.dto.Money;
 
 @Service
-public class MoneyMM2 {
+public class SalesMM {
 	
 	@Autowired
-	private IMoneyDao1 moDao1;
+	private IVaultCashDao moDao1;
 	
 	@Autowired
-	private IMoneyDao2 moDao2;
+	private ISalesDao moDao2;
 	
 	ModelAndView mav;
 	

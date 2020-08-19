@@ -1,4 +1,4 @@
-package com.team2.simpleOrder.controller.member;
+package com.team2.simpleOrder.controller.money;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,22 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team2.simpleOrder.service.member.MemberMM1;
-import com.team2.simpleOrder.service.member.MemberMM2;
-import com.team2.simpleOrder.service.member.MemberMM3;
+import com.team2.simpleOrder.service.money.VaultCashMM;
+import com.team2.simpleOrder.service.money.SalesMM;
+
 
 @Controller
-public class MemberController2 {
-	//Only Member Controller Number2
+public class VaultCashController {
+	//Only Money Controller Number1
 	
 	@Autowired
-	MemberMM1 mm1;
+	VaultCashMM vcm;
 	
 	@Autowired
-	MemberMM2 mm2;
-	
-	@Autowired
-	MemberMM3 mm3;
+	SalesMM slm;
 	
 	ModelAndView mav;
 

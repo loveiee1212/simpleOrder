@@ -34,15 +34,15 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<!-- 인터셉터를 이용해서 로그인 여부 판단 -->
-	<interceptors>
+	<!-- <interceptors>
 		<interceptor>
-			<!-- mapping의 모든 요청은 Controller에 도착하기 전에 가로챈다 -->
+			mapping의 모든 요청은 Controller에 도착하기 전에 가로챈다
 			<mapping path="/*"/>
-			<!-- exclude-mapping은 요청을 가로채지 않음 -->
+			exclude-mapping은 요청을 가로채지 않음
 			<exclude-mapping path="/"/>
 			<beans:bean class="com.team2.simpleOrder.userClass.SessionInterceptor" />
 					
 		</interceptor>
-	</interceptors>
+	</interceptors> -->
 	
 </beans:beans>

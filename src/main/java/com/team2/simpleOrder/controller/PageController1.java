@@ -18,4 +18,12 @@ public class PageController1 {
 		return "home";
 	}
 	
+	@RequestMapping("/schedule")
+	public String schedule() {
+		return "member/schedule";
+	}
+	@RequestMapping("/changeWorkTime")
+	public String changeWorkTime() {
+		return "member/changeWorkTime";
+	}
 }

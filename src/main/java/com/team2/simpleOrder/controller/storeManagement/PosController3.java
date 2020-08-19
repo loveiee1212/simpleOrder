@@ -1,4 +1,4 @@
-package com.team2.simpleOrder.controller.order;
+package com.team2.simpleOrder.controller.storeManagement;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,23 +7,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team2.simpleOrder.service.order.OrderMM1;
-import com.team2.simpleOrder.service.order.OrderMM2;
-import com.team2.simpleOrder.service.order.OrderMM3;
+import com.team2.simpleOrder.service.storeManagement.PosMM1;
+import com.team2.simpleOrder.service.storeManagement.PosMM2;
+import com.team2.simpleOrder.service.storeManagement.PosMM3;
 
 
 @Controller
-public class OrderController1 {
-	//Only Order Controller Number1
+public class PosController3 {
+	//Only Pos Controller Number3
 	
 	@Autowired
-	OrderMM1 om1;
+	PosMM1 pm1;
 	
 	@Autowired
-	OrderMM2 om2;
+	PosMM2 pm2;
 	
 	@Autowired
-	OrderMM3 om3;
+	PosMM3 pm3;
 	
 	ModelAndView mav;
 

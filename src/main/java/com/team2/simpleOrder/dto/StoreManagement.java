@@ -8,6 +8,6 @@ import lombok.ToString;
 @Data
 @ToString
 @Alias("product")
-public class Pos {
+public class StoreManagement {
 
 }
