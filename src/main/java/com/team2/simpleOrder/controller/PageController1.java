@@ -26,4 +26,8 @@ public class PageController1 {
 	public String changeWorkTime() {
 		return "member/changeWorkTime";
 	}
+	@RequestMapping("/mail")
+	public String mail() {
+		return "member/emailSend";
+	}
 }
