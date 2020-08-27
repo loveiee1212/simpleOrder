@@ -30,6 +30,10 @@
 		<beans:property name="dataSource" ref="dataSource"/>
 	</beans:bean>
 	
+	
+	
+	
+	
 	<!-- @Transaction-annotation 사용하기 위해 servlet-context.xml에 반드시 설정해야함 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
