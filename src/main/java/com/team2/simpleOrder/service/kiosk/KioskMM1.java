@@ -1,5 +1,8 @@
 package com.team2.simpleOrder.service.kiosk;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,5 +22,11 @@ public class KioskMM1 {
 	private IKioskDao2 kDao2;
 	
 	ModelAndView mav;
+
+	public void getReviewList(String c_email, String c_code) {
+		// TODO Auto-generated method stub
+//		List<> rList= new ArrayList<>;
+//		new ArrayList<String>= kDao1.getReviewList(c_email,c_code);
+	}
 	
 }
