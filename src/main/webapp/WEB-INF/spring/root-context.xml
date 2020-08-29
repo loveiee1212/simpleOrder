@@ -17,7 +17,7 @@
 	<!-- mySql dataSource -->	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://192.168.0.93:3306/simpleorder?useSSL=false&amp;serverTimezone=UTC"/>
+		<property name="url" value="jdbc:mysql://121.65.47.76:3000/simpleorder?useSSL=false&amp;serverTimezone=UTC"/>
 		<property name="username" value="team2"/>
 		<property name="password" value="0000"/>
 	</bean>
