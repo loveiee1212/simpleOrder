@@ -11,5 +11,11 @@ public class PageController2 {
 	//Only Paging Controller Number2
 	
 	ModelAndView mav;
+	
+	@RequestMapping(value = "/sellpage")
+	public String home() {
+		
+		return "seat/sellpage";
+	}
 
 }
