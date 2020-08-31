@@ -24,18 +24,19 @@ public class KioskRestController1 {
 	@Autowired
 	KioskMM1 km1;
 	
-	@Autowired
-	KioskMM2 km2;
+//	@Autowired
+//	KioskMM2 km2;
 	
 	ModelAndView mav;
+	
 	@PostMapping(value = "/getreviewlist")
 	public String getReviewList(HttpServletRequest req){
 		//세션에 저장된 사업자이메일과 사업자번호를 가져온다
-		HttpSession session= req.getSession();
-		String c_email = session.getAttribute("c_email").toString();
-		String c_code = session.getAttribute("c_code").toString();
+//		HttpSession session= req.getSession();
+//		String c_code = session.getAttribute("c_code").toString();
+		String c_code = "123123123123";
 		//사업자 번호와 사업자 이메일을 서비스 클래스로 넘긴다
-		km1.getReviewList(c_email, c_code);
+		km1.getReviewList(c_code);
 		return null;
 		
 	}
