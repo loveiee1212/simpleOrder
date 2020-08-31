@@ -17,7 +17,7 @@ import com.team2.simpleOrder.service.member.MemberMM3;
 
 @RestController
 @RequestMapping("/rest")
-public class MemberRestController1 {
+public class CompanyMemberRestController1 {
 	//Only Member Rest Controller Number1
 	
 	@Autowired
@@ -35,8 +35,8 @@ public class MemberRestController1 {
 	ModelAndView mav;
 	
 	
-	@RequestMapping("/mailsend")
-	public String mailSend() throws MessagingException {
+	@RequestMapping("/joinCmember")
+	public String joinCmember() throws MessagingException {
 		MimeMessage message = MailSender.createMimeMessage();
 		MimeMessageHelper messageHelper = new MimeMessageHelper(message,true, "UTF-8");
 		messageHelper.setFrom("guswns2fkrh2@gmail.com");
@@ -44,7 +44,7 @@ public class MemberRestController1 {
 		messageHelper.setSubject("메일 테스토");
 		messageHelper.setText("메일 내용은 테스트 입니당");
 		
-		MailSender.send(message);
+		//MailSender.send(message);
 		return "aa";
 	}
 	
