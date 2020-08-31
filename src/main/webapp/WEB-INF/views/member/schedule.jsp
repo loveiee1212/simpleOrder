@@ -9,41 +9,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
 <link rel="stylesheet" href="resources/css/calendar.css" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css" type="text/css">
 <style>
-#clock {
-	text-align: center;
-	border: 1px solid black;
-	width: 400px;
-	height: 95px;
-	margin-left: 15px;
-	margin-top: 30px;
-	border: 1px solid black;
-}
-
-#clock ul {
-	width: 200px;
-	list-style: none;
-	text-align: center;
-	margin-left: 15%;
-}
-
-#clock ul li {
-	display: inline;
-	font-size: 25px;
-	text-align: center;
-}
-
-#date {
-	text-align: center;
-	font-size: 20px;
-}
-
-.point {
-	position: relative;
-	padding-left: 10px;
-	padding-right: 10px;
-	text-align: center;
-}
 
 #gWork button{
 	text-align: center;
@@ -188,6 +155,7 @@
 		for (var i = firstDay.getDay(); i < firstDay.getDay()
 				+ lastDay.getDate(); i++) {
 			$tdDay.eq(i).text(++dayCount);
+			$tdDay.eq(i).attr("id",dayCount);
 
 			if ($tdDay.eq(i).text() == today.getDate()) {
 				if (month == today.getMonth() + 1) {
@@ -203,6 +171,7 @@
 		for (var i = 6; i < 42; i += 7) {
 			$tdDay.eq(i).css("color", "blue");
 		}
+		getTime();
 	}
 
 	function movePrevMonth() {
@@ -232,6 +201,21 @@
 		firstDay = new Date(year, month - 1, 1);
 		lastDay = new Date(year, month, 0);
 		showDay();
+	}
+	
+	function getTime() {
+		$.ajax({
+			type : 'get',
+			url : 'rest/getTime',
+			data : {'year' : year, 'month' : month},
+			dataType : 'html',
+			success : function(data) {
+				console.log(data)
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		})
 	}
 </script>
 

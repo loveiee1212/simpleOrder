@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dto.Member;
 import com.team2.simpleOrder.service.member.MemberMM1;
-import com.team2.simpleOrder.service.member.MemberMM2;
+import com.team2.simpleOrder.service.member.EmpMemberMM;
 import com.team2.simpleOrder.service.member.MemberMM3;
 
 @Controller
@@ -20,7 +20,7 @@ public class CompanyMemberController1 {
 	MemberMM1 mm1;
 	
 	@Autowired
-	MemberMM2 mm2;
+	EmpMemberMM mm2;
 	
 	@Autowired
 	MemberMM3 mm3;
