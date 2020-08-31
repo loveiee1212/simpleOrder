@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.service.member.EmpMemberMM;
+import com.team2.simpleOrder.dto.Member;
 import com.team2.simpleOrder.service.member.CompanyMemberMM1;
 import com.team2.simpleOrder.service.member.MemberMM3;
 
@@ -24,11 +25,11 @@ public class EmpMemberRestController {
 	ModelAndView mav;
 	
 	@RequestMapping("/getTime")
-	public String getTime(int year,int month) {
-		System.out.println(year);
-		System.out.println(month);
+	public String getTime(Member mb) {
+		System.out.println(mb.getBd_date());
+		System.out.println(mb.getF_date());
 		String json;
-		json = emm.getTime(year,month);
+		json = emm.getTime(mb);
 		return json;
 	}
 }

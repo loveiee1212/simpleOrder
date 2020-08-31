@@ -5,7 +5,7 @@
 
 <mapper namespace="com.team2.simpleOrder.dao.kiosk.IKioskDao1">
 	<select id="getReviewList" parameterType="String"
-		resultMap="review">
+		resultType="review">
 		SELECT
 		R.C_CODE,R.BD_DATE,R.OAC_NUM,RV_DATE,RV_SCORE,RIMG.RVIMG_SYSNAME
 		FROM REVIEW R

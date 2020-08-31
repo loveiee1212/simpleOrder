@@ -4,4 +4,20 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team2.simpleOrder.dao.member.IEmpMemberDao">
+	<resultMap type="com.team2.simpleOrder.dto.entity.adTime" id="getAdInOutTime">
+		<id property="emp_code" column="emp_code"/>
+		<result property="bd_date" column="bd_date"/>
+		<result property="ad_inTime" column="ad_inTime"/>
+		<result property="ad_outTime" column="ad_outTime"/>
+	</resultMap>
+	
+	<resultMap type="member" id="getAdTime">
+		<id property="emp_code" column="emp_code"/>
+		<result property="c_code" column="c_code"/>
+		<collection property="adList" javaType="java.util.ArrayList" resultMap="getAdInOutTime"/>
+	</resultMap>
+
+	<select id="getTime" parameterType="member" resultMap="getAdTime">
+		SELECT * FROM ATTENDANCE WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code} AND date(bd_date) between #{f_date} AND #{bd_date}
+	</select>
 </mapper>
