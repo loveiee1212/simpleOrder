@@ -171,7 +171,7 @@
 		for (var i = 6; i < 42; i += 7) {
 			$tdDay.eq(i).css("color", "blue");
 		}
-		getTime();
+		getTime(dayCount);
 	}
 
 	function movePrevMonth() {
@@ -203,11 +203,12 @@
 		showDay();
 	}
 	
-	function getTime() {
+	function getTime(day) {
 		$.ajax({
 			type : 'get',
 			url : 'rest/getTime',
-			data : {'year' : year, 'month' : month},
+			data : {'c_code' : 123123123123 ,'bd_date' : year+"-"+month+"-"+day ,
+					'f_date' : year+"-"+month+"-"+01 , 'emp_code' : 1},
 			dataType : 'html',
 			success : function(data) {
 				console.log(data)

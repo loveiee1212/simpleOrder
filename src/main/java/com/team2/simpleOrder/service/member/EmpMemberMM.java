@@ -18,14 +18,12 @@ public class EmpMemberMM {
 	@Autowired
 	private IEmpMemberDao mDao2;
 	
-	@Autowired
-	private IMemberDao3 mDao3;
-	
 	ModelAndView mav;
 
-	public String getTime(int year, int month) {
-		List<Member> bList = mDao2.getTime(year,month);
-		String json = new Gson().toJson(bList);
+	public String getTime(Member mb) {
+		Member member = mDao2.getTime(mb);
+		String json = new Gson().toJson(member);
+		System.out.println(member);
 		return json;
 	}
 }
