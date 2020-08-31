@@ -12,7 +12,7 @@ import com.team2.simpleOrder.service.member.MemberMM3;
 
 @RestController
 @RequestMapping("/rest")
-public class MemberRestController2 {
+public class EmpMemberRestController {
 	//Only Member Rest Controller Number2
 	
 	@Autowired

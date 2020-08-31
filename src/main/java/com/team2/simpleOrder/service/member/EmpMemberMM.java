@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.team2.simpleOrder.dao.member.IMemberDao1;
-import com.team2.simpleOrder.dao.member.IMemberDao2;
+import com.team2.simpleOrder.dao.member.IEmpMemberDao;
 import com.team2.simpleOrder.dao.member.IMemberDao3;
 import com.team2.simpleOrder.dto.Member;
 
@@ -15,7 +15,7 @@ import com.team2.simpleOrder.dto.Member;
 public class EmpMemberMM {
 	
 	@Autowired
-	private IMemberDao2 mDao2;
+	private IEmpMemberDao mDao2;
 	
 	@Autowired
 	private IMemberDao3 mDao3;

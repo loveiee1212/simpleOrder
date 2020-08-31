@@ -14,9 +14,10 @@ import lombok.ToString;
 @ToString
 @Alias("member")
 public class Member {
-	private String id;
+	private String c_code;
 	private String pw;
 	private String name;
+	
 	
 	private List<adTime> adList;
 }

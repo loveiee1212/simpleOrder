@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.team2.simpleOrder.dto.Member;
 
-public interface IMemberDao2 {
+public interface IEmpMemberDao {
 
 	List<Member> getTime(int year, int month);
 

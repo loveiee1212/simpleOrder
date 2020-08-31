@@ -12,7 +12,7 @@ import com.team2.simpleOrder.service.member.EmpMemberMM;
 import com.team2.simpleOrder.service.member.MemberMM3;
 
 @Controller
-public class EmpMemberController2 {
+public class EmpMemberController {
 	//Only Member Controller Number2
 	
 	@Autowired
