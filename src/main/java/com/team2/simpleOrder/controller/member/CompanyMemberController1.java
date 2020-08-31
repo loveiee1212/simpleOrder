@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dto.Member;
-import com.team2.simpleOrder.service.member.MemberMM1;
+import com.team2.simpleOrder.service.member.CompanyMemberMM1;
 import com.team2.simpleOrder.service.member.EmpMemberMM;
 import com.team2.simpleOrder.service.member.MemberMM3;
 
@@ -17,7 +17,7 @@ public class CompanyMemberController1 {
 	//Only Member Controller Number1
 	
 	@Autowired
-	MemberMM1 mm1;
+	CompanyMemberMM1 mm1;
 	
 	@Autowired
 	EmpMemberMM mm2;

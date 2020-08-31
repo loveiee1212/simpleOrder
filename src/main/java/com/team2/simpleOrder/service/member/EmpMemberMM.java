@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.team2.simpleOrder.dao.member.IMemberDao1;
+import com.team2.simpleOrder.dao.member.ICompanyMemberDao1;
 import com.team2.simpleOrder.dao.member.IMemberDao2;
 import com.team2.simpleOrder.dao.member.IMemberDao3;
 import com.team2.simpleOrder.dto.Member;
