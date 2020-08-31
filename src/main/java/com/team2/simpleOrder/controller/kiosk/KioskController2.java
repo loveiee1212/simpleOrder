@@ -22,30 +22,30 @@ public class KioskController2 {
 	@RequestMapping(value = "/kioskmenu", method = RequestMethod.GET)
 	public String kioskMenu() {
 		logger.info("kioskMenu.jsp으로 이동");
-		return "/kiosk/kioskMenu";
+		return "kiosk/kioskMenu";
 	}
 
 	@RequestMapping(value = "/kioskorder", method = RequestMethod.GET)
 	public String kioskOrder() {
 		logger.info("kioskOrder.jsp으로 이동");
-		return "/kiosk/kioskOrder";
+		return "kiosk/kioskOrder";
 	}
 
 	@RequestMapping(value = "/kioskrequest", method = RequestMethod.GET)
 	public String kioskRequest() {
 		logger.info("kioskRequest.jsp으로 이동");
-		return "kioskRequest";
+		return "kiosk/kioskRequest";
 	}
 
 	@RequestMapping(value = "/kioskreview", method = RequestMethod.GET)
 	public String kioskReview() {
 		logger.info("kioskReview.jsp으로 이동");
-		return "kioskReview";
+		return "kiosk/kioskReview";
 	}
 
 	@RequestMapping(value = "/kioskreviewwrite", method = RequestMethod.GET)
 	public String kioskReviewWrite() {
 		logger.info("kioskReviewWrite.jsp으로 이동");
-		return "kioskReviewWrite";
+		return "kiosk/kioskReviewWrite";
 	}
 }
