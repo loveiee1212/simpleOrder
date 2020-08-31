@@ -4,7 +4,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.team2.simpleOrder.dao.member.IMemberDao1">
+<mapper namespace="com.team2.simpleOrder.dao.member.ICompanyMemberDao1">
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO MEMBER VALUES (#{id},#{pw},#{name})
 	</insert>
