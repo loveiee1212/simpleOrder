@@ -8,16 +8,12 @@ import com.team2.simpleOrder.dao.member.IEmpMemberDao;
 import com.team2.simpleOrder.dao.member.ICompanyMemberDao1;
 
 import com.team2.simpleOrder.dao.member.IMemberDao3;
-import com.team2.simpleOrder.dto.Member;
 
 @Service
 public class MemberMM3 {
 	
 	@Autowired
 	private ICompanyMemberDao1 mDao1;
-	
-	@Autowired
-	private IEmpMemberDao mDao2;
 	
 	@Autowired
 	private IMemberDao3 mDao3;

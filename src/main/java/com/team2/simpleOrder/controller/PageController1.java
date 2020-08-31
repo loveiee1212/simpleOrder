@@ -27,7 +27,7 @@ public class PageController1 {
 		return "member/changeWorkTime";
 	}
 	@RequestMapping("/joincmember")
-	public String mail() {
-		return "member/joinCmember";
+	public String joinCmember() {
+		return "member/joinCmemberFrm";
 	}
 }

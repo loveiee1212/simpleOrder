@@ -27,9 +27,5 @@ public class CompanyMemberController1 {
 	
 	ModelAndView mav;
 
-	@RequestMapping(value = "/insertMember")
-	public ModelAndView insertMember(Member mb) {
-		mav = mm1.insertMember(mb);
-		return null;
-	}
+	
 }
