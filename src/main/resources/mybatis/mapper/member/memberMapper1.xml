@@ -6,5 +6,8 @@
 
 <mapper namespace="com.team2.simpleOrder.dao.member.ICompanyMemberDao1">
 		
+		<select id="getCInfo" parameterType="String" resultType="Member">
+			SELECT * FROM COMPANY WHERE C_CODE = #{value};
+		</select>
 	
 </mapper>
