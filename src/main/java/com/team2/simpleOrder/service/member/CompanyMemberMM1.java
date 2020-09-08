@@ -1,79 +1,64 @@
 
 package com.team2.simpleOrder.service.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import com.team2.simpleOrder.dao.member.ICompanyMemberDao1;
-
+import com.team2.simpleOrder.dto.Member;
 
 @Service
 public class CompanyMemberMM1 {
 	
 	@Autowired
-	private ICompanyMemberDao1 mCDao;
-	
+	private ICompanyMemberDao1 cDao;
+
 	@Autowired
-	private JavaMailSender MailSender;
-	
+	private MailManger mailM;
 
-	//E Mail 회원 가입
-	public String joinCmember(HashMap<String, String> company) throws MessagingException {
-		
-		
-		boolean cAcountResult = mCDao.joinCmember(company);//이메일로 회원 등록
-		boolean cCodeInsertResult = mCDao.InsertCcode(company); 
-		if(cAcountResult || cCodeInsertResult) //둘다 정상적으로 로그인 됐다면
-			CmemberAcountMailSend(company);//계정 활성 이메일 발송
-		return "true";
+	@Autowired
+	private PasswordEncoder pse;
+
+	public boolean createEmailAcount(HashMap<String, String> acountInfo) throws MessagingException { // 새로운 이메일 계정 생성
+		acountInfo.put("ce_pw", pse.encode(acountInfo.get("ce_pw"))); //가져온 비밀번호를 인코딩 하여 다시 해쉬맵에 덮어 씌움
+		if (cDao.createEmailAcount(acountInfo) && cDao.createCcodeAcount(acountInfo)) { //이메일과 사업체가 둘다 문제없이 등록되었다면
+			mailM.acountApprovalMailSend(acountInfo); // 회원가입 승인 메일을 가입한 메일로 발송함
+			return true;
+		}
+		return false;
 	}
 
-
-
-	private void CmemberAcountMailSend(HashMap<String, String> company) throws MessagingException {
-		MimeMessage message = MailSender.createMimeMessage();
-		MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
-		messageHelper.setFrom("simpleorder@HD7.vc.kr");
-		messageHelper.setTo(company.get("ce_email"));
-		messageHelper.setSubject("[simpleOrder]심플오더 회원 가입을 감사드립니다.");
-		messageHelper.setText(mesageMake(company));
-		
-		MailSender.send(message);
+	public boolean cEmailLogin(HashMap<String, String> emailIdPw) { //이메일 계정 로그인
+		String encodingPw = cDao.getEncodingPw(emailIdPw.get("ce_email")); //해당 계정으로 인코딩된 비밀번호 가져옴
+		if (pse.matches(emailIdPw.get("ce_pw"), encodingPw) && emailIdPw.get("ce_pw") != "") { 
+			//인코딩된 비밀번호와 입력한 비밀번호가 일치하는지 확인, 비밀번호는 공백이 아니여야함
+			return true;
+		}
+		return false;
 	}
 
-
-
-	private String mesageMake(HashMap<String, String> company) {
-		Long memberCode = Long.parseLong(company.get("c_code"))*7;
-		
-		StringBuilder mesage = new StringBuilder();
-		mesage.append("저희 simpleOrder에 가입해 주셔서 감사합니다.\r\n");
-		mesage.append("simpleOrder회원 인증을 진행하시려면 아래버튼을 입력하시거나 qr 코드를 찍어주세요 \r\n");
-		mesage.append("http://localhost:8080/simpleOrder/rest/statuscheck/"+memberCode+" \r\n");
-		mesage.append("<img src=\"https://chart.googleapis.com/chart?cht=qr&amp;chs=200x200&amp;chl=http://ojava.tistory.com\">\r\n");
-		mesage.append("simpleOrder 회원가입하지 않으셧다면 이 메일을 무시해 주시길 바랍니다.\r\n");
-		mesage.append("타인이 고객님의 이메일 주소를 도용했을 수 도 있습니다.");
-		
-		
-		return mesage.toString();
+	public HashMap<String, String> getClist(String ce_email) { // 사업체 리스트 가져오기
+		CMemberHtmlMaker hM = new CMemberHtmlMaker(); // html 메이커 생성
+		HashMap<String, String> map = new HashMap<String, String>(); // 해쉬맵 생성
+		map.put("cListInfoHtml", hM.Clist(cDao.getClist(ce_email))); // 맵에 만든 html 코드 입력
+		return map;
 	}
 
-
-
-	public void statusCheck(Long memberCode) {
-		String c_code = (memberCode/7)+"";
-
-		String ce_email = mCDao.getCompanyEmail(c_code);
-		mCDao.updateStatus(ce_email);
+	public boolean cLogin(HashMap<String, String> cInfo) { // 사업체 로그인
+		return cDao.emailAcountStatusCheak(cInfo.get("ce_email")) && cDao.cLogin(cInfo); //해당 이메일의 상태와 로그인 여부를 확인
 	}
 
-	
+	public void emailAcountStatusChange(Long cCodes) {// 이메일 계정 상태 승인
+		long cCode = cCodes/7;
+		System.out.println(cCode);
+		cDao.emailAcountStatusChange(cCode);
+		
+	}
+
 }

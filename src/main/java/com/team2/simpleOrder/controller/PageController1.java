@@ -1,21 +1,20 @@
 package com.team2.simpleOrder.controller;
 
 
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PageController1 {
-	//Only Paging Controller Number1
 
-	ModelAndView mav;
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String home() {
 		
-		return "home";
+		return "main";
 	}
 	
 	@RequestMapping("/schedule")
@@ -26,8 +25,14 @@ public class PageController1 {
 	public String changeWorkTime() {
 		return "member/changeWorkTime";
 	}
-	@RequestMapping("/joincmember")
-	public String joinCmember() {
-		return "member/joinCmemberFrm";
+	@RequestMapping("/joinEmailFrm")
+	public String joinEmailFrm() {
+		return "member/joinEmailFrm";
 	}
+	@RequestMapping("/cList")
+	public String cList(HttpServletRequest request){
+		request.setAttribute("ce_email", request.getParameter("ce_email"));
+		return "member/cList";
+	}
+	
 }
