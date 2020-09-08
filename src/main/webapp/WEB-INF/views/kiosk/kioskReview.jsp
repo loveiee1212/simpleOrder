@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>KioskReview</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -103,69 +104,25 @@ ul {
 	<!-- <h2>kioskReview.jsp</h2> -->
 	<div id="frame">
 		<div id="header">
-		<font>광고와 로고</font>
+			<font>광고와 로고</font>
 		</div>
-		<!-- <div id="reviewList">
-			<ul>
-				<li>
-					<div class="rv_detail">
-						<div class="rv_code">
-							<span class="rv_code_name">영업일+주문번호</span><span
-								class="rv_code_time">2020년 8월 27일</span>
-						</div>
-						<div class="rv_score">
-							<span class="starR1 on">0</span>
-                            <span class="starR2 on">1</span>
-                            <span class="starR1 on">2</span>
-                            <span class="starR2 on">3</span>
-                            <span class="starR1 on">4</span>
-                            <span class="starR2 on">5</span>
-                            <span class="starR1 on">6</span>
-                            <span class="starR2 on">7</span>
-                            <span class="starR1 on">8</span>
-                            <span class="starR2 on">9</span>
-							<div class="rv_img">
-								<img class="img" src="./img/치킨.jpeg" alt="sysImg">
-							</div>
-							<div class="rv_text">졸맛 탱구리 소스가 예술임!</div>
-						</div>
-				</li>
-				<li>
-					<div class="rv_detail">
-						<div class="rv_code">
-							<span class="rv_code_name">영업일+주문번호</span><span
-								class="rv_code_time">2020년 8월 27일</span>
-						</div>
-						<div class="rv_score">
-							<span class="starR1 on">0</span> <span class="starR2">1</span> <span
-								class="starR1">2</span> <span class="starR2">3</span> <span
-								class="starR1">4</span> <span class="starR2">5</span> <span
-								class="starR1">6</span> <span class="starR2">7</span> <span
-								class="starR1">8</span> <span class="starR2">9</span>
-						</div>
-						<div class="rv_img">
-							<img class="img" src="./img/감자튀김.jpg" alt="sysImg">
-						</div>
-						<div class="rv_text">겉은 바삭 속은 촉촉촉촉촉</div>
-					</div>
-				</li>
-
-			</ul> -->
-
-	</div>
-	<div id="footer">
-		<button class="btn" type="button"
-			onclick="location.href='./kioskreviewwrite'">리뷰작성</button>
-		<button class="btn" type="button"
-			onclick="location.href='./kioskmenu'">나가기</button>
+		<div id="reviewList"></div>
+		<div id="footer">
+			<button class="btn" type="button"
+				onclick="location.href='./kioskreviewwrite'">리뷰작성</button>
+			<button class="btn" type="button"
+				onclick="location.href='./kioskmenu'">나가기</button>
+		</div>
 	</div>
 	<script>
 		$.ajax({
 			url : 'rest/getreviewlist',
 			type : 'post',
 			dataType : 'html',
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(data) {
 				console.log(data);
+				$('#reviewList').html(data);
 			},
 			error : function(err) {
 				console.log(err);

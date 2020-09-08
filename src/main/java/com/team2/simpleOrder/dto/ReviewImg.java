@@ -7,12 +7,9 @@ import lombok.ToString;
 
 @Data
 @ToString
-@Alias("review")
-public class Review {
+@Alias("reviewImg")
+public class ReviewImg {
 	private String bd_date;
 	private int oac_num;
-	private String rv_date;
-	private String rv_text;
-	private int rv_score;
-
+	private String rvImg_sysName;
 }

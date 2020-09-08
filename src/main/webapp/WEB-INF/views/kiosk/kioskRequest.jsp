@@ -3,10 +3,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kioskRequest</title>
+	<style>
+</style>
 </head>
+
 <body>
 <h2>kioskRequest.jsp</h2>
+<div id="requestList"></div>
+<button>요청하기</button>
+<script>
+		$.ajax({
+			url : 'rest/getrequestlist',
+			type : 'post',
+			dataType : 'html',
+			success : function(data) {
+				console.log(data);
+				$('#requestList').html(data);
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
+	</script>
 </body>
 </html>

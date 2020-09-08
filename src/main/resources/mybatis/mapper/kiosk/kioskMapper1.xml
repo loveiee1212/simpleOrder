@@ -5,11 +5,22 @@
 
 <mapper namespace="com.team2.simpleOrder.dao.kiosk.IKioskDao1">
 	<select id="getReviewList" parameterType="String" resultType="review">
-		SELECT R.BD_DATE,R.OAC_NUM,RV_DATE,R.RV_TEXT,RV_SCORE,RIMG.RVIMG_SYSNAME
-		FROM REVIEW R
-		INNER JOIN REVIEW_IMG RIMG ON R.OAC_NUM=RIMG.OAC_NUM AND
-		R.BD_DATE=RIMG.BD_DATE
-		WHERE R.C_CODE=#{c_code}
-		ORDER BY R.RV_DATE
+		SELECT BD_DATE,OAC_NUM,RV_DATE,RV_TEXT,RV_SCORE
+		FROM REVIEW 
+		WHERE C_CODE=#{c_code}
+		ORDER BY RV_DATE DESC
 	</select>
+	<select id="getReviewImgList" parameterType="String" resultType="reviewImg">
+		SELECT BD_DATE,OAC_NUM,RVIMG_SYSNAME
+		FROM REVIEW_IMG
+		WHERE C_CODE=#{c_code}
+		ORDER BY OAC_NUM DESC
+	</select>
+	<select id="getRequestList" parameterType="String" resultType="String">
+		SELECT RQ_KIND
+		FROM REQUEST 
+		WHERE C_CODE=#{c_code}
+		ORDER BY RQ_NUM;
+	</select>
+	
 </mapper>
