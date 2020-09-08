@@ -1,5 +1,6 @@
 package com.team2.simpleOrder.dto;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,7 +13,17 @@ import lombok.ToString;
 @ToString
 @Alias("order")
 public class Order {
-	String category;
-	 HashMap<String, Integer> tSize;
-	 List<String> tnumList;
+	 String c_code;
+	 String sc_name;
+	 int sc_x;
+	 int sc_y;
+	 int st_num;
+	 List<Integer> tList;
+	 String rsv_code;
+	 String rsv_name;
+	 String rsv_phone;
+	 String rsv_date;
+	 String rsvm_memo;
+
+	 
 }
