@@ -5,8 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>sellpage-판매</title>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <style>
@@ -54,7 +62,7 @@ div {
 	background-color: #f1f1f1;
 }
 
-.tab button {
+.category {
 	background-color: inherit;
 	float: left;
 	border: none;
@@ -68,10 +76,6 @@ div {
 
 .tab button:hover {
 	background-color: #ddd;
-}
-
-.tab button.active {
-	background-color: #ccc;
 }
 
 .tables {
@@ -228,7 +232,7 @@ div {
 }
 
 #Date {
-	font-size: 25px;
+	font-size: 26px;
 	text-align: center;
 	margin-left: 20px;
 	margin-top: 10px;
@@ -252,11 +256,13 @@ div {
 	padding-left: 10px;
 	padding-right: 10px;
 }
-.noneCtg {
-  display: none;
+
+.tList {
+	display: none;
 }
-.blockCtg{
- display : block;
+
+.blockCtg {
+	display: block;
 }
 </style>
 </head>
@@ -264,10 +270,8 @@ div {
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div class="leftdiv">
-				<div class="tab">
-				</div>
-				<div id="table">
-				</div>
+				<div class="tab"></div>
+				<div id="seat"></div>
 			</div>
 			<!--  -->
 			<div id="rightdiv">
@@ -303,25 +307,22 @@ div {
 
 		</div>
 
+		<form action=""></form>
+
+
 		<div id="reservation">
 			<div id="bg_layer"></div>
 			<div id="contents_layer">
 				<div id="r_header">
 					<h1>예약목록</h1>
-					예약일 선택 <input type="date" name="r_date" />
-					<button>검색</button>
-					<br />
+					<form action="#">
+					예약일 선택 <input type="date" name="r_date" id="rsv_date" /> <input
+						type="button" onclick="searchReserv()" value="검색" />
+					<input type="reset" value="새로고침" /> <br />
+					</form>
 				</div>
 				<div id="r_middle">
 					<table id="reservtable">
-						<tr>
-							<th style="width: 80px;">No.</th>
-							<th>연락처</th>
-							<th>성함</th>
-							<th>예약일시</th>
-							<th>비고</th>
-							<th style="width: 120px;">구분</th>
-						</tr>
 					</table>
 				</div>
 				<div id="r_footer">
@@ -329,20 +330,20 @@ div {
 						<table id="r_infotable">
 							<tr>
 								<th>예약일자</th>
-								<td><input type="text" name="r_date" /></td>
+								<td><input type="text" name="r_date" id="r_date" /></td>
 								<th>예약시간</th>
-								<td><input type="text" name="r_time" /></td>
+								<td><input type="text" name="r_time" id="r_time" /></td>
 							</tr>
 							<tr>
+								<th>성함</th>
+								<td><input type="text" name="r_name" id="r_name" /></td>
 								<th>연락처</th>
 								<td><input type="text" name="r_phone" id="r_phone" /></td>
-								<th>예약현황</th>
-								<td><input type="text" name="r_state" /></td>
 							</tr>
 							<tr>
-								<th>비고</th>
+								<th>메모</th>
 								<td colspan="2"><textarea
-										style="width: 330px; height: 70px;"></textarea></td>
+										style="width: 330px; height: 70px;" name="r_memo" id="r_memo"></textarea></td>
 								<td><button type="button" onclick="updatereserv()">저장하기</button></td>
 							</tr>
 						</table>
@@ -369,50 +370,102 @@ div {
 		</div>
 	</div>
 </body>
+
+
 <script>
 	clockon();
 	getTablelist();
 
+	/* Datepicker UI default 설정 */
+	$.datepicker.setDefaults({
+		dateFormat : 'yy-mm-dd', //날짜 포맷
+		prevText : '이전 달', // 마우스 오버시 이전달 텍스트
+		nextText : '다음 달', // 마우스 오버시 다음달 텍스트
+		closeText : '닫기', // 닫기 버튼 텍스트 변경
+		currentText : '오늘', // 오늘 텍스트 변경
+		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+				'10월', '11월', '12월' ], //한글 캘린더중 월 표시를 위한 부분
+		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+				'9월', '10월', '11월', '12월' ], //한글 캘린더 중 월 표시를 위한 부분
+		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ], //한글 캘린더 요일 표시 부분
+		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ], //한글 요일 표시 부분
+		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ], // 한글 요일 표시 부분
+		showMonthAfterYear : true, // true : 년 월  false : 월 년 순으로 보여줌
+		yearSuffix : '년', //
+		showButtonPanel : true, // 오늘로 가는 버튼과 달력 닫기 버튼 보기 옵션
+	//        buttonImageOnly: true,	// input 옆에 조그만한 아이콘으로 캘린더 선택가능하게 하기
+	//        buttonImage: "images/calendar.gif",	// 조그만한 아이콘 이미지
+	//        buttonText: "Select date"	// 조그만한 아이콘 툴팁
+	});
+	
+	/* 상세정보 예약시간/일자 input timepicker 와 datepicker로 변환 */
+	$(document).ready(function(){
+	    $('#r_time').timepicker({
+	    	 timeFormat:'HH:mm',
+	         controlType:'select',
+	         oneLine:true,
+	    });
+	    $("#r_date").datepicker({});
+	});
+
+	
+
 	/* ajax를 이용해 설정한 테이블 갯수 가져오기 */
-	function getTablelist(){
-		
-	$.ajax({
-		type : "post",
-		url : "rest/gettablelist",
-		dataType : 'json',
-		success : function(result) {
-			for(var i in result){
-				console.log(result[i]);
-				console.log(result[i].tnumList);
-				$("div.tab").append(result[i].category);
-				$("#table").append("<div id='table"+i+"' class='noneCtg'>")
-				for(var key in result[i]){
-					console.log(result[i][key].x);
-					console.log(result[i][key].y);
-					var xy = (result[i][key].x)*(result[i][key].y);
-					for(var a=1; a<=xy;a++){
-						$("#table"+i).append("<div class='tables' id='tnum"+a+"' data-code="+a+">"+a+"</div>");
-						//console.log($(".tables").data("code"));
-							console.log($("#tnum"+a).data("code"));
-						for(var b in result[i].tnumList){
-							if(a==result[i].tnumList[b]){
-								$("#tnum"+a).css( "background-color", "white");
-								$("#tnum"+a).css( "opacity", "100");
-							} 
+	function getTablelist() {
+
+		$.ajax({
+			type : "post",
+			url : "rest/gettablelist",
+			dataType : 'json',
+			success : function(result) {
+				for ( var i in result) {
+					//테이블 가로 X 세로 길이 구하기
+					var xylength = (result[i].sc_x) * (result[i].sc_y);
+					//테이블 카테고리 추가하기
+					$("div.tab").append(result[i].sc_name);
+					//seat div 에 카테고리 갯수만큼 div 생성
+					$("#seat").append("<div id='table"+i+"' class='tList'>");
+					for (var a = 1; a <= xylength; a++) {
+					//생성한 div에 테이블 가로X 세로 길이(테이블 갯수)만큼 div 생성하기
+						$("#table" + i).append(
+								"<div class='tables' id='tnum"+i+a+"' data-code="+a+">"
+										+ a + "</div>");
+						for ( var b in result[i].tlist) {
+							if (a == result[i].tlist[b]) {
+								//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
+								$("#tnum" + i + a).css("background-color",
+										"white");
+								$("#tnum" + i + a).css("opacity", "100");
+							}
 						}
 					}
-				}
-				//console.log(result[i].category);
-				//console.log(result[i].tsize.x);
-				//console.log(result[i].tsize.y);
-			}
 
-		},
-		error : function(err) {
-			console.log(err);
+				}
+
+				console.log(result);
+
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
+	};
+	
+	/* 테이블 카테고리 클릭시 오픈 */
+	function opentable(evt, categoryname) {
+		console.log(1);
+		var table = $("div[id*='table']");
+		console.log(table.length);
+		for (var i = 0; i < table.length; i++) {
+			table[i].className = table[i].className
+					.replace("blockCtg", "tList");
 		}
-	});
-	}
+
+		console.log($("#" + categoryname).attr('class'));
+		if ($("#" + categoryname).attr('class') == 'tList') {
+			$("#" + categoryname).attr('class', 'blockCtg');
+		}
+	};
 
 	/* 동적 시계 */
 	function clockon() {
@@ -439,51 +492,111 @@ div {
 			var hours = new Date().getHours();
 			$("#hours").html((hours < 10 ? "0" : "") + hours);
 		}, 1000);
-	}
-
-	/* 카테고리를 클릭 시 테이블 리스트 노출 */
-	function opentable(evt, category) {
-		var tablinks = document.getElementsByClassName("tablinks");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].className = tablinks[i].className
-					.replace(" active", "");
-		}
-		/* var nCtg = document.getElementsByClassName("noneCtg");
-		for(i =0; i < nCtg.length;i++){
-			nCtg[i].className = nCtg[i].className.replace("noneCtg","blockCtg");
-		} */
-		 document.getElementById(category).style.display = "block";
-		evt.currentTarget.className += " active";
-		/* var data = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11' ];
-		var str = "";
-		for ( var key in data) {
-			str += "<div class='tables' data-code='0001'>" + data[key] + "</div>";
-		}
-		str += "<div class='pagebutton'><i class='material-icons' style='font-size:100px;'>keyboard_arrow_left</i></div>";
-		str += "<div class='pagebutton'><i class='material-icons' style='font-size:100px;'>keyboard_arrow_right</i></div>";
-		$("#table").html(str); */
 	};
-
-	$(".tables").click(function() {
-		console.log(1);
-	})
 
 	/* 클릭하면 모달박스 노출 / 예약 정보 조회 */
 	function reservation() {
 		$('#reservation').addClass('open');
-		/* $.ajax({
+		$.ajax({
 			type : "get",
-			url : "getreservlist",
-			data : {tablenum : tablenum},
+			url : "rest/getreservlist",
 			dataType : 'json',
-			success : function(result){
+			success : function(result) {
 				console.log(result);
-				$("reservtable").append(result);
+				$("#reservtable").html(result.reservList);
+
+				/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
+				$("#reservtable tr").click(function() {
+					var tdArr = new Array();
+					var tr = $(this);
+					var td = tr.children();
+					console.log($(this).data("code"));
+					console.log(tr.text());
+					//tr의 css색을 화이트로 clear
+					$("#reservtable tr").css('background-color', 'white');
+					//선택한 tr의 색을 회색으로 설정
+					tr.css('background-color', '#ddd');
+
+					/* tr 행의 정보들을 Arr에 담음 */
+					td.each(function(i) {
+						tdArr.push(td.eq(i).text());
+					});
+
+					console.log("배열에 담긴 값 : " + tdArr);
+					/* 배열에 담긴 값을 상세정보에 출력 */
+					var r_phone = td.eq(1).text();
+					var r_name = td.eq(2).text();
+					var r_date = td.eq(3).text().slice(0, 10);
+					var r_time = td.eq(3).text().slice(11, 16);
+					var r_memo = td.eq(4).text();
+					console.log(r_phone);
+					console.log(r_date);
+					console.log(r_time);
+					$("#r_phone").val(r_phone);
+					$("#r_name").val(r_name);
+					//datepicker UI 를 이용해 r_date의 정보를 setDate 시킴
+					$("#r_date").datepicker("setDate", r_date);
+					$("#r_time").val(r_time);
+					$("#r_memo").val(r_memo);
+				});
 			},
-			error : function(err){
+			error : function(err) {
 				console.log(err);
 			}
-		}); -- > ajax활용하여 예약테이블 정보 가져오기 */
+		});
+	}
+
+	/* 특정일 조회시 검색되는 예약정보 출력  */
+	function searchReserv() {
+		console.log($("r_date").val());
+		$.ajax({
+			type : "post",
+			url : "rest/searchreserv",
+			data : {
+				rsv_date : $("#rsv_date").val()
+			},
+			dataType : 'json',
+			success : function(result) {
+				console.log(result);
+				$("#reservtable").html(result.reservList);
+				
+				
+				/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
+				$("#reservtable tr").click(function() {
+					var tdArr = new Array();
+					var tr = $(this);
+					var td = tr.children();
+					console.log(tr.text());
+					$("#reservtable tr").css('background-color', 'white');
+					tr.css('background-color', '#ddd');
+
+					/* tr 행의 정보들을 Arr에 담음 */
+					td.each(function(i) {
+						tdArr.push(td.eq(i).text());
+					});
+
+					console.log("배열에 담긴 값 : " + tdArr);
+					/* 배열에 담긴 값을 상세정보에 출력 */
+					var r_phone = td.eq(1).text();
+					var r_name = td.eq(2).text();
+					var r_date = td.eq(3).text().slice(0, 10);
+					var r_time = td.eq(3).text().slice(11, 16);
+					var r_memo = td.eq(4).text();
+					console.log(r_phone);
+					console.log(r_date);
+					console.log(r_time);
+					$("#r_phone").val(r_phone);
+					$("#r_name").val(r_name);
+					$("#r_date").datepicker("setDate", r_date);
+					$("#r_time").val(r_time);
+					$("#r_memo").val(r_memo);
+				});
+
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
 	}
 
 	/* 모달 박스 뒤 백그라운드 클릭 시 모달박스 해제 */

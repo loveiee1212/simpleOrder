@@ -11,8 +11,7 @@
 <link rel="stylesheet" href="resources/css/calendar.css" type="text/css">
 <link rel="stylesheet" href="resources/css/clock.css" type="text/css">
 <style>
-
-#gWork button{
+#gWork button {
 	text-align: center;
 	border: 1px solid black;
 	width: 400px;
@@ -59,6 +58,7 @@
 	background-color: white;
 	font-size: 25px;
 }
+
 </style>
 </head>
 <body>
@@ -85,29 +85,22 @@
 					</ul>
 				</div>
 				<div id="gWork">
-					<button>출근</button>
+					<button onclick="ad_inTime()">출근</button>
 				</div>
 				<div id="lWork">
-					<button>퇴근</button>
+					<button onclick="ad_outTime()">퇴근</button>
 				</div>
 				<div id="changeWorkTime">
 					<button>근무시간변경</button>
 				</div>
 				<div id="leave">
-					<button>돌아가기</button>
+					<button onclick="mainpage.jsp">돌아가기</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
-<script type="text/javascript"> //캘린더 생성
-	var today = null;
-	var year = null;
-	var month = null;
-	var firstDay = null;
-	var lastDay = null;
-	var $tdDay = null;
-	var $tdText = null;
+<script type="text/javascript">
 
 	$(document).ready(function() {
 		makeCalendar();
@@ -126,7 +119,7 @@
 			for (var j = 0; j < 7; j++) {
 				table += "<td class='dt' style='text-overflow:ellipsis; overflow:hidden; white-space:nowrap'>";
 				table += "<div class='day'></div>";
-				table += "<div class='text'></div></td>";
+				table += "<pre class='text'></pre></td>";
 			}
 			table += "</tr>";
 		}
@@ -138,6 +131,9 @@
 		today = new Date();
 		year = today.getFullYear();
 		month = today.getMonth() + 1;
+		hour = today.getHours();
+		minute = today.getMinutes();
+		second = today.getSeconds();
 		firstDay = new Date(year, month - 1, 1);
 		lastDay = new Date(year, month, 0);
 		dayCount = 0;
@@ -150,13 +146,18 @@
 			month = String("0" + month);
 		}
 		$("#yearMonth").text(year + "   " + month);
-		
+
 		//해당일을 표시
+		var j = 1;
 		for (var i = firstDay.getDay(); i < firstDay.getDay()
 				+ lastDay.getDate(); i++) {
-			$tdDay.eq(i).text(++dayCount);
-			$tdDay.eq(i).attr("id",dayCount);
-
+			++dayCount
+			if(dayCount<10){
+				$tdDay.eq(i).text("0"+dayCount);
+			}else {
+			$tdDay.eq(i).text(dayCount);
+			}
+			
 			if ($tdDay.eq(i).text() == today.getDate()) {
 				if (month == today.getMonth() + 1) {
 					if (year == today.getFullYear()) {
@@ -164,14 +165,16 @@
 					}
 				}
 			}
+
 		}
+		getTime(dayCount);
+
 		for (var i = 0; i < 42; i += 7) {
 			$tdDay.eq(i).css("color", "red");
 		}
 		for (var i = 6; i < 42; i += 7) {
 			$tdDay.eq(i).css("color", "blue");
 		}
-		getTime(dayCount);
 	}
 
 	function movePrevMonth() {
@@ -195,6 +198,7 @@
 	function showNewInfo() {
 		for (var i = 0; i < 42; i++) {
 			$tdDay.eq(i).text("");
+			$tdText.eq(i).text("");
 			$(".dt").eq(i).css("background-color", "white");
 		}
 		dayCount = 0;
@@ -202,46 +206,134 @@
 		lastDay = new Date(year, month, 0);
 		showDay();
 	}
-	
+
+	//출퇴근 시간 출력
 	function getTime(day) {
 		$.ajax({
 			type : 'get',
 			url : 'rest/getTime',
-			data : {'c_code' : 123123123123 ,'bd_date' : year+"-"+month+"-"+day ,
-					'f_date' : year+"-"+month+"-"+01 , 'emp_code' : 1},
-			dataType : 'html',
+			data : {
+				'c_code' : 123123123123,
+				'bd_date' : year + "-" + month + "-" + day,
+				'f_date' : year + "-" + month + "-" + 01,
+				'emp_code' : 1
+			},
+			dataType : 'json',
 			success : function(data) {
-				console.log(data)
+				for ( var i in data) {
+
+					if (data[i].bd_date != null) {
+						var bd_date = data[i].bd_date.substr(8, 2);
+					}
+					if (data[i].ad_inTime != null) {
+						var ad_inTime = data[i].ad_inTime.substr(11, 9);
+					}
+					if (data[i].ad_outTime != null) {
+						var ad_outTime = data[i].ad_outTime.substr(11, 9);
+					} else {
+						
+					}
+
+					for (var j = firstDay.getDay(); j < firstDay.getDay()
+							+ lastDay.getDate(); j++) {
+						if (bd_date == $tdDay.eq(j).text()) {
+							
+							if(ad_outTime=="undefined"){
+								$tdText.eq(j).text(
+										"출근: " + ad_inTime);
+							}
+							$tdText.eq(j).text(
+									"출근: " + ad_inTime +"\r\n퇴근: "+ ad_outTime);
+
+						}
+					}
+				}
 			},
 			error : function(err) {
-				console.log(err);
+				//console.log(err);
 			}
-		})
+		});
+	}
+	
+	//출근 시간 입력
+	function ad_inTime(){
+		$.ajax({
+			type : 'post',
+			url : 'rest/insertAd_inTime',
+			data : {"ad_inTime" : year+"-"+month+"-"+today.getDay()+" "+hour+":"+minute+":"+second,
+				'c_code' : 123123123123,
+				'bd_date' : '2020-09-08 16:33:00',
+				'emp_code' :1},
+			dataType: "json",
+			success : function(data){
+				console.log(data);
+				if(data==1){
+					alert("출근이 완료되었습니다");
+				}
+				resetDay();
+				showDay();
+			},
+			error : function(err){
+				alert("출근에 실패했습니다.");
+				resetDay();
+				showDay();
+			}
+		});
+	}
+	
+	//퇴근 시간 입력
+	function ad_outTime(){
+		$.ajax({
+			type : 'post',
+			url : 'rest/insertAd_outTime',
+			data : {"ad_outTime" : year+"-"+month+"-"+today.getDay()+" "+hour+":"+minute+":"+second,
+				'c_code' : 123123123123,
+				'bd_date' : '2020-09-08 16:33:00',
+				'emp_code' :1},
+			dataType: "json",
+			success : function(data){
+				if(data==1){
+					alert("퇴근이 완료되었습니다");
+				}
+				resetDay();
+				showDay();
+			},
+			error : function(err){
+				alert("퇴근에 실패했습니다.");
+				resetDay();
+				showDay();
+			}	
+		});
 	}
 </script>
 
-<script type="text/javascript"> //시계
+<script type="text/javascript">
+	//시계
 
-	function clockOn(){
-	var monthNames = [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ]; 
-	var dayNames= ["일","월","화","수","목","금","토"]
-	var newDate = new Date();
-	newDate.setDate(newDate.getDate()); 
-	$('#date').html(newDate.getFullYear()+" "+monthNames[newDate.getMonth()]+ " " + newDate.getDate() + " "+dayNames[newDate.getDay()]);
-	setInterval( function() {
-		var seconds = new Date().getSeconds();
-		$("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
-		},1000);
-		
-	setInterval( function() {
-		var minutes = new Date().getMinutes();
-		$("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
-	    },1000);
-		
-	setInterval( function() {
-		var hours = new Date().getHours();
-		$("#hours").html(( hours < 10 ? "0" : "" ) + hours);
-	    }, 1000);
+	function clockOn() {
+		var monthNames = [ "01", "02", "03", "04", "05", "06", "07", "08",
+				"09", "10", "11", "12" ];
+		var dayNames = [ "일", "월", "화", "수", "목", "금", "토" ]
+		var newDate = new Date();
+		newDate.setDate(newDate.getDate());
+		$('#date').html(
+				newDate.getFullYear() + " " + monthNames[newDate.getMonth()]
+						+ " " + newDate.getDate() + " "
+						+ dayNames[newDate.getDay()]);
+		setInterval(function() {
+			var seconds = new Date().getSeconds();
+			$("#sec").html((seconds < 10 ? "0" : "") + seconds);
+		}, 1000);
+
+		setInterval(function() {
+			var minutes = new Date().getMinutes();
+			$("#min").html((minutes < 10 ? "0" : "") + minutes);
+		}, 1000);
+
+		setInterval(function() {
+			var hours = new Date().getHours();
+			$("#hours").html((hours < 10 ? "0" : "") + hours);
+		}, 1000);
 	}
 </script>
 </html>

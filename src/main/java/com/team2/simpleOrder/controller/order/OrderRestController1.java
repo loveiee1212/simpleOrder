@@ -1,7 +1,13 @@
 package com.team2.simpleOrder.controller.order;
 
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
+import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +20,9 @@ import com.team2.simpleOrder.service.order.OrderMM1;
 import com.team2.simpleOrder.service.order.OrderMM2;
 import com.team2.simpleOrder.service.order.OrderMM3;
 
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @RestController
 @RequestMapping("/rest")
 public class OrderRestController1 {
@@ -22,18 +30,36 @@ public class OrderRestController1 {
 
 	@Autowired
 	OrderMM1 om;
-
+	//테이블정보가져오기
 	@RequestMapping(value = "/gettablelist", method = RequestMethod.POST)
 	public List<Order> getTablelist() {
-		List<Order> sList = om.getTablelist();
-		return sList;
+		List<Order> tList = om.getTablelist();
+		return tList;
+	}
+	
+	//예약정보가져오기
+	@RequestMapping(value = "/getreservlist", method = RequestMethod.GET)
+	public HashMap<String, String> getReservList() {
+		Order odr = new Order();
+		String c_code = "123123123123";
+		odr.setC_code(c_code);
+		HashMap<String,String> hMap = om.getReservList(odr);
+		return hMap;
+	}
+	
+	//특정일에 대한 예약정보 가져오기
+	@RequestMapping(value = "/searchreserv", method = RequestMethod.POST)
+	public HashMap<String, String> searchReserv(String rsv_date) {
+		log.info("rsv_date"+rsv_date);
+		String c_code = "123123123123";
+		Order odr = new Order();
+		odr.setC_code(c_code);
+		odr.setRsv_date(rsv_date);
+		HashMap<String,String> hMap = om.getReservList(odr);
+		return hMap;
 	}
 
-	/*
-	 * @RequestMapping(value = "/gettablelist", method = RequestMethod.POST) public
-	 * String getTableList() { log.info("success"); //List<Seat> sList =
-	 * om.getTablelist(); return "success"; }
-	 */
+	
 
 	@Autowired
 	OrderMM2 om2;

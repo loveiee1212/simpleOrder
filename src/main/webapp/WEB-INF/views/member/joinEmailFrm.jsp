@@ -25,7 +25,7 @@
 			</tr>
 			<tr>
 				<td>대표 사업자 번호</td>
-				<td><input type="number" maxlength="12" id="c_code"></td>
+				<td><input type="text" maxlength="12" id="c_code"></td>
 				<!-- 필수입력 12자리 숫자만 -->
 			</tr>
 			<tr>
@@ -57,8 +57,21 @@
 </body>
 <script type="text/javascript">
 
-function joinCmember(){
-console.log($('#joinInfo').serialize())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function joinCmember(){ //회원 가입버튼 입력시 발동, 
 	var ce_email = document.getElementById('email').value
 	var ce_pw = document.getElementById('pw').value
 	var c_code = document.getElementById('c_code').value
@@ -68,7 +81,7 @@ console.log($('#joinInfo').serialize())
 	var c_phone = document.getElementById('c_phone').value
 
 	 $.ajax({
-		url : "rest/joinCmember",
+		url : "rest/createEmailAcount",
 		type : "post",
 		data : {
 			"ce_email" : ce_email,
@@ -79,9 +92,15 @@ console.log($('#joinInfo').serialize())
 			"c_address" : c_address,
 			"c_phone" : c_phone
 		},
-		success : data => {
-			console.log(data);
-		}		
+		dataType : "json",
+		success : createEmailAcountresult => {
+			if(createEmailAcountresult){
+				location.href = "cList?ce_email="+ce_email;
+			}
+		},
+		error : data => {
+			console.log("a");
+		}
 	}) 
 	}
 

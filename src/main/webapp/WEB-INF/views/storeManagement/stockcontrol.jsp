@@ -127,6 +127,14 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	-webkit-appearance: none;
 	margin: 0;
 }
+tr, td {
+	border: 1px solid black;
+	width: 138px;
+	height: 20px;
+	padding: 10px;
+	margin: 20px;
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -136,14 +144,12 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 				<h2 id="h2_1">입고물품 등록</h2>
 				<div id="b">
-
-					<center>
-						<table class="tab1">
-
-						</table>
+						<div id="prostockList">
+				<table id="psListtable">
+				</table>
+				</div>
 				</div>
 				<input type="button" value="저장" id="btnSave">
-				</center>
 			</div>
 			<div id="c">
 				<div id="d">
@@ -157,6 +163,10 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 							</td>
 						</tr>
 					</table>
+				<div id="stockList">
+				<table id="sListtable">
+				</table>
+				</div>
 				</div>
 				<div id="e">
 					<table class="tab3">
@@ -170,21 +180,28 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 </body>
 <script>
 	$.ajax({
-		type : post,
+		type : "post",
 		url : "rest/getstocklist",
-		data : 'json',
-		success : function() {
-			for ( var i in result)
-				console.log(result[i]);
-			console.log(result[i]);
-			$().append(result[i]);
-			$().append("<div id='stockList"+i+"' class='stockList'>")
+		dataType : 'json',
+		success : function(result) {
+			console.log(result);
+			$("#sListtable").html(result.sList);
 		},
 		error : function(err) {
 			console.log(err);
 		}
 	});
-	
-	
+	$.ajax({
+		type : "post",
+		url : "rest/getpstocklist",
+		dataType : 'json',
+		success : function(result) {
+			console.log(result);
+			$("#psListtable").html(result.psList);
+		},
+		error : function(err) {
+			console.log(err);
+		}
+	});
 </script>
 </html>

@@ -13,10 +13,20 @@ import lombok.ToString;
 @Alias("product")
 public class StoreManagement {
 
-	private int c_code;
+	private String c_code;
+
+	private String pdc_code;
+	private String pdc_date;
+	private String pd_code;
+	private Timestamp pd_date;
 	private String pd_name;
 	private String pd_imagename;
 	private int pd_price;
+	private int pd_status;
 	
-	List<String> productList;
+	private String pdc_name;
+	private int pdc_status;
+	
+	
+	private int stk_stock;
 }

@@ -142,8 +142,12 @@ tr, td {
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div id="outerdiv">
-				<div id="innerdiv1"></div>
-				<div id="productList"></div>
+				<div id="innerdiv1">
+				<div id="productList">
+				<table id="pListtable">
+				</table>
+				</div>
+				</div>
 				<div id="innerdiv2">
 					<div id="listbox">
 						<form action="sendupdateprice">
@@ -154,6 +158,7 @@ tr, td {
 							<center>
 								<input type="text" name="p_name" id="p_name" placeholder="상품 이름" /><br />
 								<input type="number" name="p_price" id="p_price" placeholder="가격 입력" /><br /> 
+								 <input type="checkbox" name="p_price" id="p_price">재고상품</input><br /> 
 								<input type="file" name="p_img" id="p_img" style="width: 300px; height: 30px;" /><br /> 
 							 <select name="p_printer">
 									<option value="">프린터 없음</option>
@@ -192,17 +197,18 @@ tr, td {
 </body>
 <script>
 	$.ajax({
-		type : post,
+		type : "post",
 		url : "rest/getproductlist",
-		data : 'json',
-		success : function() {
-			for ( var i in result)
+		dataType : 'json',
+		success : function(result) {
+			console.log(result);
+			$("#pListtable").html(result.pList);
+/* 			for ( var i in result)
 				console.log(result[i]);
-			console.log(result[i]);
 			$("#productList").append(result[i].productList);
 			$("#productList").append(
 					"<div id='stockList"+'i'+"' class='stockList'>")
-		},
+ */		},
 		error : function(err) {
 			console.log(err);
 		}
