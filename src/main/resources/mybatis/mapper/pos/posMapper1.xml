@@ -3,8 +3,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.team2.simpleOrder.dao.pos.IPosDao1">
-<!-- <insert id="insertMember" parameterType="member">
-		INSERT INTO PRODUCT VALUES (#{name},#{imagename},#{price})
-	</insert> -->
+<mapper
+	namespace="com.team2.simpleOrder.dao.posManagement.IPosDao1">
+	<select id="getProductList" parameterType="String"
+		resultType="product">
+		SELECT *FROM PRODUCT WHERE C_CODE=#{c_code}
+	</select>
+	
+	
+	<select id="getStockList" parameterType="String"
+		resultType="product">
+		SELECT PD.PD_CODE, PD.PD_DATE, PD.PD_NAME, STK.STK_STOCK
+		FROM PRODUCT PD INNER JOIN STOCK STK ON PD.PD_DATE = STK.PD_DATE
+		AND PD.PD_CODE = STK.PD_CODE AND PD.C_CODE = STK.C_CODE
+		AND PD.PDC_CODE = STK.PDC_CODE AND PD.PDC_DATE = STK.PDC_DATE
+		WHERE PD.C_CODE = '123123123123'
+		ORDER BY PD.PD_DATE;
+	</select>
+	<select id="getPstockList" parameterType="String"
+		resultType="product">
+		SELECT PD.PD_CODE, PD.PD_DATE, PD.PD_NAME, STK.STK_STOCK
+		FROM PRODUCT PD INNER JOIN STOCK STK ON PD.PD_DATE = STK.PD_DATE
+		AND PD.PD_CODE = STK.PD_CODE AND PD.C_CODE = STK.C_CODE
+		AND PD.PDC_CODE = STK.PDC_CODE AND PD.PDC_DATE = STK.PDC_DATE
+		WHERE PD.C_CODE = '123123123123'
+		ORDER BY PD.PD_DATE;
+	</select>
 </mapper>
