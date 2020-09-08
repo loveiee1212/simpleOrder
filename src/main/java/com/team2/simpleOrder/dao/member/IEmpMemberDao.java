@@ -6,6 +6,10 @@ import com.team2.simpleOrder.dto.Member;
 
 public interface IEmpMemberDao {
 
-	Member getTime(Member member);
+	List getTime(Member member);
+
+	boolean insertAd_inTime(Member member);
+
+	boolean insertAd_outTime(Member member);
 
 }

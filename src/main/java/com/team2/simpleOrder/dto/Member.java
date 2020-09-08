@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
-import com.team2.simpleOrder.dto.entity.adTime;
 
 import lombok.Data;
 import lombok.ToString;
@@ -34,7 +33,9 @@ public class Member {
 	private int pst_position;
 	private int gpc_code;
 	
+	
 	private String bd_date;
 	private String f_date;
-	private List<adTime> adList;
+	private String ad_inTime;
+	private String ad_outTime;
 }

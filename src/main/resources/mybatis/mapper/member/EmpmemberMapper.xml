@@ -4,20 +4,22 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team2.simpleOrder.dao.member.IEmpMemberDao">
-	<resultMap type="com.team2.simpleOrder.dto.entity.adTime" id="getAdInOutTime">
-		<id property="emp_code" column="emp_code"/>
-		<result property="bd_date" column="bd_date"/>
-		<result property="ad_inTime" column="ad_inTime"/>
-		<result property="ad_outTime" column="ad_outTime"/>
-	</resultMap>
 	
-	<resultMap type="member" id="getAdTime">
-		<id property="emp_code" column="emp_code"/>
-		<result property="c_code" column="c_code"/>
-		<collection property="adList" javaType="java.util.ArrayList" resultMap="getAdInOutTime"/>
-	</resultMap>
-
-	<select id="getTime" parameterType="member" resultMap="getAdTime">
-		SELECT * FROM ATTENDANCE WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code} AND date(bd_date) between #{f_date} AND #{bd_date}
+	<!-- 출퇴근 불러오기 -->
+	<select id="getTime" parameterType="member" resultType="member">
+		SELECT * FROM ATTENDANCE WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code} 
+			AND date(bd_date) between #{f_date} AND #{bd_date}
 	</select>
+	
+	<!-- 출근 시간 입력 -->
+	<insert id="insertAd_inTime" parameterType="member">
+		INSERT INTO ATTENDANCE (C_CODE,BD_DATE,EMP_CODE,AD_INTIME,AD_OUTTIME)
+			VALUES (#{c_code},#{bd_date},#{emp_code},#{ad_inTime},NULL)
+	</insert>
+	
+	<!-- 퇴근 시간 입력 -->
+	<update id="insertAd_outTime" parameterType="member">
+		UPDATE ATTENDANCE SET AD_OUTTIME = #{ad_outTime}
+			WHERE C_CODE=#{c_code} AND BD_DATE=#{bd_date} AND EMP_CODE=${emp_code}
+	</update>
 </mapper>
