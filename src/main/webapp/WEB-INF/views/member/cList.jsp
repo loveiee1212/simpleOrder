@@ -23,8 +23,8 @@
 }
 
 #flotBox {
-	transform: translate(-50%, -50%);
-	margin: 50% 50%;
+	transform: translate(-50%, 0%);
+	margin: 10% 50%;
 	position: absolute;
 	width: 500px;
 	height: 500px;
@@ -56,6 +56,7 @@
 				</tr>
 			</table>
 
+
 		</div>
 	</div>
 
@@ -68,10 +69,30 @@
 			<th>주소</th>
 		</tr>
 	</table>
+	<input type="button" onclick="addCAcount()" value="사업장 추가">
+	
 </body>
 <script type="text/javascript">
 getClistInfo();
 
+
+function addCAcount(){
+	$.ajax({
+		url : "rest/addCAcount",
+		type : "post",
+		data: {
+			"ce_email" : "${ce_email}",
+		},
+		dataType : "html",
+		success : data =>{
+			$("body").html(data);
+			console.log(data);
+		}
+		
+	})
+	
+	
+}
 
 
 
