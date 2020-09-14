@@ -17,7 +17,7 @@
 <style>
 body {
 	background-color: #e3f2fd;
-} 
+}
 
 #header {
 	width: 1581px;
@@ -169,8 +169,8 @@ li {
 			<nav class="navbar navbar-default">
 				<div id="header">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="main"><img src="resources/image/logo.png"
-							alt="홈페이지 로고"></a>
+						<a class="navbar-brand" href="main"><img
+							src="resources/image/logo.png" alt="홈페이지 로고"></a>
 						<!-- 포스 메인페이지 -->
 					</div>
 					<ul class="nav navbar-nav">
@@ -210,88 +210,69 @@ li {
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
-
-				<div class="login">
-					id : <input type="email" name="ce_email" id="id"
-						placeholder="사업자이메일" onkeydown="keyEvt()" /> <br>
-					<div id="msg1"></div>
-					pw : <input type="password" name="ce_pw" id="pw"
-						placeholder="비밀번호 12~20자리" onkeydown="keyEvt()" /> <br>
-					<div id="msg2"></div>
-					<br> <input type="button" id="btn1" value="로그인"
-						onclick="cEmailLogin()"> <input type="button" id="btn2"
-						value="회원가입" onclick='location.href = "joinEmailFrm"'><br>
-					<div id="errorDiv"></div>
-					<br>
-					<div id="errorDiv"></div>
-				</div>
-				<div id="hline">
-					<p>
-						<b>회사정보</b>
-					</p>
-					<p>
-						SimpleOrder(주) | 대표: HD6 | 인천광역시 미추홀구 학익동 <br> 365고객센터 |
-						전자금융거래분쟁처리담당 1234-1234 <br> 사업자 등록번호 : 123-45-00678 | email:
-						simple@order.com <br> &copy; Untitled. All rights reserved. |
-						Photos by <a href="#">choi ay</a> | Design by <a href="#"
-							rel="nofollow">choi ay</a>.
-					</p>
-				</div>
-			</nav>
+				<form action="cEmailLogin" method="post" onsubmit="return cEmailLogin()">
+					<div class="login">
+						id : <input type="email" name="ce_email" id="id"
+							placeholder="사업자이메일" onkeydown="keyEvt()"
+							value="${requestScope.ce_email}" /> <br>
+						<div id="msg1"></div>
+						pw : <input type="password" name="ce_pw" id="pw"
+							placeholder="비밀번호 12~20자리" onkeydown="keyEvt()" /> <br>
+						<div id="msg2"></div>
+						<br> <input type="submit" id="btn1" value="로그인" /> <input
+							type="button" id="btn2" value="회원가입"
+							onclick='location.href = "joinEmailFrm"'><br>
+				</form>
+				<div id="errorDiv">${requestScope.errorDiv}</div>
 		</div>
+		<div id="hline">
+			<p>
+				<b>회사정보</b>
+			</p>
+			<p>
+				SimpleOrder(주) | 대표: HD6 | 인천광역시 미추홀구 학익동 <br> 365고객센터 |
+				전자금융거래분쟁처리담당 1234-1234 <br> 사업자 등록번호 : 123-45-00678 | email:
+				simple@order.com <br> &copy; Untitled. All rights reserved. |
+				Photos by <a href="#">choi ay</a> | Design by <a href="#"
+					rel="nofollow">choi ay</a>.
+			</p>
+		</div>
+		</nav>
+	</div>
 	</div>
 </body>
 <script type="text/javascript">
-function cEmailLogin(){ //로그인 버튼 클릭시
-	// 이메일 정규식
-	var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	var mail = $("#id").val();
-	// 비밀번호 정규식
-	var pwRule = /^(?=.*[a-zA-Z]{1,20})(?=.*[!@#$%^*-+]{1,20})(?=.*[0-9]{1,20}).{12,20}$/;
-	
-	if ($('#id').val() == "") {
-		document.getElementById("msg1").innerHTML = "이메일을 입력해주세요!!";
-		$('#id').focus();
-		return false;
-	}  else if (mail.match(emailRule) == null) {
-		document.getElementById("msg1").innerHTML = "이메일 형식에 맞게 입력해주세요!!";
-		$('#id').focus();
-		return false;
-	} else if (!pwRule.test($('#pw').val().trim())) {
-		document.getElementById("msg2").innerHTML = "특수문자 혼합하여 12~20자 입력하세요!!";
-		$('#pw').focus();
-		return false;
-	}
-	
+	function cEmailLogin() { //로그인 버튼 클릭시
+		// 이메일 정규식
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		var mail = $("#id").val();
+		// 비밀번호 정규식
+		var pwRule = /^(?=.*[a-zA-Z]{1,20})(?=.*[!@#$%^*-+]{1,20})(?=.*[0-9]{1,20}).{12,20}$/;
 
-	$.ajax({
-		url : "rest/cEmailLogin",
-		type : "get",
-		data : {
-			"ce_email" : $("#id").val(),
-			"ce_pw" : $("#pw").val()
-		},
-		dataType : "json",
-		success : data =>{
-			console.log(data);
-			if(data){
-				location.href = "cList?ce_email="+$("#id").val();
-			}else{
-			$("#errorDiv").text("아이디와 비밀번호가 일치하지 않습니다.")
-			}
+		if ($('#id').val() == "") {
+			document.getElementById("msg1").innerHTML = "이메일을 입력해주세요!!";
+			$('#id').focus();
+			return false;
+		} else if (mail.match(emailRule) == null) {
+			document.getElementById("msg1").innerHTML = "이메일 형식에 맞게 입력해주세요!!";
+			$('#id').focus();
+			return false;
+		} else if (!pwRule.test($('#pw').val().trim())) {
+			document.getElementById("msg2").innerHTML = "특수문자 혼합하여 12~20자 입력하세요!!";
+			$('#pw').focus();
+			return false;
+		} else {
+			return true;
 		}
-	})
-		
-	
-}
 
-function keyEvt() { // 오류메시지 없애기
-	document.getElementById("msg1").innerHTML = " ";
-	if ($('#pw').val() != "") {
-		document.getElementById("msg2").innerHTML = " ";
 	}
-}
-	
+
+	function keyEvt() { // 오류메시지 없애기
+		document.getElementById("msg1").innerHTML = " ";
+		if ($('#pw').val() != "") {
+			document.getElementById("msg2").innerHTML = " ";
+		}
+	}
 </script>
 
 </html>

@@ -2,7 +2,6 @@ package com.team2.simpleOrder.controller;
 
 
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +29,16 @@ public class PageController1 {
 		return "member/joinEmailFrm";
 	}
 	@RequestMapping("/cList")
-	public String cList(HttpServletRequest request){
-		request.setAttribute("ce_email", request.getParameter("ce_email"));
+	public String cList(){
 		return "member/cList";
+	}
+	@RequestMapping("/mainskill")
+	public String mainskill(){
+		return "mainskill";
+	}
+	@RequestMapping("/productinfo")
+	public String productinfo() {
+		return "productinfo";
 	}
 	
 }

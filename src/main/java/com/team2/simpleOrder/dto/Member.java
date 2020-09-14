@@ -1,7 +1,5 @@
 package com.team2.simpleOrder.dto;
 
-import java.sql.Timestamp;
-import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
