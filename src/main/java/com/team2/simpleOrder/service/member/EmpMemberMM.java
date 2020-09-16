@@ -1,5 +1,6 @@
 package com.team2.simpleOrder.service.member;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,29 +22,48 @@ public class EmpMemberMM {
 
 	ModelAndView mav;
 
-	public String getTime(Member mb) {
-		List mlist = mDao2.getTime(mb);
+	public String getTime(HashMap<String, String> mb) {
+		List<HashMap<String, String>> mlist= mDao2.getTime(mb);
 		String json = new Gson().toJson(mlist);
-		System.out.println(mlist);
 		return json;
 	}
 
-	public String insertAd_inTime(Member member) {
+	public String insertAd_inTime(HashMap<String, String> mb) {
 		String json = null;
-		boolean result = mDao2.insertAd_inTime(member);
+		boolean result = mDao2.insertAd_inTime(mb);
 		if (result) {
 			json = new Gson().toJson("1");
 		}
 		return json;
 	}
 
-	public String insertAd_outTime(Member member) {
+	public String insertAd_outTime(HashMap<String, String> mb) {
 		String json = null;
 
-		boolean result = mDao2.insertAd_outTime(member);
+		boolean result = mDao2.insertAd_outTime(mb);
 		if (result) {
 			json = new Gson().toJson("1");
 		}
 		return json;
 	}
+
+	public String getEmpList(HashMap<String, String> mb) {
+		List<HashMap<String, String>> elist = mDao2.getEmpList(mb);
+		String json = new Gson().toJson(elist);
+		return json;
+	}
+
+	public String getEmpInfo(HashMap<String, String> mb) {
+		HashMap<String,String> eInfo = mDao2.getEmpInfo(mb);
+		String json = new Gson().toJson(eInfo);
+		return json;
+	}
+
+	public String getAdTime(HashMap<String, String> mb) {
+		HashMap<String,String> adTime = mDao2.getAdTime(mb);
+		String json = new Gson().toJson(adTime);
+		System.out.println(adTime);
+		return json;
+	}
+
 }

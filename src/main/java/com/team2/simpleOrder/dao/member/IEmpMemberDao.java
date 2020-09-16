@@ -1,15 +1,22 @@
 package com.team2.simpleOrder.dao.member;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.team2.simpleOrder.dto.Member;
 
 public interface IEmpMemberDao {
 
-	List getTime(Member member);
+	List<HashMap<String, String>> getTime(HashMap<String, String> mb);
 
-	boolean insertAd_inTime(Member member);
+	boolean insertAd_inTime(HashMap<String, String> mb);
 
-	boolean insertAd_outTime(Member member);
+	boolean insertAd_outTime(HashMap<String, String> mb);
+
+	List<HashMap<String, String>> getEmpList(HashMap<String, String> mb);
+
+	HashMap<String, String> getEmpInfo(HashMap<String, String> mb);
+
+	HashMap<String, String> getAdTime(HashMap<String, String> mb);
 
 }

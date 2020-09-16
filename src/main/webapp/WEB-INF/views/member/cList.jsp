@@ -72,7 +72,8 @@
 			<th>주소</th>
 		</tr>
 	</table>
-	<input type="button" onclick="addCAcount()" value="사업장 추가">
+	<input type="button" onclick="location.href = 'createccodefrm'" value="사업장 추가">
+	<input type="button" onclick="location.href = 'emailLogout'" value="eMail로그아웃">
 
 </body>
 <script type="text/javascript">
@@ -92,23 +93,8 @@ function cloginTest() {
 	return true;
 }
 
-function addCAcount(){
-	$.ajax({
-		url : "rest/addCAcount",
-		type : "post",
-		data: {
-			"ce_email" : "${ce_email}",
-		},
-		dataType : "html",
-		success : data =>{
-			$("body").html(data);
-			console.log(data);
-		}
-		
-	})
 	
 	
-}
 
 
 

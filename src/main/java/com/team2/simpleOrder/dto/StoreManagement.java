@@ -26,7 +26,7 @@ public class StoreManagement {
 	
 	private String pdc_name;
 	private int pdc_status;
-	
+	List<String> cpList;
 	
 	private int stk_stock;
 }

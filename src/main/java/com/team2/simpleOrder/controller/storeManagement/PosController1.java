@@ -28,6 +28,10 @@ public class PosController1 {
 	public String stockcontrol() {
 		return "/storeManagement/stockcontrol";
 	}
+	@RequestMapping(value = "/productragistration", method = RequestMethod.GET)
+	public String productragistration() {
+		return "/storeManagement/productragistration";
+	}
 	
 	/*
 	 * @RequestMapping(value = "/insertproduct", method = RequestMethod.POST) public

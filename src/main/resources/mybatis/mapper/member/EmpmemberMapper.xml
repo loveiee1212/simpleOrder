@@ -3,23 +3,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.team2.simpleOrder.dao.member.IEmpMemberDao">
-	
-	<!-- 출퇴근 불러오기 -->
-	<select id="getTime" parameterType="member" resultType="member">
-		SELECT * FROM ATTENDANCE WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code} 
-			AND date(bd_date) between #{f_date} AND #{bd_date}
+<mapper
+	namespace="com.team2.simpleOrder.dao.member.IEmpMemberDao">
+
+	<!-- 월별 출퇴근 불러오기 -->
+	<select id="getTime" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT * FROM ATTENDANCE WHERE C_CODE = #{c_code} AND
+		EMP_CODE = LPAD(#{emp_code},5,0)
+		AND DATE(BD_DATE) BETWEEN #{f_date} AND #{bd_date}
+	</select>
+
+	<!-- 일별 출퇴근 불러오기 -->
+	<select id="getAdTime" parameterType="hashmap" resultType="hashmap">
+		SELECT AD_INTIME, AD_OUTTIME FROM ATTENDANCE WHERE C_CODE= #{c_code} AND EMP_CODE = LPAD(#{emp_code},5,0)
+		AND DATE(BD_DATE)=#{bd_date}
+	</select>
+
+	<!-- 출근 시간 입력 -->
+	<insert id="insertAd_inTime" parameterType="hashmap">
+		INSERT INTO
+		ATTENDANCE (C_CODE,BD_DATE,EMP_CODE,AD_INTIME,AD_OUTTIME)
+		VALUES (#{c_code},#{bd_date},LPAD(#{emp_code},5,0),#{ad_inTime},NULL)
+	</insert>
+
+	<!-- 퇴근 시간 입력 -->
+	<update id="insertAd_outTime" parameterType="hashmap">
+		UPDATE ATTENDANCE
+		SET AD_OUTTIME = #{ad_outTime}
+		WHERE C_CODE=#{c_code} AND BD_DATE=#{bd_date} AND EMP_CODE=LPAD(#{emp_code},5,0)
+	</update>
+
+	<!-- 직원 리스트 출력 -->
+	<select id="getEmpList" parameterType="hashmap" resultType="hashmap">
+		SELECT E.EMP_CODE, E.EMP_NAME, E.EMP_STATUS, A.AD_OUTTIME
+		FROM EMP AS E LEFT JOIN ATTENDANCE AS A ON E.C_CODE = A.C_CODE AND
+			E.EMP_CODE = A.EMP_CODE
+		WHERE A.BD_DATE IN (SELECT MAX(BD_DATE) FROM ATTENDANCE WHERE C_CODE=#{c_code})
+			AND E.EMP_STATUS ="1" OR E.EMP_STATUS ="-1"
 	</select>
 	
-	<!-- 출근 시간 입력 -->
-	<insert id="insertAd_inTime" parameterType="member">
-		INSERT INTO ATTENDANCE (C_CODE,BD_DATE,EMP_CODE,AD_INTIME,AD_OUTTIME)
-			VALUES (#{c_code},#{bd_date},#{emp_code},#{ad_inTime},NULL)
-	</insert>
+	<!-- 직원 정보 출력 -->
+	<select	id="getEmpInfo" parameterType="hashmap" resultType="hashmap">
+		SELECT E.EMP_CODE, E.EMP_NAME, P.PST_NAME
+		FROM EMP AS E INNER JOIN POSITION AS P ON E.C_CODE = P.C_CODE AND E.PST_POSITION = P.PST_POSITION
+		WHERE E.C_CODE = #{c_code} AND E.EMP_CODE = LPAD(#{emp_code},5,0)
+	</select>
 	
-	<!-- 퇴근 시간 입력 -->
-	<update id="insertAd_outTime" parameterType="member">
-		UPDATE ATTENDANCE SET AD_OUTTIME = #{ad_outTime}
-			WHERE C_CODE=#{c_code} AND BD_DATE=#{bd_date} AND EMP_CODE=${emp_code}
-	</update>
 </mapper>

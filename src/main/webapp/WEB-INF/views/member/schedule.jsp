@@ -58,7 +58,6 @@
 	background-color: white;
 	font-size: 25px;
 }
-
 </style>
 </head>
 <body>
@@ -90,9 +89,7 @@
 				<div id="lWork">
 					<button onclick="ad_outTime()">퇴근</button>
 				</div>
-				<div id="changeWorkTime">
-					<button>근무시간변경</button>
-				</div>
+				<div id="changeWorkTime"></div>
 				<div id="leave">
 					<button onclick="mainpage.jsp">돌아가기</button>
 				</div>
@@ -101,12 +98,14 @@
 	</div>
 </body>
 <script type="text/javascript">
-
 	$(document).ready(function() {
 		makeCalendar();
 		resetDay();
 		showDay();
 		clockOn();
+		if ("${empCode}" == "00000") {
+			$("#changeWorkTime").append($("<button>").html("근무시간변경"));
+		}
 	});
 
 	//캘린더 생성
@@ -152,12 +151,9 @@
 		for (var i = firstDay.getDay(); i < firstDay.getDay()
 				+ lastDay.getDate(); i++) {
 			++dayCount
-			if(dayCount<10){
-				$tdDay.eq(i).text("0"+dayCount);
-			}else {
+
 			$tdDay.eq(i).text(dayCount);
-			}
-			
+
 			if ($tdDay.eq(i).text() == today.getDate()) {
 				if (month == today.getMonth() + 1) {
 					if (year == today.getFullYear()) {
@@ -220,89 +216,102 @@
 			},
 			dataType : 'json',
 			success : function(data) {
+				
 				for ( var i in data) {
 
-					if (data[i].bd_date != null) {
-						var bd_date = data[i].bd_date.substr(8, 2);
-					}
-					if (data[i].ad_inTime != null) {
-						var ad_inTime = data[i].ad_inTime.substr(11, 9);
-					}
-					if (data[i].ad_outTime != null) {
-						var ad_outTime = data[i].ad_outTime.substr(11, 9);
-					} else {
+					if (data[i].BD_DATE != null) {
+						var bd_date = data[i].BD_DATE.substr(4, 2);
 						
+						bd_date = bd_date.replace(/[^\d]+/g, "");
+					}
+					if (data[i].AD_INTIME != null) {
+						var ad_inTime = data[i].AD_INTIME.substr(12, 9);
+						ad_inTime = ad_inTime.replace(/\s/g,"");
+						ad_inTime = ad_inTime.replace(/[a-zA-Z]+/g,"");
+					}
+					if (data[i].AD_OUTTIME != null) {
+						var ad_outTime = data[i].AD_OUTTIME.substr(12, 9);
+						ad_outTime = ad_outTime.replace(/\s/g,"");
+						ad_outTime = ad_outTime.replace(/[a-zA-Z]+/g,"");
+					} else {
+						var ad_outTime = "null";
 					}
 
 					for (var j = firstDay.getDay(); j < firstDay.getDay()
 							+ lastDay.getDate(); j++) {
 						if (bd_date == $tdDay.eq(j).text()) {
-							
-							if(ad_outTime=="undefined"){
-								$tdText.eq(j).text(
-										"출근: " + ad_inTime);
-							}
-							$tdText.eq(j).text(
-									"출근: " + ad_inTime +"\r\n퇴근: "+ ad_outTime);
 
+							if (ad_outTime == "null") {
+								$tdText.eq(j).text("출근: " + ad_inTime);
+							} else {
+								$tdText.eq(j).text(
+										"출근: " + ad_inTime + "\r\n퇴근: "
+												+ ad_outTime);
+							}
 						}
 					}
 				}
 			},
 			error : function(err) {
-				//console.log(err);
+				console.log(err);
 			}
 		});
 	}
-	
+
 	//출근 시간 입력
-	function ad_inTime(){
+	function ad_inTime() {
 		$.ajax({
 			type : 'post',
 			url : 'rest/insertAd_inTime',
-			data : {"ad_inTime" : year+"-"+month+"-"+today.getDay()+" "+hour+":"+minute+":"+second,
+			data : {
+				"ad_inTime" : year + "-" + month + "-" + today.getDay() + " "
+						+ hour + ":" + minute + ":" + second,
 				'c_code' : 123123123123,
 				'bd_date' : '2020-09-08 16:33:00',
-				'emp_code' :1},
-			dataType: "json",
-			success : function(data){
+				'emp_code' : 1
+			},
+			dataType : "json",
+			success : function(data) {
 				console.log(data);
-				if(data==1){
+				if (data == 1) {
 					alert("출근이 완료되었습니다");
 				}
 				resetDay();
 				showDay();
 			},
-			error : function(err){
+			error : function(err) {
 				alert("출근에 실패했습니다.");
 				resetDay();
 				showDay();
 			}
 		});
 	}
-	
+
 	//퇴근 시간 입력
-	function ad_outTime(){
+	function ad_outTime() {
 		$.ajax({
 			type : 'post',
 			url : 'rest/insertAd_outTime',
-			data : {"ad_outTime" : year+"-"+month+"-"+today.getDay()+" "+hour+":"+minute+":"+second,
+			data : {
+				"ad_outTime" : year + "-" + month + "-" + today.getDay() + " "
+						+ hour + ":" + minute + ":" + second,
 				'c_code' : 123123123123,
 				'bd_date' : '2020-09-08 16:33:00',
-				'emp_code' :1},
-			dataType: "json",
-			success : function(data){
-				if(data==1){
+				'emp_code' : 1
+			},
+			dataType : "json",
+			success : function(data) {
+				if (data == 1) {
 					alert("퇴근이 완료되었습니다");
 				}
 				resetDay();
 				showDay();
 			},
-			error : function(err){
+			error : function(err) {
 				alert("퇴근에 실패했습니다.");
 				resetDay();
 				showDay();
-			}	
+			}
 		});
 	}
 </script>
