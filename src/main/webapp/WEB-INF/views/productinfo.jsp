@@ -15,22 +15,34 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <style>
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+} 
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #header {
-	width: 1581px;
+	width: 1490px;
 	height: 100px;
 	background-color: #81d4fa;
 	margin-top: -30px;
-	margin-left: -72px;
+	margin-left: -30px;
 }
 
 .navbar-default {
 	background-color: #e3f2fd;
+	border-color: #e3f2fd;
 }
 
 img {
-	width: 300px;
-	height: 200px;
-	margin-top: -60px;
+	width: 200px;
+	margin-top: -65px;
 	margin-left: -50px;
 }
 
@@ -38,12 +50,8 @@ a.navbar-brand {
 	width: 300px;
 	height: 100px;
 	font-size: 20px;
-	margin-left: 80px;
+	margin-left: 60px;
 	margin-right: 30px;
-}
-
-a:hover {
-	color: #ff3d00;
 }
 
 ul {
@@ -55,6 +63,7 @@ ul {
 
 .nav {
 	margin-left: 600px;
+	margin-top: 5px;
 }
 
 li {
@@ -63,10 +72,6 @@ li {
 
 .navbar-default .navbar-nav>li>a {
 	color: rgb(15, 13, 13);
-}
-
-.navbar-default .navbar-nav>li>a:hover {
-	color: #ff3d00;
 }
 
 h1 {
@@ -106,7 +111,7 @@ P {
 				<div id="header">
 					<div class="navbar-header">
 						<a class="navbar-brand" href="main"><img src="resources/image/logo.png"
-							alt="홈페이지 로고"></a>
+							alt="SimpleOrder 홈페이지"></a>
 						<!-- 포스 메인페이지 -->
 					</div>
 					<ul class="nav navbar-nav">

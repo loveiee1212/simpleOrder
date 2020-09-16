@@ -16,22 +16,34 @@
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <style>
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+} 
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #header {
-	width: 1581px;
+	width: 1490px;
 	height: 100px;
 	background-color: #81d4fa;
 	margin-top: -30px;
-	margin-left: -72px;
+	margin-left: -30px;
 }
 
 .navbar-default {
 	background-color: #e3f2fd;
+	border-color: #e3f2fd;
 }
 
 img {
-	width: 300px;
-	height: 200px;
-	margin-top: -60px;
+	width: 200px;
+	margin-top: -65px;
 	margin-left: -50px;
 }
 
@@ -39,12 +51,8 @@ a.navbar-brand {
 	width: 300px;
 	height: 100px;
 	font-size: 20px;
-	margin-left: 80px;
+	margin-left: 60px;
 	margin-right: 30px;
-}
-
-a:hover {
-	color: #ff3d00;
 }
 
 ul {
@@ -56,6 +64,7 @@ ul {
 
 .nav {
 	margin-left: 600px;
+	margin-top: 5px;
 }
 
 li {
@@ -64,10 +73,6 @@ li {
 
 .navbar-default .navbar-nav>li>a {
 	color: rgb(15, 13, 13);
-}
-
-.navbar-default .navbar-nav>li>a:hover {
-	color: #ff3d00;
 }
 
 .container-fluid {
@@ -95,7 +100,7 @@ h1 {
 				<div id="header">
 					<div class="navbar-header">
 						<a class="navbar-brand" href="main"><img src="resources/image/logo.png"
-							alt="홈페이지 로고"></a>
+							alt="SimpleOrder 홈페이지"></a>
 						<!-- 포스 메인페이지 -->
 					</div>
 					<ul class="nav navbar-nav">
@@ -113,36 +118,36 @@ h1 {
 					<br>
 					<div class="row">
 						<div class="col-sm-4">
-							<i class='fas fa-power-off' style='font-size: 40px'></i>
+							<i class='fas fa-power-off' style='font-size: 50px'></i>
 							<h3>POWER</h3>
 							<p>간편한 로그인</p>
 						</div>
 						<div class="col-sm-4">
-							<i class='fas fa-people-arrows' style='font-size: 40px'></i>
+							<i class='fas fa-people-arrows' style='font-size: 50px'></i>
 							<h3>USER</h3>
 							<p>누구나 쉽게 사용</p>
 						</div>
 						<div class="col-sm-4">
-							<i class='fas fa-lock' style='font-size: 40px'></i>
-							<h3>보안</h3>
+							<i class='fas fa-lock' style='font-size: 50px'></i>
+							<h3>SECURITY</h3>
 							<p>철저한 보안력</p>
 						</div>
 					</div>
 					<br> <br>
 					<div class="row">
 						<div class="col-sm-4">
-							<i class='fas fa-envelope-square' style='font-size: 40px'></i>
-							<h3>메세지</h3>
+							<i class='fas fa-envelope-square' style='font-size: 50px'></i>
+							<h3>MESSAGE</h3>
 							<p>메세지 기능</p>
 						</div>
 						<div class="col-sm-4">
-							<i class='fas fa-desktop' style='font-size: 40px'></i>
-							&nbsp;&nbsp;<i class='fas fa-mobile-alt' style='font-size: 40px'></i>
-							<h3>다양한 기기</h3>
+							<i class='fas fa-desktop' style='font-size: 50px'></i>
+							&nbsp;&nbsp;<i class='fas fa-mobile-alt' style='font-size: 50px'></i>
+							<h3>DEVICE</h3>
 							<p>모바일 사용 가능</p>
 						</div>
 						<div class="col-sm-4">
-							<i class='fas fa-question' style='font-size: 70px'></i>
+							<i class='fas fa-question' style='font-size: 90px'></i>
 						</div>
 					</div>
 				</div>
