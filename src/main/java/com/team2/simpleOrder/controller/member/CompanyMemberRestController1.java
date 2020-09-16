@@ -32,8 +32,8 @@ public class CompanyMemberRestController1 {
 
 	@GetMapping("/emailAcountStatusChange/{cCode}") //이메일 계정 상태 변경
 	public String emailAcountStatusChange(@PathVariable Long cCode) {
-		mm.emailAcountStatusChange(cCode);
-		return "Congratulations, your subscription is complete.\r\n";
+		
+		return mm.emailAcountStatusChange(cCode);
 	}
 	@PostMapping("/addCAcount")
 	public ModelAndView addCAcount(@RequestParam HashMap<String, String> EmailInfo) {

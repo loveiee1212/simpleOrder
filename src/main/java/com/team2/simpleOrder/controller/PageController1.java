@@ -7,12 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 @Controller
 public class PageController1 {
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String home() {
-		
 		return "main";
 	}
 	
@@ -40,5 +40,21 @@ public class PageController1 {
 	public String productinfo() {
 		return "productinfo";
 	}
-	
+	@RequestMapping("/poslogin")
+	public String poslogin() {
+		return "poslogin";
+	}
+	@RequestMapping("/createccodefrm")
+	public String createCcodeFrm() {
+		return "member/createCcodeFrm";
+	}
+	@RequestMapping("/posmain")
+	public String posmain() {
+		return "posmain";
+	}
+	@RequestMapping("/posSetting")
+	public String posSetting() {
+		return "posSetting/posSetting";
+	}
+
 }
