@@ -17,24 +17,32 @@
 <style>
 body {
 	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+} 
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 #header {
-	width: 1581px;
+	width: 1490px;
 	height: 100px;
 	background-color: #81d4fa;
 	margin-top: -30px;
-	margin-left: -72px;
+	margin-left: -30px;
 }
 
 .navbar-default {
 	background-color: #e3f2fd;
+	border-color: #e3f2fd;
 }
 
 img {
-	width: 300px;
-	height: 200px;
-	margin-top: -60px;
+	width: 200px;
+	margin-top: -65px;
 	margin-left: -50px;
 }
 
@@ -42,12 +50,8 @@ a.navbar-brand {
 	width: 300px;
 	height: 100px;
 	font-size: 20px;
-	margin-left: 80px;
+	margin-left: 60px;
 	margin-right: 30px;
-}
-
-a:hover {
-	color: #ff3d00;
 }
 
 #myCarousel {
@@ -67,14 +71,17 @@ ul {
 
 .nav {
 	margin-left: 600px;
+	margin-top: 5px;
+}
+
+.carousel-indicators,
+.glyphicon-chevron-left:before,
+.glyphicon-chevron-right:before{
+display: none;
 }
 
 .navbar-default .navbar-nav>li>a {
 	color: rgb(15, 13, 13);
-}
-
-.navbar-default .navbar-nav>li>a:hover {
-	color: #ff3d00;
 }
 
 #join {
@@ -84,12 +91,12 @@ ul {
 
 .login {
 	width: 700px;
-	height: 300px;
-	border: 3px solid #81d4fa;
-	font-size: 25px;
+	height: 500px;
+	/* border: 3px solid #81d4fa; */
+	font-size: 28px;
 	margin-top: 30px;
 	margin-left: 370px;
-	padding: 40px 50px 0px 150px;
+	padding: 40px 30px 0px 100px;
 }
 
 input:focus {
@@ -97,36 +104,56 @@ input:focus {
 }
 
 #id {
-	margin: 0px 37px;
+    width: 540px;
+    height: 60px;
+	font-size: 18px;
+	margin: 0px -20px;
 }
 
 #pw {
-	margin: 30px 25px 0px;
+    width: 540px;
+    height: 60px;
+	font-size: 18px;
+	margin: 10px -20px 0px;
 }
 
 #btn1 {
+    width: 540px;
+    height: 60px;
 	border: 2px solid white;
-	margin: 0px 30px 0px 100px;
+	margin: 0px 30px 10px -20px;
 	outline: 0;
 	background-color: #81d4fa;
 }
 
 #btn2 {
-	border: 2px solid white;
+    width: 540px;
+    height: 60px;
+	border: 3px solid #81d4fa;
+	margin: 0px 30px 10px -20px;
+	padding: 5px 10px;
 	outline: 0;
-	background-color: #81d4fa;
+	background-color: white;
+	color: #81d4fa;
+	font-weight: bold;
 }
 
-#btn1:hover, #btn2:hover {
-	color: #ff3d00;
-	border: 2px solid white;
+#line{
+    width: 540px;
+	height: 1px;
+	background-color: #81d4fa;
+	margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: -20px;
 }
 
 #hline {
-	width: 100%;
-	height: 2px;
+	width: 1470px;
+	height: 1px;
 	background-color: #81d4fa;
-	margin-top: 90px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: -20px;
 }
 
 b {
@@ -134,7 +161,6 @@ b {
 }
 
 p {
-	padding-top: 10px;
 	font-size: 15px;
 	text-align: center;
 	flex-wrap: wrap;
@@ -142,8 +168,21 @@ p {
 }
 
 .carousel-inner {
-	height: 100px;
-	margin-top: 50px;
+	height: 50px;
+	margin-top: 45px;
+	margin-bottom: -20px;
+}
+
+h3{
+	font-size: 30px;
+	font-family: 'NEXON Lv1 Gothic OTF';
+}
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 li {
@@ -153,14 +192,20 @@ li {
 #errorDiv {
 	font-size: 20px;
 	color: #ff3d00;
-	margin-left: 40px;
+	margin-left: -20px;
 }
 
 #msg1, #msg2 {
 	width: 500px;
 	font-size: 20px;
 	color: #ff3d00;
-	margin-left: 80px;
+	margin-left: -20px;
+}
+
+#a {
+    font-size: 20px;
+    margin-left: 230px;
+    text-decoration: none;
 }
 </style>
 <body>
@@ -169,8 +214,7 @@ li {
 			<nav class="navbar navbar-default">
 				<div id="header">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="main"><img
-							src="resources/image/logo.png" alt="홈페이지 로고"></a>
+						<a class="navbar-brand" href="main"><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 						<!-- 포스 메인페이지 -->
 					</div>
 					<ul class="nav navbar-nav">
@@ -182,8 +226,7 @@ li {
 						<!-- 주요 기능 페이지 -->
 					</ul>
 				</div>
-				<div id="myCarousel" class="carousel slide text-center"
-					data-ride="carousel">
+				<div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
 					<ol class="carousel-indicators">
 						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 						<li data-target="#myCarousel" data-slide-to="1"></li>
@@ -191,7 +234,7 @@ li {
 					</ol>
 					<div class="carousel-inner" role="listbox">
 						<div class="item active">
-							<h3>아직도 simple order 모르신다구요?</h3>
+							<h3>SIMPLE ORDER</h3>
 						</div>
 						<div class="item">
 							<h3>기존 제품과의 차별된 기능</h3>
@@ -200,43 +243,35 @@ li {
 							<h3>누구나 편리한 사용법</h3>
 						</div>
 					</div>
-					<a class="left-control" href="#myCarousel" role="button"
-						data-slide="prev"> <span
-						class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					</a> <a class="right-control" href="#myCarousel" role="button"
-						data-slide="next"> <span
-						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					<a class="left-control" href="#myCarousel" role="button"data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span></a>
+						<a class="right-control" href="#myCarousel" role="button"
+						data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
+				<div class="login">
 				<form action="cEmailLogin" method="post" onsubmit="return cEmailLogin()">
-					<div class="login">
-						id : <input type="email" name="ce_email" id="id"
-							placeholder="사업자이메일" onkeydown="keyEvt()"
-							value="${requestScope.ce_email}" /> <br>
+						<input type="email" name="ce_email" id="id" placeholder="사업자 이메일을 입력해주세요" onkeydown="keyEvt()" value="${requestScope.ce_email}" />
 						<div id="msg1"></div>
-						pw : <input type="password" name="ce_pw" id="pw"
-							placeholder="비밀번호 12~20자리" onkeydown="keyEvt()" /> <br>
+						<input type="password" name="ce_pw" id="pw" placeholder="비밀번호 12~20자리를 입력해주세요" onkeydown="keyEvt()" /> <br>
 						<div id="msg2"></div>
-						<br> <input type="submit" id="btn1" value="로그인" /> <input
-							type="button" id="btn2" value="회원가입"
-							onclick='location.href = "joinEmailFrm"'><br>
-				</form>
 				<div id="errorDiv">${requestScope.errorDiv}</div>
+						<br> <input type="submit" id="btn1" value="로그인" /><br>
+						<a href="#" id="a">아이디(이메일)/비밀번호 찾기 ></a>
+						<div id="line"></div>
+						<input type="button" id="btn2" value="회원가입" onclick='location.href = "joinEmailFrm"'><br>
+				</form>
 		</div>
-		<div id="hline">
-			<p>
-				<b>회사정보</b>
-			</p>
+		<div id="hline"></div>
+			<p><b>회사정보</b></p>
 			<p>
 				SimpleOrder(주) | 대표: HD6 | 인천광역시 미추홀구 학익동 <br> 365고객센터 |
 				전자금융거래분쟁처리담당 1234-1234 <br> 사업자 등록번호 : 123-45-00678 | email:
 				simple@order.com <br> &copy; Untitled. All rights reserved. |
-				Photos by <a href="#">choi ay</a> | Design by <a href="#"
-					rel="nofollow">choi ay</a>.
+				Photos by <a href="#">choi ay</a> | Design by <a href="#" rel="nofollow">choi ay</a>
 			</p>
-		</div>
 		</nav>
 	</div>
 	</div>

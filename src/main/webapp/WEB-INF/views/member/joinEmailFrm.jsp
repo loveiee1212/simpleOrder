@@ -17,24 +17,34 @@
 <style>
 body {
 	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 #header {
-	width: 1581px;
+	width: 1490px;
 	height: 100px;
 	background-color: #81d4fa;
 	margin-top: -30px;
-	margin-left: -72px;
+	margin-left: -30px;
 }
 
 .navbar-default {
 	background-color: #e3f2fd;
+	border-color: #e3f2fd;
 }
 
 img {
-	width: 300px;
-	height: 200px;
-	margin-top: -60px;
+	width: 200px;
+	margin-top: -65px;
 	margin-left: -50px;
 }
 
@@ -42,12 +52,8 @@ a.navbar-brand {
 	width: 300px;
 	height: 100px;
 	font-size: 20px;
-	margin-left: 80px;
+	margin-left: 60px;
 	margin-right: 30px;
-}
-
-a:hover {
-	color: #ff3d00;
 }
 
 ul {
@@ -59,6 +65,7 @@ ul {
 
 .nav {
 	margin-left: 600px;
+	margin-top: 5px;
 }
 
 li {
@@ -69,84 +76,76 @@ li {
 	color: rgb(15, 13, 13);
 }
 
-.navbar-default .navbar-nav>li>a:hover {
-	color: #ff3d00;
-}
-
-h1 {
-	text-align: center;
-	font-size: 40px;
-	margin: 40px 500px 70px;
-}
-
 #joinInfo {
 	width: 700px;
 	height: 590px;
-	border: 3px solid #81d4fa;
+	/* border: 3px solid #81d4fa; */
 	font-size: 20px;
-	margin: -50px 370px 38px;
+	margin: 10px 370px;
 }
 
 td {
-	padding: 0px 0px 0px 100px;
+	padding: 0px 0px 10px 110px;
 }
 
-#email {
-	margin-left: -10px;
+input:focus {
+	outline: none;
 }
 
-#pw {
-	margin-left: -10px;
+#ce_email {
+	width: 540px;
+	height: 50px;
+	font-size: 18px;
+	margin-top: 15px;
+	margin-left: -30px;
 }
 
-#c_code {
-	margin-left: -10px;
+#ce_pw, #c_code, #c_pw, #emp_name, #c_name {
+	width: 540px;
+	height: 50px;
+	font-size: 18px;
+	margin-left: -30px;
 }
 
-#c_pw {
-	margin-left: -10px;
+#zipNo, #roadAddrPart1, #addrDetail {
+	font-size: 18px;
+	margin-left: -30px;
+	margin-bottom: 8px;
 }
 
-#c_name {
-	margin-left: -10px;
-}
-
-#zipNo {
-	margin-left: -10px;
-}
-
-#roadAddrPart1 {
-	margin-left: -10px;
-}
-
-#addrDetail {
-	margin-left: -10px;
+#add {
+    width: 150px;
+    height: 50px;
+    margin-left: 4px;
+	border: 2px solid white;
+	background-color: #81d4fa;
+	font-weight: bold;
 }
 
 #c_phone {
-	margin-left: -10px;
+	width: 540px;
+	height: 50px;
+	font-size: 18px;
+	margin-top: -10px;
+	margin-left: -30px;
 }
 
 #btn {
-	width: 130px;
+	width: 540px;
 	height: 50px;
 	border: 2px solid white;
-	margin: 10px 230px;
+	margin: -12px -30px 5px;
+	font-size: 25px;
 	outline: 0;
 	background-color: #81d4fa;
+	font-weight: bold;
 }
 
-#btn:hover {
-	color: #ff3d00;
-	border: 2px solid white;
-}
-
-#msg1, #msg2, #msg3, #msg4, #msg5, #msg6, #msg7 {
+#msg1, #msg2, #msg3, #msg4, #msg5, #msg6, #msg7, #msg8, #msg9 {
 	width: 600px;
 	font-size: 18px;
 	color: #ff3d00;
-	padding-left: 315px;
-	padding-right: 0px;
+	padding-left: 80px;
 }
 </style>
 <body>
@@ -155,106 +154,103 @@ td {
 			<nav class="navbar navbar-default">
 				<div id="header">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="main"><img
-							src="resources/image/logo.png" alt="홈페이지 로고"></a>
+						<a class="navbar-brand" href="main">
+						<img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 						<!-- 포스 메인페이지 -->
 					</div>
 					<ul class="nav navbar-nav">
 						<li><a href="productinfo">상품소개</a></li>
 						<!-- 상품소개 페이지 -->
-						<li><a href="joinEmailFrm">가입안내</a></li>
+						<li><a href="joinEmailFrm">회원가입</a></li>
 						<!-- 가입안내 페이지 -->
 						<li><a href="mainskill">주요기능</a></li>
 						<!-- 주요 기능 페이지 -->
 					</ul>
 				</div>
-				<h1>가입 안내</h1>
 				<form action="createEmailAcount" name="form" id="form" method="post"
 					onsubmit="return joinCmember()">
 					<table id="joinInfo">
 						<tr>
-							<td>이메일</td>
-							<td><input type="email" id="ce_email" onkeydown="keyEvt()"
-								name="ce_email" value="${acountInfo.ce_email}"></td>
+							<td><input type="email" id="ce_email" name="ce_email" placeholder="사업자 이메일"
+							onkeydown="keyEvt()" value="${acountInfo.ce_email}"></td>
 							<!-- 이메일 형식만 통과 되도록 -->
 						</tr>
 						<tr>
-							<td colspan="2" id="msg1"></td>
+							<td id="msg1"></td>
 						</tr>
 						<tr>
-							<td>비밀번호</td>
-							<td><input type="password" maxlength="20" id="ce_pw"
-								name="ce_pw" onkeydown="keyEvt()"></td>
+							<td><input type="password" id="ce_pw" name="ce_pw" placeholder="비밀번호 12~20자리"
+							maxlength="20" onkeydown="keyEvt()"></td>
 							<!-- 12~20자 특수문자,숫자 포함 -->
 						</tr>
 						<tr>
-							<td colspan="2" id="msg2"></td>
+							<td id="msg2"></td>
 						</tr>
 						<tr>
-							<td>대표 사업자 번호</td>
-							<td><input type="text" maxlength="12" id="c_code"
-								name="c_code" onkeypress="onlyNum(this)" numberOnly="true"
-								onkeydown="keyEvt()" value="${acountInfo.c_code}"></td>
+							<td><input type="text" id="c_code" name="c_code" placeholder="대표 사업자 번호 12자리" maxlength="12" 
+							onkeypress="onlyNum(this)" numberOnly="true" onkeydown="keyEvt()" value="${acountInfo.c_code}"></td>
 							<!-- 필수입력 12자리 숫자만 -->
 						</tr>
 						<tr>
-							<td colspan="2" id="msg3"></td>
+							<td id="msg3"></td>
 						</tr>
 						<tr>
-							<td>사업자 계정 비밀번호</td>
-							<td><input type="password" maxlength="20" id="c_pw"
-								name="c_pw" onkeydown="keyEvt()"></td>
+							<td><input type="password" id="c_pw" name="c_pw" placeholder="대표 사업자 비밀번호 12~20자리"
+							maxlength="20" onkeydown="keyEvt()"></td>
 							<!-- 필수입력 20자리 이내 -->
 						</tr>
 						<tr>
-							<td colspan="2" id="msg4"></td>
+							<td id="msg4"></td>
 						</tr>
 						<tr>
-							<td>사업자 상호</td>
-							<td><input type="text" maxlength="30" id="c_name"
-								name="c_name" onkeydown="keyEvt()" value="${acountInfo.c_name }"></td>
+							<td><input type="text" id="emp_name" name="emp_name" placeholder="대표 사업자 이름"
+							onkeydown="keyEvt()" value="${acountInfo.emp_name}"></td>
+							<!-- 필수입력 공백 허용X -->
+						</tr>
+						<tr>
+							<td id="msg5"></td>
+						</tr>
+						<tr>
+							<td><input type="text" id="c_name" name="c_name" placeholder="사업자 상호명"
+							maxlength="30" onkeydown="keyEvt()" value="${acountInfo.c_name}"></td>
 							<!-- 필수입력 30자리 이내 -->
 						</tr>
 						<tr>
-							<td colspan="2" id="msg5"></td>
+							<td id="msg6"></td>
 						</tr>
 						<tr>
-							<td>우편번호</td>
-							<td><input type="hidden" id="confmKey" name="confmKey"
-								value="${acount.confmKey }"> <input type="text"
-								id="zipNo" name="zipNo" readonly style="width: 100px"
-								value="${acountInfo.zipNo }"> <input type="button"
-								id="add" value="주소검색" onclick="goPopup();"></td>
+							<td><input type="hidden" id="confmKey" name="confmKey" value="${acount.confmKey}">
+							<input type="text" id="zipNo" name="zipNo" placeholder="우편번호" readonly style="width: 380px; height: 50px;" value="${acountInfo.zipNo}">
+							<input type="button" id="add" value="주소검색" onclick="goPopup();"></td>
 						</tr>
 						<tr>
-							<td>도로명주소</td>
-							<td><input type="text" id="roadAddrPart1"
-								name="roadAddrPart1" maxlength="50" style="width: 85%"
-								onkeydown="keyEvt()" value="${acountInfo.roadAddrPart1 }"></td>
+							<td><input type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소" maxlength="50"
+							style="width: 540px; height: 50px;" onkeydown="keyEvt()" value="${acountInfo.roadAddrPart1}"></td>
 						</tr>
 						<tr>
-							<td>상세주소</td>
 							<td><input type="text" id="addrDetail" name="addrDetail"
-								style="width: 40%" value="${acountInfo.addrDetail }"
+								style="width: 267px;  height: 50px;" value="${acountInfo.addrDetail}"
 								placeholder="상세주소"> <input type="text"
-								id="roadAddrPart2" style="width: 40%" value="" placeholder="동"
+								id="roadAddrPart2" style="width: 267px;  height: 50px;" value="" placeholder="동"
 								value="${acountInfo.roadAddrpar2 }" name="roadAddrPart2"></td>
 						</tr>
 						<tr>
-							<td colspan="2" id="msg6"></td>
+							<td id="msg7"></td>
 						</tr>
 						<tr>
-							<td>사업장 연락처</td>
-							<td><input type="text" maxlength="11" id="c_phone"
-								name="c_phone" onkeypress="onlyNum(this)" numberOnly="true"
+							<td><input type="text" id="c_phone"
+								name="c_phone" placeholder="사업장 연락처  -없이 11자리" maxlength="11" onkeypress="onlyNum(this)" numberOnly="true"
 								value="${acountInfo.c_phone }"></td>
 							<!-- 필수입력 12자리 숫자만 -->
 						</tr>
 						<tr>
-							<td colspan="2" id="msg7">${acountInfo.error}</td>
+							<td id="msg8"></td>
 						</tr>
 						<tr>
-							<td colspan="2"><input type="submit" id="btn" value="회원 가입"></td>
+							<td id="msg9">${acountInfo.error}</td>
+						</tr>
+						<tr>
+							<td><input type="submit" id="btn" value="회원 가입"></td>
 						</tr>
 					</table>
 					<input type="text" style="display: none" name="c_address"
@@ -280,7 +276,7 @@ td {
 		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
 		var pop = window.open("addr/addr.jsp", "pop",
 				"width=570,height=420, scrollbars=yes, resizable=yes");
-		document.getElementById("msg6").innerHTML = " ";
+		document.getElementById("msg7").innerHTML = " ";
 
 		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
 		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
@@ -332,16 +328,20 @@ td {
 			document.getElementById("msg4").innerHTML = "특수문자 혼합하여 12~20자 입력하세요!!";
 			$('#c_pw').focus();
 			return false;
+		} else if ($('#emp_name').val() == "") {
+			document.getElementById("msg5").innerHTML = "사업자 이름을 입력해주세요!!";
+			$('#emp_name').focus();
+			return false;
 		} else if ($('#c_name').val() == "") {
-			document.getElementById("msg5").innerHTML = "상호명을 입력해주세요!!";
+			document.getElementById("msg6").innerHTML = "상호명을 입력해주세요!!";
 			$('#c_name').focus();
 			return false;
 		} else if ($('#roadAddrPart1').val() == "") {
-			document.getElementById("msg6").innerHTML = "주소를 입력해주세요!!";
+			document.getElementById("msg7").innerHTML = "주소를 입력해주세요!!";
 			$('#add').focus();
 			return false;
 		} else if ($('#c_phone').val() == "") {
-			document.getElementById("msg7").innerHTML = "연락처를 입력해주세요!!";
+			document.getElementById("msg8").innerHTML = "연락처를 입력해주세요!!";
 			$('#c_phone').focus();
 			return false;
 		} else {
@@ -359,7 +359,8 @@ td {
 			document.getElementById("msg4").innerHTML = " ";
 		}
 		document.getElementById("msg5").innerHTML = " ";
-		document.getElementById("msg7").innerHTML = " ";
+		document.getElementById("msg6").innerHTML = " ";
+		document.getElementById("msg8").innerHTML = " ";
 	}
 </script>
 </html>
