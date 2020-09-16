@@ -11,6 +11,9 @@ import org.apache.log4j.chainsaw.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.simpleOrder.dao.member.ICompanyMemberDao1;
@@ -30,16 +33,34 @@ public class CompanyMemberMM1 {
 			throws MessagingException { // 새로운 이메일 계정 생성
 		acountInfo.put("ce_pw", pse.encode(acountInfo.get("ce_pw"))); // 가져온 비밀번호를 인코딩 하여 다시 해쉬맵에 덮어 씌움
 		try {
+			acountInfo.put("emp_code", "0");
+			acountInfo.put("pst_position", "00");
+			acountInfo.put("emp_pw", "0000");
+			acountInfo.put("emp_name", "대표");
+			acountInfo.put("pst_name", "대표");
+
 			if (cDao.createEmailAcount(acountInfo) && cDao.createCcodeAcount(acountInfo)) { // 이메일과 사업체가 둘다 문제없이 등록되었다면
+				cDao.creatPosition(acountInfo); // 해당 사업체 번호로 대표 직급 생성
+				for (int i = 0; i < cDao.getGrantPositionCodeSize(); i++) {
+					acountInfo.put("gpc_code", "" + i);
+					cDao.creatGrantPosition(acountInfo);// 반복문돌며 모든 권한의 갯수만큼 해당 직급에 계급 부여
+				}
+				cDao.creatEmp(acountInfo);// 해당 직급을 가진 대표 계정 생성
+
 				mailM.acountApprovalMailSend(acountInfo); // 회원가입 승인 메일을 가입한 메일로 발송함
+
 				session.setAttribute("ce_email", acountInfo.get("ce_email"));
 				return "redirect:cList";
 			} else {
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				acountInfo.put("error", "회원가입에 실패하였습니다 다시 시도해주세요.");
 				reat.addFlashAttribute("acountInfo", acountInfo);
 				return "redirect:joinEmailFrm";
 			}
 		} catch (Exception e) {
+			System.out.println("오류 발생");
+			System.err.println(e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			reat.addFlashAttribute("acountInfo", acountInfo);
 			acountInfo.put("error", "회원가입에 실패하였습니다 다시 시도해주세요.");
 			return "redirect:joinEmailFrm";
@@ -74,20 +95,93 @@ public class CompanyMemberMM1 {
 		if (cDao.emailAcountStatusCheak(cInfo.get("ce_email")) && cDao.cLogin(cInfo)) {// 해당 이메일의 상태와 로그인 여부를 확인
 			session.removeAttribute("ce_email");
 			session.setAttribute("c_code", cInfo.get("c_code"));
-			return "mainskill";
-		}else {
+			return "redirect:/poslogin";
+		} else {
 			cInfo.put("error", "사업체 번호와 비밀번호를 확인해주세요");
-			reat.addFlashAttribute("cInfo",cInfo);
+			reat.addFlashAttribute("cInfo", cInfo);
 			return "redirect:/cList";
 		}
-		
+
 	}
 
-	public void emailAcountStatusChange(Long cCodes) {// 이메일 계정 상태 승인
+	public String emailAcountStatusChange(Long cCodes) {// 이메일 계정 상태 승인
 		long cCode = cCodes / 7;
-		System.out.println(cCode);
-		cDao.emailAcountStatusChange(cCode);
+		if (cDao.emailAcountStatusChange(cCode)) { // 계정에서 email Acount Status 변경
+			return "Congratulations, your subscription is complete.\r\n";
+		}
+		;
+		return "sorry";
 
+	}
+
+	public String createCcodeAcount(@RequestParam HashMap<String, String> cCodeInfo, HttpSession session,
+			RedirectAttributes reat) {
+		try {
+			cCodeInfo.put("ce_email", (String) session.getAttribute("ce_email"));
+			cCodeInfo.put("pst_position", "00");
+			cCodeInfo.put("emp_pw", "0000");
+			cCodeInfo.put("emp_code", "0");
+			cCodeInfo.put("pst_name", "대표");
+
+			if (cDao.createCcodeAcount(cCodeInfo)) {
+				cDao.creatPosition(cCodeInfo);
+				for (int i = 0; i < cDao.getGrantPositionCodeSize(); i++) {
+					cCodeInfo.put("gpc_code", "" + i);
+					cDao.creatGrantPosition(cCodeInfo);
+				}
+				cDao.creatEmp(cCodeInfo);
+				return "redirect:/cList";
+			} else {
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				cCodeInfo.put("error", "가입에 실패하였습니다. 다시 시도해주세요");
+				reat.addFlashAttribute("cCodeInfo", cCodeInfo);
+				return "redirect:/createccodefrm";
+			}
+		} catch (Exception e) {
+			System.out.println("에러");
+			System.err.println(e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			cCodeInfo.put("error", "가입에 실패하였습니다. 다시 시도해주세요");
+			reat.addFlashAttribute("cCodeInfo", cCodeInfo);
+			return "redirect:/createccodefrm";
+		}
+
+	}
+
+	public String emailLogout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/main";
+	}
+
+	public String backClist(HttpSession session) {
+		session.setAttribute("ce_email", cDao.getcCodeEmailInfo((String) session.getAttribute("c_code")));
+		return "redirect:/cList";
+	}
+
+	public String empAcountlogin(HashMap<String, String> empAcountInfo, HttpSession session, RedirectAttributes reat) {
+		System.out.println(empAcountInfo.toString());
+		try {
+			empAcountInfo.put("c_code", (String) session.getAttribute("c_code"));
+			if (cDao.empAcountlogin(empAcountInfo)) { // 직원 계정 로그인 성공
+				session.setAttribute("emp_code", empAcountInfo.get("emp_code"));
+				return "redirect:/posmain";
+			} else { // 직원 계정 로그인 실패
+				empAcountInfo.put("error", "회원 코드와 비밀번호가 일치하지 않습니다.");
+				reat.addFlashAttribute("empAcountInfo", empAcountInfo);
+				return "redirect:/poslogin";
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+			empAcountInfo.put("error", "회원 코드와 비밀번호가 일치하지 않습니다.");
+			reat.addFlashAttribute("empAcountInfo", empAcountInfo);
+			return "redirect:/poslogin";
+		}
+	}
+
+	public String cCodeAcountLogout(HttpSession session) {
+		session.setAttribute("ce_email", cDao.getcCodeEmailInfo((String) session.getAttribute("c_code")));
+		session.removeAttribute("emp_code");
+		return "redirect:/poslogin";
 	}
 
 }
