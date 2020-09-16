@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,27 +8,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>kioskRequest</title>
-	<style>
+<style>
 </style>
 </head>
-
-<body>
-<h2>kioskRequest.jsp</h2>
-<div id="requestList"></div>
-<button>요청하기</button>
 <script>
-		$.ajax({
-			url : 'rest/getrequestlist',
-			type : 'post',
-			dataType : 'html',
-			success : function(data) {
-				console.log(data);
-				$('#requestList').html(data);
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		});
-	</script>
+	$.ajax({
+		url : 'rest/getrequestlist',
+		type : 'post',
+		dataType : 'json',
+		success : function(data) {
+			console.log(data);
+			$('#requestList').html(data.reqList);
+		},
+		error : function(err) {
+			console.log(err);
+		}
+	});
+</script>
+<body>
+	<h2>kioskRequest.jsp</h2>
+	<div id="requestList"></div>
+	<button>요청하기</button>
+
 </body>
 </html>

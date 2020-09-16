@@ -23,7 +23,7 @@
 	margin: 10px;
 }
 
-ul {
+ul{
 	list-style: none;
 	padding-left: 0px;
 }
@@ -83,7 +83,8 @@ ul {
 .rv_code_time {
 	margin-left: 50px;
 }
-
+#addBtnP
+{width: 500px;}
 .btn {
 	height: 60px;
 }
@@ -98,8 +99,22 @@ ul {
 	margin: 10px;
 }
 </style>
-
 </head>
+<script>
+	$.ajax({
+		url : 'rest/getreviewlist',
+		type : 'post',
+		dataType : 'json',
+		success : function(data) {
+			console.log(data);
+			$('#reviewList').html(data.rvList);
+			console.log($('.img').length);
+		},
+		error : function(err) {
+			console.log(err);
+		}
+	});
+</script>
 <body>
 	<!-- <h2>kioskReview.jsp</h2> -->
 	<div id="frame">
@@ -114,20 +129,6 @@ ul {
 				onclick="location.href='./kioskmenu'">나가기</button>
 		</div>
 	</div>
-	<script>
-		$.ajax({
-			url : 'rest/getreviewlist',
-			type : 'post',
-			dataType : 'html',
-			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-			success : function(data) {
-				console.log(data);
-				$('#reviewList').html(data);
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		});
-	</script>
+
 </body>
 </html>

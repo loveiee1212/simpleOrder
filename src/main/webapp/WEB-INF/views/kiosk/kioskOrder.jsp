@@ -8,8 +8,9 @@
 <title>KioskOrder</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
 #frame {
 	width: 568px;
@@ -75,8 +76,20 @@ li a {
 	margin: auto;
 	padding: 20px 60px;
 	background-color: #fefefe;
-            border: 1px solid #888;
-            border-radius: 3px;
+	border: 1px solid #888;
+	border-radius: 3px;
+}
+
+#bill {
+	display: none;
+	width: 460px;
+	height: 600px;
+	overflow: auto;
+	margin: auto;
+	padding: 20px 60px;
+	background-color: #fefefe;
+	border: 1px solid #888;
+	border-radius: 3px;
 }
 
 .pList_detail {
@@ -126,103 +139,100 @@ i {
 #sum {
 	text-align: right;
 }
+
+#header_nav img {
+	width: 80px;
+}
 </style>
+<script type="text/javascript">
+	$.ajax({
+		url : 'rest/getsellproductlist',
+		type : 'post',
+		dataType : 'json',
+		success : function(data) {
+			console.log(data.sellProList);
+			$('#header_nav').html(data.sellProList);
+		},
+		error : function(err) {
+			console.log(err);
+		}
+	});
+</script>
 </head>
 <!-- <h2>kioskOrder.jsp</h2> -->
 <body>
 	<div id="frame">
-		<nav id="header_nav">
+		<nav id="header_nav"></nav>
+		<!-- <div id="c0List">
+			<h2>음식</h2>
+		</div>
+		<div id="pList">
+			<div class="pList_detail">
+				<div>
+					<img src="resources/img/2018111IMG1.PNG" alt="2018111IMG1.PNG">
+				</div>
+				<div class='text_detail'>
+					<div class='pd_name'>감바스</div>
+					<div class='pd_price'>가격 <font class='price'>15000</font>원</div>
+				</div>
+			</div>
+		</div> -->
+		<div id="c2List">
+			<h2>사이드</h2>
+			<div class="pList_detail">
+				<span class="pList_main">
+					<div>
+						<h2>감자튀김</h2>
+					</div>
+					<div>겉은 바삭 속은 촉촉 수제 감자튀김</div>
+					<div>3,000원</div>
+				</span> <span class="pList_img"> <img src="../img/감자튀김.jpg"
+					alt="imgEL">
+				</span>
+			</div>
+			<div class="pList_detail">
+				<span class="pList_main">
+					<div>
+						<h2>감자튀김</h2>
+					</div>
+					<div>겉은 바삭 속은 촉촉 수제 감자튀김</div>
+					<div>3,000원</div>
+				</span> <span class="pList_img"> <img src="../img/감자튀김.jpg"
+					alt="imgEL">
+				</span>
+			</div>
+			<div id="c3List">
+				<h2>음료</h2>
+
+				<div class="pList_detail">
+					<span class="pList_main">
+						<div>
+							<h2>콜라</h2>
+						</div>
+						<div>역시 콜라는 코카콜라</div>
+						<div>2,000원</div>
+					</span> <span class="pList_img"> <img src="../img/콜라.jpg"
+						alt="치킨el">
+					</span>
+				</div>
+			</div>
+			<br>
+		</div>
+		<nav id="footer_nav">
 			<div>
 				<ul>
-					<li><a href="#">logo</a></li>
-					<li><a href="#c1List">치킨</a></li>
-					<li><a href="#c2List">사이드</a></li>
-					<li><a href="#c3List">음료</a></li>
+					<li><a href="javascript:void(0);">주문하기</a></li>
+					<li><a id="basket_open_btn" href="javascript:void(0);">주문내역</a></li>
+					<li><a id="bill_open_btn" href="javascript:void(0);">계산서</a></li>
+					<li><a href="javascript:void(0);">나가기</a></li>
 				</ul>
 			</div>
 		</nav>
-		<div id="pList">
-			<div id="c1List">
-				<h2>치킨</h2>
-				<div class="pList_detail">
-					<span class="pList_main">
-						<div>
-							<h2>후라이드 치킨</h2>
-						</div>
-						<div>바삭바삭 식감좋은 후라이드 치킨</div>
-						<div>18,000원</div>
-					</span> <span class="pList_img"> <img src="../img/치킨.jpeg"
-						alt="imgEL">
-					</span>
-				</div>
-				<div class="pList_detail">
-					<span class="pList_main">
-						<div>
-							<h2>후라이드 치킨</h2>
-						</div>
-						<div>바삭바삭 식감좋은 후라이드 치킨</div>
-						<div>18,000원</div>
-					</span> <span class="pList_img"> <img src="../img/치킨.jpeg"
-						alt="imgEL">
-					</span>
-				</div>
 
-			</div>
-			<div id="c2List">
-				<h2>사이드</h2>
-				<div class="pList_detail">
-					<span class="pList_main">
-						<div>
-							<h2>감자튀김</h2>
-						</div>
-						<div>겉은 바삭 속은 촉촉 수제 감자튀김</div>
-						<div>3,000원</div>
-					</span> <span class="pList_img"> <img src="../img/감자튀김.jpg"
-						alt="imgEL">
-					</span>
-				</div>
-				<div class="pList_detail">
-					<span class="pList_main">
-						<div>
-							<h2>감자튀김</h2>
-						</div>
-						<div>겉은 바삭 속은 촉촉 수제 감자튀김</div>
-						<div>3,000원</div>
-					</span> <span class="pList_img"> <img src="../img/감자튀김.jpg"
-						alt="imgEL">
-					</span>
-				</div>
-				<div id="c3List">
-					<h2>음료</h2>
-
-					<div class="pList_detail">
-						<span class="pList_main">
-							<div>
-								<h2>콜라</h2>
-							</div>
-							<div>역시 콜라는 코카콜라</div>
-							<div>2,000원</div>
-						</span> <span class="pList_img"> <img src="../img/콜라.jpg"
-							alt="치킨el">
-						</span>
-					</div>
-				</div>
-				<br>
-			</div>
-			<nav id="footer_nav">
-				<div>
-					<ul>
-						<li><a href="javascript:void(0);">주문하기</a></li>
-						<li><a id="basket_open_btn" href="javascript:void(0);">주문내역</a></li>
-						<li><a href="javascript:void(0);">계산서</a></li>
-						<li><a href="javascript:void(0);">나가기</a></li>
-					</ul>
-				</div>
-			</nav>
-		</div>
 		<div id="basket">
 			<div>
-				<strong>장바구니</strong><i id="basket_close_btn" class="fa fa-close" style="font-size: 36px"></i>
+				<strong>장바구니</strong><i id="basket_close_btn" class="fa fa-close"
+					style="font-size: 36px"></i>
 			</div>
 			<div class="pList_detail">
 				<span class="pList_main">
@@ -270,54 +280,73 @@ i {
 		</div>
 		<div id="bill">계산서Modal</div>
 	</div>
+	</div>
 </body>
 <script type="text/javascript">
-function modal(id) {
-    var zIndex = 9999;
-    var modal = $('#' + id);
+	function modal(id) {
+		var zIndex = 9999;
+		var modal = $('#' + id);
 
-    // 모달 div 배경 레이어
-    var bg = $('<div>')
-        .css({
-            position: 'fixed',
-            zIndex: zIndex,
-            left: '0px',
-            top: '0px',
-            width: '100%',
-            height: '100%',
-            overflow: 'auto',
-            // 레이어 색갈은 여기서 바꾸면 됨
-            backgroundColor: 'rgba(0,0,0,0.4)'
-        })
-        .appendTo('body');
+		// 모달 div 배경 레이어
+		var bg = $('<div>').css({
+			position : 'fixed',
+			zIndex : zIndex,
+			left : '0px',
+			top : '0px',
+			width : '100%',
+			height : '100%',
+			overflow : 'auto',
+			// 레이어 색갈은 여기서 바꾸면 됨
+			backgroundColor : 'rgba(0,0,0,0.4)'
+		}).appendTo('body');
 
-    modal
-        .css({
-            position: 'fixed',
-            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+		modal
+				.css(
+						{
+							position : 'fixed',
+							boxShadow : '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
 
-            // 시꺼먼 레이어 보다 한칸 위에 보이기
-            zIndex: zIndex + 1,
+							// 시꺼먼 레이어 보다 한칸 위에 보이기
+							zIndex : zIndex + 1,
 
-            // div center 정렬
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            msTransform: 'translate(-50%, -50%)',
-            webkitTransform: 'translate(-50%, -50%)'
-        })
-        .show()
-        // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
-        $('#basket_close_btn').on('click', function () {
-            bg.remove();
-            modal.hide();
-        });
-    	
-}
-$('#basket_open_btn').on('click', function () {
-    // 모달창 띄우기
-    modal('basket');
-});
+							// div center 정렬
+							top : '50%',
+							left : '50%',
+							transform : 'translate(-50%, -50%)',
+							msTransform : 'translate(-50%, -50%)',
+							webkitTransform : 'translate(-50%, -50%)'
+						}).show()
+		// 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+		$('#basket_close_btn').on('click', function() {
+			bg.remove();
+			modal.hide();
+		});
+		$('#bill_close_btn').on('click', function() {
+			bg.remove();
+			modal.hide();
+		});
+
+	}
+	$('#basket_open_btn').on('click', function() {
+		// 모달창 띄우기
+		modal('basket');
+	});
+	$('#bill_open_btn').on('click', function() {
+		// 모달창 띄우기
+		$.ajax({
+			url : 'rest/getbilllist',
+			type : 'post',
+			dataType : 'json',
+			success : function(data) {
+				console.log(data.bill);
+				$('#bill').html(data.bill);
+				modal('bill');
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
+	});
 	/* 
 	 ajax발생시켜 상품리스트(카테고리 포함) 가져오기
 	 안보이는div생성 상품 누를때마다 상품코드 집어 넣기
