@@ -5,7 +5,7 @@
 
 <mapper
 	namespace="com.team2.simpleOrder.dao.posManagement.IPosDao1">
-	<select id="getProductList" parameterType="String"
+	<select id="getSellProList" parameterType="String"
 		resultType="product">
 		SELECT *FROM PRODUCT WHERE C_CODE=#{c_code}
 	</select>
@@ -17,7 +17,7 @@
 		FROM PRODUCT PD INNER JOIN STOCK STK ON PD.PD_DATE = STK.PD_DATE
 		AND PD.PD_CODE = STK.PD_CODE AND PD.C_CODE = STK.C_CODE
 		AND PD.PDC_CODE = STK.PDC_CODE AND PD.PDC_DATE = STK.PDC_DATE
-		WHERE PD.C_CODE = '123123123123'
+		WHERE PD.C_CODE = #{c_code}
 		ORDER BY PD.PD_DATE;
 	</select>
 	<select id="getPstockList" parameterType="String"
@@ -26,7 +26,18 @@
 		FROM PRODUCT PD INNER JOIN STOCK STK ON PD.PD_DATE = STK.PD_DATE
 		AND PD.PD_CODE = STK.PD_CODE AND PD.C_CODE = STK.C_CODE
 		AND PD.PDC_CODE = STK.PDC_CODE AND PD.PDC_DATE = STK.PDC_DATE
-		WHERE PD.C_CODE = '123123123123'
+		WHERE PD.C_CODE = #{c_code}
 		ORDER BY PD.PD_DATE;
+	</select>
+	
+	<select id="getproductCategoryList" parameterType="string" resultType="product">
+    SELECT PDC_CODE,PDC_NAME FROM PRODUCT_CT WHERE C_CODE =#{c_code} AND PDC_STATUS = 1 ORDER BY PDC_CODE ASC;
+	</select>
+	
+	<select id="getProductList" parameterType="string" resultType="product">
+	SELECT PDC_NAME,PD.PD_NAME 
+    FROM PRODUCT_CT AS PDC JOIN PRODUCT AS PD ON PD.C_CODE = #{c_code}  
+    AND PD.PDC_DATE = PDC.PDC_DATE AND PD.PD_STATUS = '1'
+    WHERE PDC.PDC_CODE = PD.PDC_CODE ORDER BY PDC.PDC_CODE ASC
 	</select>
 </mapper>

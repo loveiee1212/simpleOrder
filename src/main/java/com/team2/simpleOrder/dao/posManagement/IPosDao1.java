@@ -6,9 +6,10 @@ import com.team2.simpleOrder.dto.StoreManagement;
 
 public interface IPosDao1 {
 
-	List<StoreManagement> getProductList(String c_code);
 	List<StoreManagement> getStockList(String c_code);
 	List<StoreManagement> getPstockList(String c_code);
+	List<StoreManagement> getproductCategoryList(String c_code);
+	List<StoreManagement> getProductList(String c_code);
 
 
 }

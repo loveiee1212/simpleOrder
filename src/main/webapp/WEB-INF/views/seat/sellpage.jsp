@@ -86,6 +86,7 @@ div {
 	margin: 15px;
 	opacity: 0.5;
 	background-color: silver;
+	
 }
 
 #rightdiv {
