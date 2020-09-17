@@ -56,5 +56,9 @@ public class PageController1 {
 	public String posSetting() {
 		return "posSetting/posSetting";
 	}
+	@RequestMapping("/empSettingFrm")
+	public String empSettingFrm() {
+		return "posSetting/empSettingFrm";
+	}
 
 }

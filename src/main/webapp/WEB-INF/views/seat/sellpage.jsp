@@ -86,7 +86,6 @@ div {
 	margin: 15px;
 	opacity: 0.5;
 	background-color: silver;
-	
 }
 
 #rightdiv {
@@ -265,6 +264,9 @@ div {
 .blockCtg {
 	display: block;
 }
+#worktd input{
+ width : 70px;
+}
 </style>
 </head>
 <body>
@@ -317,9 +319,9 @@ div {
 				<div id="r_header">
 					<h1>예약목록</h1>
 					<form action="#">
-					예약일 선택 <input type="date" name="r_date" id="rsv_date" /> <input
-						type="button" onclick="searchReserv()" value="검색" />
-					<input type="reset" value="새로고침" /> <br />
+						예약일 선택 <input type="date" name="r_date" id="r_date" /> <input
+							type="button" onclick="searchReserv()" value="검색" /> <input
+							type="reset" value="새로고침" /> <br />
 					</form>
 				</div>
 				<div id="r_middle">
@@ -328,26 +330,33 @@ div {
 				</div>
 				<div id="r_footer">
 					<div id="r_info">
-						<table id="r_infotable">
-							<tr>
-								<th>예약일자</th>
-								<td><input type="text" name="r_date" id="r_date" /></td>
-								<th>예약시간</th>
-								<td><input type="text" name="r_time" id="r_time" /></td>
-							</tr>
-							<tr>
-								<th>성함</th>
-								<td><input type="text" name="r_name" id="r_name" /></td>
-								<th>연락처</th>
-								<td><input type="text" name="r_phone" id="r_phone" /></td>
-							</tr>
-							<tr>
-								<th>메모</th>
-								<td colspan="2"><textarea
-										style="width: 330px; height: 70px;" name="r_memo" id="r_memo"></textarea></td>
-								<td><button type="button" onclick="updatereserv()">저장하기</button></td>
-							</tr>
-						</table>
+						<form>
+							<table id="r_infotable">
+								<tr>
+									<th>예약일자</th>
+								<input type="hidden" name='rsv_code' id="rsv_code" />
+									<td><input type="text" name="rsv_date" id="rsv_date" /></td>
+									<th>예약시간</th>
+									<td><input type="text" name="rsv_time" id="rsv_time" /></td>
+								</tr>
+								<tr>
+									<th>성함</th>
+									<td><input type="text" name="rsv_name" id="rsv_name" /></td>
+									<th>연락처</th>
+									<td><input type="text" name="rsv_phone" id="rsv_phone" /></td>
+								</tr>
+								<tr>
+									<th>메모</th>
+									<td colspan="2">
+									<textarea
+											style="width: 330px; height: 70px;" name="rsvm_memo" id="rsvm_memo"></textarea></td>
+									<td id="worktd">
+										<input type="button" id="upbtn" onclick="updateReserv()" value='등록'/>
+										<input type="reset" id="rebtn" value="새로고침" />
+									</td>
+								</tr>
+							</table>
+						</form>
 
 					</div>
 					<div id="keypad">
@@ -376,7 +385,6 @@ div {
 <script>
 	clockon();
 	getTablelist();
-
 	/* Datepicker UI default 설정 */
 	$.datepicker.setDefaults({
 		dateFormat : 'yy-mm-dd', //날짜 포맷
@@ -398,18 +406,17 @@ div {
 	//        buttonImage: "images/calendar.gif",	// 조그만한 아이콘 이미지
 	//        buttonText: "Select date"	// 조그만한 아이콘 툴팁
 	});
-	
-	/* 상세정보 예약시간/일자 input timepicker 와 datepicker로 변환 */
-	$(document).ready(function(){
-	    $('#r_time').timepicker({
-	    	 timeFormat:'HH:mm',
-	         controlType:'select',
-	         oneLine:true,
-	    });
-	    $("#r_date").datepicker({});
-	});
 
-	
+	/* 상세정보 예약시간/일자 input timepicker 와 datepicker로 변환 */
+	$(document).ready(function() {
+		$('#rsv_time').timepicker({
+			timeFormat : 'HH:mm',
+			controlType : 'select',
+			oneLine : true,
+		});
+	$("#rsv_date").datepicker({});
+		
+	});
 
 	/* ajax를 이용해 설정한 테이블 갯수 가져오기 */
 	function getTablelist() {
@@ -427,7 +434,7 @@ div {
 					//seat div 에 카테고리 갯수만큼 div 생성
 					$("#seat").append("<div id='table"+i+"' class='tList'>");
 					for (var a = 1; a <= xylength; a++) {
-					//생성한 div에 테이블 가로X 세로 길이(테이블 갯수)만큼 div 생성하기
+						//생성한 div에 테이블 가로X 세로 길이(테이블 갯수)만큼 div 생성하기
 						$("#table" + i).append(
 								"<div class='tables' id='tnum"+i+a+"' data-code="+a+">"
 										+ a + "</div>");
@@ -451,7 +458,7 @@ div {
 			}
 		});
 	};
-	
+
 	/* 테이블 카테고리 클릭시 오픈 */
 	function opentable(evt, categoryname) {
 		console.log(1);
@@ -513,6 +520,9 @@ div {
 					var td = tr.children();
 					console.log($(this).data("code"));
 					console.log(tr.text());
+					$("#upbtn").val("수정");
+					$("#dtbtn").remove();
+					$("#worktd").append("<input type='button' id='dtbtn'  onclick='deleteReserv()' value='삭제'>");
 					//tr의 css색을 화이트로 clear
 					$("#reservtable tr").css('background-color', 'white');
 					//선택한 tr의 색을 회색으로 설정
@@ -522,23 +532,25 @@ div {
 					td.each(function(i) {
 						tdArr.push(td.eq(i).text());
 					});
-
+					
 					console.log("배열에 담긴 값 : " + tdArr);
 					/* 배열에 담긴 값을 상세정보에 출력 */
-					var r_phone = td.eq(1).text();
-					var r_name = td.eq(2).text();
-					var r_date = td.eq(3).text().slice(0, 10);
-					var r_time = td.eq(3).text().slice(11, 16);
-					var r_memo = td.eq(4).text();
-					console.log(r_phone);
-					console.log(r_date);
-					console.log(r_time);
-					$("#r_phone").val(r_phone);
-					$("#r_name").val(r_name);
+					var rsv_code = $(this).data("code");
+					var rsv_phone = td.eq(1).text();
+					var rsv_name = td.eq(2).text();
+					var rsv_date = td.eq(3).text().slice(0, 10);
+					var rsv_time = td.eq(3).text().slice(11, 16);
+					var rsvm_memo = td.eq(4).text();
+					console.log(rsv_phone);
+					console.log(rsv_date);
+					console.log(rsv_time);
+					$("#rsv_code").val(rsv_code);
+					$("#rsv_phone").val(rsv_phone);
+					$("#rsv_name").val(rsv_name);
 					//datepicker UI 를 이용해 r_date의 정보를 setDate 시킴
-					$("#r_date").datepicker("setDate", r_date);
-					$("#r_time").val(r_time);
-					$("#r_memo").val(r_memo);
+					$("#rsv_date").datepicker("setDate", rsv_date);
+					$("#rsv_time").val(rsv_time);
+					$("#rsvm_memo").val(rsvm_memo);
 				});
 			},
 			error : function(err) {
@@ -547,9 +559,10 @@ div {
 		});
 	}
 
+	
 	/* 특정일 조회시 검색되는 예약정보 출력  */
 	function searchReserv() {
-		console.log($("r_date").val());
+		console.log($("#rsv_date").val());
 		$.ajax({
 			type : "post",
 			url : "rest/searchreserv",
@@ -560,37 +573,41 @@ div {
 			success : function(result) {
 				console.log(result);
 				$("#reservtable").html(result.reservList);
-				
-				
+
 				/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
 				$("#reservtable tr").click(function() {
 					var tdArr = new Array();
 					var tr = $(this);
 					var td = tr.children();
 					console.log(tr.text());
-					$("#reservtable tr").css('background-color', 'white');
-					tr.css('background-color', '#ddd');
-
 					/* tr 행의 정보들을 Arr에 담음 */
 					td.each(function(i) {
 						tdArr.push(td.eq(i).text());
 					});
+					$("#upbtn").val("수정");
+					$("#dtbtn").remove();
+					$("#worktd").append("<input type='button' id='dtbtn'  onclick='deleteReserv()' value='삭제'>");
+					$("#reservtable tr").css('background-color', 'white');
+					tr.css('background-color', '#ddd');
+
 
 					console.log("배열에 담긴 값 : " + tdArr);
 					/* 배열에 담긴 값을 상세정보에 출력 */
-					var r_phone = td.eq(1).text();
-					var r_name = td.eq(2).text();
-					var r_date = td.eq(3).text().slice(0, 10);
-					var r_time = td.eq(3).text().slice(11, 16);
-					var r_memo = td.eq(4).text();
-					console.log(r_phone);
-					console.log(r_date);
-					console.log(r_time);
-					$("#r_phone").val(r_phone);
-					$("#r_name").val(r_name);
-					$("#r_date").datepicker("setDate", r_date);
-					$("#r_time").val(r_time);
-					$("#r_memo").val(r_memo);
+					var rsv_code = $(this).data("code");
+					var rsv_phone = td.eq(1).text();
+					var rsv_name = td.eq(2).text();
+					var rsv_date = td.eq(3).text().slice(0, 10);
+					var rsv_time = td.eq(3).text().slice(11, 16);
+					var rsvm_memo = td.eq(4).text();
+					console.log(rsv_phone);
+					console.log(rsv_date);
+					console.log(rsv_time);
+					$("#rsv_code").val(rsv_code);
+					$("#rsv_phone").val(rsv_phone);
+					$("#rsv_name").val(rsv_name);
+					$("#rsv_date").datepicker("setDate", rsv_date);
+					$("#rsv_time").val(rsv_time);
+					$("#rsvm_memo").val(rsvm_memo);
 				});
 
 			},
@@ -600,6 +617,54 @@ div {
 		});
 	}
 
+	/* 새로고침 클릭 시 예약 화면 초기화 */
+	$("#rebtn").click(function(){
+		$("#upbtn").val("등록");
+		$("#dtbtn").remove();
+		$("#rsv_code").val(null);
+		$("#reservtable tr").css('background-color', 'white');
+	});
+	
+	/* 예약 수정 완료하기 */
+	 function updateReserv() {
+		 	var rsv_code = $("#rsv_code").val();
+			var rsv_phone = $("#rsv_phone").val();
+			var rsv_name = $("#rsv_name").val();
+			var rsv_date = $("#rsv_date").val() + " " +$("#rsv_time").val();
+			var rsvm_memo = $("#rsvm_memo").val();
+		 $.ajax({
+			type : 'post',
+			url : "rest/updatereserv",
+			data : {"rsv_code":rsv_code,"rsv_phone":rsv_phone,"rsv_phone":rsv_phone,"rsv_name":rsv_name,"rsv_date":rsv_date,"rsvm_memo":rsvm_memo},
+			dataType : 'json',
+			success : function(data){
+				console.log(data);
+				alert(data.result);
+				reservation();
+			},
+			error : function(err){
+				
+			}
+		}); 
+	} 
+	 
+	 function deleteReserv(){
+		$.ajax({
+			type : 'post',
+			url : "rest/deletereserv",
+			data : {"rsv_code":$("#rsv_code").val()},
+			dataType : 'json',
+			success : function(data){
+				console.log(data);
+				alert(data.result);
+				reservation();
+			},
+			error : function(err){
+				console.log(err);
+			}
+		});
+	 }
+	
 	/* 모달 박스 뒤 백그라운드 클릭 시 모달박스 해제 */
 	var $layerW = $('#reservation');
 	$layerW.find('#bg_layer').on('mousedown', function(evt) {
@@ -639,21 +704,7 @@ div {
 
 	/* 키패드 입력 end */
 
-	/* 예약 수정 완료하기 */
-	function updatereservinfo() {
-		/* $.ajax({
-			type : 'post',
-			url : "updateservinfo",
-			data : "",
-			dataType : 'json',
-			success : function(data){
-				console.log(data);
-			},
-			error : function(err){
-				
-			}
-		}); */
-	}
+	
 
 	/* 환전클릭 */
 	function changemoney() {

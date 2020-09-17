@@ -1,17 +1,15 @@
 
 package com.team2.simpleOrder.service.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.chainsaw.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -182,6 +180,35 @@ public class CompanyMemberMM1 {
 		session.setAttribute("ce_email", cDao.getcCodeEmailInfo((String) session.getAttribute("c_code")));
 		session.removeAttribute("emp_code");
 		return "redirect:/poslogin";
+	}
+
+	public HashMap<String, String> getEmpPostionList(HttpSession session) {
+		CMemberHtmlMaker hm = new CMemberHtmlMaker(); 
+		ArrayList<HashMap<String, String>> empPostionList = cDao.getEmpPostionList(session.getAttribute("c_code")); // 회원 별 직급 조인하여 select
+		HashMap<String, String> empHtmlList = new HashMap<String, String>(); 
+		empHtmlList.put("empList", hm.empList(empPostionList));// html 만들어 캡슐화
+		
+		return empHtmlList;
+	}
+
+	public HashMap<String, String> getPositionList(HttpSession session, String empPosition) {
+		HashMap<String, String> pL = new HashMap<String, String>();
+		ArrayList<HashMap<String, String>> positionList = cDao.getPositionList(session.getAttribute("c_code"));
+		CMemberHtmlMaker hm = new CMemberHtmlMaker();
+		pL.put("positionList", hm.positionList(positionList,empPosition));
+		return pL;
+	}
+
+
+	public String updateEmpInfo(HashMap<String, String> empInfo, HttpSession session, RedirectAttributes reat) {
+		reat.addFlashAttribute("basicPath","empSettingDivOn()");
+		empInfo.putIfAbsent("c_code", (String) session.getAttribute("c_code"));
+		if(!cDao.updateEmpInfo(empInfo)) {
+			reat.addFlashAttribute("error", "수정에실패하였습니다.");
+		}
+			
+		return "redirect:posSetting";
+		
 	}
 
 }

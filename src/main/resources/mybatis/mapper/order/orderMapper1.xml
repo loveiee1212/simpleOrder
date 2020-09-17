@@ -18,8 +18,7 @@
 	
 	<!-- 예약정보 select null이 아닐경우 특정일 조회 예약정보 select -->
 	<select id="getReservList" parameterType="order" resultType="order">
-	
-	SELECT * FROM RESERVATION AS RSV JOIN RESERVATION_MEMO AS RSVM ON RSV.C_CODE = #{c_code}
+	SELECT * FROM RESERVATION AS RSV LEFT OUTER JOIN RESERVATION_MEMO AS RSVM ON RSV.C_CODE = RSVM.C_CODE AND RSV.RSV_CODE=RSVM.RSV_CODE AND RSV.C_CODE = #{c_code}
 	<if test="rsv_date!=null">
 	<if test="rsv_date!=''">
 	AND RSV.RSV_DATE BETWEEN TIMESTAMP(#{rsv_date}) AND TIMESTAMP(#{rsv_date})+INTERVAL '1' DAY
@@ -28,6 +27,60 @@
 	ORDER BY RSV.RSV_DATE ASC
 	</select>
 	
+	<!-- 회사코드에 대한 예약정보 수 select -->
+	<select id="selectReservcnt" parameterType="String" resultType="int">
+	SELECT COUNT(*) FROM RESERVATION WHERE C_CODE =#{c_code}
+	</select>
+	
+	<!-- 회사코드에 대한 예약 갯수 select -->
+	<select id="selectReservmemocnt" parameterType="order" resultType="int">
+	SELECT COUNT(*) FROM RESERVATION_MEMO WHERE C_CODE = #{c_code} AND RSV_CODE = #{rsv_code}
+	</select>
+	
+	<!-- 예약이 아무것도 없다면 예약코드가 1인 데이터 insert -->
+	<insert id="insertFirstReserv" parameterType="order">
+	INSERT INTO RESERVATION 
+	VALUES(#{c_code},LPAD(1,4,'0'),#{rsv_name},#{rsv_phone},TIMESTAMP(#{rsv_date}))
+	</insert>
+	
+	<!-- 예약이 1개라도 있다면 마지막 예약코드에 1을 더한 예약 데이터 insert -->
+	<insert id="insertReserv" parameterType="order">
+	INSERT INTO RESERVATION 
+	(C_CODE, RSV_CODE,RSV_NAME,RSV_PHONE,RSV_DATE) 
+	SELECT #{c_code}, LPAD(MAX(RSV_CODE)+1,4,'0'),#{rsv_name},#{rsv_phone}, TIMESTAMP(#{rsv_date}) 
+	FROM reservation WHERE C_CODE =#{c_code}
+	</insert>
+	
+	<!-- 메모가 있다면 예약메모테이블에 insert -->
+	<insert id="insertReservmemo" parameterType="order">
+	INSERT INTO RESERVATION_MEMO (C_CODE,RSV_CODE,RSVM_MEMO)
+	<!-- 예약 정보를 수정할 때 -->
+	<if test="rsv_code!=null">
+	VALUES (#{c_code},#{rsv_code},#{rsvm_memo}) 
+	</if>
+	<!-- 새로운 에약정보를 등록할 때 -->
+	<if test="rsv_code==null">	
+	SELECT #{c_code}, LPAD(MAX(RSV_CODE)+1,4,'0'),#{rsvm_memo} FROM RESERVATION WHERE C_CODE = #{c_code}
+	</if>
+	</insert>
+	
+	<!-- 예약코드가 있을 때 예약 메모가 없을 경우 메모테이블에 데이터를 삭제할 때 -->
+	<delete id="deleteReservmemo" parameterType="order">
+	DELETE FROM RESERVATION_MEMO WHERE C_CODE = #{c_code} AND RSV_CODE =#{rsv_code}
+	</delete>
+	
+	<!-- 예약을 업데이트 할 때 -->
+	<update id="updateReserv">
+	UPDATE RESERVATION AS RSV LEFT OUTER JOIN RESERVATION_MEMO AS RSVM ON 
+	RSV.C_CODE = RSVM.C_CODE AND RSV.RSV_CODE=RSVM.RSV_CODE SET RSV.RSV_NAME = #{rsv_name},
+	RSV.RSV_PHONE=#{rsv_phone},RSV.RSV_DATE=TIMESTAMP(#{rsv_date}) , RSVM.RSVM_MEMO = #{rsvm_memo} 
+	WHERE RSV.C_CODE = #{c_code} AND RSV.RSV_CODE=#{rsv_code}
+	</update>
+	
+	<!-- 예약 정보 데이터 전체를 삭제할 때 -->
+	<delete id="deleteReserv">
+	DELETE FROM RESERVATION WHERE C_CODE = #{c_code} AND RSV_CODE = #{rsv_code}
+	</delete>
 	
 	
 	
