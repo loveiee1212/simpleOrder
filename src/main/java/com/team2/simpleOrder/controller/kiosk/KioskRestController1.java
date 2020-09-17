@@ -20,14 +20,13 @@ public class KioskRestController1 {
 
 	// 판매키에 올라가 있는 상품리스트 출력
 	@PostMapping(value = "/getsellproductlist")
-	public HashMap<String, String> getSellProductList(HttpServletRequest req) {
+	public HashMap<String, Object> getSellProductList(HttpServletRequest req) {
 //		세션에 저장된 사업자코드를 가져온다
 //		HttpSession session= req.getSession();
 //		String c_code = session.getAttribute("c_code").toString();
 //		System.out.println(c_code);
 		String c_code = "123123123123";
-		HashMap<String, String> sellProList = km1.getSellProductList(c_code);
-		System.out.println(sellProList);
+		HashMap<String, Object> sellProList = km1.getSellProductList(c_code);
 		return sellProList;
 	}
 	// 리뷰리스트 출력

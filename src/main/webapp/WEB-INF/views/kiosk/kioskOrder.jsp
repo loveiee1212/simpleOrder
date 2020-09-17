@@ -18,30 +18,6 @@
 	margin: auto;
 }
 
-.pList_detail {
-	border: gray 1px solid;
-	height: 148px;
-	margin: 5px;
-}
-
-.pList_main {
-	width: 70%;
-	height: 150px;
-	float: left;
-}
-
-.pList_img {
-	width: 30%;
-	height: 150px;
-	float: right;
-}
-
-#pList img {
-	width: 100px;
-	height: 100px;
-	margin: 30px;
-}
-
 ul {
 	list-style-type: none;
 	margin: 0;
@@ -66,6 +42,8 @@ li a {
 	position: fixed;
 	bottom: 0;
 	width: 568px;
+	margin: auto;
+	height: auto;
 }
 
 #basket {
@@ -92,41 +70,6 @@ li a {
 	border-radius: 3px;
 }
 
-.pList_detail {
-	border: gray 1px solid;
-	height: 118px;
-	margin: 5px 0;
-}
-
-.pList_main {
-	width: 70%;
-	height: 120px;
-	float: left;
-}
-
-.pList_count {
-	width: 30%;
-	height: 120px;
-	float: right;
-}
-
-.pList_img img {
-	width: 100px;
-	height: 100px;
-	margin: 10px;
-}
-
-.count {
-	width: 40px;
-	height: 40px;
-	margin-top: 15px;
-}
-
-#count {
-	float: right;
-	margin-right: 30px;
-}
-
 strong {
 	font-size: 30px;
 	margin-left: 170px;
@@ -136,22 +79,87 @@ i {
 	margin-left: 140px;
 }
 
-#sum {
-	text-align: right;
+#header_nav {
+	/* overflow-x: scroll; */
+	-ms-overflow-style: none; /* IE에서 스크롤바 감춤 */
+	&::
+	-webkit-scrollbar
+	{
+	display
+	:
+	none
+	!important; /* 윈도우 크롬 등 */
 }
 
+}
 #header_nav img {
 	width: 80px;
 }
+
+#detail_body {
+	width: 240px;
+	height: 280px;
+	border: solid rgb(133, 133, 133) 1px;
+	border-radius: 5px;
+	margin: 10px 20px;
+	float: left;
+}
+
+.text_detail div {
+	margin: 4px 0;
+	text-align: center;
+	width: 240px;
+}
+
+.pd_name {
+	font-size: 20px;
+	font-weight: bolder;
+}
+
+.pList_detail {
+	width: 200px;
+	float: left;
+}
+
+.pd_imgName {
+	width: 200px;
+	height: 200px;
+	margin: 12px 20px 0 20px;
+}
+
+.pList_detail img {
+	width: 200px;
+	border-radius: 5px;
+}
+
+.pList {
+	clear: both;
+}
 </style>
 <script type="text/javascript">
+	//판매키에 등록된 상품리스트 출력
 	$.ajax({
 		url : 'rest/getsellproductlist',
 		type : 'post',
 		dataType : 'json',
 		success : function(data) {
-			console.log(data.sellProList);
-			$('#header_nav').html(data.sellProList);
+			//판매키 카테고리 네비바 html삽입
+			$('#header_nav').html(data.sellCtList);
+			//판매키 카테고리 html삽입
+			$('#sellProList').html(data.sellProCtList);
+			//판매키 카테고리에 class준거 차례대로 배열에 담기
+			var pList = document.getElementsByClassName('pList');
+			//판매키에 담긴 상품리스트 반복문
+			for (var i = 0; i < data.pList.length; i++) {
+				//판매키 카테고리에 class준거 반복문
+				for (var j = 0; j < pList.length; j++) {
+					//판매키 카테고리코드(상품 카테고리 코드) 와 상품리스트(상품 카테고리 코드) 값이 같은 곳에 삽입
+					if (i == j) {
+						$(".pList").eq(i).append(data.pList[j]);
+					}
+				}
+
+			}
 		},
 		error : function(err) {
 			console.log(err);
@@ -163,124 +171,27 @@ i {
 <body>
 	<div id="frame">
 		<nav id="header_nav"></nav>
-		<!-- <div id="c0List">
-			<h2>음식</h2>
-		</div>
-		<div id="pList">
-			<div class="pList_detail">
-				<div>
-					<img src="resources/img/2018111IMG1.PNG" alt="2018111IMG1.PNG">
-				</div>
-				<div class='text_detail'>
-					<div class='pd_name'>감바스</div>
-					<div class='pd_price'>가격 <font class='price'>15000</font>원</div>
-				</div>
-			</div>
-		</div> -->
-		<div id="c2List">
-			<h2>사이드</h2>
-			<div class="pList_detail">
-				<span class="pList_main">
-					<div>
-						<h2>감자튀김</h2>
-					</div>
-					<div>겉은 바삭 속은 촉촉 수제 감자튀김</div>
-					<div>3,000원</div>
-				</span> <span class="pList_img"> <img src="../img/감자튀김.jpg"
-					alt="imgEL">
-				</span>
-			</div>
-			<div class="pList_detail">
-				<span class="pList_main">
-					<div>
-						<h2>감자튀김</h2>
-					</div>
-					<div>겉은 바삭 속은 촉촉 수제 감자튀김</div>
-					<div>3,000원</div>
-				</span> <span class="pList_img"> <img src="../img/감자튀김.jpg"
-					alt="imgEL">
-				</span>
-			</div>
-			<div id="c3List">
-				<h2>음료</h2>
-
-				<div class="pList_detail">
-					<span class="pList_main">
-						<div>
-							<h2>콜라</h2>
-						</div>
-						<div>역시 콜라는 코카콜라</div>
-						<div>2,000원</div>
-					</span> <span class="pList_img"> <img src="../img/콜라.jpg"
-						alt="치킨el">
-					</span>
-				</div>
-			</div>
-			<br>
-		</div>
-		<nav id="footer_nav">
-			<div>
-				<ul>
-					<li><a href="javascript:void(0);">주문하기</a></li>
-					<li><a id="basket_open_btn" href="javascript:void(0);">주문내역</a></li>
-					<li><a id="bill_open_btn" href="javascript:void(0);">계산서</a></li>
-					<li><a href="javascript:void(0);">나가기</a></li>
-				</ul>
-			</div>
-		</nav>
-
-		<div id="basket">
-			<div>
-				<strong>장바구니</strong><i id="basket_close_btn" class="fa fa-close"
-					style="font-size: 36px"></i>
-			</div>
-			<div class="pList_detail">
-				<span class="pList_main">
-					<div>
-						<h2>후라이드 치킨</h2>
-					</div>
-					<div>18,000원</div>
-				</span> <span class="pList_count">
-
-					<div id="count">
-						<input type="button" class="count" value="▲"><br> <input
-							type="button" class="count" value="▼">
-					</div>
-				</span>
-			</div>
-			<div class="pList_detail">
-				<span class="pList_main">
-					<div>
-						<h2>감자튀김</h2>
-					</div>
-					<div>3,000원</div>
-				</span> <span class="pList_count">
-
-					<div id="count">
-						<input type="button" class="count" value="▲"><br> <input
-							type="button" class="count" value="▼">
-					</div>
-				</span>
-			</div>
-			<div class="pList_detail">
-				<span class="pList_main">
-					<div>
-						<h2>콜라</h2>
-					</div>
-					<div>2,000원</div>
-				</span> <span class="pList_count">
-
-					<div id="count">
-						<input type="button" class="count" value="▲"><br> <input
-							type="button" class="count" value="▼">
-					</div>
-				</span>
-				<h2 id="sum">합계 23000원</h2>
-			</div>
-		</div>
-		<div id="bill">계산서Modal</div>
+		<div id="sellProList"></div>
+		<br>
 	</div>
+	<nav id="footer_nav">
+		<div>
+			<ul>
+				<li><a href="javascript:void(0);">주문하기</a></li>
+				<li><a id="basket_open_btn" href="javascript:void(0);">주문내역</a></li>
+				<li><a id="bill_open_btn" href="javascript:void(0);">계산서</a></li>
+				<li><a href="javascript:void(0);">나가기</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="basket">
+		<div>
+			<strong>장바구니</strong><i id="basket_close_btn" class="fa fa-close"
+				style="font-size: 36px"></i>
+		</div>
 	</div>
+	<div id="bill"></div>
 </body>
 <script type="text/javascript">
 	function modal(id) {
@@ -316,7 +227,8 @@ i {
 							msTransform : 'translate(-50%, -50%)',
 							webkitTransform : 'translate(-50%, -50%)'
 						}).show()
-		// 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+
+		// 닫기 버튼 처리, 배경 레이어와 모달 div 지우기
 		$('#basket_close_btn').on('click', function() {
 			bg.remove();
 			modal.hide();
@@ -327,19 +239,23 @@ i {
 		});
 
 	}
+
+	// 장바구니 모달창 띄우기
 	$('#basket_open_btn').on('click', function() {
-		// 모달창 띄우기
+		//모달창 열기
 		modal('basket');
 	});
+
+	// 계산서 모달창 띄우기
 	$('#bill_open_btn').on('click', function() {
-		// 모달창 띄우기
 		$.ajax({
 			url : 'rest/getbilllist',
 			type : 'post',
 			dataType : 'json',
 			success : function(data) {
-				console.log(data.bill);
+				//계산서 html 삽입
 				$('#bill').html(data.bill);
+				//모달창 열기
 				modal('bill');
 			},
 			error : function(err) {
@@ -347,13 +263,6 @@ i {
 			}
 		});
 	});
-	/* 
-	 ajax발생시켜 상품리스트(카테고리 포함) 가져오기
-	 안보이는div생성 상품 누를때마다 상품코드 집어 넣기
-	 주문하기 클릭하면 div안에 있는 상품코드 다 서버로 넘기기
-	 주문내역 클릭시 숨겨둔 div보여지게 하기
-	 계산서 클릭시 준문했던 내역 긁어와서 div하나 띄어주고 주문내역 붙이기
-	 */
 </script>
 
 
