@@ -1,9 +1,6 @@
 package com.team2.simpleOrder.controller.order;
 
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,7 +55,25 @@ public class OrderRestController1 {
 		HashMap<String,String> hMap = om.getReservList(odr);
 		return hMap;
 	}
+	
+	
+	@RequestMapping(value = "/updatereserv", method = RequestMethod.POST)
+	public HashMap<String, String> updateReserv(String rsv_code,String rsv_name,String rsv_date,String rsv_phone,String rsvm_memo,HttpSession session) {
+		Order odr = new Order();
+		odr.setRsv_code(rsv_code);
+		odr.setRsv_name(rsv_name);
+		odr.setRsv_date(rsv_date);
+		odr.setRsv_phone(rsv_phone);
+		odr.setRsvm_memo(rsvm_memo);
+		HashMap<String,String> hMap = om.updateReserv(session,odr);
+		return hMap;
+	}
 
+	@RequestMapping(value = "/deletereserv", method = RequestMethod.POST)
+	public HashMap<String, String> deleteReserv(HttpSession session, String rsv_code) {
+		HashMap<String,String> hMap = om.deleteReserv(session,rsv_code);
+		return hMap;
+	}
 	
 
 	@Autowired
