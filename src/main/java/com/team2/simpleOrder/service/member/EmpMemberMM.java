@@ -62,7 +62,16 @@ public class EmpMemberMM {
 	public String getAdTime(HashMap<String, String> mb) {
 		HashMap<String,String> adTime = mDao2.getAdTime(mb);
 		String json = new Gson().toJson(adTime);
-		System.out.println(adTime);
+		return json;
+	}
+
+	public String updateWorkTime(HashMap<String, String> mb) {
+		String json = null;
+		boolean result = mDao2.updateWorkTime(mb);
+		System.out.println(result);
+		if (result) {
+			json = new Gson().toJson("1");
+		}
 		return json;
 	}
 

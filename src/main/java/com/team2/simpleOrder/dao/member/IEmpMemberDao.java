@@ -3,7 +3,6 @@ package com.team2.simpleOrder.dao.member;
 import java.util.HashMap;
 import java.util.List;
 
-import com.team2.simpleOrder.dto.Member;
 
 public interface IEmpMemberDao {
 
@@ -18,5 +17,7 @@ public interface IEmpMemberDao {
 	HashMap<String, String> getEmpInfo(HashMap<String, String> mb);
 
 	HashMap<String, String> getAdTime(HashMap<String, String> mb);
+
+	boolean updateWorkTime(HashMap<String, String> mb);
 
 }

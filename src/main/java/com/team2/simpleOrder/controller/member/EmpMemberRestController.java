@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,6 +74,13 @@ public class EmpMemberRestController {
 	public String getAdTime (@RequestParam HashMap<String, String> mb, HttpSession session) {
 		// mb.put("c_code",session.getAttribute("c_code").toString());
 		String json = emm.getAdTime(mb);
+		return json;
+	}
+	
+	@PostMapping("/updateworktime")
+	public String updateWorkTime (@RequestParam HashMap<String, String> mb, HttpSession session) {
+		// mb.put("c_code",session.getAttribute("c_code").toString());
+		String json = emm.updateWorkTime(mb);
 		return json;
 	}
 }

@@ -7,6 +7,10 @@
 <title>Schedule</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
 <link rel="stylesheet" href="resources/css/calendar.css" type="text/css">
 <link rel="stylesheet" href="resources/css/clock.css" type="text/css">
@@ -134,20 +138,19 @@
 		minute = today.getMinutes();
 		second = today.getSeconds();
 		firstDay = new Date(year, month - 1, 1);
-		lastDay = new Date(year, month, 0);
-		dayCount = 0;
+		lastDay = new Date(year, month, 0);	
 		$tdDay = $(".day");
 		$tdText = $(".text");
 	}
 
 	function showDay() {
+		var dayCount = 0;
 		if (month < 10) {
 			month = String("0" + month);
 		}
-		$("#yearMonth").text(year + "   " + month);
+		$("#yearMonth").text(year +" "+ month);
 
 		//해당일을 표시
-		var j = 1;
 		for (var i = firstDay.getDay(); i < firstDay.getDay()
 				+ lastDay.getDate(); i++) {
 			++dayCount
@@ -212,41 +215,44 @@
 				'c_code' : 123123123123,
 				'bd_date' : year + "-" + month + "-" + day,
 				'f_date' : year + "-" + month + "-" + 01,
-				'emp_code' : 1
+				'emp_code' : 0
 			},
 			dataType : 'json',
 			success : function(data) {
-				
+
 				for ( var i in data) {
 
 					if (data[i].BD_DATE != null) {
-						var bd_date = data[i].BD_DATE.substr(4, 2);
-						
-						bd_date = bd_date.replace(/[^\d]+/g, "");
+						var bd_date = moment(data[i].BD_DATE).format("DD");
+						var bd_dateYM = moment(data[i].BD_DATE).format(
+								"YYYY MM");
 					}
 					if (data[i].AD_INTIME != null) {
-						var ad_inTime = data[i].AD_INTIME.substr(12, 9);
-						ad_inTime = ad_inTime.replace(/\s/g,"");
-						ad_inTime = ad_inTime.replace(/[a-zA-Z]+/g,"");
+						var ad_inTime = moment(data[i].AD_INTIME).format(
+								"HH:mm:ss");
 					}
 					if (data[i].AD_OUTTIME != null) {
-						var ad_outTime = data[i].AD_OUTTIME.substr(12, 9);
+						var ad_outTime = moment(data[i].AD_OUTTIME).format(
+								"HH:mm:ss");
+						/* var ad_outTime = data[i].AD_OUTTIME.substr(12, 9);
 						ad_outTime = ad_outTime.replace(/\s/g,"");
-						ad_outTime = ad_outTime.replace(/[a-zA-Z]+/g,"");
+						ad_outTime = ad_outTime.replace(/[a-zA-Z]+/g,""); */
 					} else {
 						var ad_outTime = "null";
 					}
 
 					for (var j = firstDay.getDay(); j < firstDay.getDay()
 							+ lastDay.getDate(); j++) {
-						if (bd_date == $tdDay.eq(j).text()) {
+						if (bd_dateYM == $("#yearMonth").text()) {
+							if (bd_date == $tdDay.eq(j).text()) {
 
-							if (ad_outTime == "null") {
-								$tdText.eq(j).text("출근: " + ad_inTime);
-							} else {
-								$tdText.eq(j).text(
-										"출근: " + ad_inTime + "\r\n퇴근: "
-												+ ad_outTime);
+								if (ad_outTime == "null") {
+									$tdText.eq(j).text("출근: " + ad_inTime);
+								} else {
+									$tdText.eq(j).text(
+											"출근: " + ad_inTime + "\r\n퇴근: "
+													+ ad_outTime);
+								}
 							}
 						}
 					}
@@ -260,15 +266,15 @@
 
 	//출근 시간 입력
 	function ad_inTime() {
+		var ad_inTime = moment().format("YYYY-MM-DD HH:mm:ss");
 		$.ajax({
 			type : 'post',
 			url : 'rest/insertAd_inTime',
 			data : {
-				"ad_inTime" : year + "-" + month + "-" + today.getDay() + " "
-						+ hour + ":" + minute + ":" + second,
+				"ad_inTime" : ad_inTime,
 				'c_code' : 123123123123,
 				'bd_date' : '2020-09-08 16:33:00',
-				'emp_code' : 1
+				'emp_code' : 0
 			},
 			dataType : "json",
 			success : function(data) {
@@ -277,27 +283,27 @@
 					alert("출근이 완료되었습니다");
 				}
 				resetDay();
-				showDay();
+				showNewInfo();
 			},
 			error : function(err) {
 				alert("출근에 실패했습니다.");
 				resetDay();
-				showDay();
+				showNewInfo();
 			}
 		});
 	}
 
 	//퇴근 시간 입력
 	function ad_outTime() {
+		var ad_outTime = moment().format("YYYY-MM-DD HH:mm:ss");
 		$.ajax({
 			type : 'post',
 			url : 'rest/insertAd_outTime',
 			data : {
-				"ad_outTime" : year + "-" + month + "-" + today.getDay() + " "
-						+ hour + ":" + minute + ":" + second,
+				"ad_outTime" : ad_outTime,
 				'c_code' : 123123123123,
-				'bd_date' : '2020-09-08 16:33:00',
-				'emp_code' : 1
+				'bd_date' : '2020-08-29',
+				'emp_code' : 0
 			},
 			dataType : "json",
 			success : function(data) {
@@ -305,12 +311,12 @@
 					alert("퇴근이 완료되었습니다");
 				}
 				resetDay();
-				showDay();
+				showNewInfo();
 			},
 			error : function(err) {
 				alert("퇴근에 실패했습니다.");
 				resetDay();
-				showDay();
+				showNewInfo();
 			}
 		});
 	}

@@ -31,7 +31,14 @@
 	<update id="insertAd_outTime" parameterType="hashmap">
 		UPDATE ATTENDANCE
 		SET AD_OUTTIME = #{ad_outTime}
-		WHERE C_CODE=#{c_code} AND BD_DATE=#{bd_date} AND EMP_CODE=LPAD(#{emp_code},5,0)
+		WHERE C_CODE=#{c_code} AND DATE(BD_DATE)=#{bd_date} AND EMP_CODE=LPAD(#{emp_code},5,0)
+	</update>
+	
+	<!-- 출퇴근 시간 변경 -->
+	<update id="updateWorkTime" parameterType="hashmap">
+		UPDATE ATTENDANCE
+		SET AD_INTIME = #{ad_inTime}, AD_OUTTIME = #{ad_outTime}
+		WHERE C_CODE =#{c_code} AND DATE(BD_DATE) = #{bd_date} AND EMP_CODE = LPAD(#{emp_code},5,0)
 	</update>
 
 	<!-- 직원 리스트 출력 -->
