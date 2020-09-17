@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -59,6 +60,11 @@ public class CompanyMemberController1 {
 	@GetMapping("/empLogOut") // 
 	public String empLogOut(HttpSession session) {
 		return mm.cCodeAcountLogout(session);
+	}
+	@PatchMapping("/updateEmpInfo")
+	public String updateEMpInfo(HttpSession session, @RequestParam HashMap<String, String> empInfo, RedirectAttributes reat) {
+		mm.updateEmpInfo(empInfo, session, reat);
+		return "redirect:posSetting";
 	}
 	
 
