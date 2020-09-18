@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>joinEmailFrm</title>
+<title>사업자 계정 가입 생성</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -85,7 +85,7 @@ li {
 }
 
 td {
-	padding: 0px 0px 10px 110px;
+	padding: 0px 0px 5px 110px;
 }
 
 input:focus {
@@ -110,13 +110,13 @@ input:focus {
 #zipNo, #roadAddrPart1, #addrDetail {
 	font-size: 18px;
 	margin-left: -30px;
-	margin-bottom: 8px;
+	margin-bottom: 5px;
 }
 
 #add {
-    width: 150px;
-    height: 50px;
-    margin-left: 4px;
+	width: 150px;
+	height: 50px;
+	margin-left: 4px;
 	border: 2px solid white;
 	background-color: #81d4fa;
 	font-weight: bold;
@@ -126,7 +126,7 @@ input:focus {
 	width: 540px;
 	height: 50px;
 	font-size: 18px;
-	margin-top: -10px;
+	margin-top: -2px;
 	margin-left: -30px;
 }
 
@@ -134,7 +134,7 @@ input:focus {
 	width: 540px;
 	height: 50px;
 	border: 2px solid white;
-	margin: -12px -30px 5px;
+	margin: -5px -30px 5px;
 	font-size: 25px;
 	outline: 0;
 	background-color: #81d4fa;
@@ -154,8 +154,7 @@ input:focus {
 			<nav class="navbar navbar-default">
 				<div id="header">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="main">
-						<img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
+						<a class="navbar-brand" href="main"> <img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 						<!-- 포스 메인페이지 -->
 					</div>
 					<ul class="nav navbar-nav">
@@ -167,52 +166,45 @@ input:focus {
 						<!-- 주요 기능 페이지 -->
 					</ul>
 				</div>
-				<form action="createEmailAcount" name="form" id="form" method="post"
-					onsubmit="return joinCmember()">
+				<form action="createEmailAcount" name="form" id="form" method="post" onsubmit="return joinCmember()">
 					<table id="joinInfo">
 						<tr>
-							<td><input type="email" id="ce_email" name="ce_email" placeholder="사업자 이메일"
-							onkeydown="keyEvt()" value="${acountInfo.ce_email}"></td>
+							<td><input type="email" id="ce_email" name="ce_email" placeholder="사업자 이메일" onkeydown="keyEvt()" value="${acountInfo.ce_email}"></td>
 							<!-- 이메일 형식만 통과 되도록 -->
 						</tr>
 						<tr>
 							<td id="msg1"></td>
 						</tr>
 						<tr>
-							<td><input type="password" id="ce_pw" name="ce_pw" placeholder="비밀번호 12~20자리"
-							maxlength="20" onkeydown="keyEvt()"></td>
+							<td><input type="password" id="ce_pw" name="ce_pw" placeholder="비밀번호 12~20자리" maxlength="20" onkeydown="keyEvt()"></td>
 							<!-- 12~20자 특수문자,숫자 포함 -->
 						</tr>
 						<tr>
 							<td id="msg2"></td>
 						</tr>
 						<tr>
-							<td><input type="text" id="c_code" name="c_code" placeholder="대표 사업자 번호 12자리" maxlength="12" 
-							onkeypress="onlyNum(this)" numberOnly="true" onkeydown="keyEvt()" value="${acountInfo.c_code}"></td>
+							<td><input type="text" id="c_code" name="c_code" placeholder="대표 사업자 번호 12자리" maxlength="12" onkeypress="onlyNum(this)" numberOnly="true" onkeydown="keyEvt()" value="${acountInfo.c_code}"></td>
 							<!-- 필수입력 12자리 숫자만 -->
 						</tr>
 						<tr>
 							<td id="msg3"></td>
 						</tr>
 						<tr>
-							<td><input type="password" id="c_pw" name="c_pw" placeholder="대표 사업자 비밀번호 12~20자리"
-							maxlength="20" onkeydown="keyEvt()"></td>
+							<td><input type="password" id="c_pw" name="c_pw" placeholder="대표 사업자 비밀번호 12~20자리" maxlength="20" onkeydown="keyEvt()"></td>
 							<!-- 필수입력 20자리 이내 -->
 						</tr>
 						<tr>
 							<td id="msg4"></td>
 						</tr>
 						<tr>
-							<td><input type="text" id="emp_name" name="emp_name" placeholder="대표 사업자 이름"
-							onkeydown="keyEvt()" value="${acountInfo.emp_name}"></td>
+							<td><input type="text" id="emp_name" name="emp_name" placeholder="사업자 대표명" onkeydown="keyEvt()" value="${acountInfo.emp_name}"></td>
 							<!-- 필수입력 공백 허용X -->
 						</tr>
 						<tr>
 							<td id="msg5"></td>
 						</tr>
 						<tr>
-							<td><input type="text" id="c_name" name="c_name" placeholder="사업자 상호명"
-							maxlength="30" onkeydown="keyEvt()" value="${acountInfo.c_name}"></td>
+							<td><input type="text" id="c_name" name="c_name" placeholder="사업자 상호명" maxlength="30" onkeydown="keyEvt()" value="${acountInfo.c_name}"></td>
 							<!-- 필수입력 30자리 이내 -->
 						</tr>
 						<tr>
@@ -224,23 +216,17 @@ input:focus {
 							<input type="button" id="add" value="주소검색" onclick="goPopup();"></td>
 						</tr>
 						<tr>
-							<td><input type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소" maxlength="50"
-							style="width: 540px; height: 50px;" onkeydown="keyEvt()" value="${acountInfo.roadAddrPart1}"></td>
+							<td><input type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소" readonly maxlength="50" style="width: 540px; height: 50px;" onkeydown="keyEvt()" value="${acountInfo.roadAddrPart1}"></td>
 						</tr>
 						<tr>
-							<td><input type="text" id="addrDetail" name="addrDetail"
-								style="width: 267px;  height: 50px;" value="${acountInfo.addrDetail}"
-								placeholder="상세주소"> <input type="text"
-								id="roadAddrPart2" style="width: 267px;  height: 50px;" value="" placeholder="동"
-								value="${acountInfo.roadAddrpar2 }" name="roadAddrPart2"></td>
+							<td><input type="text" id="addrDetail" name="addrDetail" style="width: 383px; height: 50px;" value="${acountInfo.addrDetail}" placeholder="상세주소">
+							<input type="text" id="roadAddrPart2" style="width: 150px; height: 50px;" value="" placeholder="동" readonly value="${acountInfo.roadAddrpar2}" name="roadAddrPart2"></td>
 						</tr>
 						<tr>
 							<td id="msg7"></td>
 						</tr>
 						<tr>
-							<td><input type="text" id="c_phone"
-								name="c_phone" placeholder="사업장 연락처  -없이 11자리" maxlength="11" onkeypress="onlyNum(this)" numberOnly="true"
-								value="${acountInfo.c_phone }"></td>
+							<td><input type="text" id="c_phone" name="c_phone" placeholder="사업장 연락처  -없이 11자리" maxlength="11" onkeypress="onlyNum(this)" numberOnly="true" value="${acountInfo.c_phone }"></td>
 							<!-- 필수입력 12자리 숫자만 -->
 						</tr>
 						<tr>
@@ -253,8 +239,7 @@ input:focus {
 							<td><input type="submit" id="btn" value="회원 가입"></td>
 						</tr>
 					</table>
-					<input type="text" style="display: none" name="c_address"
-						id="address">
+					<input type="text" style="display: none" name="c_address" id="address">
 				</form>
 			</nav>
 		</div>
@@ -271,15 +256,17 @@ input:focus {
 		});
 	}
 
-	//주소 검색창
+	// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
+	/* document.domain = "http://localhost/simpleOrder/"; */
+
 	function goPopup() {
+		/* window.name="jusoPopup"; */
 		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-		var pop = window.open("addr/addr.jsp", "pop",
-				"width=570,height=420, scrollbars=yes, resizable=yes");
+		var pop = window.open("addr/addr.jsp", "pop", "width=570,height=420, scrollbars=yes, resizable=yes");
 		document.getElementById("msg7").innerHTML = " ";
 
 		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes");  
 	}
 	/** API 서비스 제공항목 확대 (2017.02) **/
 	function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail,
@@ -329,7 +316,7 @@ input:focus {
 			$('#c_pw').focus();
 			return false;
 		} else if ($('#emp_name').val() == "") {
-			document.getElementById("msg5").innerHTML = "사업자 이름을 입력해주세요!!";
+			document.getElementById("msg5").innerHTML = "사업자 대표명을 입력해주세요!!";
 			$('#emp_name').focus();
 			return false;
 		} else if ($('#c_name').val() == "") {

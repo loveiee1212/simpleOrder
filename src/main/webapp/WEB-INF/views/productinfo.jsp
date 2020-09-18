@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 소개</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -18,13 +18,15 @@
 body {
 	background-color: #e3f2fd;
 	font-family: 'NEXON Lv1 Gothic OTF Light';
-} 
+}
 
 @font-face {
-    font-family: 'NEXON Lv1 Gothic OTF Light';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 #header {
@@ -110,14 +112,13 @@ P {
 			<nav class="navbar navbar-default">
 				<div id="header">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="main"><img src="resources/image/logo.png"
-							alt="SimpleOrder 홈페이지"></a>
+						<a class="navbar-brand" href="main"><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 						<!-- 포스 메인페이지 -->
 					</div>
 					<ul class="nav navbar-nav">
 						<li><a href="productinfo">상품소개</a></li>
 						<!-- 상품소개 페이지 -->
-						<li><a href="joinEmailFrm">가입안내</a></li>
+						<li><a href="joinEmailFrm">회원가입</a></li>
 						<!-- 가입안내 페이지 -->
 						<li><a href="mainskill">주요기능</a></li>
 						<!-- 주요 기능 페이지 -->
