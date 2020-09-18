@@ -54,14 +54,21 @@ public interface ICompanyMemberDao1 {
 	
 	@Select("SELECT EMP.EMP_NAME,EMP.EMP_CODE, EMP.EMP_PW,POSITION.PST_NAME "
 			+ "FROM EMP INNER JOIN POSITION ON EMP.PST_POSITION = POSITION.PST_POSITION AND EMP.C_CODE = POSITION.C_CODE "
-			+ "WHERE EMP.C_CODE = #{value} AND EMP.EMP_STATUS = 1")
-	ArrayList<HashMap<String, String>> getEmpPostionList(Object c_code);
+			+ "WHERE EMP.C_CODE = #{c_code} AND EMP.EMP_STATUS = #{emp_status}")
+	ArrayList<HashMap<String, String>> getEmpList(HashMap<String, String> empinfo);
 
 	@Select("SELECT PST_NAME, PST_POSITION FROM POSITION WHERE C_CODE = ${value}")
 	ArrayList<HashMap<String, String>> getPositionList(Object c_code);
 	
-	@Update("UPDATE EMP SET PST_POSITION = #{empPosition}, EMP_NAME = #{empName}, EMP_PW = #{empPw} WHERE C_CODE = #{c_code} AND EMP_CODE = #{empCode}")
+	@Update("UPDATE EMP SET PST_POSITION = #{emp_position}, EMP_NAME = #{emp_name}, EMP_PW = #{emp_pw} WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code}")
 	boolean updateEmpInfo(HashMap<String, String> empInfo);
+
+	@Select("SELECT LPAD(COUNT(*),5,0) FROM EMP WHERE C_CODE = #{value}")
+	String createEmpSetting(Object c_code);
+
+	@Update("UPDATE EMP SET EMP_STATUS = '-1' WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code}")
+	void fireEmpInfo(HashMap<String, String> empInfo);
+	
 
 
 	

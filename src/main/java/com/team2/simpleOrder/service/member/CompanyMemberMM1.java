@@ -147,13 +147,22 @@ public class CompanyMemberMM1 {
 	}
 
 	public String emailLogout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/main";
+		try {
+			session.invalidate();
+			return "redirect:/main";
+		} catch (Exception e) {
+			return "redirect:/main";
+
+		}
 	}
 
 	public String backClist(HttpSession session) {
-		session.setAttribute("ce_email", cDao.getcCodeEmailInfo((String) session.getAttribute("c_code")));
-		return "redirect:/cList";
+		try {
+			session.setAttribute("ce_email", cDao.getcCodeEmailInfo((String) session.getAttribute("c_code")));
+			return "redirect:/cList";
+		} catch (Exception e) {
+			return "redirect:/cList";
+		}
 	}
 
 	public String empAcountlogin(HashMap<String, String> empAcountInfo, HttpSession session, RedirectAttributes reat) {
@@ -177,38 +186,77 @@ public class CompanyMemberMM1 {
 	}
 
 	public String cCodeAcountLogout(HttpSession session) {
-		session.setAttribute("ce_email", cDao.getcCodeEmailInfo((String) session.getAttribute("c_code")));
-		session.removeAttribute("emp_code");
-		return "redirect:/poslogin";
+		try {
+			session.setAttribute("ce_email", cDao.getcCodeEmailInfo((String) session.getAttribute("c_code")));
+			session.removeAttribute("emp_code");
+			return "redirect:/poslogin";
+		} catch (Exception e) {
+			return "redirect:/poslogin";
+		}
 	}
 
-	public HashMap<String, String> getEmpPostionList(HttpSession session) {
-		CMemberHtmlMaker hm = new CMemberHtmlMaker(); 
-		ArrayList<HashMap<String, String>> empPostionList = cDao.getEmpPostionList(session.getAttribute("c_code")); // 회원 별 직급 조인하여 select
-		HashMap<String, String> empHtmlList = new HashMap<String, String>(); 
+	public HashMap<String, String> getEmpList(HttpSession session, HashMap<String, String> empinfo) {
+		CMemberHtmlMaker hm = new CMemberHtmlMaker();
+		empinfo.put("c_code", (String) session.getAttribute("c_code"));
+		ArrayList<HashMap<String, String>> empPostionList = cDao.getEmpList(empinfo); // 회원
+																													// 별
+																													// 직급
+																													// 조인하여
+																													// select
+		HashMap<String, String> empHtmlList = new HashMap<String, String>();
 		empHtmlList.put("empList", hm.empList(empPostionList));// html 만들어 캡슐화
-		
+
 		return empHtmlList;
 	}
 
-	public HashMap<String, String> getPositionList(HttpSession session, String empPosition) {
+	public HashMap<String, String> getPositionList(HttpSession session, String empPosition) { // 포지션 리스트 가져오기
 		HashMap<String, String> pL = new HashMap<String, String>();
 		ArrayList<HashMap<String, String>> positionList = cDao.getPositionList(session.getAttribute("c_code"));
 		CMemberHtmlMaker hm = new CMemberHtmlMaker();
-		pL.put("positionList", hm.positionList(positionList,empPosition));
+		pL.put("positionList", hm.positionList(positionList, empPosition));
 		return pL;
 	}
 
-
-	public String updateEmpInfo(HashMap<String, String> empInfo, HttpSession session, RedirectAttributes reat) {
-		reat.addFlashAttribute("basicPath","empSettingDivOn()");
+	public String updateEmpInfo(HashMap<String, String> empInfo, HttpSession session, RedirectAttributes reat) { // emp
+																													// 정보
+																													// 수정
+		reat.addFlashAttribute("basicPath", "empSettingDivOn()");
 		empInfo.putIfAbsent("c_code", (String) session.getAttribute("c_code"));
-		if(!cDao.updateEmpInfo(empInfo)) {
+		if (!cDao.updateEmpInfo(empInfo)) {
 			reat.addFlashAttribute("error", "수정에실패하였습니다.");
 		}
-			
 		return "redirect:posSetting";
-		
+	}
+
+	public HashMap<String, String> createEmpSetting(HttpSession session) { // 새로운 데이터 입력을 위한 코드 가져오기 & 직급 리스트 가져오기
+		HashMap<String, String> empSettingInfo = getPositionList(session, null); // 내부 함수 호출 포지션 리스트 가져와서 HashMap에 넣어두기
+																					// !empList
+		empSettingInfo.put("emp_code", cDao.createEmpSetting(session.getAttribute("c_code")));
+		return empSettingInfo;
+	}
+
+	public String createEmpInfo(HttpSession session, HashMap<String, String> empInfo, RedirectAttributes reat) {
+		try {
+			empInfo.put("c_code", (String) session.getAttribute("c_code"));
+			cDao.creatEmp(empInfo);
+			reat.addFlashAttribute("basicPath", "empSettingDivOn()");
+			return "redirect:/posSetting";
+		} catch (Exception e) {
+			System.out.println(e);
+			return "redirect:/posSetting";
+		}
+	}
+
+	public String fireEmpInfo(HttpSession session, HashMap<String, String> empInfo, RedirectAttributes reat) {
+		try {
+			empInfo.put("c_code", (String) session.getAttribute("c_code"));
+			cDao.fireEmpInfo(empInfo);
+			reat.addFlashAttribute("basicPath", "empSettingDivOn()");
+			return "redirect:/posSetting";
+		} catch (Exception e) {
+			reat.addFlashAttribute("basicPath", "empSettingDivOn()");
+			return "redirect:/posSetting";
+		}
 	}
 
 }

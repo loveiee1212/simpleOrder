@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,6 +66,15 @@ public class CompanyMemberController1 {
 	public String updateEMpInfo(HttpSession session, @RequestParam HashMap<String, String> empInfo, RedirectAttributes reat) {
 		mm.updateEmpInfo(empInfo, session, reat);
 		return "redirect:posSetting";
+	}
+	
+	@PostMapping("/createEmpInfo")
+	public String createEmpInfo(HttpSession session, @RequestParam HashMap<String, String> empInfo, RedirectAttributes reat) {
+		return mm.createEmpInfo(session, empInfo,reat);
+	}
+	@PatchMapping("/fireEmpInfo")
+	public String deleteEmpInfo(HttpSession session, @RequestParam HashMap<String, String> empInfo, RedirectAttributes reat) {
+		return mm.fireEmpInfo(session, empInfo,reat);
 	}
 	
 
