@@ -10,14 +10,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.simpleOrder.dao.member.ICompanyMemberDao1;
 
 @Service
 public class CompanyMemberMM1 {
+	
 	@Autowired
 	private ICompanyMemberDao1 cDao;
 
@@ -27,6 +28,7 @@ public class CompanyMemberMM1 {
 	@Autowired
 	private PasswordEncoder pse;
 
+	@Transactional
 	public String createEmailAcount(HashMap<String, String> acountInfo, HttpSession session, RedirectAttributes reat)
 			throws MessagingException { // 새로운 이메일 계정 생성
 		acountInfo.put("ce_pw", pse.encode(acountInfo.get("ce_pw"))); // 가져온 비밀번호를 인코딩 하여 다시 해쉬맵에 덮어 씌움
@@ -89,7 +91,6 @@ public class CompanyMemberMM1 {
 	}
 
 	public String cLogin(HashMap<String, String> cInfo, HttpSession session, RedirectAttributes reat) { // 사업체 로그인
-		System.out.println(cInfo.toString());
 		if (cDao.emailAcountStatusCheak(cInfo.get("ce_email")) && cDao.cLogin(cInfo)) {// 해당 이메일의 상태와 로그인 여부를 확인
 			session.removeAttribute("ce_email");
 			session.setAttribute("c_code", cInfo.get("c_code"));
@@ -111,11 +112,10 @@ public class CompanyMemberMM1 {
 		return "sorry";
 
 	}
-
-	public String createCcodeAcount(@RequestParam HashMap<String, String> cCodeInfo, HttpSession session,
-			RedirectAttributes reat) {
+	@Transactional
+	public String createCcodeAcount(HashMap<String, String> cCodeInfo, HttpSession session, RedirectAttributes reat) { //사업체 계정 생성, emp0000 까지 같이 생성
 		try {
-			cCodeInfo.put("ce_email", (String) session.getAttribute("ce_email"));
+			cCodeInfo.put("ce_email", session.getAttribute("ce_email")+"");
 			cCodeInfo.put("pst_position", "00");
 			cCodeInfo.put("emp_pw", "0000");
 			cCodeInfo.put("emp_code", "0");
@@ -257,6 +257,38 @@ public class CompanyMemberMM1 {
 			reat.addFlashAttribute("basicPath", "empSettingDivOn()");
 			return "redirect:/posSetting";
 		}
+	}
+
+	public String cAcountDelect(HashMap<String, String> cAcountInfo, HttpSession session) {
+		try{cAcountInfo.put("ce_email", (String) session.getAttribute("ce_email"));
+		cDao.cAcountDelect(cAcountInfo);
+			return "redirect:/cList";
+		}catch (Exception e) {
+			System.err.println(e);
+			return "redirect:/cList";
+		}
+		
+	}
+
+	public HashMap<String, String> getPositionGrant(HttpSession session) { // ccode 기준 등급, 해당 등급 권한 get
+		try {
+		ArrayList<HashMap<String, Object>> positionGrantKind = cDao.getPositionGrant((String) session.getAttribute("c_code"));// 등급과 등급명 get
+		for(int i = 0 ; i < positionGrantKind.size(); i++) { // 등급의 갯수에 따라 반복
+			ArrayList<String> grantKind = cDao.getGrantKind(positionGrantKind.get(i)); //등급의 권한리스트 만들기
+			positionGrantKind.get(i).put("grantList", grantKind); // positionKind에 권한 리스트까지 입력
+		}
+		CMemberHtmlMaker cmh = new CMemberHtmlMaker();
+		cmh.makeHtmlPostionGrnat(positionGrantKind);
+		
+		
+		
+		
+		
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return null;
 	}
 
 }

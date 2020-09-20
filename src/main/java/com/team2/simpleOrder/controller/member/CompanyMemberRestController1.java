@@ -42,5 +42,11 @@ public class CompanyMemberRestController1 {
 	public HashMap<String, String> createEmpSetting(HttpSession session){
 		return mm.createEmpSetting(session);
 	}
+	@GetMapping("/getPositionGrant")
+	public HashMap<String, String> getPositionGrant(HttpSession session){
+		return mm.getPositionGrant(session);
+		
+	}
+
 
 }

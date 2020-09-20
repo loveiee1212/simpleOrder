@@ -10,11 +10,13 @@ public class CMemberHtmlMaker {
 
 	public String Clist(ArrayList<Member> clist) {
 		for (int i = 0; i < clist.size(); i++) {
-			sb.append("<tr onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>");
-			sb.append("<td>").append(clist.get(i).getC_name()).append("</td>");
-			sb.append("<td>").append(clist.get(i).getC_code()).append("</td>");
-			sb.append("<td>").append(clist.get(i).getC_phone()).append("</td>");
-			sb.append("<td>").append(clist.get(i).getC_address()).append("</td>");
+			sb.append("<tr>");
+			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_name()).append("</td>");
+			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_code()).append("</td>");
+			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_phone()).append("</td>");
+			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_address()).append("</td>");
+			sb.append("<td>").append("<input type = 'button' onclick = 'cAcountDelect("+clist.get(i).getC_code()+")' value ='삭제'").append("</td>");
+			sb.append("<td>").append("<input type = 'button' onclick = 'cAcountUpdate("+clist.get(i).getC_code()+")' value ='수정'").append("</td>");
 			sb.append("</tr>");
 		}
 
@@ -56,6 +58,12 @@ public class CMemberHtmlMaker {
 			}
 		}
 		return sb.toString();
+	}
+
+	public String makeHtmlPostionGrnat(ArrayList<HashMap<String, Object>> positionGrantKind) {
+		System.out.println(positionGrantKind);
+		
+		return null;
 	}
 
 }

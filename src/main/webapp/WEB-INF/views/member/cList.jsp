@@ -184,7 +184,7 @@ td:-webkit-scrollbar {
 	<div id="flotBoxDiv">
 		<div id="flotBoxbg"></div>
 		<div id="flotBox">
-			<form action="cLogin" onsubmit="return cloginTest()" method="post">
+			<form name="cLogin" action="" onsubmit="return cloginTest()" method="post">
 				<table>
 					<tr>
 						<th id="th">사업자 번호</th>
@@ -221,6 +221,7 @@ td:-webkit-scrollbar {
 					<th>사업자번호</th>
 					<th>전화번호</th>
 					<th>주소</th>
+					<th colspan="2">비고</th>
 				</tr>
 			</table>
 			<input type="button" id="btn1"
@@ -283,10 +284,20 @@ $(document).keydown(function(data){
 }
 
 	function cLogindivon(cCode){	//모달 박스 키기, 정보 입력
+		cLogin.action = 'cLogin';
 		$("#flotBoxDiv").addClass("on");
 		$("#c_code").val(cCode);
 	};
-	
+	function cAcountDelect(cCode){
+		cLogin.action = 'cAcountDelect';
+		$("#flotBoxDiv").addClass("on");
+		$("#c_code").val(cCode);
+	};
+	function cAcountUpdate(cCode){
+		cLogin.action = 'cAcountUpdate';
+		$("#flotBoxDiv").addClass("on");
+		$("#c_code").val(cCode);
+	};
 	
 
 </script>
