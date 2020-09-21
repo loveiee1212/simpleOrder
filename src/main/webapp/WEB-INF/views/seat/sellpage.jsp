@@ -264,8 +264,9 @@ div {
 .blockCtg {
 	display: block;
 }
-#worktd input{
- width : 70px;
+
+#worktd input {
+	width: 70px;
 }
 </style>
 </head>
@@ -320,8 +321,8 @@ div {
 					<h1>예약목록</h1>
 					<form action="#">
 						예약일 선택 <input type="date" name="r_date" id="r_date" /> <input
-							type="button" onclick="searchReserv()" value="검색" /> <input
-							type="reset" value="새로고침" /> <br />
+							type="button" onclick="searchReserv()" value="검색" /> 
+							<input type="button" onclick="reservation()" value="새로고침" /> <br />
 					</form>
 				</div>
 				<div id="r_middle">
@@ -334,7 +335,7 @@ div {
 							<table id="r_infotable">
 								<tr>
 									<th>예약일자</th>
-								<input type="hidden" name='rsv_code' id="rsv_code" />
+									<input type="hidden" name='rsv_code' id="rsv_code" />
 									<td><input type="text" name="rsv_date" id="rsv_date" /></td>
 									<th>예약시간</th>
 									<td><input type="text" name="rsv_time" id="rsv_time" /></td>
@@ -347,13 +348,12 @@ div {
 								</tr>
 								<tr>
 									<th>메모</th>
-									<td colspan="2">
-									<textarea
-											style="width: 330px; height: 70px;" name="rsvm_memo" id="rsvm_memo"></textarea></td>
-									<td id="worktd">
-										<input type="button" id="upbtn" onclick="updateReserv()" value='등록'/>
-										<input type="reset" id="rebtn" value="새로고침" />
-									</td>
+									<td colspan="2"><textarea
+											style="width: 330px; height: 70px;" name="rsvm_memo"
+											id="rsvm_memo"></textarea></td>
+									<td id="worktd"><input type="button" id="upbtn"
+										onclick="updateReserv()" value='등록' /> <input type="reset"
+										id="rebtn" value="새로고침" /></td>
 								</tr>
 							</table>
 						</form>
@@ -385,6 +385,7 @@ div {
 <script>
 	clockon();
 	getTablelist();
+
 	/* Datepicker UI default 설정 */
 	$.datepicker.setDefaults({
 		dateFormat : 'yy-mm-dd', //날짜 포맷
@@ -414,8 +415,8 @@ div {
 			controlType : 'select',
 			oneLine : true,
 		});
-	$("#rsv_date").datepicker({});
-		
+		$("#rsv_date").datepicker({});
+
 	});
 
 	/* ajax를 이용해 설정한 테이블 갯수 가져오기 */
@@ -436,14 +437,17 @@ div {
 					for (var a = 1; a <= xylength; a++) {
 						//생성한 div에 테이블 가로X 세로 길이(테이블 갯수)만큼 div 생성하기
 						$("#table" + i).append(
-								"<div class='tables' id='tnum"+i+a+"' data-code="+a+">"
-										+ a + "</div>");
+								"<div class='tables' id='tnum"
+										+ (parseInt(i) + 1) + a
+										+ "' data-code=" + (parseInt(i) + 1)+"-"+ a + ">" + a
+										+ "</div>");
 						for ( var b in result[i].tlist) {
 							if (a == result[i].tlist[b]) {
 								//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
-								$("#tnum" + i + a).css("background-color",
-										"white");
-								$("#tnum" + i + a).css("opacity", "100");
+								$("#tnum" + (parseInt(i) + 1) + a).css(
+										"background-color", "white");
+								$("#tnum" + (parseInt(i) + 1) + a).css(
+										"opacity", "100");
 							}
 						}
 					}
@@ -451,6 +455,20 @@ div {
 				}
 
 				console.log(result);
+				getorderList();
+				
+				$(".tables").click(function(){
+					console.log("테이블 데이터코드 : "+$(this).data("code"));
+					console.log("테이블 주문번호"+$(this).children("#oac_num").val());
+					
+					var tSplit = $(this).data("code").split("-");
+					console.log(tSplit);
+					var sc_code = tSplit[0];
+					var st_num = tSplit[1];
+					var oac_num = $(this).children("#oac_num").val();
+					
+					location.href = "./sellandorder?sc_code='"+sc_code+"'&st_num='"+st_num+"'&oac_num='"+oac_num+"'";
+				});
 
 			},
 			error : function(err) {
@@ -458,6 +476,38 @@ div {
 			}
 		});
 	};
+
+	function getorderList() {
+		$.ajax({
+			type : 'get',
+			url : 'rest/getorderlist',
+			data : {
+				"oac_status" : 1
+			},
+			dataType : 'json',
+			success : function(data) {
+				console.log(data);
+				for(var i in data) {
+					var str = "";
+						str+= data[i].st_num+"번"+"<br/><br/>";
+						for(var j = 0; j<data[i].pdMap.pdnList.length;j++){
+							//console.log(data[i].pdMap.pdnList[j]);
+							str+=data[i].pdMap.pdnList[j]+" ";
+							str+=data[i].cntList[j]+"<br/>";
+						}
+					str+="<input type='hidden' id='oac_num' value='"+data[i].oac_num+"'/>";
+					$("#tnum" + (data[i].sc_code) + (data[i].st_num)).html(str);
+					
+				}
+				
+
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
+	}
+	
 
 	/* 테이블 카테고리 클릭시 오픈 */
 	function opentable(evt, categoryname) {
@@ -505,166 +555,193 @@ div {
 	/* 클릭하면 모달박스 노출 / 예약 정보 조회 */
 	function reservation() {
 		$('#reservation').addClass('open');
-		$.ajax({
-			type : "get",
-			url : "rest/getreservlist",
-			dataType : 'json',
-			success : function(result) {
-				console.log(result);
-				$("#reservtable").html(result.reservList);
+		$
+				.ajax({
+					type : "get",
+					url : "rest/getreservlist",
+					dataType : 'json',
+					success : function(result) {
+						console.log(result);
+						$("#reservtable").html(result.reservList);
 
-				/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
-				$("#reservtable tr").click(function() {
-					var tdArr = new Array();
-					var tr = $(this);
-					var td = tr.children();
-					console.log($(this).data("code"));
-					console.log(tr.text());
-					$("#upbtn").val("수정");
-					$("#dtbtn").remove();
-					$("#worktd").append("<input type='button' id='dtbtn'  onclick='deleteReserv()' value='삭제'>");
-					//tr의 css색을 화이트로 clear
-					$("#reservtable tr").css('background-color', 'white');
-					//선택한 tr의 색을 회색으로 설정
-					tr.css('background-color', '#ddd');
+						/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
+						$("#reservtable tr")
+								.click(
+										function() {
+											var tdArr = new Array();
+											var tr = $(this);
+											var td = tr.children();
+											console.log($(this).data("code"));
+											console.log(tr.text());
+											$("#upbtn").val("수정");
+											$("#dtbtn").remove();
+											$("#worktd")
+													.append(
+															"<input type='button' id='dtbtn'  onclick='deleteReserv()' value='삭제'>");
+											//tr의 css색을 화이트로 clear
+											$("#reservtable tr")
+													.css('background-color',
+															'white');
+											//선택한 tr의 색을 회색으로 설정
+											tr.css('background-color', '#ddd');
 
-					/* tr 행의 정보들을 Arr에 담음 */
-					td.each(function(i) {
-						tdArr.push(td.eq(i).text());
-					});
-					
-					console.log("배열에 담긴 값 : " + tdArr);
-					/* 배열에 담긴 값을 상세정보에 출력 */
-					var rsv_code = $(this).data("code");
-					var rsv_phone = td.eq(1).text();
-					var rsv_name = td.eq(2).text();
-					var rsv_date = td.eq(3).text().slice(0, 10);
-					var rsv_time = td.eq(3).text().slice(11, 16);
-					var rsvm_memo = td.eq(4).text();
-					console.log(rsv_phone);
-					console.log(rsv_date);
-					console.log(rsv_time);
-					$("#rsv_code").val(rsv_code);
-					$("#rsv_phone").val(rsv_phone);
-					$("#rsv_name").val(rsv_name);
-					//datepicker UI 를 이용해 r_date의 정보를 setDate 시킴
-					$("#rsv_date").datepicker("setDate", rsv_date);
-					$("#rsv_time").val(rsv_time);
-					$("#rsvm_memo").val(rsvm_memo);
+											/* tr 행의 정보들을 Arr에 담음 */
+											td.each(function(i) {
+												tdArr.push(td.eq(i).text());
+											});
+
+											console.log("배열에 담긴 값 : " + tdArr);
+											/* 배열에 담긴 값을 상세정보에 출력 */
+											var rsv_code = $(this).data("code");
+											var rsv_phone = td.eq(1).text();
+											var rsv_name = td.eq(2).text();
+											var rsv_date = td.eq(3).text()
+													.slice(0, 10);
+											var rsv_time = td.eq(3).text()
+													.slice(11, 16);
+											var rsvm_memo = td.eq(4).text();
+											console.log(rsv_phone);
+											console.log(rsv_date);
+											console.log(rsv_time);
+											$("#rsv_code").val(rsv_code);
+											$("#rsv_phone").val(rsv_phone);
+											$("#rsv_name").val(rsv_name);
+											//datepicker UI 를 이용해 r_date의 정보를 setDate 시킴
+											$("#rsv_date").datepicker(
+													"setDate", rsv_date);
+											$("#rsv_time").val(rsv_time);
+											$("#rsvm_memo").val(rsvm_memo);
+										});
+					},
+					error : function(err) {
+						console.log(err);
+					}
 				});
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		});
 	}
 
-	
 	/* 특정일 조회시 검색되는 예약정보 출력  */
 	function searchReserv() {
 		console.log($("#rsv_date").val());
-		$.ajax({
-			type : "post",
-			url : "rest/searchreserv",
-			data : {
-				rsv_date : $("#rsv_date").val()
-			},
-			dataType : 'json',
-			success : function(result) {
-				console.log(result);
-				$("#reservtable").html(result.reservList);
+		$
+				.ajax({
+					type : "post",
+					url : "rest/searchreserv",
+					data : {
+						rsv_date : $("#r_date").val()
+					},
+					dataType : 'json',
+					success : function(result) {
+						console.log(result);
+						$("#reservtable").html(result.reservList);
 
-				/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
-				$("#reservtable tr").click(function() {
-					var tdArr = new Array();
-					var tr = $(this);
-					var td = tr.children();
-					console.log(tr.text());
-					/* tr 행의 정보들을 Arr에 담음 */
-					td.each(function(i) {
-						tdArr.push(td.eq(i).text());
-					});
-					$("#upbtn").val("수정");
-					$("#dtbtn").remove();
-					$("#worktd").append("<input type='button' id='dtbtn'  onclick='deleteReserv()' value='삭제'>");
-					$("#reservtable tr").css('background-color', 'white');
-					tr.css('background-color', '#ddd');
+						/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
+						$("#reservtable tr")
+								.click(
+										function() {
+											var tdArr = new Array();
+											var tr = $(this);
+											var td = tr.children();
+											console.log(tr.text());
+											/* tr 행의 정보들을 Arr에 담음 */
+											td.each(function(i) {
+												tdArr.push(td.eq(i).text());
+											});
+											$("#upbtn").val("수정");
+											$("#dtbtn").remove();
+											$("#worktd")
+													.append(
+															"<input type='button' id='dtbtn'  onclick='deleteReserv()' value='삭제'>");
+											$("#reservtable tr")
+													.css('background-color',
+															'white');
+											tr.css('background-color', '#ddd');
 
+											console.log("배열에 담긴 값 : " + tdArr);
+											/* 배열에 담긴 값을 상세정보에 출력 */
+											var rsv_code = $(this).data("code");
+											var rsv_phone = td.eq(1).text();
+											var rsv_name = td.eq(2).text();
+											var rsv_date = td.eq(3).text()
+													.slice(0, 10);
+											var rsv_time = td.eq(3).text()
+													.slice(11, 16);
+											var rsvm_memo = td.eq(4).text();
+											console.log(rsv_phone);
+											console.log(rsv_date);
+											console.log(rsv_time);
+											$("#rsv_code").val(rsv_code);
+											$("#rsv_phone").val(rsv_phone);
+											$("#rsv_name").val(rsv_name);
+											$("#rsv_date").datepicker(
+													"setDate", rsv_date);
+											$("#rsv_time").val(rsv_time);
+											$("#rsvm_memo").val(rsvm_memo);
+										});
 
-					console.log("배열에 담긴 값 : " + tdArr);
-					/* 배열에 담긴 값을 상세정보에 출력 */
-					var rsv_code = $(this).data("code");
-					var rsv_phone = td.eq(1).text();
-					var rsv_name = td.eq(2).text();
-					var rsv_date = td.eq(3).text().slice(0, 10);
-					var rsv_time = td.eq(3).text().slice(11, 16);
-					var rsvm_memo = td.eq(4).text();
-					console.log(rsv_phone);
-					console.log(rsv_date);
-					console.log(rsv_time);
-					$("#rsv_code").val(rsv_code);
-					$("#rsv_phone").val(rsv_phone);
-					$("#rsv_name").val(rsv_name);
-					$("#rsv_date").datepicker("setDate", rsv_date);
-					$("#rsv_time").val(rsv_time);
-					$("#rsvm_memo").val(rsvm_memo);
+					},
+					error : function(err) {
+						console.log(err);
+					}
 				});
-
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		});
 	}
 
 	/* 새로고침 클릭 시 예약 화면 초기화 */
-	$("#rebtn").click(function(){
+	$("#rebtn").click(function() {
 		$("#upbtn").val("등록");
 		$("#dtbtn").remove();
 		$("#rsv_code").val(null);
 		$("#reservtable tr").css('background-color', 'white');
 	});
-	
+
 	/* 예약 수정 완료하기 */
-	 function updateReserv() {
-		 	var rsv_code = $("#rsv_code").val();
-			var rsv_phone = $("#rsv_phone").val();
-			var rsv_name = $("#rsv_name").val();
-			var rsv_date = $("#rsv_date").val() + " " +$("#rsv_time").val();
-			var rsvm_memo = $("#rsvm_memo").val();
-		 $.ajax({
+	function updateReserv() {
+		var rsv_code = $("#rsv_code").val();
+		var rsv_phone = $("#rsv_phone").val();
+		var rsv_name = $("#rsv_name").val();
+		var rsv_date = $("#rsv_date").val() + " " + $("#rsv_time").val();
+		var rsvm_memo = $("#rsvm_memo").val();
+		$.ajax({
 			type : 'post',
 			url : "rest/updatereserv",
-			data : {"rsv_code":rsv_code,"rsv_phone":rsv_phone,"rsv_phone":rsv_phone,"rsv_name":rsv_name,"rsv_date":rsv_date,"rsvm_memo":rsvm_memo},
+			data : {
+				"rsv_code" : rsv_code,
+				"rsv_phone" : rsv_phone,
+				"rsv_phone" : rsv_phone,
+				"rsv_name" : rsv_name,
+				"rsv_date" : rsv_date,
+				"rsvm_memo" : rsvm_memo
+			},
 			dataType : 'json',
-			success : function(data){
+			success : function(data) {
 				console.log(data);
 				alert(data.result);
 				reservation();
 			},
-			error : function(err){
-				
+			error : function(err) {
+
 			}
-		}); 
-	} 
-	 
-	 function deleteReserv(){
+		});
+	}
+
+	function deleteReserv() {
 		$.ajax({
 			type : 'post',
 			url : "rest/deletereserv",
-			data : {"rsv_code":$("#rsv_code").val()},
+			data : {
+				"rsv_code" : $("#rsv_code").val()
+			},
 			dataType : 'json',
-			success : function(data){
+			success : function(data) {
 				console.log(data);
 				alert(data.result);
 				reservation();
 			},
-			error : function(err){
+			error : function(err) {
 				console.log(err);
 			}
 		});
-	 }
-	
+	}
+
 	/* 모달 박스 뒤 백그라운드 클릭 시 모달박스 해제 */
 	var $layerW = $('#reservation');
 	$layerW.find('#bg_layer').on('mousedown', function(evt) {
@@ -703,8 +780,6 @@ div {
 	}
 
 	/* 키패드 입력 end */
-
-	
 
 	/* 환전클릭 */
 	function changemoney() {
