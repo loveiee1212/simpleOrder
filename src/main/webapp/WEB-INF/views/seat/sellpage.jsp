@@ -455,6 +455,7 @@ div {
 				}
 
 				console.log(result);
+				
 				getorderList();
 				
 				$(".tables").click(function(){
@@ -466,8 +467,9 @@ div {
 					var sc_code = tSplit[0];
 					var st_num = tSplit[1];
 					var oac_num = $(this).children("#oac_num").val();
+					console.log(st_num)
 					
-					location.href = "./sellandorder?sc_code='"+sc_code+"'&st_num='"+st_num+"'&oac_num='"+oac_num+"'";
+					location.href = "./sellandorder?sc_code="+sc_code+"&st_num="+st_num+"&oac_num="+oac_num;
 				});
 
 			},

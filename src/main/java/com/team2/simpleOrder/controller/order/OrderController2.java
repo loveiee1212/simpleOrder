@@ -25,19 +25,22 @@ public class OrderController2 {
 	OrderMM2 om;
 	
 	@RequestMapping(value = "/sellandorder")
-	public String sellAndorder(HttpSession session,String sc_code ,String st_num,String oac_num) {
+	public ModelAndView sellAndorder(HttpSession session,String sc_code ,String st_num,String oac_num) {
 		log.info(sc_code+st_num+oac_num);
 		Order odr = new Order();
+		ModelAndView mav = new ModelAndView();
 		//String c_code = session.getAttribute("c_code").toString();
 		//String bd_date=session.getAttribute("bd_date").toString();
-		odr.setSc_code(sc_code);
-		odr.setSt_num(Integer.parseInt(st_num));
-		odr.setOac_num(oac_num);
-		odr.setC_code("123123123123");
-		odr.setBd_date("2020-08-29 14:19:00");
-		ModelAndView mav = new ModelAndView();
-		mav = om.getsaoList(odr);
-		return "seat/sellAndorder";
+		 odr.setSc_code(sc_code); 
+		 System.out.println(st_num);
+		 System.out.println(sc_code+"/"+oac_num);
+		 odr.setSt_num(Integer.parseInt(st_num));
+		 odr.setOac_num(oac_num); 
+		 odr.setC_code("123123123123");
+		 odr.setBd_date("2020-08-29 14:19:00");
+		 mav = om.getsaoList(odr);
+		 
+		return mav;
 	}
 	
 	

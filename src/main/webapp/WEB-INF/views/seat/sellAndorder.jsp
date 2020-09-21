@@ -165,7 +165,8 @@ li input {
 			<div class="innerdiv">
 				<div id="listbox">
 					<center>
-						<table>
+					${list}
+						<!-- <table>
 							<tr>
 								<td>상품1</td>
 								<td>10,000</td>
@@ -180,7 +181,7 @@ li input {
 									style="width: 40px; height: 40px;"></td>
 								<td><button>취소</button></td>
 							</tr>
-						</table>
+						</table> -->
 					</center>
 				</div>
 				<div id="moneylist">
@@ -247,6 +248,12 @@ li input {
 	 console.log(err);
 	 }
 	 }); *//* 왼쪽 외상 목록 ajax */
+	 
+	 $(".price").each(function(){
+		 console.log("total:"+);
+	 })
+	 
+	 
 	var str = "";
 	$("#uctmoney").val($("#totalmoney").val());
 	$("#keypad ul li").click(function() {
