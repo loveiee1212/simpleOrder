@@ -75,6 +75,12 @@ public class OrderRestController1 {
 		return hMap;
 	}
 	
+	@RequestMapping(value = "/getorderlist", method = RequestMethod.GET)
+	public List<Order> getorderList(HttpSession session, int oac_status) {
+		List<Order> oList = om.getorderList(session,oac_status);
+		return oList;
+	}
+	
 
 	@Autowired
 	OrderMM2 om2;

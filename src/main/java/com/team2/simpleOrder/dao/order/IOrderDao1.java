@@ -31,6 +31,8 @@ public interface IOrderDao1 {
 	//예약삭제
 	boolean deleteReserv(@Param("c_code") String c_code, @Param("rsv_code") String rsv_code);
 	
+	List<Order> getorderList(@Param("c_code") String c_code,@Param("oac_status") int oac_status);
+	
 	
 	
 

@@ -19,11 +19,22 @@ public class Order {
 	 int sc_y;
 	 int st_num;
 	 List<Integer> tList;
+	 String bd_date;
 	 String rsv_code;
 	 String rsv_name;
 	 String rsv_phone;
 	 String rsv_date;
 	 String rsvm_memo;
+	 String oac_num;
+	 String sc_code;
+	 String pdc_code;
+	 String pd_code;
+	 int oh_cnt;
+	 String pd_name;
+	 int pd_price;
+	 HashMap<String, List<String>> pdMap;
+	 List<Integer> cntList;
+	 
 
 	 
 }

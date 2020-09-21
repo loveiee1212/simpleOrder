@@ -13,9 +13,11 @@ public class PageController2 {
 	ModelAndView mav;
 	
 	@RequestMapping(value = "/sellpage")
-	public String home() {
+	public String sellpage() {
 		
 		return "seat/sellpage";
 	}
+	
+	
 
 }
