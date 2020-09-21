@@ -4,6 +4,7 @@ package com.team2.simpleOrder.dao.member;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -60,7 +61,7 @@ public interface ICompanyMemberDao1 {
 	@Select("SELECT PST_NAME, PST_POSITION FROM POSITION WHERE C_CODE = ${value}")
 	ArrayList<HashMap<String, String>> getPositionList(Object c_code);
 	
-	@Update("UPDATE EMP SET PST_POSITION = #{emp_position}, EMP_NAME = #{emp_name}, EMP_PW = #{emp_pw} WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code}")
+	@Update("UPDATE EMP SET PST_POSITION = #{pst_position}, EMP_NAME = #{emp_name}, EMP_PW = #{emp_pw} WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code}")
 	boolean updateEmpInfo(HashMap<String, String> empInfo);
 
 	@Select("SELECT LPAD(COUNT(*),5,0) FROM EMP WHERE C_CODE = #{value}") // 새로운 emp code 발급
@@ -77,6 +78,19 @@ public interface ICompanyMemberDao1 {
 
 	@Select("SELECT GPC_CODE FROM GRANT_POSITION WHERE C_CODE = #{C_CODE} AND PST_POSITION = #{PST_POSITION}")
 	ArrayList<String> getGrantKind(HashMap<String, Object> hashMap);
+	
+	@Select("SELECT COUNT(*) FROM GRANT_POSITION_CODE")
+	int numberOfGrant();
+	
+	@Delete("DELETE FROM GRANT_POSITION WHERE C_CODE = #{c_code}")
+	void PositionGrantDataDelect(String c_code);
+	
+	@Insert("INSERT INTO GRANT_POSITION VALUES(#{c_code},#{pst_position},LPAD(#{gpc_code},2,0) )")
+	void createPositionGrant(HashMap<String, String> positionAndGranthm);
+
+	@Select("SELECT PST_POSITION, PST_NAME FROM POSITION WHERE C_CODE = #{c_code}")
+	ArrayList<HashMap<String, String>> getPosition(String c_code);
+
 	
 
 

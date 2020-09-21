@@ -141,6 +141,7 @@ error {
 			<form action="createCcodeAcount" name="form" id="form" method="post" onsubmit="return test()">
 				<a class="navbar-brand" href="cList"><img src="resources/image/logo.png" alt="createCcodeAcount view"></a>
 				<h2>접속중인 이메일 : ${ce_email}</h2>
+				<input type="hidden" name="ce_email" value="${ce_email}"}>
 				<table id="createCcode">
 					<tr>
 						<td><input id="c_code" name="c_code" onkeypress="onlyNum(this)" numberOnly="true" onkeydown="keyEvt()" value="${cCodeInfo.c_code}" type="text" placeholder="대표 사업자 번호 12자리" maxlength="12"></td>

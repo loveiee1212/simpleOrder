@@ -2,7 +2,9 @@ package com.team2.simpleOrder.service.member;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.IntPredicate;
 
+import com.mysql.cj.ParseInfo;
 import com.team2.simpleOrder.dto.Member;
 
 public class CMemberHtmlMaker {
@@ -11,13 +13,21 @@ public class CMemberHtmlMaker {
 	public String Clist(ArrayList<Member> clist) {
 		for (int i = 0; i < clist.size(); i++) {
 			sb.append("<tr>");
-			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_name()).append("</td>");
-			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_code()).append("</td>");
-			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_phone()).append("</td>");
-			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_address()).append("</td>");
-			sb.append("<td>").append("<input type = 'button' onclick = 'cAcountDelect("+clist.get(i).getC_code()+")' value ='삭제'").append("</td>");
-			sb.append("<td>").append("<input type = 'button' onclick = 'cAcountUpdate("+clist.get(i).getC_code()+")' value ='수정'").append("</td>");
-			sb.append("</tr>");
+			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_name())
+					.append("</td>");
+			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_code())
+					.append("</td>");
+			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>")
+					.append(clist.get(i).getC_phone()).append("</td>");
+			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>")
+					.append(clist.get(i).getC_address()).append("</td>");
+			sb.append("<td>").append(
+					"<input type = 'button' onclick = 'cAcountDelect(" + clist.get(i).getC_code() + ")' value ='삭제'")
+					.append("</td>");
+			sb.append("<td>").append(
+					"<input type = 'button' onclick = 'cAcountUpdate(" + clist.get(i).getC_code() + ")' value ='수정'")
+					.append("</td>");
+//			sb.append("</tr>");
 		}
 
 		return sb.toString();
@@ -61,9 +71,37 @@ public class CMemberHtmlMaker {
 	}
 
 	public String makeHtmlPostionGrnat(ArrayList<HashMap<String, Object>> positionGrantKind) {
-		System.out.println(positionGrantKind);
+		for (HashMap<String, Object> positionindex : positionGrantKind) { // 등급의 갯수만큼
+			sb.append("<tr>");
+			sb.append("<td>").append(positionindex.get("PST_NAME"));
+			for (int i = 0; i < ((boolean[]) positionindex.get("grantBooleanList")).length; i++) {// 서버의 모든 권한 코드
+				if (((boolean[]) positionindex.get("grantBooleanList"))[i]) {
+					sb.append("<td>").append("<input name= " + positionindex.get("PST_POSITION") + "#" + i
+							+ " type = 'checkbox' checked='checked'").append("</td>");
+				} else {
+					sb.append("<td>").append(
+							"<input name= " + positionindex.get("PST_POSITION") + "#" + i + " type = 'checkbox'")
+							.append("</td>");
+				}
+			}
+			sb.append("</tr>");
+		}
+
+		return sb.toString();
+	}
+
+	public String getPositionHtml(ArrayList<HashMap<String, String>> numberOfPosition) {
+		for (HashMap<String, String> positionInfo : numberOfPosition) {
+			sb.append("<tr id= "+positionInfo.get("PST_POSITION")+">");
+			sb.append("<td>").append("<input type = 'text' value = "+positionInfo.get("PST_NAME")+">").append("</td>");
+			sb.append("<td>").append(positionInfo.get("PST_NAME")).append("</td>");
+			sb.append("<td>").append("<input type = 'button' value = '삭제' onclick ='positionDelete(this)'>").append("</td>");
+			sb.append("<td>").append("<input type = 'button' value = '수정 저장' onclick ='positionUpdate(this)'>").append("</td>");
+			sb.append("</tr>");
+		}
 		
-		return null;
+		return sb.toString();
+		
 	}
 
 }

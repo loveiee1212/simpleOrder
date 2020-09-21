@@ -64,5 +64,9 @@ public class PageController1 {
 	public String postionGrantSettingFrmon() {
 		return "posSetting/postionGrantSettingFrmon";
 	}
+	@RequestMapping("/postisionSettingFrmon")
+	public String postisionSettingFrmon() {
+		return "posSetting/postisionSettingFrmon";
+	}
 
 }
