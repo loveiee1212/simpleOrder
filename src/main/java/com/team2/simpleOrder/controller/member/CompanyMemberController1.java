@@ -41,9 +41,8 @@ public class CompanyMemberController1 {
 		return mm.cLogin(cInfo, session, reat);
 	}
 	
-	@PostMapping("/createCcodeAcount")//사업체만 추가 !!!!!!!! 세션이 왜 날아가냐고
+	@PostMapping("/createCcodeAcount")//사업체 추가 ! jsp에서 도로명주소 검색 api검색시 세션이 만료되어 cCodeInfo에 있는 cEmail정보를 세션에 다시 넣어줌
 	public String createCcodeAcount(@RequestParam HashMap<String, String> cCodeInfo, HttpSession session, RedirectAttributes reat) {
-		System.out.println(session.getAttribute("ce_email"));
 		return mm.createCcodeAcount(cCodeInfo,session,reat);
 	}
 	
@@ -71,8 +70,7 @@ public class CompanyMemberController1 {
 	
 	@PatchMapping("/updateEmpInfo")
 	public String updateEMpInfo(HttpSession session, @RequestParam HashMap<String, String> empInfo, RedirectAttributes reat) {
-		mm.updateEmpInfo(empInfo, session, reat);
-		return "redirect:posSetting";
+		return mm.updateEmpInfo(empInfo, session, reat);
 	}
 	
 	@PostMapping("/createEmpInfo")
@@ -85,10 +83,11 @@ public class CompanyMemberController1 {
 		return mm.fireEmpInfo(session, empInfo,reat);
 	}
 	
-	@RequestMapping("/test") // 완전한 테스트용
-	public String test(@RequestParam HashMap<String, String> a, HttpSession session, String time) {
-		System.out.println(session.getAttribute("ce_email")+"      "+time);
-		return (String) session.getAttribute("ce_email");
+	@RequestMapping("/updatePosition") // 직급 변경
+	public String updatePosition(@RequestParam HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) {
+		mm.updatePosition(positionInfo,session,reat);
+		
+		return "redirect:/posSetting";
 	}
 	
 	@PostMapping("/cAcountDelect") // 사업자 계정 삭제

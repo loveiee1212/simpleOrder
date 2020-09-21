@@ -92,7 +92,7 @@
 
 	function updateEmpInfo() { // form 엑션 변경 후 서브밋 (수정)
 		empSettingForm.action = 'updateEmpInfo';
-		$("#method") = "patch";
+		$("#method").val("patch");
 		empSettingForm.submit();
 
 	}

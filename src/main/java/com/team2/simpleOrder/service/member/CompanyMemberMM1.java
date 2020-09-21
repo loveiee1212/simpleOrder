@@ -1,8 +1,10 @@
 
 package com.team2.simpleOrder.service.member;
 
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
@@ -12,13 +14,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.simpleOrder.dao.member.ICompanyMemberDao1;
 
 @Service
 public class CompanyMemberMM1 {
-	
+
 	@Autowired
 	private ICompanyMemberDao1 cDao;
 
@@ -112,10 +115,18 @@ public class CompanyMemberMM1 {
 		return "sorry";
 
 	}
+
 	@Transactional
-	public String createCcodeAcount(HashMap<String, String> cCodeInfo, HttpSession session, RedirectAttributes reat) { //사업체 계정 생성, emp0000 까지 같이 생성
+	public String createCcodeAcount(HashMap<String, String> cCodeInfo, HttpSession session, RedirectAttributes reat) { // 사업체
+																														// 계정
+																														// 생성,
+																														// emp0000
+																														// 까지
+																														// 같이
+																														// 생성
 		try {
-			cCodeInfo.put("ce_email", session.getAttribute("ce_email")+"");
+			session.setAttribute("ce_email", cCodeInfo.get("ce_email"));
+			cCodeInfo.put("ce_email", session.getAttribute("ce_email") + "");
 			cCodeInfo.put("pst_position", "00");
 			cCodeInfo.put("emp_pw", "0000");
 			cCodeInfo.put("emp_code", "0");
@@ -199,10 +210,10 @@ public class CompanyMemberMM1 {
 		CMemberHtmlMaker hm = new CMemberHtmlMaker();
 		empinfo.put("c_code", (String) session.getAttribute("c_code"));
 		ArrayList<HashMap<String, String>> empPostionList = cDao.getEmpList(empinfo); // 회원
-																													// 별
-																													// 직급
-																													// 조인하여
-																													// select
+																						// 별
+																						// 직급
+																						// 조인하여
+																						// select
 		HashMap<String, String> empHtmlList = new HashMap<String, String>();
 		empHtmlList.put("empList", hm.empList(empPostionList));// html 만들어 캡슐화
 
@@ -221,7 +232,7 @@ public class CompanyMemberMM1 {
 																													// 정보
 																													// 수정
 		reat.addFlashAttribute("basicPath", "empSettingDivOn()");
-		empInfo.putIfAbsent("c_code", (String) session.getAttribute("c_code"));
+		empInfo.put("c_code", (String) session.getAttribute("c_code"));
 		if (!cDao.updateEmpInfo(empInfo)) {
 			reat.addFlashAttribute("error", "수정에실패하였습니다.");
 		}
@@ -260,35 +271,83 @@ public class CompanyMemberMM1 {
 	}
 
 	public String cAcountDelect(HashMap<String, String> cAcountInfo, HttpSession session) {
-		try{cAcountInfo.put("ce_email", (String) session.getAttribute("ce_email"));
-		cDao.cAcountDelect(cAcountInfo);
+		try {
+			cAcountInfo.put("ce_email", (String) session.getAttribute("ce_email"));
+			cDao.cAcountDelect(cAcountInfo);
 			return "redirect:/cList";
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println(e);
 			return "redirect:/cList";
 		}
-		
+
 	}
 
 	public HashMap<String, String> getPositionGrant(HttpSession session) { // ccode 기준 등급, 해당 등급 권한 get
+		HashMap<String, String> HtmlSorce = new HashMap<String, String>();
 		try {
-		ArrayList<HashMap<String, Object>> positionGrantKind = cDao.getPositionGrant((String) session.getAttribute("c_code"));// 등급과 등급명 get
-		for(int i = 0 ; i < positionGrantKind.size(); i++) { // 등급의 갯수에 따라 반복
-			ArrayList<String> grantKind = cDao.getGrantKind(positionGrantKind.get(i)); //등급의 권한리스트 만들기
-			positionGrantKind.get(i).put("grantList", grantKind); // positionKind에 권한 리스트까지 입력
+			ArrayList<HashMap<String, Object>> positionGrantKind = cDao
+					.getPositionGrant((String) session.getAttribute("c_code"));// 등급과 등급명 get
+			for (int i = 0; i < positionGrantKind.size(); i++) { // 등급의 갯수에 따라 반복
+				boolean[] grantBooleanList = new boolean[cDao.numberOfGrant()]; // 권한 여부에 따른 boolean 값을 저장하기 위한 배열 생성
+				ArrayList<String> grantList = cDao.getGrantKind(positionGrantKind.get(i)); // 등급의 권한리스트 만들기
+				for (int j = 0; j < cDao.numberOfGrant(); j++) { // 서버의 모든 권한 코드 수량
+					for (String z : grantList) { // 0
+						if (j == Integer.parseInt(z)) {
+							grantBooleanList[j] = true;
+							break;
+						} else {
+							grantBooleanList[j] = false;
+						}
+					}
+				}
+				positionGrantKind.get(i).put("grantBooleanList", grantBooleanList); // positionKind에 권한 리스트까지 입력
+			}
+
+			CMemberHtmlMaker cmh = new CMemberHtmlMaker();
+			HtmlSorce.put("positionGrantCheckBoxHtml", cmh.makeHtmlPostionGrnat(positionGrantKind));
+			return HtmlSorce;
+
+		} catch (Exception e) {
+			System.err.println(e);
+			return HtmlSorce;
 		}
-		CMemberHtmlMaker cmh = new CMemberHtmlMaker();
-		cmh.makeHtmlPostionGrnat(positionGrantKind);
-		
-		
-		
-		
-		
-		}catch (Exception e) {
+
+	}
+
+	@Transactional
+	public void updatePosition(HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) {
+		reat.addFlashAttribute("basicPath", "postionGrantSettingFrmon()");
+		try {
+			cDao.PositionGrantDataDelect((String) session.getAttribute("c_code"));
+			Iterator<String> pgI = positionInfo.keySet().iterator();
+			while (pgI.hasNext()) {
+				HashMap<String, String> positionAndGranthm = new HashMap<String, String>();
+				String[] positionAndGrant = pgI.next().split("#");
+				positionAndGranthm.put("pst_position", positionAndGrant[0]);
+				positionAndGranthm.put("gpc_code", positionAndGrant[1]);
+				positionAndGranthm.put("c_code", (String) session.getAttribute("c_code"));
+				cDao.createPositionGrant(positionAndGranthm);
+			}
+		} catch (Exception e) {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			System.out.println(e);
 		}
-		
-		return null;
+
+	}
+
+	public HashMap<String, String> getPosition(HttpSession session) {
+		try {
+			HashMap<String, String> hm = new HashMap<String, String>();
+			CMemberHtmlMaker cmh = new CMemberHtmlMaker();
+			hm.put("positionList", cmh.getPositionHtml(cDao.getPosition((String) session.getAttribute("c_code"))));
+			
+			return hm;
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+
 	}
 
 }

@@ -57,7 +57,7 @@ public class OrderMM1 {
 				}
 				odr.setTList(tNumList);
 			}
-			odr.setSc_name("<button class='category' onclick='opentable(event,\"table" + i + "\")'>"
+			odr.setSc_name("<button class='category' id='ctg"+(i+1)+"'onclick='opentable(event,\"table" + i + "\")'>"
 					+ cList.get(i).getSc_name() + "</button>");
 			odr.setSc_x(cList.get(i).getSc_x());
 			odr.setSc_y(cList.get(i).getSc_y());
@@ -103,7 +103,7 @@ public class OrderMM1 {
 				sb.append("</tr>");
 				sb.append("</form>");
 			}
-		} else if (rList == null) {
+		} else if (rList.size()==0) {
 			sb.append("<tr>");
 			sb.append("<td colspan='6'>예약 정보가 없습니다.</td>");
 			sb.append("</tr>");
@@ -147,12 +147,18 @@ public class OrderMM1 {
 			}
 			// 메모 데이터가 있다면 예약메모테이블에 등록
 			log.info("result:"+result);
-			if (odr.getRsvm_memo() != null || odr.getRsvm_memo() != "") {
+			System.out.println(odr.getRsvm_memo());
+			if (odr.getRsvm_memo()!= null) {
 				memoresult = oDao.insertReservmemo(odr);
+			}else if(odr.getRsvm_memo()== null) {
+				System.out.println("0000000000000000000000000");
+				hMap.put("result", "등록이 완료되었습니다.");
+				return hMap;
 			}
 			// 결과가 둘다 true라면 hMap 반환
 			if (result && memoresult) {
 				hMap.put("result", "등록이 완료되었습니다.");
+				return hMap;
 			}
 		}
 		// 예약코드가 있다면 update 진행
@@ -186,6 +192,45 @@ public class OrderMM1 {
 			hMap.put("result", "삭제되었습니다.");
 		}
 		return hMap;
+	}
+
+	public List<Order> getorderList(HttpSession session, int oac_status) {
+		//String c_code = session.getAttribute("c_code").toString();
+		String c_code = "123123123123";
+		Order odr = new Order();
+		List<Order> oList = oDao.getorderList(c_code,oac_status);
+		log.info("oList :"+oList);
+		List<Order> odrList = new ArrayList<Order>();
+		HashMap<String, List<String>> pdMap = new HashMap<String, List<String>>();
+		List<String> pdnList = new ArrayList<String>();
+		List<String> pdcList = new ArrayList<String>();
+		List<String> pdccList = new ArrayList<String>();
+		List<Integer> cntList = new ArrayList<Integer>();
+		for(int i = 0; i<oList.size();i++) {
+			odr=oList.get(i);
+			if(odr.getSc_code()==odr.getSc_code()&&odr.getSt_num()==odr.getSt_num()) {
+				System.out.println("상품이름:"+odr.getPd_name());
+				odr.setSc_code(odr.getSc_code());
+				odr.setSt_num(odr.getSt_num());
+				odr.setOac_num(odr.getOac_num());
+				pdcList.add(odr.getPd_code());
+				pdnList.add(odr.getPd_name());
+				pdccList.add(odr.getPdc_code());
+				cntList.add(odr.getOh_cnt());
+				System.out.println("code"+odr.getPd_code());
+			}
+			pdMap.put("pdcList", pdcList);
+			pdMap.put("pdnList", pdnList);
+			pdMap.put("pdccList", pdccList);
+			odr.setPdMap(pdMap);
+			odr.setCntList(cntList);
+		}
+		odr.setPd_name(null);
+		odr.setPdc_code(null);
+		odr.setPd_code(null);
+		odrList.add(odr);
+		log.info("odrList:"+odrList);
+		return odrList;
 	}
 
 }

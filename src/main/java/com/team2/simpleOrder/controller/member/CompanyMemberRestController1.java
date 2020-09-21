@@ -45,7 +45,17 @@ public class CompanyMemberRestController1 {
 	@GetMapping("/getPositionGrant")
 	public HashMap<String, String> getPositionGrant(HttpSession session){
 		return mm.getPositionGrant(session);
+	}
+	
+	@GetMapping("/getPosition")
+	public HashMap<String, String> getPosition(HttpSession session){
+		return mm.getPosition(session);
 		
+	}
+	@GetMapping("/test")
+	public String test(@RequestParam HashMap<String, String> aa) {
+		System.out.println(aa);
+		return null;
 	}
 
 
