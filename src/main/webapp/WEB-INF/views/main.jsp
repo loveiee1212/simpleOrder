@@ -45,7 +45,7 @@ body {
 img {
 	width: 200px;
 	margin-top: -65px;
-	margin-left: -50px;
+	margin-left: -80px;
 }
 
 a.navbar-brand {
@@ -82,7 +82,11 @@ ul {
 }
 
 .navbar-default .navbar-nav>li>a {
-	color: rgb(15, 13, 13);
+	color: white;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	color: white;
 }
 
 .login {
@@ -120,6 +124,7 @@ input:focus {
 	margin: 0px 30px 10px -20px;
 	outline: 0;
 	background-color: #81d4fa;
+	color: white;
 }
 
 #btn2 {
@@ -187,13 +192,7 @@ li {
 	padding-left: 50px;
 }
 
-#errorDiv {
-	font-size: 20px;
-	color: #ff3d00;
-	margin-left: -20px;
-}
-
-#msg1, #msg2 {
+#msg1, #msg2, #errorDiv {
 	width: 500px;
 	font-size: 20px;
 	color: #ff3d00;
@@ -224,8 +223,7 @@ li {
 						<!-- 주요 기능 페이지 -->
 					</ul>
 				</div>
-				<div id="myCarousel" class="carousel slide text-center"
-					data-ride="carousel">
+				<div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
 					<ol class="carousel-indicators">
 						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 						<li data-target="#myCarousel" data-slide-to="1"></li>
@@ -254,7 +252,7 @@ li {
 					<form action="cEmailLogin" method="post" onsubmit="return cEmailLogin()">
 						<input type="email" name="ce_email" id="id" placeholder="사업자 이메일을 입력해주세요" onkeydown="keyEvt()"	value="${requestScope.ce_email}" />
 						<div id="msg1"></div>
-						<input type="password" name="ce_pw" id="pw" placeholder="비밀번호 12~20자리를 입력해주세요" onkeydown="keyEvt()"/> <br>
+						<input type="password" name="ce_pw" id="pw" placeholder="비밀번호 특수문자 포함하여 12~20자리를 입력해주세요" onkeydown="keyEvt()"/> <br>
 						<div id="msg2"></div>
 						<div id="errorDiv">${requestScope.errorDiv}</div>
 						<br> <input type="submit" id="btn1" value="로그인"/><br>
@@ -264,9 +262,7 @@ li {
 					</form>
 				</div>
 				<div id="hline"></div>
-				<p>
-					<b>회사정보</b>
-				</p>
+				<p><b>회사정보</b></p>
 				<p>
 					SimpleOrder(주) | 대표: HD6 | 인천광역시 미추홀구 학익동 <br> 365고객센터 |
 					전자금융거래분쟁처리담당 1234-1234 <br> 사업자 등록번호 : 123-45-00678 | email:
@@ -309,6 +305,7 @@ li {
 		if ($('#pw').val() != "") {
 			document.getElementById("msg2").innerHTML = " ";
 		}
+		document.getElementById("errorDiv").innerHTML = " ";
 	}
 </script>
 

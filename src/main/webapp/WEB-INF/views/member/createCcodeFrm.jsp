@@ -31,14 +31,18 @@ body {
 
 img { /* 사진 수정예정 */
 	/* border: 1px solid black; */
-	width: 300px;
-	margin-top: -140px;
+	width: 250px;
+	margin-top: -130px;
 	float: left;
 }
 
 h2 {
-    margin-top: -10px;
-	margin-left: 500px;
+    margin-top: 10px;
+	margin-left: 470px;
+	text-decoration: underline;
+	text-underline-position: under;
+	color: #2196f3;
+	font-weight: bold;
 }
 
 #createCcode {
@@ -57,7 +61,7 @@ input:focus {
 #c_code {
 	width: 540px;
 	height: 70px;
-	margin-top: 20px;
+	margin-top: 5px;
 	margin-left: 75px;
 	font-size: 20px;
 }
@@ -86,17 +90,18 @@ input:focus {
 
 #roadAddrPart2 {
 	font-size: 20px;
-	margin-left: 10px;
+	margin-left: 14px;
 }
 
 #add {
 	width: 150px;
-	height: 65px;
-	margin-left: 10px;
+	height: 70px;
+	margin-left: 14px;
 	border: 2px solid white;
 	background-color: #81d4fa;
 	font-weight: bold;
 	font-size: 20px;
+	color: white;
 }
 
 #btn1 {
@@ -108,13 +113,14 @@ input:focus {
 	background-color: #81d4fa;
 	font-size: 25px;
 	font-weight: bold;
+	color: white;
 }
 
 #btn2 {
 	width: 250px;
 	height: 80px;
 	border: 3px solid #81d4fa;
-	margin: 0px 30px 10px 10px;
+	margin: 0px 30px 10px 13px;
 	padding: 5px 10px;
 	outline: 0;
 	background-color: white;
@@ -139,27 +145,21 @@ error {
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<form action="createCcodeAcount" name="form" id="form" method="post" onsubmit="return test()">
-				<a class="navbar-brand" href="cList"><img src="resources/image/logo.png" alt="createCcodeAcount view"></a>
+				<a class="navbar-brand" href="main"><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 				<h2>접속중인 이메일 : ${ce_email}</h2>
 				<table id="createCcode">
 					<tr>
 						<td><input id="c_code" name="c_code" onkeypress="onlyNum(this)" numberOnly="true" onkeydown="keyEvt()" value="${cCodeInfo.c_code}" type="text" placeholder="대표 사업자 번호 12자리" maxlength="12"></td>
 					</tr>
-					<tr>
-							<td id="msg1"></td>
-						</tr>
+					<tr><td id="msg1"></td></tr>
 					<tr>
 						<td><input id="c_pw" name="c_pw" type="password" placeholder="비밀번호 12~20자리" maxlength="20" onkeydown="keyEvt()" value="${cCodeInfo.c_pw}"></td>
 					</tr>
+					<tr><td id="msg2"></td></tr>
 					<tr>
-							<td id="msg2"></td>
-						</tr>
-					<tr>
-						<td><input id="emp_name" name="emp_name" value="${cCodeInfo.emp_name}" type="text" placeholder="사업자 대표명"  onkeydown="keyEvt()"></td>
+						<td><input id="emp_name" name="emp_name" value="${cCodeInfo.emp_name}" type="text" placeholder="사업자 대표명" maxlength="5" onkeydown="keyEvt()"></td>
 					</tr>
-					<tr>
-							<td id="msg3"></td>
-						</tr>
+					<tr><td id="msg3"></td></tr>
 					<tr>
 						<td><input type="hidden" id="confmKey" name="confmKey" value="${cCodeInfo.confmKey}">
 						<input type="text" id="zipNo" name="zipNo" placeholder="우편번호" readonly style="width: 370px; height: 70px;" value="${acountInfo.zipNo}">
@@ -172,31 +172,24 @@ error {
 						<td><input type="text" id="addrDetail" name="addrDetail" style="width: 340px; height: 70px;" value="${cCodeInfo.addrDetail}" placeholder="상세주소">
 						<input type="text" id="roadAddrPart2" style="width: 180px; height: 70px;" value="" placeholder="동" readonly value="${cCodeInfo.roadAddrpar2}" name="roadAddrPart2"></td>
 					</tr>
-					<tr>
-							<td id="msg4"></td>
-						</tr>
+					<tr><td id="msg4"></td></tr>
 					<tr>
 						<td><input id="c_name" name="c_name" value="${cCodeInfo.c_name}" type="text" placeholder="사업장 상호명"  onkeydown="keyEvt()"></td>
 					</tr>
+					<tr><td id="msg5"></td></tr>
 					<tr>
-							<td id="msg5"></td>
-						</tr>
-					<tr>
-						<td><input id="c_phone" name="c_phone" value="${cCodeInfo.c_phone}" type="text" placeholder="사업장 연락처  -없이 11자리" maxlength="11" onkeypress="onlyNum(this)" numberOnly="true"  onkeydown="keyEvt()">
-						</td>
+						<td><input id="c_phone" name="c_phone" value="${cCodeInfo.c_phone}" type="text" placeholder="사업장 연락처  -없이 11자리" maxlength="11" onkeypress="onlyNum(this)" numberOnly="true"  onkeydown="keyEvt()"></td>
 					</tr>
+					<tr><td id="msg6"></td></tr>
 					<tr>
-							<td id="msg6"></td>
-						</tr>
-					<tr>
-						<td><error> ${cCodeInfo.error}</error></td>
+						<td><error id="error"> ${cCodeInfo.error}</error></td>
 					</tr>
 					<tr>
 						<td><input type="submit" id="btn1" value="사업장 추가">
 						<input type="button" id="btn2" value="뒤로가기" onclick="location.href = 'cList'"></td>
 					</tr>
 				</table>
-				<!-- <input type="text" style="display: none" name="c_address" id="address"> -->
+				<input type="text" style="display: none" name="c_address" id="address">
 			</form>
 		</div>
 	</div>
@@ -284,6 +277,7 @@ function onlyNum(obj) {
 		document.getElementById("msg3").innerHTML = " ";
 		document.getElementById("msg5").innerHTML = " ";
 		document.getElementById("msg6").innerHTML = " ";
+		document.getElementById("error").innerHTML = " ";
 	}
 </script>
 </html>

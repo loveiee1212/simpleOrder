@@ -47,7 +47,7 @@ body {
 	height: 400px;
 	background-color: white;
 	z-index: 6;
-	font-size: 28px;
+	font-size: 20px;
 	padding: 70px 70px 0px 70px;
 }
 
@@ -60,7 +60,7 @@ input:focus {
 	height: 80px;
 	font-size: 20px;
 	text-align: center;
-	margin-top: 10px;
+	margin-top: 0px;
 }
 
 #c_pw {
@@ -68,7 +68,7 @@ input:focus {
 	height: 80px;
 	font-size: 20px;
 	text-align: center;
-	margin-top: 10px;
+	margin-top: 0px;
 	border: 0;
 	border-bottom: 1px solid black;
 }
@@ -82,6 +82,7 @@ input:focus {
 	outline: 0;
 	background-color: #81d4fa;
 	font-weight: bold;
+	color: white;
 }
 
 img { /* 사진 수정예정 */
@@ -94,12 +95,32 @@ img { /* 사진 수정예정 */
 
 #cListInfo {
 	width: 1400px;
-	height: 300px;
 	border: 3px solid #81d4fa;
 	font-size: 20px;
 	margin-left: 50px;
 	z-index: 2;
 	border-collapse: collapse;
+}
+
+#UPbtn {
+	width: 80px;
+	height: 50px; 
+	border : 3px solid #81d4fa;
+	background-color: white;
+	font-size: 18px;
+	font-weight: bold;
+	color: #81d4fa;
+	border: 3px solid #81d4fa;
+}
+
+#DEbtn {
+	width: 80px;
+	height: 50px;
+	border: 2px solid white;
+	background-color: #81d4fa;
+	font-size: 18px;
+	font-weight: bold;
+	color: white;
 }
 
 table {
@@ -120,11 +141,11 @@ th {
 	background-color: white;
 	color: #81d4fa;
 	width: 250px;
-	height: 20px;
+	height: 40px;
 }
 
 td {
-	height: 50px;
+	height: 60px;
 	text-align: center;
 	margin: -50px;
 	padding: -10px;
@@ -138,20 +159,22 @@ td:-webkit-scrollbar {
 }
 
 #btn1 {
-	width: 600px;
+	width: 650px;
 	height: 80px;
 	border: 2px solid white;
-	margin: 30px 50px 10px 100px;
+	margin: 30px 50px 10px 48px;
 	outline: 0;
 	background-color: #81d4fa;
 	font-size: 20px;
+	font-weight: bold;
+	color: white;
 }
 
 #btn2 {
-	width: 600px;
+	width: 650px;
 	height: 80px;
 	border: 3px solid #81d4fa;
-	margin: 10px 30px 10px 40px;
+	margin: 10px 0px 10px 47px;
 	padding: 5px 10px;
 	outline: 0;
 	background-color: white;
@@ -188,33 +211,28 @@ td:-webkit-scrollbar {
 				<table>
 					<tr>
 						<th id="th">사업자 번호</th>
-						<td id="td"><input type="text" id="c_code" name="c_code"
-							readonly="readonly" style="outline: none; border: none;"></td>
+						<td id="td"><input type="text" id="c_code" name="c_code" readonly="readonly" style="outline: none; border: none;"></td>
 					</tr>
 					<tr>
 						<th id="th">사업자 비밀번호</th>
-						<td id="td"><input type="password" id="c_pw" name="c_pw"
-							maxlength="20" placeholder="비밀번호 12~20자리"></td>
+						<td id="td"><input type="password" id="c_pw" name="c_pw" maxlength="20" placeholder="비밀번호 12~20자리"  onkeydown="keyEvt()"></td>
 					</tr>
 					<tr>
 						<td colspan="2" id="msg1"></td>
 					</tr>
 					<tr>
-						<td colspan="2" id="td"><input type="submit" id="clogin"
-							value="로그인"></td>
+						<td colspan="2" id="td"><input type="submit" id="clogin" value="로그인"></td>
 					</tr>
 				</table>
 				<div id="error"></div>
-				<input type="text" name="ce_email" value="${ce_email}"
-					style="display: none;">
+				<input type="text" name="ce_email" value="${ce_email}" style="display: none;">
 			</form>
 		</div>
 	</div>
 
 	<div id="baseBox">
 		<div id="baseinnerBox">
-			<a class="navbar-brand" href="cList"><img
-				src="resources/image/logo.png" alt="cList view"></a>
+			<a class="navbar-brand" href="main"><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 			<table id="cListInfo">
 				<tr>
 					<th>상호명</th>
@@ -224,10 +242,8 @@ td:-webkit-scrollbar {
 					<th colspan="2">비고</th>
 				</tr>
 			</table>
-			<input type="button" id="btn1"
-				onclick="location.href = 'createccodefrm'" value="사업장 추가"> <input
-				type="button" id="btn2" onclick="location.href = 'emailLogout'"
-				value="eMail로그아웃">
+			<input type="button" id="btn1"	onclick="location.href ='createccodefrm'" value="사업장 추가">
+			<input type="button" id="btn2" onclick="location.href = 'emailLogout'" value="EMAIL 로그아웃">
 		</div>
 	</div>
 </body>
@@ -299,7 +315,9 @@ $(document).keydown(function(data){
 		$("#c_code").val(cCode);
 	};
 	
-
+function keyEvt() {
+	document.getElementById("error").innerHTML = " ";
+}
 </script>
 
 </html>

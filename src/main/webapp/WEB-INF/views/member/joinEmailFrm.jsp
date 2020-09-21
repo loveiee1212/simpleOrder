@@ -45,7 +45,7 @@ body {
 img {
 	width: 200px;
 	margin-top: -65px;
-	margin-left: -50px;
+	margin-left: -80px;
 }
 
 a.navbar-brand {
@@ -73,7 +73,11 @@ li {
 }
 
 .navbar-default .navbar-nav>li>a {
-	color: rgb(15, 13, 13);
+	color: white;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	color: white;
 }
 
 #joinInfo {
@@ -115,11 +119,12 @@ input:focus {
 
 #add {
 	width: 150px;
-	height: 50px;
+	height: 53px;
 	margin-left: 4px;
 	border: 2px solid white;
 	background-color: #81d4fa;
 	font-weight: bold;
+	color: white;
 }
 
 #c_phone {
@@ -139,9 +144,10 @@ input:focus {
 	outline: 0;
 	background-color: #81d4fa;
 	font-weight: bold;
+	color: white;
 }
 
-#msg1, #msg2, #msg3, #msg4, #msg5, #msg6, #msg7, #msg8, #msg9 {
+#msg1, #msg2, #msg3, #msg4, #msg5, #msg6, #msg7, #msg8, #error {
 	width: 600px;
 	font-size: 18px;
 	color: #ff3d00;
@@ -154,7 +160,7 @@ input:focus {
 			<nav class="navbar navbar-default">
 				<div id="header">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="main"> <img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
+						<a class="navbar-brand" href="main"><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 						<!-- 포스 메인페이지 -->
 					</div>
 					<ul class="nav navbar-nav">
@@ -172,69 +178,51 @@ input:focus {
 							<td><input type="email" id="ce_email" name="ce_email" placeholder="사업자 이메일" onkeydown="keyEvt()" value="${acountInfo.ce_email}"></td>
 							<!-- 이메일 형식만 통과 되도록 -->
 						</tr>
+						<tr><td id="msg1"></td></tr>
 						<tr>
-							<td id="msg1"></td>
-						</tr>
-						<tr>
-							<td><input type="password" id="ce_pw" name="ce_pw" placeholder="비밀번호 12~20자리" maxlength="20" onkeydown="keyEvt()"></td>
+							<td><input type="password" id="ce_pw" name="ce_pw" placeholder="비밀번호 특수문자 포함하여 12~20자리" maxlength="20" onkeydown="keyEvt()"></td>
 							<!-- 12~20자 특수문자,숫자 포함 -->
 						</tr>
-						<tr>
-							<td id="msg2"></td>
-						</tr>
+						<tr><td id="msg2"></td></tr>
 						<tr>
 							<td><input type="text" id="c_code" name="c_code" placeholder="대표 사업자 번호 12자리" maxlength="12" onkeypress="onlyNum(this)" numberOnly="true" onkeydown="keyEvt()" value="${acountInfo.c_code}"></td>
 							<!-- 필수입력 12자리 숫자만 -->
 						</tr>
-						<tr>
-							<td id="msg3"></td>
-						</tr>
+						<tr><td id="msg3"></td></tr>
 						<tr>
 							<td><input type="password" id="c_pw" name="c_pw" placeholder="대표 사업자 비밀번호 12~20자리" maxlength="20" onkeydown="keyEvt()"></td>
 							<!-- 필수입력 20자리 이내 -->
 						</tr>
+						<tr><td id="msg4"></td></tr>
 						<tr>
-							<td id="msg4"></td>
+							<td><input type="text" id="emp_name" name="emp_name" placeholder="사업자 대표명" maxlength="5" onkeydown="keyEvt()" value="${acountInfo.emp_name}"></td>
+							<!-- 필수입력 5자리 이내 -->
 						</tr>
-						<tr>
-							<td><input type="text" id="emp_name" name="emp_name" placeholder="사업자 대표명" onkeydown="keyEvt()" value="${acountInfo.emp_name}"></td>
-							<!-- 필수입력 공백 허용X -->
-						</tr>
-						<tr>
-							<td id="msg5"></td>
-						</tr>
+						<tr><td id="msg5"></td></tr>
 						<tr>
 							<td><input type="text" id="c_name" name="c_name" placeholder="사업자 상호명" maxlength="30" onkeydown="keyEvt()" value="${acountInfo.c_name}"></td>
 							<!-- 필수입력 30자리 이내 -->
 						</tr>
-						<tr>
-							<td id="msg6"></td>
-						</tr>
+						<tr><td id="msg6"></td></tr>
 						<tr>
 							<td><input type="hidden" id="confmKey" name="confmKey" value="${acount.confmKey}">
 							<input type="text" id="zipNo" name="zipNo" placeholder="우편번호" readonly style="width: 380px; height: 50px;" value="${acountInfo.zipNo}">
 							<input type="button" id="add" value="주소검색" onclick="goPopup();"></td>
 						</tr>
 						<tr>
-							<td><input type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소" readonly maxlength="50" style="width: 540px; height: 50px;" onkeydown="keyEvt()" value="${acountInfo.roadAddrPart1}"></td>
+							<td><input type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소" readonly maxlength="50" style="width: 540px; height: 50px;" value="${acountInfo.roadAddrPart1}"></td>
 						</tr>
 						<tr>
-							<td><input type="text" id="addrDetail" name="addrDetail" style="width: 383px; height: 50px;" value="${acountInfo.addrDetail}" placeholder="상세주소">
+							<td><input type="text" id="addrDetail" name="addrDetail" style="width: 383px; height: 50px;" value="${acountInfo.addrDetail}" placeholder="상세주소"  onkeydown="keyEvt()">
 							<input type="text" id="roadAddrPart2" style="width: 150px; height: 50px;" value="" placeholder="동" readonly value="${acountInfo.roadAddrpar2}" name="roadAddrPart2"></td>
 						</tr>
+						<tr><td id="msg7"></td></tr>
 						<tr>
-							<td id="msg7"></td>
-						</tr>
-						<tr>
-							<td><input type="text" id="c_phone" name="c_phone" placeholder="사업장 연락처  -없이 11자리" maxlength="11" onkeypress="onlyNum(this)" numberOnly="true" value="${acountInfo.c_phone }"></td>
+							<td><input type="text" id="c_phone" name="c_phone" placeholder="사업장 연락처  -없이 11자리" maxlength="11" onkeypress="onlyNum(this)" numberOnly="true" value="${acountInfo.c_phone}"></td>
 							<!-- 필수입력 12자리 숫자만 -->
 						</tr>
-						<tr>
-							<td id="msg8"></td>
-						</tr>
-						<tr>
-							<td id="msg9">${acountInfo.error}</td>
-						</tr>
+						<tr><td id="msg8"></td></tr>
+						<tr><td id="error">${acountInfo.error}</td></tr>
 						<tr>
 							<td><input type="submit" id="btn" value="회원 가입"></td>
 						</tr>
@@ -348,6 +336,7 @@ input:focus {
 		document.getElementById("msg5").innerHTML = " ";
 		document.getElementById("msg6").innerHTML = " ";
 		document.getElementById("msg8").innerHTML = " ";
+		document.getElementById("error").innerHTML = " ";
 	}
 </script>
 </html>

@@ -46,7 +46,7 @@ body {
 img {
 	width: 200px;
 	margin-top: -65px;
-	margin-left: -50px;
+	margin-left: -80px;
 }
 
 a.navbar-brand {
@@ -74,7 +74,11 @@ li {
 }
 
 .navbar-default .navbar-nav>li>a {
-	color: rgb(15, 13, 13);
+	color: white;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	color: white;
 }
 
 .container-fluid {
@@ -148,7 +152,9 @@ h1 {
 							<p>모바일 사용 가능</p>
 						</div>
 						<div class="col-sm-4">
-							<i class='fas fa-question' style='font-size: 90px'></i>
+							<i class='fa fa-qrcode' style='font-size:50px'></i>
+							<h3>QRCODE</h3>
+							<p>QR코드로 키오스크 접속가능</p>
 						</div>
 					</div>
 				</div>

@@ -15,8 +15,8 @@ public class CMemberHtmlMaker {
 			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_code()).append("</td>");
 			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_phone()).append("</td>");
 			sb.append("<td onclick = 'cLogindivon(" + clist.get(i).getC_code() + ")'>").append(clist.get(i).getC_address()).append("</td>");
-			sb.append("<td>").append("<input type = 'button' onclick = 'cAcountDelect("+clist.get(i).getC_code()+")' value ='삭제'").append("</td>");
-			sb.append("<td>").append("<input type = 'button' onclick = 'cAcountUpdate("+clist.get(i).getC_code()+")' value ='수정'").append("</td>");
+			sb.append("<td>").append("<input type = 'button' id='DEbtn' onclick = 'cAcountDelect("+clist.get(i).getC_code()+")' value ='삭제'").append("</td>");
+			sb.append("<td>").append("<input type = 'button' id='UPbtn'onclick = 'cAcountUpdate("+clist.get(i).getC_code()+")' value ='수정'").append("</td>");
 			sb.append("</tr>");
 		}
 

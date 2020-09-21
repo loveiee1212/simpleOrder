@@ -45,7 +45,7 @@ body {
 img {
 	width: 200px;
 	margin-top: -65px;
-	margin-left: -50px;
+	margin-left: -80px;
 }
 
 a.navbar-brand {
@@ -68,12 +68,14 @@ ul {
 	margin-top: 5px;
 }
 
-li {
-	padding-left: 50px;
+.navbar-default .navbar-nav>li>a {
+    padding-left: 65px;
+	color: white;
 }
 
-.navbar-default .navbar-nav>li>a {
-	color: rgb(15, 13, 13);
+.navbar-default .navbar-nav>li>a:hover {
+	padding-left: 65px;
+	color: white;
 }
 
 h1 {
@@ -92,12 +94,18 @@ h1 {
 
 h2 {
 	text-align: center;
+	margin-bottom: 30px;
 }
 
 #product {
-	width: 600px;
+	width: 800px;
 	height: 500px;
-	margin-left: 500px;
+	margin-left: 400px;
+	font-size: 25px;
+}
+
+li {
+margin-bottom: 30px;
 }
 
 P {
@@ -127,18 +135,16 @@ P {
 			</nav>
 			<h1>상품소개</h1>
 			<h2>상품명: Simple Order</h2>
-			<div id="product">
-				<p>&#149;&nbsp;&nbsp;웹 기반 pos 제작으로 별도의 프로그램 없이 사용가능</p>
-				<p>&#149;&nbsp;&nbsp;기기의 설치가 필요 없음</p>
-				<p>&#149;&nbsp;&nbsp;모바일 웹으로도 사용가능</p>
-				<p>&#149;&nbsp;&nbsp;외부에서도 인터넷 연결 시 매장의 매출 확인 가능</p>
-				<p>
-					&#149;&nbsp;&nbsp;고객들이 직접 이동해서 주문해야 하는 방식에서 <br>
-					&nbsp;&nbsp;벗어나 자리에서 QR코드를 통한 주문 가능
-				</p>
-				<p>&#149;&nbsp;&nbsp;클라이언트가 필요한 기능을 직접 커스터마이징 가능</p>
-				<p>&#149;&nbsp;&nbsp;직원들의 근태, 월급 등 인사 관리 기능</p>
-			</div>
+			<ol id="product">
+				<li>웹 기반 pos 제작으로 별도의 프로그램 없이 사용가능</li>
+				<li>기기의 설치가 필요 없음</li>
+				<li>모바일 웹으로도 사용가능</li>
+				<li>외부에서도 인터넷 연결 시 매장의 매출 확인 가능</li>
+				<li>고객들이 직접 이동해서 주문해야 하는 방식에서 <br>
+					벗어나 자리에서 QR코드를 통한 주문 가능</li>
+				<li>클라이언트가 필요한 기능을 직접 커스터마이징 가능</li>
+				<li>직원들의 근태, 월급 등 인사 관리 기능</li>
+			</ol>
 		</div>
 	</div>
 </body>
