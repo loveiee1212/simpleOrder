@@ -18,12 +18,6 @@ public class PageController1 {
 	public String home() {
 		return "main";
 	}
-	
-	
-	@RequestMapping("/changeWorkTime")
-	public String changeWorkTime() {
-		return "member/changeWorkTime";
-	}
 	@RequestMapping("/joinEmailFrm")
 	public String joinEmailFrm() {
 		return "member/joinEmailFrm";
