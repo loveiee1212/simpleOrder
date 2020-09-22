@@ -4,4 +4,15 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team2.simpleOrder.dao.order.IOrderDao2">
+
+<select id="getsaoList" parameterType="order" resultType="order">
+SELECT PD.PDC_CODE,PD.PD_CODE,PD.PD_NAME,PD.PD_PRICE,OH.OH_CNT 
+FROM ORDER_HISTORY AS OH JOIN ORDER_AND_CREDIT AS OAC JOIN PRODUCT AS PD
+WHERE OAC.OAC_NUM = #{oac_num} AND OAC.BD_DATE =#{bd_date} AND OAC.OAC_STATUS ="1" 
+AND OAC.C_CODE = #{c_code} AND OAC.BD_DATE = OH.BD_DATE
+AND OH.PDC_CODE = PD.PDC_CODE AND OH.PD_CODE = PD.PD_CODE AND PD.PD_STATUS = "1"
+
+</select>
+
+
 </mapper>

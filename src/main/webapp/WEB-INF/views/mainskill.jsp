@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>주요 기능</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -19,13 +19,15 @@
 body {
 	background-color: #e3f2fd;
 	font-family: 'NEXON Lv1 Gothic OTF Light';
-} 
+}
 
 @font-face {
-    font-family: 'NEXON Lv1 Gothic OTF Light';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 #header {
@@ -44,7 +46,7 @@ body {
 img {
 	width: 200px;
 	margin-top: -65px;
-	margin-left: -50px;
+	margin-left: -80px;
 }
 
 a.navbar-brand {
@@ -72,7 +74,11 @@ li {
 }
 
 .navbar-default .navbar-nav>li>a {
-	color: rgb(15, 13, 13);
+	color: white;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	color: white;
 }
 
 .container-fluid {
@@ -99,14 +105,13 @@ h1 {
 			<div id="baseinnerBox">
 				<div id="header">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="main"><img src="resources/image/logo.png"
-							alt="SimpleOrder 홈페이지"></a>
+						<a class="navbar-brand" href="main"><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 						<!-- 포스 메인페이지 -->
 					</div>
 					<ul class="nav navbar-nav">
 						<li><a href="productinfo">상품소개</a></li>
 						<!-- 상품소개 페이지 -->
-						<li><a href="joinEmailFrm">가입안내</a></li>
+						<li><a href="joinEmailFrm">회원가입</a></li>
 						<!-- 가입안내 페이지 -->
 						<li><a href="mainskill">주요기능</a></li>
 						<!-- 주요 기능 페이지 -->
@@ -147,7 +152,9 @@ h1 {
 							<p>모바일 사용 가능</p>
 						</div>
 						<div class="col-sm-4">
-							<i class='fas fa-question' style='font-size: 90px'></i>
+							<i class='fa fa-qrcode' style='font-size:50px'></i>
+							<h3>QRCODE</h3>
+							<p>QR코드로 키오스크 접속가능</p>
 						</div>
 					</div>
 				</div>

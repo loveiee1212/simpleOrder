@@ -1,8 +1,6 @@
 package com.team2.simpleOrder.controller;
 
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,17 +12,12 @@ public class PageController2 {
 	
 	ModelAndView mav;
 	
-	@RequestMapping("/schedule")
-	public ModelAndView schedule(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		//mav.addObject("empCode", session.getAttribute("emp_code").toString());
-		mav.addObject("empCode", "00000");
-		mav.setViewName("member/schedule");
-		return mav;
+	@RequestMapping(value = "/sellpage")
+	public String sellpage() {
+		
+		return "seat/sellpage";
 	}
 	
-	@RequestMapping("/changeworktime")
-	public String changeworktime() {
-		return "member/changeworktime";
-	}
+	
+
 }
