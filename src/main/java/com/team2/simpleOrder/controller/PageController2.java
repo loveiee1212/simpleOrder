@@ -16,10 +16,7 @@ public class PageController2 {
 	
 	@RequestMapping("/schedule")
 	public ModelAndView schedule(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		//mav.addObject("empCode", session.getAttribute("emp_code").toString());
-		mav.addObject("empCode", "00000");
-		mav.setViewName("member/schedule");
+		ModelAndView mav = new ModelAndView("member/schedule","empCode", session.getAttribute("emp_code").toString());
 		return mav;
 	}
 	
@@ -28,6 +25,9 @@ public class PageController2 {
 		return "member/changeworktime";
 	}
 	
-	
-
+	@RequestMapping(value = "/sellpage")
+	public String home() {
+		
+		return "seat/sellpage";
+	}
 }
