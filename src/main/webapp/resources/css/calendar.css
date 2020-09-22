@@ -1,46 +1,71 @@
-	#calendar {
-		border: 1px solid gold;
-		float: left;
-		width: 1000px;
-		height: 770px;
-		margin-right: 30px;
-		padding: 15px;
-	}
-	#controller {
-		border: 1px solid blue;
-		float: right;
-		width: 430px;
-		height : 800px;
-	}
-	#calendar_top {
-		text-align: right;
-	}
-	.moveButton{
-		width: 100px;
-		height: 50px;
-		background-color: white;
-		font-size: x-large;
-		font-weight: bolder;
-		border-radius: 8px;
-		border: 2px solid gray;	
-		color: gray;
-	}
-	#calendar_main table,tr,td{
-		border: 1px solid orange;
-		font-size: 20px;
-	}
-	#calendar_main tr,td{
-		width: 150px;
-	}
-	#yearMonth{
-		font-size: xx-large;
-		font-weight: bolder;
-		color: gray;
-	}
-	
-	pre.text{
-		height: 75px;
-		font-size: 15px;
-		margin: 0px;
-	}
-	
+#calendar {
+	border: 2px solid #81d4fa;
+	float: left;
+	width: 1000px;
+	height: 770px;
+	margin-right: 30px;
+	padding: 15px;
+}
+
+#controller {
+	border: 2px solid #81d4fa;
+	float: right;
+	width: 430px;
+	height: 800px;
+}
+
+#calendar_top {
+	text-align: right;
+	margin-top: 20px;
+}
+
+.moveButton {
+	width: 80px;
+	height: 50px;
+	background-color: #81d4fa;
+	font-size: x-large;
+	font-weight: bolder;
+	border-radius: 8px;
+	border: 2px solid white;
+	color: white;
+}
+
+.moveButton:focus {
+	outline: none;
+}
+
+#calendar_main table, tr, td, th {
+	border: 3px solid #81d4fa;
+	font-size: 20px;
+	border-collapse: collapse;
+	margin-top: 80px;
+}
+
+#calendar_main tr, td {
+	width: 150px;
+}
+
+th {
+	width: 200px;
+	height: 30px;
+	border: 3px solid #81d4fa;
+	border-collapse: collapse;
+	margin-top: 80px;
+	background-color: #81d4fa;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#yearMonth {
+	font-size: xx-large;
+	font-weight: bolder;
+	color: gray;
+}
+
+pre.text {
+	width: 100px;
+	height: 75px;
+	font-size: 15px;
+	margin: 0px;
+}

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>SimpleOrder</title>
+<title>schedule</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -12,63 +12,60 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
-<link rel="stylesheet" href="resources/css/calendar.css" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css" type="text/css">
+<link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
 <style>
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+#calendar, #controller {
+	background-color: white;
+}
+
 #gWork button {
 	text-align: center;
-	border: 1px solid black;
-	width: 400px;
+	border: 2px solid white;
+	width: 300px;
 	height: 95px;
-	margin-left: 15px;
+	margin-left: 65px;
 	margin-top: 30px;
-	border: 1px solid black;
-	background-color: white;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
 	font-size: 25px;
 }
 
-#lWork button {
+#lWork button, #changeWorkTime button, #showAllWorkTime button, #leave button
+	{
 	text-align: center;
-	border: 1px solid black;
-	width: 400px;
+	border: 2px solid white;
+	width: 300px;
 	height: 95px;
-	margin-left: 15px;
+	margin-left: 65px;
 	margin-top: 30px;
-	border: 1px solid black;
-	background-color: white;
-	font-size: 25px;
-}
-
-#changeWorkTime button {
-	text-align: center;
-	border: 1px solid black;
-	width: 400px;
-	height: 95px;
-	margin-left: 15px;
-	margin-top: 30px;
-	border: 1px solid black;
-	background-color: white;
-	font-size: 25px;
-}
-
-#leave button {
-	text-align: center;
-	border: 1px solid black;
-	width: 400px;
-	height: 95px;
-	margin-left: 15px;
-	margin-top: 175px;
-	border: 1px solid black;
-	background-color: white;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
 	font-size: 25px;
 }
 
 #view_layer {
-	display : none;
-	position : fixed;
+	display: none;
+	position: fixed;
 	position: absolute;
-	top : 0;
-	left : 0;
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
 }
@@ -80,13 +77,13 @@
 
 #bg_layer {
 	position: absolute;
-	top : 0;
-	left : 0;
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
 	background: white;
-	opacity: .5;
-	filter : alpha(opacity = 50);
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
 	z-index: 100;
 }
 
@@ -94,18 +91,41 @@
 	position: absolute;
 	top: 30%;
 	left: 27%;
-	width: 600px;
+	width: 700px;
 	height: 670px;
 	margin: -150px 0 0 -194px;
 	padding: 28px 28px 0 28px;
 	border: 2px solid #555;
 	background: #fff;
-	font-size: 12px;
+	font-size: 18px;
 	z-index: 200;
 	color: #767676;
 	line-height: normal;
 	white-space: normal;
-	overflow: scroll
+	overflow: scroll;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+#main_layer td {
+	font-size: 20px;
+	height: 40px;
+	padding-top: 10px;
+}
+
+#emp_codeList {
+	float: left;
+}
+
+#btn {
+	float: right;
+}
+
+#emp_list {
+	border: 3px solid #81d4fa;
+	width: 150px;
+	height: 40px;
+	font-size: 20px;
 }
 </style>
 </head>
@@ -114,14 +134,15 @@
 		<div id="baseinnerBox">
 			<div id="calendar">
 				<div id="calendar_top">
-				<div id="emp_codeList"></div>
-					<label id="prevMonth"><button class="moveButton"
-							onclick="movePrevMonth()">◁</button></label> <span id="yearMonth"></span>
-					<label id="nextMonth"><button class="moveButton"
-							onclick="moveNextMonth()">▷</button></label>
+					<div id="emp_codeList"></div>
+					<div id="btn">
+						<label id="prevMonth"><button class="moveButton" onclick="movePrevMonth()">◁</button></label>
+						<span id="yearMonth"></span>
+						<label id="nextMonth"><button class="moveButton" onclick="moveNextMonth()">▷</button></label>
+					</div>
 				</div>
 				<div id="calendar_main"></div>
-				
+
 				<!-- 모달박스 -->
 				<div id="view_layer">
 					<div id="bg_layer"></div>
@@ -155,23 +176,30 @@
 	</div>
 </body>
 <script type="text/javascript">
-	$(document).ready(
-		function() {
-			makeCalendar();
-			resetDay();
-			showDay();
-			clockOn();
-			if ("${empCode}" == "00000") {
-				$("#changeWorkTime").append($("<button id = 'changeWorkTimeButton' onclick='changeWorkTime()'>").html("근무시간변경"));
-				$("#showAllWorkTime").append($("<button id= 'showAllWorkTimeButton'>").html("전체근무시간"));
-			}
-		});
+	$(document)
+			.ready(
+					function() {
+						makeCalendar();
+						resetDay();
+						showDay();
+						clockOn();
+						if ("${empCode}" == "00000") {
+							$("#changeWorkTime")
+									.append(
+											$(
+													"<button id = 'changeWorkTimeButton' onclick='changeWorkTime()'>")
+													.html("근무시간변경"));
+							$("#showAllWorkTime").append(
+									$("<button id= 'showAllWorkTimeButton'>")
+											.html("전체근무시간"));
+						}
+					});
 
 	//캘린더 생성
 	function makeCalendar() {
 		var table = "";
 		table += "<table class='calendarTbl'>";
-		table += "<tr><td>SUN</td><td>MON</td><td>TUE</td><td>WED</td><td>THU</td><td>FRI</td><td>SAT</td></tr>";
+		table += "<tr><th>SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr>";
 		for (var i = 0; i < 6; i++) {
 			table += "<tr height='109'>";
 			for (var j = 0; j < 7; j++) {
@@ -196,7 +224,7 @@
 		lastDay = new Date(year, month, 0);
 		$tdDay = $(".day");
 		$tdText = $(".text");
-		dayCount=0;
+		dayCount = 0;
 	}
 
 	function showDay() {
@@ -211,18 +239,19 @@
 			++dayCount;
 
 			$tdDay.eq(i).text(dayCount);
-			$(".dt").eq(i).attr("onclick","showWorkTime("+dayCount+")");
+			$(".dt").eq(i).attr("onclick", "showWorkTime(" + dayCount + ")");
 
 			if ($tdDay.eq(i).text() == today.getDate()) {
 				if (month == today.getMonth() + 1) {
 					if (year == today.getFullYear()) {
-						$(".dt").eq(i).css("background-color", "gold");
+						$(".dt").eq(i).css("background-color", "#81d4fa");
 					}
 				}
 			}
 
 		}
-		$("#showAllWorkTime").attr("onclick","showAllWorkTime("+dayCount+")");
+		$("#showAllWorkTime").attr("onclick",
+				"showAllWorkTime(" + dayCount + ")");
 		getEmpList(dayCount);
 		getTime(dayCount);
 
@@ -266,72 +295,86 @@
 
 	//출퇴근 시간 출력
 	function getTime(day) {
-		
-		if ("${empCode}"=="00000"){
+
+		if ("${empCode}" == "00000") {
 			var emp_code = $("#emp_codeList option:selected").val();
 		} else {
 			var emp_code = null;
 		}
-		
-		$.ajax({
-			type : 'get',
-			url : 'rest/getTime',
-			data : {
-					'c_code' : 123123123123,
-					'l_date' : year + "-" + month + "-" + day,
-					'f_date' : year + "-" + month + "-" + 01,
-					'emp_code' : emp_code
-					
-			},
-			dataType : 'json',
-			success : function(data) {
-				$tdText.text(" ");
 
-				for ( var i in data) {
+		$
+				.ajax({
+					type : 'get',
+					url : 'rest/getTime',
+					data : {
+						'c_code' : 123123123123,
+						'l_date' : year + "-" + month + "-" + day,
+						'f_date' : year + "-" + month + "-" + 01,
+						'emp_code' : emp_code
 
-					if (data[i].BD_DATE != null) {
-						var bd_date = moment(data[i].BD_DATE).format("DD");
-						var bd_dateYM = moment(data[i].BD_DATE).format(
-								"YYYY MM");
-					}
-					if (data[i].AD_INTIME != null) {
-						var ad_inTime = moment(data[i].AD_INTIME).format(
-								"HH:mm:ss");
-					}
-					if (data[i].AD_OUTTIME != null) {
-						var ad_outTime = moment(data[i].AD_OUTTIME).format(
-								"HH:mm:ss");
-						/* var ad_outTime = data[i].AD_OUTTIME.substr(12, 9);
-						ad_outTime = ad_outTime.replace(/\s/g,"");
-						ad_outTime = ad_outTime.replace(/[a-zA-Z]+/g,""); */
-					} else {
-						var ad_outTime = "null";
-					}
+					},
+					dataType : 'json',
+					success : function(data) {
+						$tdText.text(" ");
 
-					for (var j = firstDay.getDay(); j < firstDay.getDay()
-							+ lastDay.getDate(); j++) {
-						
-						if (bd_dateYM == $("#yearMonth").text()) {
-							if (bd_date == $tdDay.eq(j).text()) {
-								if (ad_outTime == "null") {
-									$tdText.eq(j).text("출근: " + ad_inTime);
-								} else {
-									// moment.js 라이브러리를 이용하여 시간계산 방법
-									var difHour = moment(data[i].AD_OUTTIME).diff(data[i].AD_INTIME,"hours");
-									var difMinute = moment(data[i].AD_OUTTIME).diff(data[i].AD_INTIME,"minutes");
-									$tdText.eq(j).text(
-											"출근: " + ad_inTime + "\r\n퇴근: "
-													+ ad_outTime + "\r\n\r\n근무시간: "+difHour+"시간 "+difMinute%60+"분");
+						for ( var i in data) {
+
+							if (data[i].BD_DATE != null) {
+								var bd_date = moment(data[i].BD_DATE).format(
+										"DD");
+								var bd_dateYM = moment(data[i].BD_DATE).format(
+										"YYYY MM");
+							}
+							if (data[i].AD_INTIME != null) {
+								var ad_inTime = moment(data[i].AD_INTIME)
+										.format("HH:mm:ss");
+							}
+							if (data[i].AD_OUTTIME != null) {
+								var ad_outTime = moment(data[i].AD_OUTTIME)
+										.format("HH:mm:ss");
+								/* var ad_outTime = data[i].AD_OUTTIME.substr(12, 9);
+								ad_outTime = ad_outTime.replace(/\s/g,"");
+								ad_outTime = ad_outTime.replace(/[a-zA-Z]+/g,""); */
+							} else {
+								var ad_outTime = "null";
+							}
+
+							for (var j = firstDay.getDay(); j < firstDay
+									.getDay()
+									+ lastDay.getDate(); j++) {
+
+								if (bd_dateYM == $("#yearMonth").text()) {
+									if (bd_date == $tdDay.eq(j).text()) {
+										if (ad_outTime == "null") {
+											$tdText.eq(j).text(
+													"출근: " + ad_inTime);
+										} else {
+											// moment.js 라이브러리를 이용하여 시간계산 방법
+											var difHour = moment(
+													data[i].AD_OUTTIME).diff(
+													data[i].AD_INTIME, "hours");
+											var difMinute = moment(
+													data[i].AD_OUTTIME).diff(
+													data[i].AD_INTIME,
+													"minutes");
+											$tdText.eq(j).text(
+													"출근: " + ad_inTime
+															+ "\r\n퇴근: "
+															+ ad_outTime
+															+ "\r\n\r\n시간: "
+															+ difHour + "시간 "
+															+ difMinute % 60
+															+ "분");
+										}
+									}
 								}
 							}
 						}
+					},
+					error : function(err) {
+						console.log(err);
 					}
-				}
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		});
+				});
 	}
 
 	//출근 시간 입력
@@ -411,102 +454,132 @@
 
 <script type="text/javascript">
 	//근무시간 확인
-	
+
 	//직원 리스트 출력
 	function getEmpList(day) {
-		$.ajax({
-			type : "get",
-			url : "rest/getemplist",
-			data : {"c_code" : 123123123123},
-			dataType : "json",
-			success : function(data){
-				$("#emp_codeList").append($("<select name='emp_list' id='emp_list' onchange='getTime("+day+")'>"));
-				$select = $("#emp_list");
-				$select.append("<option value='00000'>직원선택</option>");
-				$select.append($("<optgroup label='재직' id='work'>"));
-				$select.append($("<optgroup label='퇴직' id='nowork'>"));
-				for(var i in data){
-					if(data[i].EMP_STATUS == "1"){
-						$("#work").append($("<option value="+data[i].EMP_CODE+">").html(data[i].EMP_NAME));
+		$
+				.ajax({
+					type : "get",
+					url : "rest/getemplist",
+					data : {
+						"c_code" : 123123123123
+					},
+					dataType : "json",
+					success : function(data) {
+						$("#emp_codeList")
+								.append(
+										$("<select name='emp_list' id='emp_list' onchange='getTime("
+												+ day + ")'>"));
+						$select = $("#emp_list");
+						$select.append("<option value='00000'>직원선택</option>");
+						$select.append($("<optgroup label='재직' id='work'>"));
+						$select.append($("<optgroup label='퇴직' id='nowork'>"));
+						for ( var i in data) {
+							if (data[i].EMP_STATUS == "1") {
+								$("#work")
+										.append(
+												$(
+														"<option value="+data[i].EMP_CODE+">")
+														.html(data[i].EMP_NAME));
+							}
+							if (data[i].EMP_STATUS == "-1") {
+								$("#nowork")
+										.append(
+												$(
+														"<option value="+data[i].EMP_CODE+">")
+														.html(data[i].EMP_NAME));
+							}
+						}
 					}
-					if(data[i].EMP_STATUS == "-1"){
-						$("#nowork").append($("<option value="+data[i].EMP_CODE+">").html(data[i].EMP_NAME));
-					}
-				}
-			}
-		});
+				});
 	}
 
 	//전체 직원의 일 근무시간 확인
-	function showWorkTime(day){
+	function showWorkTime(day) {
 		//사장이 아닐경우 해당 이벤트 사용불가
-		 if ("${empCode}" == "00000"){
+		if ("${empCode}" == "00000") {
 			//모달박스 생성
 			$("#view_layer").addClass("open");
-			$.ajax({
-				type : "get",
-				url : "rest/showworktime",
-				data : {
-					'c_code' : 123123123123,
-					'bd_date' : moment( $("#yearMonth").text() +"-"+ day).format("YYYY-MM-DD")
-				},
-				dataType : "json",
-				success : function(data){
-					$("#main_layer").text(" ");
-					$table = $("#main_layer").append($("<table>"));
-					$table.append($("<tr><td>사번</td><td>사원명</td><td>출근시간</td><td>퇴근시간</td><td>근무시간</td></tr>"));
-					for(var i in data){
-						$tr = $table.append($("<tr>"));
-						$tr.append($("<td>").html(data[i].EMP_CODE));
-						$tr.append($("<td>").html(data[i].EMP_NAME));
-						$tr.append($("<td>").html(moment(data[i].AD_INTIME).format("HH:mm:ss")));
-						$tr.append($("<td>").html(moment(data[i].AD_OUTTIME).format("HH:mm:ss")));
-						// sql문 내에서 시간 계산 방법
-						$tr.append($("<td>").html(data[i].HOUR+"시간 "+data[i].MINUTE+"분"));
-						$tr.append($("</tr>"));
-					}
-					$table.append($("</table>"));
-				}
-			});
+			$
+					.ajax({
+						type : "get",
+						url : "rest/showworktime",
+						data : {
+							'c_code' : 123123123123,
+							'bd_date' : moment(
+									$("#yearMonth").text() + "-" + day).format(
+									"YYYY-MM-DD")
+						},
+						dataType : "json",
+						success : function(data) {
+							$("#main_layer").text(" ");
+							$table = $("#main_layer").append($("<table>"));
+							$table
+									.append($("<tr><th>사번</th><th>사원명</th><th>출근시간</th><th>퇴근시간</th><th>근무시간</th></tr>"));
+							for ( var i in data) {
+								$tr = $table.append($("<tr>"));
+								$tr.append($("<td>").html(data[i].EMP_CODE));
+								$tr.append($("<td>").html(data[i].EMP_NAME));
+								$tr.append($("<td>").html(
+										moment(data[i].AD_INTIME).format(
+												"HH:mm:ss")));
+								$tr.append($("<td>").html(
+										moment(data[i].AD_OUTTIME).format(
+												"HH:mm:ss")));
+								// sql문 내에서 시간 계산 방법
+								$tr.append($("<td>").html(
+										data[i].HOUR + "시간 " + data[i].MINUTE
+												+ "분"));
+								$tr.append($("</tr>"));
+							}
+							$table.append($("</table>"));
+						}
+					});
 		}
 	}
-	
+
 	//전체 직원의 월 근무시간 확인
-	function showAllWorkTime(day){
+	function showAllWorkTime(day) {
 		$("#view_layer").addClass("open");
-		
-		$.ajax({
-			type : "get",
-			url : "rest/showallworktime",
-			data : {
-				'c_code' : 123123123123,
-				'f_date' : moment( $("#yearMonth").text() +"-"+ 01).format("YYYY-MM-DD"),
-				'l_date' : moment( $("#yearMonth").text() +"-"+ day).format("YYYY-MM-DD")
-			},
-			dataType : "json",
-			success : function(data){
-				$("#main_layer").text(" ");
-				$table = $("#main_layer").append($("<table>"));
-				$table.append($("<tr><td>사번</td><td>직급</td><td>사원명</td><td>시간으로계산</td><td>분으로계산</td></tr>"));
-				
-				for(var i in data){
-					$tr = $table.append($("<tr>"));
-					$tr.append($("<td>").html(data[i].EMP_CODE));
-					$tr.append($("<td>").html(data[i].PST_NAME));
-					$tr.append($("<td>").html(data[i].EMP_NAME));
-					$tr.append($("<td>").html(data[i].HOUR+"시간 "));
-					$tr.append($("<td>").html(Math.floor(data[i].MINUTE/60)+"시간 " + data[i].MINUTE%60+"분"));
-					$tr.append($("</tr>"));
+
+		$
+				.ajax({
+					type : "get",
+					url : "rest/showallworktime",
+					data : {
+						'c_code' : 123123123123,
+						'f_date' : moment($("#yearMonth").text() + "-" + 01)
+								.format("YYYY-MM-DD"),
+						'l_date' : moment($("#yearMonth").text() + "-" + day)
+								.format("YYYY-MM-DD")
+					},
+					dataType : "json",
+					success : function(data) {
+						$("#main_layer").text(" ");
+						$table = $("#main_layer").append($("<table>"));
+						$table
+								.append($("<tr><th>사번</th><th>직급</th><th>사원명</th><th>시간으로계산</th><th>분으로계산</th></tr>"));
+
+						for ( var i in data) {
+							$tr = $table.append($("<tr>"));
+							$tr.append($("<td>").html(data[i].EMP_CODE));
+							$tr.append($("<td>").html(data[i].PST_NAME));
+							$tr.append($("<td>").html(data[i].EMP_NAME));
+							$tr.append($("<td>").html(data[i].HOUR + "시간 "));
+							$tr.append($("<td>").html(
+									Math.floor(data[i].MINUTE / 60) + "시간 "
+											+ data[i].MINUTE % 60 + "분"));
+							$tr.append($("</tr>"));
+						}
+						$table.append($("</table>"));
 					}
-				$table.append($("</table>"));
-				}
-			
-		});
+
+				});
 	}
-	
+
 	//모달박스 해제
-	var $layerWindow=$("#view_layer");
-	$layerWindow.find("#bg_layer").on("mousedown",function(evt){
+	var $layerWindow = $("#view_layer");
+	$layerWindow.find("#bg_layer").on("mousedown", function(evt) {
 		$layerWindow.removeClass("open");
 	});
 </script>
