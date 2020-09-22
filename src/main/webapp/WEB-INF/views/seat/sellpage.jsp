@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>sellpage-판매</title>
 <link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
 	type="text/css" />
 <link rel="stylesheet"
@@ -17,25 +19,30 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
+<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
 <style>
 body {
-	padding: 0;
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 #baseBox {
-	border: 1px solid black;
-	float: left;
-	padding: 2%;
-	transform: translate(-50%, 0%);
-	margin: 0% 50%;
+	border: 3px solid #81d4fa;
 }
 
-#baseinnerBox {
-	float: left;
-	border: pink 1px solid;
-	width: 1500px;
-	height: 800px;
-	padding: 30px;
+img {
+	margin-top: 130px;
+	margin-left: 50px;
+	opacity: 0.5;
 }
 
 div {
@@ -50,7 +57,7 @@ div {
 }
 
 .leftdiv {
-	border: 1px solid black;
+	border: 3px solid #81d4fa;
 	width: 1200px;
 	height: 800px;
 	float: left;
@@ -63,7 +70,10 @@ div {
 }
 
 .category {
-	background-color: inherit;
+	font-size: 20px;
+	background-color: white;
+	color: #1565c0;
+	font-weight: bold;
 	float: left;
 	border: none;
 	outline: none;
@@ -86,6 +96,7 @@ div {
 	margin: 15px;
 	opacity: 0.5;
 	background-color: silver;
+	font-size: 20px;
 }
 
 #rightdiv {
@@ -95,16 +106,22 @@ div {
 
 .clickdiv {
 	text-align: center;
-	border: 1px solid black;
 	width: 200px;
-	height: 95px;
+	height: 100px;
 	margin-left: 50px;
-	margin-top: 15px;
-	border: 1px solid black;
+	margin-top: 10px;
+	border: 1px solid white;
+	background-color: #81d4fa;
+	color: white;
+	font-weight: bold;
 }
 
 .clickdiv p {
-	padding-top: 20px;
+	padding-top: 10px;
+}
+
+p {
+	font-size: 25px;
 }
 
 #reservation {
@@ -154,22 +171,36 @@ div {
 }
 
 #r_middle {
-	border: 1px solid black;
+	border: 3px solid #81d4fa;
 	width: 1200px;
 	height: 250px;
 	overflow: auto;
+	border-collapse: collapse;
 }
 
 #r_middle th, #r_middle tr, #r_middle td {
 	width: 300px;
 	height: 50px;
 	text-align: center;
-	border: 1px solid black;
+	border: 3px solid #81d4fa;
+	scrollbar-width: none;
+	border-left-color: white;
+	border-right-color: white;
+	font-size: 18px;
+}
+
+#r_middle th {
+	border-top-color: white;
+}
+
+table {
+	border-collapse: collapse;
 }
 
 #r_footer {
 	width: 1200px;
 	height: 300px;
+	font-size: 20px;
 }
 
 #r_info {
@@ -187,12 +218,16 @@ div {
 
 #keypad ul li {
 	list-style: none;
-	border: 1px solid black;
+	border: 1px solid white;
+	background-color: #81d4fa;
+	color: white;
 	width: 30px;
 	height: 20px;
 	text-align: center;
 	padding: 20px;
 	float: left;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 #r_infotable tr, #r_infotable th {
@@ -235,7 +270,7 @@ div {
 	font-size: 26px;
 	text-align: center;
 	margin-left: 20px;
-	margin-top: 10px;
+	margin-top: 5px;
 }
 
 .clickdiv ul {
@@ -266,7 +301,38 @@ div {
 }
 
 #worktd input {
-	width: 70px;
+	width: 90px;
+	height: 50px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#btn1, #upbtn {
+	border: 3px solid #81d4fa;
+	background-color: #81d4fa;
+	color: white;
+}
+
+#btn2, #rebtn {
+	border: 3px solid #81d4fa;
+	background-color: white;
+	color: #81d4fa;
+}
+
+input:focus {
+	outline: none;
+}
+
+#rsvm_memo:focus {
+	outline: none;
+}
+
+input, #rsvm_memo {
+	font-size: 20px;
+}
+
+i {
+margin-top: -5px;
 }
 </style>
 </head>
@@ -276,8 +342,8 @@ div {
 			<div class="leftdiv">
 				<div class="tab"></div>
 				<div id="seat"></div>
+				<img src="resources/image/logo.png" alt="SimpleOrder 홈페이지">
 			</div>
-			<!--  -->
 			<div id="rightdiv">
 				<div class="clickdiv">
 					<div id="Date"></div>
@@ -308,7 +374,6 @@ div {
 					<p>나가기</p>
 				</div>
 			</div>
-
 		</div>
 
 		<form action=""></form>
@@ -321,43 +386,41 @@ div {
 					<h1>예약목록</h1>
 					<form action="#">
 						예약일 선택 <input type="date" name="r_date" id="r_date" /> <input
-							type="button" onclick="searchReserv()" value="검색" /> 
-							<input type="button" onclick="reservation()" value="새로고침" /> <br />
+							type="button" id="btn1" onclick="searchReserv()" value="검색" /> <input
+							type="button" id="btn2" onclick="reservation()" value="새로고침" />
+						<br />
 					</form>
 				</div>
-				<div id="r_middle">
-					<table id="reservtable">
-					</table>
-				</div>
+				<div id="r_middle"><table id="reservtable"></table></div>
 				<div id="r_footer">
 					<div id="r_info">
 						<form>
 							<table id="r_infotable">
 								<tr>
 									<th>예약일자</th>
-									<input type="hidden" name='rsv_code' id="rsv_code" />
+									<input type="hidden" name="rsv_code" id="rsv_code" />
 									<td><input type="text" name="rsv_date" id="rsv_date" /></td>
 									<th>예약시간</th>
 									<td><input type="text" name="rsv_time" id="rsv_time" /></td>
 								</tr>
 								<tr>
 									<th>성함</th>
-									<td><input type="text" name="rsv_name" id="rsv_name" /></td>
+									<td><input type="text" name="rsv_name" id="rsv_name" maxlength="5" /></td>
 									<th>연락처</th>
-									<td><input type="text" name="rsv_phone" id="rsv_phone" /></td>
+									<td><input type="text" name="rsv_phone" id="rsv_phone" maxlength="11" /></td>
 								</tr>
 								<tr>
 									<th>메모</th>
-									<td colspan="2"><textarea
-											style="width: 330px; height: 70px;" name="rsvm_memo"
-											id="rsvm_memo"></textarea></td>
-									<td id="worktd"><input type="button" id="upbtn"
-										onclick="updateReserv()" value='등록' /> <input type="reset"
-										id="rebtn" value="새로고침" /></td>
+									<td colspan="2">
+									<textarea style="width: 330px; height: 70px;" name="rsvm_memo"id="rsvm_memo"></textarea>
+									</td>
+									<td id="worktd">
+									<input type="button" id="upbtn" onclick="updateReserv()" value='등록' />
+									<input type="reset" id="rebtn" value="새로고침" />
+									</td>
 								</tr>
 							</table>
 						</form>
-
 					</div>
 					<div id="keypad">
 						<ul>
@@ -370,9 +433,9 @@ div {
 							<li value="7">7</li>
 							<li value="8">8</li>
 							<li value="9">9</li>
-							<li onclick="reset()" value="11">CE</li>
+							<li onclick="backspace()" value="12"><i class="fa fa-arrow-left" style="font-size: 25px"></i></li>
 							<li value="0">0</li>
-							<li onclick="backspace()" value="12">C</li>
+							<li onclick="reset()" value="11"><i class="fa fa-times" style="font-size: 25px"></i></li>
 						</ul>
 					</div>
 				</div>
@@ -439,8 +502,8 @@ div {
 						$("#table" + i).append(
 								"<div class='tables' id='tnum"
 										+ (parseInt(i) + 1) + a
-										+ "' data-code=" + (parseInt(i) + 1)+"-"+ a + ">" + a
-										+ "</div>");
+										+ "' data-code=" + (parseInt(i) + 1)
+										+ "-" + a + ">" + a + "</div>");
 						for ( var b in result[i].tlist) {
 							if (a == result[i].tlist[b]) {
 								//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
@@ -455,22 +518,26 @@ div {
 				}
 
 				console.log(result);
-				
+
 				getorderList();
-				
-				$(".tables").click(function(){
-					console.log("테이블 데이터코드 : "+$(this).data("code"));
-					console.log("테이블 주문번호"+$(this).children("#oac_num").val());
-					
-					var tSplit = $(this).data("code").split("-");
-					console.log(tSplit);
-					var sc_code = tSplit[0];
-					var st_num = tSplit[1];
-					var oac_num = $(this).children("#oac_num").val();
-					console.log(st_num)
-					
-					location.href = "./sellandorder?sc_code="+sc_code+"&st_num="+st_num+"&oac_num="+oac_num;
-				});
+
+				$(".tables").click(
+						function() {
+							console.log("테이블 데이터코드 : " + $(this).data("code"));
+							console.log("테이블 주문번호"
+									+ $(this).children("#oac_num").val());
+
+							var tSplit = $(this).data("code").split("-");
+							console.log(tSplit);
+							var sc_code = tSplit[0];
+							var st_num = tSplit[1];
+							var oac_num = $(this).children("#oac_num").val();
+							console.log(st_num)
+
+							location.href = "./sellandorder?sc_code=" + sc_code
+									+ "&st_num=" + st_num + "&oac_num="
+									+ oac_num;
+						});
 
 			},
 			error : function(err) {
@@ -480,36 +547,36 @@ div {
 	};
 
 	function getorderList() {
-		$.ajax({
-			type : 'get',
-			url : 'rest/getorderlist',
-			data : {
-				"oac_status" : 1
-			},
-			dataType : 'json',
-			success : function(data) {
-				console.log(data);
-				for(var i in data) {
-					var str = "";
-						str+= data[i].st_num+"번"+"<br/><br/>";
-						for(var j = 0; j<data[i].pdMap.pdnList.length;j++){
-							//console.log(data[i].pdMap.pdnList[j]);
-							str+=data[i].pdMap.pdnList[j]+" ";
-							str+=data[i].cntList[j]+"<br/>";
-						}
-					str+="<input type='hidden' id='oac_num' value='"+data[i].oac_num+"'/>";
-					$("#tnum" + (data[i].sc_code) + (data[i].st_num)).html(str);
-					
-				}
-				
+		$
+				.ajax({
+					type : 'get',
+					url : 'rest/getorderlist',
+					data : {
+						"oac_status" : 1
+					},
+					dataType : 'json',
+					success : function(data) {
+						console.log(data);
+						for ( var i in data) {
+							var str = "";
+							str += data[i].st_num + "번" + "<br/><br/>";
+							for (var j = 0; j < data[i].pdMap.pdnList.length; j++) {
+								//console.log(data[i].pdMap.pdnList[j]);
+								str += data[i].pdMap.pdnList[j] + " ";
+								str += data[i].cntList[j] + "<br/>";
+							}
+							str += "<input type='hidden' id='oac_num' value='"+data[i].oac_num+"'/>";
+							$("#tnum" + (data[i].sc_code) + (data[i].st_num))
+									.html(str);
 
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		});
+						}
+
+					},
+					error : function(err) {
+						console.log(err);
+					}
+				});
 	}
-	
 
 	/* 테이블 카테고리 클릭시 오픈 */
 	function opentable(evt, categoryname) {
@@ -767,18 +834,18 @@ div {
 		console.log($(this).val());
 		str += $(this).val();
 		//console.log(str);
-		$("#r_phone").val(str);
+		$("#rsv_phone").val(str);
 	});
 
 	function reset() {
-		$("#r_phone").val("");
+		$("#rsv_phone").val("");
 		str = "";
 	}
 
 	function backspace() {
 		console.log("length" + str.substr(0, str.length - 1));
-		$("#r_phone").val(str.substr(0, str.length - 1));
-		str = $("#r_phone").val();
+		$("#rsv_phone").val(str.substr(0, str.length - 1));
+		str = $("#rsv_phone").val();
 	}
 
 	/* 키패드 입력 end */

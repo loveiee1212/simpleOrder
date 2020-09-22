@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>SimpleOrder</title>
+<title>changeworktime</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -13,37 +13,70 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
 <style>
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 #empList {
 	margin: 15px;
 	height: 740px;
 	width: 300px;
-	border: 1px solid olive;
+	border: 3px solid #81d4fa;
 	float: left;
+	font-size: 18px;
 }
 
 #changeBox {
 	margin: 15px;
 	height: 740px;
 	width: 600px;
-	border: 1px solid olive;
+	border: 3px solid #81d4fa;
 	float: right;
 }
 
-#empInfo div {
-	border: 1px solid lime;
+/* #empInfo div {
+	border: 1px solid #81d4fa;
 	width: 150px;
 	height: 50px;
 	margin: 15px;
 	font-size: 20px;
 	text-align: center;
+} */
+
+#empCode {
+    border: 1px solid #81d4fa;
+	width: 150px;
+	height: 50px;
+    margin: 15px;
+    font-size: 20px;
+	text-align: center;
+}
+
+#empName {
+    border: 1px solid #81d4fa;
+	width: 150px;
+	height: 50px;
+    margin: 30px 15px 15px;
+    font-size: 20px;
+	text-align: center;
 }
 
 #change div {
 	display: inline-block;
-	border: 1px solid lime;
+	border: 1px solid #81d4fa;
 	width: 150px;
 	height: 50px;
-	margin: 15px;
+	margin: 20px 15px 10px;
 	font-size: 20px;
 	text-align: center;
 }
@@ -57,19 +90,60 @@
 	text-align: center;
 }
 
-#button button {
-	border: 1px solid black;
+#btn1 {
+	width: 140px;
+	height: 50px;
+	border: 1px solid white;
+	outline: 0;
+	background-color: #81d4fa;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+	margin-right: 40px;
+	margin-left: 130px;
+	margin-top: 30px;
+}
+
+#btn2 {
 	width: 150px;
 	height: 50px;
+	border: 1px solid #81d4fa;
+	outline: 0;
 	background-color: white;
+	color: #81d4fa;
 	font-size: 20px;
+	font-weight: bold;
 	margin-right: 40px;
 	margin-left: 15px;
 	margin-top: 30px;
 }
 
+#onoff {
+	width: 140px;
+	height: 50px;
+	border: 2px solid white;
+	margin-left: 2px;
+	margin-bottom: 30px;
+	outline: 0;
+	background-color: #81d4fa;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+}
+
+#on {
+	width: 150px;
+	height: 50px;
+	border: 3px solid #81d4fa;
+	outline: 0;
+	background-color: white;
+	color: #81d4fa;
+	font-size: 20px;
+	font-weight: bold;
+}
+
 #originalTime {
-	border: 1px solid black;
+	border: 3px solid #81d4fa;
 	width: 500px;
 	height: 150px;
 	margin: 15px;
@@ -84,7 +158,6 @@
 </style>
 </head>
 <body>
-
 	<div id="empList">
 		<label><button id="onoff" onclick="acvbutton()">재직자보기</button></label>
 		<label><button id="on" onclick="allbutton()">모든직원보기</button></label> <br />
@@ -93,8 +166,8 @@
 	<div id="changeBox">
 		<div id="empInfo">
 			<div id="empCode">
-				<span id="emp_code" name="emp_code">사번</span> <span
-					id="pst_position">직위</span>
+				<span id="emp_code" name="emp_code">사번</span>
+				<span id="pst_position">직위</span>
 			</div>
 			<div id="empName">
 				<span id="emp_name" name="emp_name">사원명</span>
@@ -109,14 +182,13 @@
 			<input type="datetime-local" name="ad_outTime" id="ad_outTime">
 		</div>
 		<div id="button">
-			<label><button onclick="updateWorkTime()">변경</button></label> <label><button>취소</button></label>
+			<label><button id="btn1" onclick="updateWorkTime()">변경</button></label>
+			<label><button id="btn2">취소</button></label>
 		</div>
 		<div id="originalTime">
 			<span>기존 출근 시간</span> <br /> <span>기존 퇴근 시간</span>
 		</div>
 	</div>
-
-
 </body>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -144,53 +216,64 @@
 	//직원 리스트 불러오기
 	function getEmpList() {
 		$.ajax({
-					type : "get",
-					url : "rest/getemplist",
-					data : {
-						c_code : "123123123123"
-					},
-					dataType : "json",
-					success : function(data) {
-						for ( var i in data) {
-							var emp_code = data[i].EMP_CODE;
-							var emp_name = data[i].EMP_NAME;
+			type : "get",
+			url : "rest/getemplist",
+			data : {
+				c_code : "123123123123"
+			},
+			dataType : "json",
+			success : function(data) {
+				for ( var i in data) {
+					var emp_code = data[i].EMP_CODE;
+					var emp_name = data[i].EMP_NAME;
 
-							if (data[i].EMP_STATUS == "1") {
+					if (data[i].EMP_STATUS == "1") {
+						$("#activation").append(
+								$("<input type='radio' name='emp' id='"
+										+ emp_code + "' value='" + emp_code
+										+ "' onclick='empInfo(" + emp_code
+										+ ")'/>"));
+						$("#activation").append(
+								$("<span>").html(
+										"　" + emp_code + '　　' + emp_name));
+						if (data[i].AD_INTIME != null) {
+							if (data[i].AD_OUTTIME != null) {
 								$("#activation").append(
-										$("<input type='radio' name='emp' id='"+ emp_code + "' value='"+ emp_code
-												+ "' onclick='empInfo("+ emp_code + ")'/>"));
-								$("#activation").append($("<span>").html("　" + emp_code + '　　'+ emp_name));
-								if(data[i].AD_INTIME != null) {
-									if (data[i].AD_OUTTIME != null) {
-										$("#activation").append($("<span style='color:red'>").html("　　퇴근"));
-									} else if (data[i].AD_OUTTIME == null) {
-										$("#activation").append($("<span style='color:red'>").html("　　출근"));
-									}
-								} else if (data[i].AD_INTIME == null) {
-									$("#activation").append($("<span style='color:red'>").html("　　미출근"));
-								}
-								$("#activation").append($("<br/><br/>"));
-
+										$("<span style='color:red'>").html(
+												"　　퇴근"));
+							} else if (data[i].AD_OUTTIME == null) {
+								$("#activation").append(
+										$("<span style='color:red'>").html(
+												"　　출근"));
 							}
-
-							if (data[i].EMP_STATUS == "-1") {
-								$("#inactive").append(
-										$("<input type='radio' name='emp' id='"
-												+ emp_code + "' value='"
-												+ emp_code
-												+ "'onclick='empInfo("
-												+ emp_code + ")'/>"));
-								$("#inactive").append(
-										$("<span style='color:gray'>").html("　" + emp_code + '　　'+ emp_name));
-								$("#inactive").append($("<br/><br/>"));
-
-							}
+						} else if (data[i].AD_INTIME == null) {
+							$("#activation")
+									.append(
+											$("<span style='color:red'>").html(
+													"　　미출근"));
 						}
-					},
-					error : function(err) {
-						console.log(err);
+						$("#activation").append($("<br/><br/>"));
+
 					}
-				});
+
+					if (data[i].EMP_STATUS == "-1") {
+						$("#inactive").append(
+								$("<input type='radio' name='emp' id='"
+										+ emp_code + "' value='" + emp_code
+										+ "'onclick='empInfo(" + emp_code
+										+ ")'/>"));
+						$("#inactive").append(
+								$("<span style='color:gray'>").html(
+										"　" + emp_code + '　　' + emp_name));
+						$("#inactive").append($("<br/><br/>"));
+
+					}
+				}
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
 	}
 
 	//직원정보불러오기

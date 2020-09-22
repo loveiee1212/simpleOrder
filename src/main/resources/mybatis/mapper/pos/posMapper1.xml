@@ -3,41 +3,82 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+
 <mapper
 	namespace="com.team2.simpleOrder.dao.posManagement.IPosDao1">
-	<select id="getSellProList" parameterType="String"
+	<!-- productcontrol 왼쪽 상품 정보 출력 -->
+	<select id="getSellProductList1" parameterType="String"
 		resultType="product">
-		SELECT *FROM PRODUCT WHERE C_CODE=#{c_code}
+		SELECT * FROM PRODUCT AS PD LEFT OUTER JOIN STOCK AS STK
+		ON PD.C_CODE = STK.C_CODE
+		AND PD.PD_CODE=STK.PD_CODE AND PD.PDC_CODE = STK.PDC_CODE
+		WHERE PD_STATUS = 1 AND PD.C_CODE = #{c_code};
 	</select>
-	
-	
-	<select id="getStockList" parameterType="String"
+
+	<!-- stockcontrol 오른쪽 재고상품리스트 출력 -->
+	<select id="getStockList" parameterType="product"
 		resultType="product">
 		SELECT PD.PD_CODE, PD.PD_DATE, PD.PD_NAME, STK.STK_STOCK
-		FROM PRODUCT PD INNER JOIN STOCK STK ON PD.PD_DATE = STK.PD_DATE
-		AND PD.PD_CODE = STK.PD_CODE AND PD.C_CODE = STK.C_CODE
-		AND PD.PDC_CODE = STK.PDC_CODE AND PD.PDC_DATE = STK.PDC_DATE
+		FROM PRODUCT
+		PD INNER JOIN STOCK STK ON PD.PD_DATE = STK.PD_DATE
+		AND PD.PD_CODE =
+		STK.PD_CODE AND PD.C_CODE = STK.C_CODE
+		AND PD.PDC_CODE = STK.PDC_CODE
+		AND PD.PDC_DATE = STK.PDC_DATE
+		<if test="pd_date!=null">
+			<if test="pd_date!=''">
+				AND PD.PD_DATE BETWEEN TIMESTAMP(#{pd_date}) AND
+				TIMESTAMP(#{pd_date})+INTERVAL '1' DAY
+			</if>
+		</if>
 		WHERE PD.C_CODE = #{c_code}
 		ORDER BY PD.PD_DATE;
 	</select>
+
+	<!-- stockcontrol 왼쪽 재고상품리스트 출력 -->
 	<select id="getPstockList" parameterType="String"
 		resultType="product">
-		SELECT PD.PD_CODE, PD.PD_DATE, PD.PD_NAME, STK.STK_STOCK
+		SELECT PD.PD_CODE, PD.PD_DATE, PD.PD_NAME, PD.PDC_CODE, STK.STK_STOCK
 		FROM PRODUCT PD INNER JOIN STOCK STK ON PD.PD_DATE = STK.PD_DATE
-		AND PD.PD_CODE = STK.PD_CODE AND PD.C_CODE = STK.C_CODE
-		AND PD.PDC_CODE = STK.PDC_CODE AND PD.PDC_DATE = STK.PDC_DATE
+		AND	PD.PD_CODE = STK.PD_CODE
+		AND PD.PDC_CODE = STK.PDC_CODE 
+		AND PD.C_CODE = STK.C_CODE
+		AND PD.PDC_CODE = STK.PDC_CODE 
+		AND PD.PDC_DATE = STK.PDC_DATE
 		WHERE PD.C_CODE = #{c_code}
 		ORDER BY PD.PD_DATE;
 	</select>
-	
-	<select id="getproductCategoryList" parameterType="string" resultType="product">
-    SELECT PDC_CODE,PDC_NAME FROM PRODUCT_CT WHERE C_CODE =#{c_code} AND PDC_STATUS = 1 ORDER BY PDC_CODE ASC;
+
+	<!-- productragistration 오른쪽 상품 출력 -->
+	<select id="getproductCategoryList" parameterType="string"
+		resultType="product">
+		SELECT PDC_CODE,PDC_NAME FROM PRODUCT_CT WHERE C_CODE
+		=#{c_code} AND
+		PDC_STATUS = 1 ORDER BY PDC_CODE ASC;
 	</select>
-	
-	<select id="getProductList" parameterType="string" resultType="product">
-	SELECT PDC_NAME,PD.PD_NAME 
-    FROM PRODUCT_CT AS PDC JOIN PRODUCT AS PD ON PD.C_CODE = #{c_code}  
-    AND PD.PDC_DATE = PDC.PDC_DATE AND PD.PD_STATUS = '1'
-    WHERE PDC.PDC_CODE = PD.PDC_CODE ORDER BY PDC.PDC_CODE ASC
+
+	<!-- productragistration 오른쪽 카테고리 별 상품 출력 -->
+	<select id="getProductList" parameterType="string"
+		resultType="product">
+		SELECT PDC_NAME,PD.PD_NAME
+		FROM PRODUCT_CT AS PDC JOIN
+		PRODUCT AS PD ON PD.C_CODE = #{c_code}
+		AND PD.PDC_DATE = PDC.PDC_DATE
+		AND PD.PD_STATUS = '1'
+		WHERE PDC.PDC_CODE = PD.PDC_CODE ORDER BY
+		PDC.PDC_CODE ASC
 	</select>
+
+	<update id="updateStock">
+		UPDATE STOCK STK
+		SET STK_STOCK = #{stk_stock}
+		WHERE
+		C_CODE
+		= #{c_code} AND PDC_CODE =
+		#{pdc_code} AND PDC_DATE = #{pdc_date}
+		AND
+		PD_CODE = #{pd_code} AND
+		PD_DATE = #{pd_date}
+	</update>
 </mapper>

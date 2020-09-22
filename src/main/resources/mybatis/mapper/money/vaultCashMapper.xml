@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team2.simpleOrder.dao.money.IVaultCashDao">
+	
+	<!-- 시작시제여부 확인 -->
+	<select id="checkStartVC" parameterType="string" resultType="string">
+		SELECT VC_CODE FROM VAULT_CASH WHERE VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE=#{c_code})
+	</select>
+	
+	<!-- 영업일 입력 -->
+	<insert id="insertBd_date" parameterType="string">
+		INSERT INTO BUSINESS_DAY (C_CODE,BD_DATE) VALUES (#{c_code},#{bd_date})
+	</insert>
+	
+	<!-- 영업일 가져오기 -->
+	<select id="getBd_date" parameterType="string" resultType="string">
+		SELECT MAX(BD_DATE) FROM BUSINESS_DAY WHERE C_CODE = #{c_code}
+	</select>
+</mapper>
