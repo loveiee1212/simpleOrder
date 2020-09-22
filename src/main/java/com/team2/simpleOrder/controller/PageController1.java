@@ -6,6 +6,7 @@ package com.team2.simpleOrder.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -16,14 +17,7 @@ public class PageController1 {
 		return "main";
 	}
 	
-	@RequestMapping("/schedule")
-	public String schedule() {
-		return "member/schedule";
-	}
-	@RequestMapping("/changeWorkTime")
-	public String changeWorkTime() {
-		return "member/changeWorkTime";
-	}
+
 	@RequestMapping("/joinEmailFrm")
 	public String joinEmailFrm() {
 		return "member/joinEmailFrm";

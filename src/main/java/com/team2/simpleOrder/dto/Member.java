@@ -34,6 +34,7 @@ public class Member {
 	
 	private String bd_date;
 	private String f_date;
+	private String l_date;
 	private String ad_inTime;
 	private String ad_outTime;
 }

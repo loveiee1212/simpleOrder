@@ -12,7 +12,7 @@
 <input type="button" onclick="location.href = ''" value="판매">
 <input type="button" onclick="location.href = ''" value="마감">
 <input type="button" onclick="location.href = 'cCodeAcountLogout'" value="사용자 전환">
-<input type="button" onclick="location.href = ''" value="근태">
+<input type="button" onclick="location.href = 'schedule'" value="근태">
 <input type="button" onclick="location.href = ''" value="재고 관리">
 <input type="button" onclick="location.href = ''" value="매출 현황">
 <input type="button" onclick="location.href = ''" value="외상 처리">

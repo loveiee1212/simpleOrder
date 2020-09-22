@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>changeWorkTime</title>
+<title>SimpleOrder</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -84,38 +84,38 @@
 </style>
 </head>
 <body>
-	<div id="calendar">
-		<div id="empList">
-			<label><button id="onoff" onclick="acvbutton()">재직자보기</button></label>
-			<label><button id="on" onclick="allbutton()">모든직원보기</button></label>
-			<br /> <span id="activation"></span> <span id="inactive"></span>
-		</div>
-		<form id="changeBox">
-			<div id="empInfo">
-				<div id="empCode">
-					<span id="emp_code" name="emp_code">사번</span> <span
-						id="pst_position">직위</span>
-				</div>
-				<div id="empName">
-					<span id="emp_name" name="emp_name">사원명</span>
-				</div>
-			</div>
-			<div id="change">
-				<div class="bd_date">영업일</div>
-				<input type="date" name="bd_date" id="bd_date"><br>
-				<div class="goLeave">출근</div>
-				<input type="datetime-local" name="ad_inTime" id="ad_inTime">
-				<div class="goLeave">퇴근</div>
-				<input type="datetime-local" name="ad_outTime" id="ad_outTime">
-			</div>
-			<div id="button">
-				<label><button onclick="updateWorkTime()">변경</button></label> <label><button>취소</button></label>
-			</div>
-			<div id="originalTime">
-				<span>기존 출근 시간</span> <br /> <span>기존 퇴근 시간</span>
-			</div>
-		</form>
+
+	<div id="empList">
+		<label><button id="onoff" onclick="acvbutton()">재직자보기</button></label>
+		<label><button id="on" onclick="allbutton()">모든직원보기</button></label> <br />
+		<span id="activation"></span> <span id="inactive"></span>
 	</div>
+	<div id="changeBox">
+		<div id="empInfo">
+			<div id="empCode">
+				<span id="emp_code" name="emp_code">사번</span> <span
+					id="pst_position">직위</span>
+			</div>
+			<div id="empName">
+				<span id="emp_name" name="emp_name">사원명</span>
+			</div>
+		</div>
+		<div id="change">
+			<div class="bd_date">영업일</div>
+			<input type="date" name="bd_date" id="bd_date"><br>
+			<div class="goLeave">출근</div>
+			<input type="datetime-local" name="ad_inTime" id="ad_inTime">
+			<div class="goLeave">퇴근</div>
+			<input type="datetime-local" name="ad_outTime" id="ad_outTime">
+		</div>
+		<div id="button">
+			<label><button onclick="updateWorkTime()">변경</button></label> <label><button>취소</button></label>
+		</div>
+		<div id="originalTime">
+			<span>기존 출근 시간</span> <br /> <span>기존 퇴근 시간</span>
+		</div>
+	</div>
+
 
 </body>
 <script type="text/javascript">
@@ -143,8 +143,7 @@
 
 	//직원 리스트 불러오기
 	function getEmpList() {
-		$
-				.ajax({
+		$.ajax({
 					type : "get",
 					url : "rest/getemplist",
 					data : {
@@ -158,23 +157,17 @@
 
 							if (data[i].EMP_STATUS == "1") {
 								$("#activation").append(
-										$("<input type='radio' name='emp' id='"
-												+ emp_code + "' value='"
-												+ emp_code
-												+ "' onclick='empInfo("
-												+ emp_code + ")'/>"));
-								$("#activation").append(
-										$("<span>").html(
-												"　" + emp_code + '　　'
-														+ emp_name));
-								if (data[i].AD_OUTTIME != null) {
-									$("#activation").append(
-											$("<span style='color:red'>").html(
-													"　　퇴근"));
-								} else if (data[i].AD_OUTTIME == null) {
-									$("#activation").append(
-											$("<span style='color:red'>").html(
-													"　　출근"));
+										$("<input type='radio' name='emp' id='"+ emp_code + "' value='"+ emp_code
+												+ "' onclick='empInfo("+ emp_code + ")'/>"));
+								$("#activation").append($("<span>").html("　" + emp_code + '　　'+ emp_name));
+								if(data[i].AD_INTIME != null) {
+									if (data[i].AD_OUTTIME != null) {
+										$("#activation").append($("<span style='color:red'>").html("　　퇴근"));
+									} else if (data[i].AD_OUTTIME == null) {
+										$("#activation").append($("<span style='color:red'>").html("　　출근"));
+									}
+								} else if (data[i].AD_INTIME == null) {
+									$("#activation").append($("<span style='color:red'>").html("　　미출근"));
 								}
 								$("#activation").append($("<br/><br/>"));
 
@@ -188,9 +181,7 @@
 												+ "'onclick='empInfo("
 												+ emp_code + ")'/>"));
 								$("#inactive").append(
-										$("<span style='color:gray'>").html(
-												"　" + emp_code + '　　'
-														+ emp_name));
+										$("<span style='color:gray'>").html("　" + emp_code + '　　'+ emp_name));
 								$("#inactive").append($("<br/><br/>"));
 
 							}
@@ -259,8 +250,7 @@
 			})
 
 	//출퇴근시간 변경하기
- 	function updateWorkTime() {
-		console.log("aaa");
+	function updateWorkTime() {
 		var ad_inTime = moment($("#ad_inTime").val()).format(
 				"YYYY-MM-DD HH:mm:ss");
 		var ad_outTime = moment($("#ad_outTime").val()).format(
@@ -277,7 +267,6 @@
 			},
 			dataType : "json",
 			success : function(data) {
-				console.log(data);
 				if (data == "1") {
 					alert("시간이 변경되었습니다.");
 				}
