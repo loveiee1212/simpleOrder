@@ -20,4 +20,8 @@ public interface IEmpMemberDao {
 
 	boolean updateWorkTime(HashMap<String, String> mb);
 
+	List<HashMap<String, String>> showWorkTime(HashMap<String, String> mb);
+
+	List<HashMap<String, String>> showAllWorkTime(HashMap<String, String> mb);
+
 }
