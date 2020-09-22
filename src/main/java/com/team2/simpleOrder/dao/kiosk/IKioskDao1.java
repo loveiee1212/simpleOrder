@@ -21,7 +21,7 @@ public interface IKioskDao1 {
 	List<String> getRequestList(String c_code);
 
 	// 계산서리스트 가져오기
-	List<Bill> getBillList(@Param("c_code") String c_code, @Param("st_num") String st_num,
+	List<Bill> getBillList(@Param("c_code") String c_code, @Param("oac_num") String oac_num,
 			@Param("bd_date") String bd_date);
 
 	// 판매키 카테고리 리스트 가져오기

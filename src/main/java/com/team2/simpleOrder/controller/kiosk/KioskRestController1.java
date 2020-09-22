@@ -26,8 +26,7 @@ public class KioskRestController1 {
 //		String c_code = session.getAttribute("c_code").toString();
 //		System.out.println(c_code);
 		String c_code = "123123123123";
-		HashMap<String, Object> sellProList = km1.getSellProductList(c_code);
-		return sellProList;
+		return km1.getSellProductList(c_code);
 	}
 	// 리뷰리스트 출력
 	@PostMapping(value = "/getreviewlist")
@@ -37,9 +36,7 @@ public class KioskRestController1 {
 //		String c_code = session.getAttribute("c_code").toString();
 //		System.out.println(c_code);
 		String c_code = "123123123123";
-		HashMap<String, String> rvList = km1.getReviewList(c_code);
-		System.out.println(rvList);
-		return rvList;
+		return km1.getReviewList(c_code);
 	}
 
 	// 요청사항 리스트 출력
@@ -50,9 +47,7 @@ public class KioskRestController1 {
 //		String c_code = session.getAttribute("c_code").toString();
 		String c_code = "123123123123";
 		// 사업자 번호와 사업자 이메일을 서비스 클래스로 넘긴다
-		HashMap<String, String> reqList = km1.getRequestList(c_code);
-		System.out.println(reqList);
-		return reqList;
+		return km1.getRequestList(c_code);
 	}
 
 	@PostMapping(value = "/getbilllist")
@@ -65,11 +60,10 @@ public class KioskRestController1 {
 //		HttpSession session= req.getSession();
 //		String bd_date = session.getAttribute("bd_date").toString();
 		String c_code = "123123123123";
-		String st_num = "1";
 		String bd_date = "2020-08-29 14:19:00";
+		String oac_num = "0001";
 		// 사업자 번호와 사업자 이메일을 서비스 클래스로 넘긴다
-		HashMap<String, String> billList = km1.getBillList(c_code, st_num, bd_date);
-		return billList;
+		return km1.getBillList(c_code, oac_num, bd_date);
 	}
 
 }

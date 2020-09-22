@@ -25,8 +25,7 @@ public class KioskMM1 {
 		// 판매 등록 된 상품리스트 가져오기
 		List<SellProduct> sellProList = kDao1.getSellProList(c_code);
 		kmh = new KioskMakeHtml();
-		HashMap<String, Object> proList = kmh.makeSellProListHtml(skcList, sellProList);
-		return proList;
+		return kmh.makeSellProListHtml(skcList, sellProList);
 	}
 
 	// 리뷰리스트 가져오는 메소드
@@ -36,8 +35,7 @@ public class KioskMM1 {
 		// 리뷰 이미지 리스트 가져오기
 		List<ReviewImg> rImgList = kDao1.getReviewImgList(c_code);
 		kmh = new KioskMakeHtml();
-		HashMap<String, String> rvList = kmh.makeReviewListHtml(rList, rImgList);
-		return rvList;
+		return kmh.makeReviewListHtml(rList, rImgList);
 	}
 
 	// 요청사항 설정 해놓은 것 가져오는 메소드
@@ -45,17 +43,15 @@ public class KioskMM1 {
 		// 요청사항 리스트 가져오기
 		List<String> reqList = kDao1.getRequestList(c_code);
 		kmh = new KioskMakeHtml();
-		HashMap<String, String> reqHtml = kmh.reqListHtml(reqList);
-		return reqHtml;
+		return kmh.reqListHtml(reqList);
 	}
 
 	// 계산서리스트 가져오는 메소드
-	public HashMap<String, String> getBillList(String c_code, String st_num, String bd_date) {
+	public HashMap<String, String> getBillList(String c_code, String oac_num, String bd_date) {
 		// 계산서리스트 가져오기
-		List<Bill> bill = kDao1.getBillList(c_code, st_num, bd_date);
+		List<Bill> bill = kDao1.getBillList(c_code, oac_num, bd_date);
 		kmh = new KioskMakeHtml();
-		HashMap<String, String> billHtml = kmh.billListHtml(bill);
-		return billHtml;
+		return kmh.billListHtml(bill);
 	}
 
 }

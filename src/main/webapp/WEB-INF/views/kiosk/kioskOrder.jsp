@@ -81,14 +81,17 @@ i {
 
 #header_nav {
 	/* overflow-x: scroll; */
-	-ms-overflow-style: none; /* IE에서 스크롤바 감춤 */
+	-ms-overflow-style: none;
+
+	/* IE에서 스크롤바 감춤 */
 	&::
 	-webkit-scrollbar
 	{
 	display
 	:
 	none
-	!important; /* 윈도우 크롬 등 */
+	!important;
+	/* 윈도우 크롬 등 */
 }
 
 }
@@ -96,7 +99,7 @@ i {
 	width: 80px;
 }
 
-#detail_body {
+.detail_body {
 	width: 240px;
 	height: 280px;
 	border: solid rgb(133, 133, 133) 1px;
@@ -135,6 +138,14 @@ i {
 .pList {
 	clear: both;
 }
+
+.pdc_code, .pd_code, .bsk_pdc_code, .bsk_pd_code {
+	display: none;
+}
+
+tr, td {
+	border: 1px solid black;
+}
 </style>
 <script type="text/javascript">
 	//판매키에 등록된 상품리스트 출력
@@ -158,8 +169,14 @@ i {
 						$(".pList").eq(i).append(data.pList[j]);
 					}
 				}
-
 			}
+			var pd_price = $('.pd_price');
+			for (var i = 0; i < pd_price.length; i++) {
+				var price = pd_price[i].innerText;
+				price = Number(price).toLocaleString('en');
+				pd_price[i].innerText = price + "원";
+			}
+			orderLoading();
 		},
 		error : function(err) {
 			console.log(err);
@@ -180,7 +197,7 @@ i {
 				<li><a href="javascript:void(0);">주문하기</a></li>
 				<li><a id="basket_open_btn" href="javascript:void(0);">주문내역</a></li>
 				<li><a id="bill_open_btn" href="javascript:void(0);">계산서</a></li>
-				<li><a href="javascript:void(0);">나가기</a></li>
+				<li><a href="kioskmenu">나가기</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -189,6 +206,11 @@ i {
 		<div>
 			<strong>장바구니</strong><i id="basket_close_btn" class="fa fa-close"
 				style="font-size: 36px"></i>
+			<table>
+				<tbody id="bBody">
+
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<div id="bill"></div>
@@ -263,6 +285,99 @@ i {
 			}
 		});
 	});
+	function orderLoading() {
+		//상품 클릭
+		$('.detail_body').on(
+				"click",
+				function() {
+					if (confirm("주문 추가하시겠습니까?")) {
+						//클릭한 상품의 상품 카테고리 코드, 상품 코드, 상품 이름, 상품 가격 가져옴 
+						var pdc_code = $(this).children().eq(0).children()
+								.eq(1).children().eq(0).text()
+						var pd_code = $(this).children().eq(0).children().eq(1)
+								.children().eq(1).text()
+						var pd_name = $(this).children().eq(0).children().eq(1)
+								.children().eq(2).text()
+						var pd_price = $(this).children().eq(0).children()
+								.eq(1).children().eq(3).text()
+						//상품 카테고리 코드, 상품 코드, 상품 이름, 상품 가격 파라미터로 넘김
+						insertOrder(pdc_code, pd_code, pd_name, pd_price)
+					}
+				})
+	}
+	//장바구니에 담기
+	function insertOrder(pdc_code, pd_code, pd_name, pd_price) {
+		//장바구니에 상품이 이미 담겨 있는지 확인
+		var result = insertCheck(pdc_code, pd_code);
+		if (result) {
+			console.log('그냥 인서트');
+			var str = '';
+			str += "<tr id = '" + pdc_code + pd_code + "'>";
+			str += "<td class='bsk_pdc_code'>" + pdc_code + "</td>";
+			str += "<td class='bsk_pd_code'>" + pd_code + "</td>";
+			str += "<td>" + pd_name + "</td>";
+			str += "<td>" + pd_price + "</td>";
+			str += "<td><input type='button' value='▲' onclick='cntUp($(this));'>";
+			str += "<input type='button' value='▼' onclick='cntDown($(this));'></td>"
+			str += "<td class='oh_cnt'>1</td>";
+			str += "<td><input type='button' value='삭제' onclick='deleteCol($(this));'></td>";
+			str += "</tr>";
+			$('#bBody').append(str);
+			return true;
+		} else {
+			console.log('개수 추가');
+			return false;
+		}
+
+	}
+	//상품 카테고리 코드와 상품 코드를 배열에 담고 반복문 돌려서 똑같은 상품이 담겨 있는지 확인
+	function insertCheck(pdc_code, pd_code) {
+		//상품 카테고리 코드 배열
+		var a = $('.bsk_pdc_code');
+		//상품 코드 배열
+		var b = $('.bsk_pd_code');
+		for (var i = 0; i < a.length; i++) {
+			if (pdc_code == a.eq(i).text()) {
+				for (var j = 0; j < b.length; j++) {
+					if (pd_code == b.eq(j).text()) {
+						$("#" + pdc_code + pd_code).find(".oh_cnt").text();
+						var num = ($("#" + pdc_code + pd_code).find(".oh_cnt")
+								.text()) * 1;
+						num++;
+						$("#" + pdc_code + pd_code).find(".oh_cnt").text(num)
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	//상품 개수 늘리기
+	function cntUp(elem) {
+		var num = elem.parents('tr').children('.oh_cnt').text()
+		num++;
+		elem.parents('tr').children('.oh_cnt').text(num);
+	}
+	//상품 개수 줄이기
+	function cntDown(elem) {
+		var num = elem.parents('tr').children('.oh_cnt').text()
+		num--;
+		//상품개수가 0이 되면 테이블 컬럼 삭제
+		if (num == 0) {
+			if (confirm("주문목록에서 삭제 하시겠습니까?")) {
+				elem.closest('tr').remove();
+			} else {
+				num++;
+			}
+		}
+		elem.parents('tr').children('.oh_cnt').text(num);
+	}
+	//장바구니에 담긴 테이블 컬럼 삭제
+	function deleteCol(elem) {
+		if (confirm("주문목록에서 삭제 하시겠습니까?")) {
+			elem.closest('tr').remove();
+		}
+	}
 </script>
 
 

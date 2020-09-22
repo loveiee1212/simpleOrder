@@ -11,5 +11,5 @@ import lombok.ToString;
 public class Bill {
 	private String pd_name;
 	private String pd_price;
-	private String oh_count;
+	private int oh_cnt;
 }
