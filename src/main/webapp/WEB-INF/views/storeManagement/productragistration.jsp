@@ -7,25 +7,20 @@
 <title>productRagistration-상품등록</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
 <style>
 body {
-	padding: 0;
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
 }
 
-#baseBox {
-	border: 1px solid black;
-	float: left;
-	padding: 2%;
-	transform: translate(-50%, 0%);
-	margin: 0 50%;
-}
-
-#baseinnerBox {
-	float: left;
-	border: pink 1px solid;
-	width: 1500px;
-	height: 800px;
-	padding: 30px;
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 #outerdiv {
@@ -35,7 +30,8 @@ body {
 }
 
 #innerdiv1 {
-	border: 1px solid black;
+	background-color: white;
+	border: 1px solid #e3f2fd;
 	width: 700px;
 	height: 755px;
 	float: left;
@@ -44,7 +40,8 @@ body {
 }
 
 #innerdiv2 {
-	border: 1px solid black;
+	background-color: white;
+	border: 3px solid #81d4fa;
 	width: 700px;
 	height: 755px;
 	float: left;
@@ -55,11 +52,11 @@ button {
 	color: red;
 	background-color: white;
 	border: none;
-	button: focus outline: none;
+	button: focus; 
+	outline: none;
 	box-shadow: none;
 }
 
-}
 #listbox {
 	border: 1px solid black;
 	width: 600px;
@@ -110,13 +107,34 @@ button {
 	float: left;
 }
 
-tr, td {
-	border: 1px solid black;
-	width: 80px;
+table {
+	border: none;
+	border-collapse: collapse;
+}
+
+td {
+	width: 150px;
 	height: 20px;
+	border: 3px solid #81d4fa;
+	border-top-color: white;
+	border-left-color: white;
+	border-right-color : white; 
+	padding : 20px;
+	margin : 30px; 
+	text-align : center; 
+	font-size : 19px;
+	font-weight: bold;
+}
+
+tr {
+	width: 150px;
+	height: 20px;
+	border: 3px solid #81d4fa;
 	padding: 20px;
 	margin: 30px;
 	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 .tab {
@@ -125,10 +143,15 @@ tr, td {
 	border: 1px solid #ccc;
 	background-color: #f1f1f1;
 	overflow: hidden;
+	border: none;
+	background-color: #e3f2fd;
 }
 
 .category {
-	background-color: inherit;
+	font-size: 20px;
+	background-color: white;
+	color: #1565c0;
+	font-weight: bold;
 	float: left;
 	border: none;
 	outline: none;
@@ -152,13 +175,14 @@ tr, td {
 }
 
 .pdts {
-	border: 1px solid black;
+	border: 5px solid #81d4fa;
 	width: 150px;
 	height: 100px;
 	float: left;
 	margin: 15px;
 	opacity: 0.5;
 	background-color: white;
+	font-size: 20px;
 }
 </style>
 </head>

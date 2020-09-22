@@ -36,8 +36,6 @@ public class CompanyMemberController1 {
 	
 	@PostMapping("/cLogin") //사업체 로그인 
 	public String cLogin( HttpSession session, RedirectAttributes reat, @RequestParam HashMap<String, String> cInfo) {
-		System.out.println("사업체 로그인입니다.");
-		System.out.println(session.getAttribute("ce_email"));
 		return mm.cLogin(cInfo, session, reat);
 	}
 	
@@ -83,9 +81,9 @@ public class CompanyMemberController1 {
 		return mm.fireEmpInfo(session, empInfo,reat);
 	}
 	
-	@RequestMapping("/updatePosition") // 직급 변경
-	public String updatePosition(@RequestParam HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) {
-		mm.updatePosition(positionInfo,session,reat);
+	@RequestMapping("/updatePositionGrant") // 직급 변경
+	public String updateGrantPosition(@RequestParam HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) {
+		mm.updatePositionGrant(positionInfo,session,reat);
 		
 		return "redirect:/posSetting";
 	}
@@ -94,8 +92,23 @@ public class CompanyMemberController1 {
 	public String cAcountDelect(@RequestParam HashMap<String, String> cAcountInfo, HttpSession session) {
 		return mm.cAcountDelect(cAcountInfo,session);
 	}
-	
-	
+	@PostMapping("/updatePosition") // 직급 정보 수정
+	public String updatePosition(@RequestParam HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) {
+		return mm.updatePosition(positionInfo, session, reat);
+	}
+	@PostMapping("/deletePosition") // 직급 삭제
+	public String deletePosition(@RequestParam HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) {
+		return mm.deletePosition(positionInfo, session, reat);
+		
+	}
+	@PostMapping("/createPosition") // 직급 생성
+	public String createPosition(@RequestParam HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) {
+		return mm.createPosition(positionInfo, session, reat);
+	}
+	@PostMapping("/ChangeSecurityCode") // 보안코드 변경 // 나중에 위치 변경
+	public String ChangeSecurityCode(@RequestParam HashMap<String, String> securityCode, RedirectAttributes reat, HttpSession session) {
+		return mm.ChangeSecurityCode(securityCode,reat, session);
+	}
 
 	
 }

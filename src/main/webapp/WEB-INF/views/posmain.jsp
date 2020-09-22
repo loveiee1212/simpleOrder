@@ -64,10 +64,10 @@ h2 {
 		<div id="baseinnerBox">
 			<a class="navbar-brand" href="main"><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 			<h2>posmain</h2>
-			<input type="button" id="btn" onclick="location.href = ''" value="판매">
+			<input type="button" id="btn" onclick="location.href = 'checkstartvc'" value="판매">
 			<input type="button" id="btn" onclick="location.href = ''" value="마감">
 			<input type="button" id="btn" onclick="location.href = 'cCodeAcountLogout'" value="사용자 전환">
-			<input type="button" id="btn" onclick="location.href = ''" value="근태">
+			<input type="button" id="btn" onclick="location.href = 'schedule'" value="근태">
 			<input type="button" id="btn" onclick="location.href = ''" value="재고 관리">
 			<input type="button" id="btn" onclick="location.href = ''" value="매출 현황">
 			<input type="button" id="btn" onclick="location.href = ''" value="외상 처리">

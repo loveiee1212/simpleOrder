@@ -7,9 +7,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.simpleOrder.service.member.CompanyMemberMM1;
 
@@ -38,25 +40,26 @@ public class CompanyMemberRestController1 {
 	public HashMap<String, String> getPositionList(HttpSession session , String empPosition) {
 		return mm.getPositionList(session,empPosition);
 	}
-	@GetMapping("/createEmpSetting")
+	@GetMapping("/createEmpSetting") // 직원 생성 폼 만들기
 	public HashMap<String, String> createEmpSetting(HttpSession session){
 		return mm.createEmpSetting(session);
 	}
-	@GetMapping("/getPositionGrant")
+	@GetMapping("/getPositionGrant") // 등급별 권한 가져오기
 	public HashMap<String, String> getPositionGrant(HttpSession session){
 		return mm.getPositionGrant(session);
 	}
-	
-	@GetMapping("/getPosition")
+	@GetMapping("/getPosition") // 직급 가져오기
 	public HashMap<String, String> getPosition(HttpSession session){
 		return mm.getPosition(session);
-		
 	}
-	@GetMapping("/test")
-	public String test(@RequestParam HashMap<String, String> aa) {
-		System.out.println(aa);
-		return null;
+	@GetMapping("/getCSecurityCode") // 사업장 인증 코드 가져오기
+	public HashMap<String, String> getCSecurityCode(HttpSession session){
+		return mm.getCSecurityCode(session);
 	}
 
+	@GetMapping("/test") // 테스트
+	public String test(@RequestParam HashMap<String, String> aa) {
+		return null;
+	}
 
 }

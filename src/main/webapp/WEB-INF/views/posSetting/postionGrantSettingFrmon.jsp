@@ -15,7 +15,7 @@ table, tr, th, td {
 </head>
 <body>
 	<h2>권한 설정</h2>
-	<form action="updatePosition">
+	<form action="updatePositionGrant">
 		<table id="grantList">
 			<tr>
 				<th>직급명</th>
@@ -45,6 +45,7 @@ table, tr, th, td {
 		dataType : "json",
 		success : function(hashmap) {
 			$("#grantList").append(hashmap.positionGrantCheckBoxHtml);
+			$(".00").attr('onclick','return false');
 		}
 	})
 
