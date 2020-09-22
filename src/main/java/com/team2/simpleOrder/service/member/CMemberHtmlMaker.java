@@ -61,9 +61,34 @@ public class CMemberHtmlMaker {
 	}
 
 	public String makeHtmlPostionGrnat(ArrayList<HashMap<String, Object>> positionGrantKind) {
-		System.out.println(positionGrantKind);
+		for (HashMap<String, Object> hM : positionGrantKind) {
+			sb.append("<tr>");
+			sb.append("<td>").append(hM.get("PST_NAME")).append("</td>");
+			for(int i = 0 ; i <((boolean[]) hM.get("grantBooleanList")).length ; i++) {
+				if( ((boolean[])hM.get("grantBooleanList"))[i] ) {
+					sb.append("<td>").append("<input class = '"+hM.get("PST_POSITION")+"' name = '"+hM.get("PST_POSITION")+"#"+i+"' type ='checkbox' checked = 'checked'> ").append("</td>");
+				}else {
+					sb.append("<td>").append("<input class = '"+hM.get("PST_POSITION")+"' name = '"+hM.get("PST_POSITION")+"#"+i+"' type ='checkbox'>").append("</td>");
+				}
+			}
+			sb.append("</tr>");
+		}
+		return sb.toString();
+	}
+
+	public String getPositionHtml(ArrayList<HashMap<String, String>> position) {
+		for (int i = 0 ; i < position.size(); i++) {
+			sb.append("<tr id = '"+position.get(i).get("PST_POSITION")+"'>");
+			sb.append("<td>").append("<input class ='pst_name' type = 'text' value ='"+position.get(i).get("PST_NAME")+"'>").append("</td>");
+			sb.append("<td>").append("<input type = 'button' value ='삭제' onclick = 'deletePosition(this)'>").append("</td>");
+			sb.append("<td>").append("<input type = 'button' value ='저장' onclick = 'updatePosition(this)'>").append("</td>");
+			sb.append("</tr>");
+		}
+		sb.append("<tr><td>").append("<input type = 'text' id='newPst_name' name='pst_name'>").append("</td>");
+		sb.append("<td colspan = '2'>").append("<input type ='button' value ='추가' onclick='createPosition()'>");
+		sb.append("</tr>");
 		
-		return null;
+		return sb.toString();
 	}
 
 }

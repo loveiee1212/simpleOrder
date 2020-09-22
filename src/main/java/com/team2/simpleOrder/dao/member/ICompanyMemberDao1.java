@@ -4,6 +4,8 @@ package com.team2.simpleOrder.dao.member;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -90,6 +92,27 @@ public interface ICompanyMemberDao1 {
 
 	@Select("SELECT PST_POSITION, PST_NAME FROM POSITION WHERE C_CODE = #{c_code}")
 	ArrayList<HashMap<String, String>> getPosition(String c_code);
+
+	@Update("UPDATE POSITION SET PST_NAME = #{pst_name} WHERE C_CODE = #{c_code} AND PST_POSITION = #{pst_position}")
+	boolean updatePosition(HashMap<String, String> positionInfo);
+	
+	@Delete("DELETE FROM POSITION WHERE C_CODE = #{c_code} AND PST_POSITION = #{pst_position}")
+	void deletePosition(HashMap<String, String> positionInfo);
+
+	@Insert("INSERT INTO POSITION VALUES (#{c_code}, #{pst_position}, #{pst_name})")
+	void createPosition(HashMap<String, String> positionInfo);
+
+	@Select("SELECT LPAD(COUNT(*),2,0) FROM POSITION WHERE C_CODE = ${value}")
+	String getNewPositionCode(String c_code);
+
+	@Update("UPDATE EMP SET PST_POSITION = '00' WHERE C_CODE = #{c_code} AND PST_POSITION = #{pst_position}")
+	void allPositionUpdate(HashMap<String, String> positionInfo);
+
+	@Select("SELECT C_SECURITYCODE FROM COMPANY WHERE C_CODE = #{c_code}")
+	String getCSecurityCode(String attribute);
+
+	@Update("UPDATE COMPANY SET C_SECURITYCODE = #{securityCode} WHERE C_CODE = #{c_code}")
+	void ChangeSecurityCode(HashMap<String, String> securityCodeInfo);
 
 	
 

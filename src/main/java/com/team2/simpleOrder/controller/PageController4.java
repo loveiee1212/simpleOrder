@@ -1,4 +1,4 @@
-package com.team2.simpleOrder.controller.kiosk;
+package com.team2.simpleOrder.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 //KioskMovingController
 @Controller
-public class KioskController2 {
-	private static final Logger logger = LoggerFactory.getLogger(KioskController2.class);
+public class PageController4 {
+	private static final Logger logger = LoggerFactory.getLogger(PageController4.class);
 //	@Autowired
 //	KioskMM1 km1;
 //	

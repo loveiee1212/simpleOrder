@@ -315,17 +315,18 @@ public class CompanyMemberMM1 {
 	}
 
 	@Transactional
-	public void updatePosition(HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) {
+	public void updatePositionGrant(HashMap<String, String> positionInfo, HttpSession session,
+			RedirectAttributes reat) {// 직급 권한 리스트 가져와서 업그레이드
 		reat.addFlashAttribute("basicPath", "postionGrantSettingFrmon()");
 		try {
-			cDao.PositionGrantDataDelect((String) session.getAttribute("c_code"));
-			Iterator<String> pgI = positionInfo.keySet().iterator();
+			cDao.PositionGrantDataDelect((String) session.getAttribute("c_code")); // 해당 사업장 코드의 모든 권한 삭제
+			Iterator<String> pgI = positionInfo.keySet().iterator(); // key값을 아이터 레이터로 만듬
 			while (pgI.hasNext()) {
 				HashMap<String, String> positionAndGranthm = new HashMap<String, String>();
-				String[] positionAndGrant = pgI.next().split("#");
+				String[] positionAndGrant = pgI.next().split("#"); // 키값을 직급 position 과 grant 권한 으로 나눔
 				positionAndGranthm.put("pst_position", positionAndGrant[0]);
 				positionAndGranthm.put("gpc_code", positionAndGrant[1]);
-				positionAndGranthm.put("c_code", (String) session.getAttribute("c_code"));
+				positionAndGranthm.put("c_code", (String) session.getAttribute("c_code"));// 각각의 권한을 업데이트
 				cDao.createPositionGrant(positionAndGranthm);
 			}
 		} catch (Exception e) {
@@ -335,19 +336,83 @@ public class CompanyMemberMM1 {
 
 	}
 
-	public HashMap<String, String> getPosition(HttpSession session) {
+	public HashMap<String, String> getPosition(HttpSession session) {// 직급 리스트 가져오기
 		try {
 			HashMap<String, String> hm = new HashMap<String, String>();
 			CMemberHtmlMaker cmh = new CMemberHtmlMaker();
 			hm.put("positionList", cmh.getPositionHtml(cDao.getPosition((String) session.getAttribute("c_code"))));
-			
 			return hm;
-
 		} catch (Exception e) {
 			System.out.println(e);
 			return null;
 		}
 
 	}
+
+	public String updatePosition(HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) { // 직급명 변경
+		try {
+			positionInfo.put("c_code", (String) session.getAttribute("c_code"));
+			cDao.updatePosition(positionInfo);
+			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			return "redirect:/posSetting";
+		} catch (Exception e) {
+			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			System.out.println(e);
+			return "redirect:/posSetting";
+		}
+
+	}
+	@Transactional
+	public String deletePosition(HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) { // 직급 삭제
+		try {
+			positionInfo.put("c_code", (String) session.getAttribute("c_code"));
+			cDao.allPositionUpdate(positionInfo);
+			cDao.deletePosition(positionInfo);
+			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			return "redirect:/posSetting";
+		} catch (Exception e) {
+			System.out.println(e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			return "redirect:/posSetting";
+		}
+	}
+
+	public String createPosition(HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) { // 직급 생성
+		try {
+			String PositionCode = cDao.getNewPositionCode(session.getAttribute("c_code").toString());
+
+			positionInfo.put("pst_position", PositionCode);
+			positionInfo.put("c_code", (String) session.getAttribute("c_code"));
+
+			cDao.createPosition(positionInfo);
+			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			return "redirect:/posSetting";
+		} catch (Exception e) {
+			System.out.println(e);
+			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			return "redirect:/posSetting";
+		}
+	}
+
+	public HashMap<String, String> getCSecurityCode(HttpSession session) { // 인증 코드 가져오기
+		HashMap<String, String> securityCode = new HashMap<String, String>();
+		securityCode.put("securityCode", cDao.getCSecurityCode((String) session.getAttribute("c_code")));
+		return securityCode;
+	}
+
+	public String ChangeSecurityCode(HashMap<String, String> securityCode, RedirectAttributes reat, HttpSession session) { // 보안코드 변경
+		try {
+			securityCode.put("c_code", (String) session.getAttribute("c_code"));
+			cDao.ChangeSecurityCode(securityCode);
+			reat.addFlashAttribute("basicPath", "companyAPICodeChangeFrmOn()");
+			return "redirect:/posSetting";
+		}catch(Exception e) {
+			reat.addFlashAttribute("basicPath", "companyAPICodeChangeFrmOn()");
+			System.out.println(e);
+			return "redirect:/posSetting";
+		}
+	}
+
 
 }
