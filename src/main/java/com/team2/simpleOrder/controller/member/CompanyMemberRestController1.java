@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team2.simpleOrder.service.member.CompanyMemberMM1;
+import com.team2.simpleOrder.service.member.CompanyMemberMM;
 
 @RestController
 @RequestMapping("/rest")
 public class CompanyMemberRestController1 {
 
 	@Autowired
-	CompanyMemberMM1 mm;
+	CompanyMemberMM mm;
 
 	@GetMapping("/getClist") // 사업체 리스트 가져오기
 	public HashMap<String, String> getClist(String ce_email) {

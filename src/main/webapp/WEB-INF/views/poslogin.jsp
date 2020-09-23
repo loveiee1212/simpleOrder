@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
 <title>poslogin</title>
 <style type="text/css">
 body {
@@ -23,12 +23,11 @@ body {
 	font-style: normal;
 }
 
-img { /* 사진 수정예정 */
-	/* border: 1px solid black; */
-	width: 300px;
-	margin-top: -65px;
-	margin-left: 600px;
-	z-index: 1;
+img {
+    width: 350px;
+    margin-left: 600px;
+    z-index: 1;
+    margin-bottom: 40px;
 }
 
 #login {

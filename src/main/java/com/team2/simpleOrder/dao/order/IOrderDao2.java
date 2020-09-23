@@ -9,4 +9,9 @@ public interface IOrderDao2 {
 
 	List<Order> getsaoList(Order odr);
 
+	boolean sendsaoList(Order order);
+
+	boolean updatestkList(List<Order> oList);
+
+
 }

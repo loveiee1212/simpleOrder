@@ -66,6 +66,18 @@ public class PageController1 {
 	public String cSecurityCodeSettingFrmOn() {
 		return "posSetting/cSecurityCodeSettingFrm";
 	}
+	@RequestMapping("/kioskLogin")
+	public String kioskLogin() {
+		return "kiosk/kioskLogin";
+	}
+	@RequestMapping("/kioskSettingFrm")
+	public String kioskSettingFrm() {
+		return "kioskSetting/kioskSettingFrm";
+	}
+	@RequestMapping("/kioskQrCodeListFrm")
+	public String kioskQrCodeListFrm() {
+		return "kioskSetting/kioskQrCodeListFrm";
+	}
 	
 	@RequestMapping("/test")
 	public String test(RedirectAttributes reat) {
