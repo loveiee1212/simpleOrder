@@ -139,7 +139,8 @@ i {
 	clear: both;
 }
 
-.pdc_code, .pd_code, .bsk_pdc_code, .bsk_pd_code {
+.pdc_code, .pdc_date, .pd_code, .pd_date, .bsk_pdc_code, .bsk_pdc_date,
+	.bsk_pd_code, .bsk_pd_date {
 	display: none;
 }
 
@@ -194,7 +195,7 @@ tr, td {
 	<nav id="footer_nav">
 		<div>
 			<ul>
-				<li><a href="javascript:void(0);">주문하기</a></li>
+				<li><a href="javascript:void(0);" onclick="order();">주문하기</a></li>
 				<li><a id="basket_open_btn" href="javascript:void(0);">주문내역</a></li>
 				<li><a id="bill_open_btn" href="javascript:void(0);">계산서</a></li>
 				<li><a href="kioskmenu">나가기</a></li>
@@ -216,6 +217,42 @@ tr, td {
 	<div id="bill"></div>
 </body>
 <script type="text/javascript">
+	function order() {
+		var bsk_pdc_code = $('.bsk_pdc_code');
+		var bsk_pdc_date = $('.bsk_pdc_date');
+		var bsk_pd_code = $('.bsk_pd_code');
+		var bsk_pd_date = $('.bsk_pd_date');
+		var oh_cnt = $('.oh_cnt');
+		var bskArr = new Array();
+		for (var i = 0; i < bsk_pdc_code.length; i++) {
+			// console.log(bsk_pdc_code[i].innerText);
+			// console.log(bsk_pd_code[i].innerText);
+			// console.log(oh_cnt[i].innerText);
+			/* var arr=new Array();
+			arr[0]=bsk_pdc_code[i].innerText;
+			arr[1]=bsk_pd_code[i].innerText;
+			arr[2]=oh_cnt[i].innerText; */
+			bskArr[i] = bsk_pdc_code[i].innerText + '/'
+					+ bsk_pd_code[i].innerText + '/' + oh_cnt[i].innerText;
+			/* bskArr[i]=arr; */
+		}
+		for (var i = 0; i < bskArr.length; i++) {
+			console.log(bskArr[i]);
+		}
+		$.ajax({
+			url : 'rest/insertorder',
+			type : 'post',
+			data : {
+				"bskArr" : bskArr
+			},
+			success : function(data) {
+				console.log(data);
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
+	}
 	function modal(id) {
 		var zIndex = 9999;
 		var modal = $('#' + id);
@@ -294,19 +331,25 @@ tr, td {
 						//클릭한 상품의 상품 카테고리 코드, 상품 코드, 상품 이름, 상품 가격 가져옴 
 						var pdc_code = $(this).children().eq(0).children()
 								.eq(1).children().eq(0).text()
+						var pdc_date = $(this).children().eq(0).children()
+								.eq(1).children().eq(1).text()
 						var pd_code = $(this).children().eq(0).children().eq(1)
-								.children().eq(1).text()
-						var pd_name = $(this).children().eq(0).children().eq(1)
 								.children().eq(2).text()
+						var pd_date = $(this).children().eq(0).children().eq(1)
+								.children().eq(3).text()
+						var pd_name = $(this).children().eq(0).children().eq(1)
+								.children().eq(4).text()
 						var pd_price = $(this).children().eq(0).children()
-								.eq(1).children().eq(3).text()
+								.eq(1).children().eq(5).text()
 						//상품 카테고리 코드, 상품 코드, 상품 이름, 상품 가격 파라미터로 넘김
-						insertOrder(pdc_code, pd_code, pd_name, pd_price)
+						insertOrder(pdc_code, pdc_date, pd_code, pd_date,
+								pd_name, pd_price);
 					}
 				})
 	}
 	//장바구니에 담기
-	function insertOrder(pdc_code, pd_code, pd_name, pd_price) {
+	function insertOrder(pdc_code, pdc_date, pd_code, pd_date, pd_name,
+			pd_price) {
 		//장바구니에 상품이 이미 담겨 있는지 확인
 		var result = insertCheck(pdc_code, pd_code);
 		if (result) {
@@ -314,7 +357,9 @@ tr, td {
 			var str = '';
 			str += "<tr id = '" + pdc_code + pd_code + "'>";
 			str += "<td class='bsk_pdc_code'>" + pdc_code + "</td>";
+			str += "<td class='bsk_pdc_date'>" + pdc_date + "</td>";
 			str += "<td class='bsk_pd_code'>" + pd_code + "</td>";
+			str += "<td class='bsk_pd_date'>" + pd_date + "</td>";
 			str += "<td>" + pd_name + "</td>";
 			str += "<td>" + pd_price + "</td>";
 			str += "<td><input type='button' value='▲' onclick='cntUp($(this));'>";

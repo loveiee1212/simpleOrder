@@ -39,7 +39,9 @@ public class KioskMakeHtml {
 						+ sellProList.get(i).getPd_name() + "'></div>");
 				sb.append("<div class='text_detail'>");
 				sb.append("<div class='pdc_code'>" + sellProList.get(i).getPdc_code() + "</div>");
+				sb.append("<div class='pdc_date'>" + sellProList.get(i).getPdc_date() + "</div>");
 				sb.append("<div class='pd_code'>" + sellProList.get(i).getPd_code() + "</div>");
+				sb.append("<div class='pd_date'>" + sellProList.get(i).getPd_date() + "</div>");
 				sb.append("<div class='pd_name'>" + sellProList.get(i).getPd_name() + "</div>");
 				sb.append("<div class='pd_price'>" + sellProList.get(i).getPd_price()+ "</div></div></div></div>");
 			} else {
@@ -49,7 +51,9 @@ public class KioskMakeHtml {
 							+ sellProList.get(i).getPd_name() + "'></div>");
 					sb.append("<div class='text_detail'>");
 					sb.append("<div class='pdc_code'>" + sellProList.get(i).getPdc_code() + "</div>");
+					sb.append("<div class='pdc_date'>" + sellProList.get(i).getPdc_date() + "</div>");
 					sb.append("<div class='pd_code'>" + sellProList.get(i).getPd_code() + "</div>");
+					sb.append("<div class='pd_date'>" + sellProList.get(i).getPd_date() + "</div>");
 					sb.append("<div class='pd_name'>" + sellProList.get(i).getPd_name() + "</div>");
 					sb.append("<div class='pd_price'>" + sellProList.get(i).getPd_price()+ "</div></div></div></div>");
 				} else {
@@ -60,7 +64,9 @@ public class KioskMakeHtml {
 							+ sellProList.get(i).getPd_name() + "'></div>");
 					sb.append("<div class='text_detail'>");
 					sb.append("<div class='pdc_code'>" + sellProList.get(i).getPdc_code() + "</div>");
+					sb.append("<div class='pdc_date'>" + sellProList.get(i).getPdc_date() + "</div>");
 					sb.append("<div class='pd_code'>" + sellProList.get(i).getPd_code() + "</div>");
+					sb.append("<div class='pd_date'>" + sellProList.get(i).getPd_date() + "</div>");
 					sb.append("<div class='pd_name'>" + sellProList.get(i).getPd_name() + "</div>");
 					sb.append("<div class='pd_price'>" + sellProList.get(i).getPd_price()+ "</div></div></div></div>");
 				}
