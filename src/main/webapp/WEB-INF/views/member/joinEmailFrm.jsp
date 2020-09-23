@@ -12,7 +12,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
 </head>
 <style>
 body {
@@ -43,9 +43,9 @@ body {
 }
 
 img {
-	width: 200px;
-	margin-top: -65px;
-	margin-left: -80px;
+    width: 200px;
+    margin-top: -20px;
+    margin-left: -80px;
 }
 
 a.navbar-brand {

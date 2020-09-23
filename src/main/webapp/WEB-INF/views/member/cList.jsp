@@ -30,8 +30,8 @@ body {
 
 #flotBoxbg {
 	background-color: black;
-	width: 100%;
-	height: 100%;
+	width: 1600px;
+	height: 900px;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -41,7 +41,7 @@ body {
 
 #flotBox {
 	transform: translate(-50%, 0%);
-	margin: 10% 50%;
+	margin: 15% 80%;
 	position: absolute;
 	width: 600px;
 	height: 400px;
@@ -49,6 +49,8 @@ body {
 	z-index: 6;
 	font-size: 20px;
 	padding: 70px 70px 0px 70px;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 input:focus {
@@ -85,11 +87,11 @@ input:focus {
 	color: white;
 }
 
-img { /* 사진 수정예정 */
-	/* border: 1px solid black; */
+img {
 	width: 300px;
-	margin-top: -65px;
+	margin-top: 45px;
 	margin-left: 600px;
+	margin-bottom: 50px;
 	z-index: 1;
 }
 
@@ -104,8 +106,8 @@ img { /* 사진 수정예정 */
 
 #UPbtn {
 	width: 80px;
-	height: 50px; 
-	border : 3px solid #81d4fa;
+	height: 50px;
+	border: 3px solid #81d4fa;
 	background-color: white;
 	font-size: 18px;
 	font-weight: bold;
@@ -200,39 +202,46 @@ td:-webkit-scrollbar {
 <title>사업자 리스트</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/basicBox.css?after">
 </head>
 <body>
 
 	<div id="flotBoxDiv">
 		<div id="flotBoxbg"></div>
 		<div id="flotBox">
-			<form name="cLogin" action="" onsubmit="return cloginTest()" method="post">
+			<form name="cLogin" action="" onsubmit="return cloginTest()"
+				method="post">
 				<table>
 					<tr>
 						<th id="th">사업자 번호</th>
-						<td id="td"><input type="text" id="c_code" name="c_code" readonly="readonly" style="outline: none; border: none;"></td>
+						<td id="td"><input type="text" id="c_code" name="c_code"
+							readonly="readonly" style="outline: none; border: none;"></td>
 					</tr>
 					<tr>
 						<th id="th">사업자 비밀번호</th>
-						<td id="td"><input type="password" id="c_pw" name="c_pw" maxlength="20" placeholder="비밀번호 12~20자리"  onkeydown="keyEvt()"></td>
+						<td id="td"><input type="password" id="c_pw" name="c_pw"
+							maxlength="20" placeholder="비밀번호 12~20자리" onkeydown="keyEvt()"></td>
 					</tr>
 					<tr>
 						<td colspan="2" id="msg1"></td>
 					</tr>
 					<tr>
-						<td colspan="2" id="td"><input type="submit" id="clogin" value="로그인"></td>
+						<td colspan="2" id="td"><input type="submit" id="clogin"
+							value="로그인"></td>
 					</tr>
 				</table>
 				<div id="error"></div>
-				<input type="text" name="ce_email" value="${ce_email}" style="display: none;">
+				<input type="text" name="ce_email" value="${ce_email}"
+					style="display: none;">
 			</form>
 		</div>
 	</div>
 
 	<div id="baseBox">
 		<div id="baseinnerBox">
-			<a class="navbar-brand" href="main"><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
+			<a class="navbar-brand" href="main"><img
+				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 			<table id="cListInfo">
 				<tr>
 					<th>상호명</th>
@@ -242,8 +251,10 @@ td:-webkit-scrollbar {
 					<th colspan="2">비고</th>
 				</tr>
 			</table>
-			<input type="button" id="btn1"	onclick="location.href ='createccodefrm'" value="사업장 추가">
-			<input type="button" id="btn2" onclick="location.href = 'emailLogout'" value="EMAIL 로그아웃">
+			<input type="button" id="btn1"
+				onclick="location.href ='createccodefrm'" value="사업장 추가"> <input
+				type="button" id="btn2" onclick="location.href = 'emailLogout'"
+				value="EMAIL 로그아웃">
 		</div>
 	</div>
 </body>
