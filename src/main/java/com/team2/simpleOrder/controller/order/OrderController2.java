@@ -43,6 +43,11 @@ public class OrderController2 {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/sellpage",method = RequestMethod.GET)
+	public String sellpage() {
+		return "./seat/sellpage";
+	}
+	
 	
 	
 	

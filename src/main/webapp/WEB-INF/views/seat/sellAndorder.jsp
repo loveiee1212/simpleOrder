@@ -166,31 +166,15 @@ li input {
 				<div id="listbox">
 					<center>
 					${list}
-						<!-- <table>
-							<tr>
-								<td>상품1</td>
-								<td>10,000</td>
-								<td style="border: none;"><input type="number" value="2"
-									style="width: 40px; height: 40px;"></td>
-								<td><button>취소</button></td>
-							</tr>
-							<tr>
-								<td>상품2</td>
-								<td>50,000</td>
-								<td style="border: none;"><input type="number" value="2"
-									style="width: 40px; height: 40px;"></td>
-								<td><button>취소</button></td>
-							</tr>
-						</table> -->
 					</center>
 				</div>
 				<div id="moneylist">
 					<ul>
 						<li>총금액 <input type="number" readonly="readonly"
 							id="totalmoney" value="108000"></li>
-						<li>선불 <input type="number" id="takemoney" value="0"
+						<li>결제금액 <input type="number" id="takemoney" value="0"
 							placeholder="0"></li>
-						<li>후불 <input type="number" readonly="readonly"
+						<li id="Remain_money">남은금액 <input type="number" readonly="readonly"
 							id="uctmoney"></li>
 					</ul>
 				</div>
@@ -199,7 +183,7 @@ li input {
 						<li>현금결제</li>
 						<li>카드결제</li>
 						<li>외상결제</li>
-						<li>주문하기</li>
+						<li onclick ='sendsaoList()'>주문하기</li>
 						<li>메인으로</li>
 					</ul>
 				</div>
@@ -224,67 +208,155 @@ li input {
 	</div>
 </body>
 <script>
-	/* $.ajax({
-	 type:"post",
-	 url:"selectallcredit",
-	 data:"sessionid",
-	 dataType:"json",
-	 success : function(result){
-	 console.log(result);
-	 var str = "";
-	 str+="<table>";
-	 for(var i in result){
-	 str="<tr>";
-	 str+= "<td>"+result[i].cnt+"</td>";
-	 str+= "<td>"+result[i].contents+"</td>";
-	 str+= "<td>"+result[i].date+"</td>";
-	 str+= "<td>"+result[i].credit+"</td>";
-	 str+= "<td><button onclick='creditpayment'>외상결제</button></td>";
-	 str+= "</tr>";
-	 }
-	 str+="</table>";
-	 },
-	 error : function(err){
-	 console.log(err);
-	 }
-	 }); *//* 왼쪽 외상 목록 ajax */
+
+totalprice();
+
+$("tr").children($("input")).keyup(function(evt){
+	totalprice();
+});
+
+
+function totalprice(){
+for(var i =0; i<$("tr").length; i++){
+	var $pdcnt = $("#pdcnt"+i).val();
+	var $hiddenprice = $("#hiddenprice"+i).val();
+	var totalprice = $pdcnt*$hiddenprice
+	$("#totalprice"+i).text(totalprice);
+}
+	 var sum = 0;
 	 
-	 $(".price").each(function(){
-		 console.log("total:"+);
-	 })
+	 var $price = $(".price");
+	 for(var i=0; i<$price.length;i++){
+		 var val = $price.eq(i).text();
+		 if(val=="") val = '0';
+		 sum+= Number(val);
+	 }
+	 
+	 console.log(sum);
+	 $("#totalmoney").val(sum);
+}
+
+	function sendsaoList(){
+		
+		var pdccodeArray = [];
+		var codeArray =[];
+		var cntArray = [];
+		var $pdccode = $("input[name = 'pdcode']");
+		//console.log($pdccode.length);
+		
+		for(var i=0; i<$pdccode.length; i++){
+			if($("#pdcnt"+i).val()-$("#hiddencnt"+i).val()!=0){
+			pdccodeArray.push($("#pdcode"+i).data('code'));
+			}				
+			
+		}
+		
+		for(var i=0; i<$pdccode.length; i++){
+			if($("#pdcnt"+i).val()-$("#hiddencnt"+i).val()!=0){				
+			codeArray.push($("#pdcode"+i).val());
+			}
+		}
+		
+		
+		var $cnt = $("input[name='pdcnt']");
+		for(var i =0; i<$cnt.length; i++){
+			if($("#pdcnt"+i).val()-$("#hiddencnt"+i).val()!=0){				
+			cntArray.push($("#pdcnt"+i).val()-$("#hiddencnt"+i).val());
+			}
+		}
+		
+		console.log(pdccodeArray);
+		console.log(codeArray);
+		console.log(cntArray);
+		var objparam = {
+				"oac_num" : $("#oac_num").val(),
+				"pdc_code" : pdccodeArray,
+				"pd_code" : codeArray,
+				"oh_cnt" : cntArray	
+		}
+		 $.ajax({
+			type : "post",
+			url : 'rest/sendsaolist',
+			data : objparam,
+			dataType : 'json',
+			success : function(result){
+				console.log(result);
+				alert(result.result);
+				location.href = "./sellpage";
+			},
+			error : function(err){
+				console.log(err);
+			}
+		}); 
+	}
+
 	 
 	 
 	var str = "";
 	$("#uctmoney").val($("#totalmoney").val());
+	
 	$("#keypad ul li").click(function() {
 		if ($(this).val() == 11 || $(this).val() == 12) {
 			return;
 		}
-		//console.log($(this).val());
+		
 		str += $(this).val();
-		//console.log(str);
 		$("#takemoney").val(str);
 		$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());
+		
+		if(($("#totalmoney").val() - $("#takemoney").val())<0){
+			$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())*(-1));
+		}else{
+			$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val()));
+		}
 	});
+	
 	function reset() {
 		str = str.substring(str.length, str.length);
 		$("#takemoney").val(str);
+		$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
 		$("#uctmoney").val($("#totalmoney").val());
+		
 	}
+	
+
 	function backspace() {
 		console.log("length" + str.substr(0, str.length - 1));
 		$("#takemoney").val(str.substr(0, str.length - 1));
 		$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());
 		str = $("#takemoney").val();
+		
+		if(($("#totalmoney").val() - $("#takemoney").val())<0){
+			$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())*(-1));
+		}else{
+			$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val()));
+		}
 	}
+	
 	$("#takemoney").keyup(function(evt) {
 		//console.log(evt);
 		$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());
+		
+		if(($("#totalmoney").val() - $("#takemoney").val())<0){
+			$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())*(-1));
+		}else{
+			$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val()));
+		}
 	});
+	
 	$("#takemoney").focus(function() {
 		$("#takemoney").val("");
 	});
 
+	
+	
+	
 	function opencategory(evt, category) {
 
 		tablinks = document.getElementsByClassName("tablinks");
@@ -294,20 +366,6 @@ li input {
 		}
 
 		evt.currentTarget.className += " active";
-		/* $.ajax({
-		type : "get",
-		url : "gettable",
-		data : {"sessionid":"a1234","cName" : category},
-		dataType : 'json',
-		success : function(result){
-			console.log(result);
-			
-			}
-		},
-		error : function(err){
-			console.log(err);
-		}
-		}); */
 
 		var data = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11' ];
 		var str = "";
@@ -319,7 +377,6 @@ li input {
 		$("#product").html(str);
 	}
 	
-	
-	
 </script>
+
 </html>

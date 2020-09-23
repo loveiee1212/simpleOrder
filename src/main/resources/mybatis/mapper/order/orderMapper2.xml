@@ -6,13 +6,32 @@
 <mapper namespace="com.team2.simpleOrder.dao.order.IOrderDao2">
 
 <select id="getsaoList" parameterType="order" resultType="order">
-SELECT PD.PDC_CODE,PD.PD_CODE,PD.PD_NAME,PD.PD_PRICE,OH.OH_CNT 
+SELECT PD.PDC_CODE,PD.PD_CODE,PD.PD_NAME,PD.PD_PRICE,SUM(OH.OH_CNT) AS OH_CNT
 FROM ORDER_HISTORY AS OH JOIN ORDER_AND_CREDIT AS OAC JOIN PRODUCT AS PD
-WHERE OAC.OAC_NUM = #{oac_num} AND OAC.BD_DATE =#{bd_date} AND OAC.OAC_STATUS ="1" 
-AND OAC.C_CODE = #{c_code} AND OAC.BD_DATE = OH.BD_DATE
-AND OH.PDC_CODE = PD.PDC_CODE AND OH.PD_CODE = PD.PD_CODE AND PD.PD_STATUS = "1"
+ON  OAC.BD_DATE = OH.BD_DATE AND OH.PDC_CODE = PD.PDC_CODE AND OH.PD_CODE = PD.PD_CODE
+WHERE OAC.C_CODE = #{c_code} AND PD.PD_STATUS = "1" AND OAC.OAC_STATUS ="1" AND OAC.OAC_NUM = #{oac_num}  
+AND OAC.BD_DATE =#{bd_date}
+GROUP BY PD.PDC_CODE,PD.PD_CODE
 
 </select>
 
+ <insert id="sendsaoList" parameterType="order">
+INSERT INTO ORDER_HISTORY
+SELECT #{c_code},TIMESTAMP(#{bd_date}),#{oac_num},#{pdc_code},
+PD.PDC_DATE,#{pd_code},PD.PD_DATE,TIMESTAMP(NOW()),#{oh_cnt} 
+FROM ORDER_AND_CREDIT AS OAC JOIN PRODUCT AS PD 
+WHERE OAC.C_CODE = #{c_code} AND PD.PDC_CODE =#{pdc_code} AND PD.PD_CODE =#{pd_code} 
+AND PD.PD_STATUS = "1" 
+AND OAC.OAC_NUM=#{oac_num} AND OAC_STATUS = "1" 
+</insert> 
+
+<update id="updatestkList" parameterType="java.util.List">
+<foreach collection="list" item="odr" open="DECLARE BEGIN" close="; END;" separator=";">
+UPDATE  ORDER_HISTORY AS OH JOIN STOCK AS STK ON OH.PDC_CODE = STK.PDC_CODE AND OH.PD_CODE = STK.PD_CODE 
+SET STK.STK_STOCK = (STK.STK_STOCK-(#{odr.oh_cnt}))
+WHERE OH.C_CODE =#{odr.c_code} AND OH.OAC_NUM = #{odr.oac_num} AND OH.PDC_CODE = #{odr.pdc_code} 
+AND OH.PD_CODE = #{odr.pd_code} AND STK.STK_STOCK >=0;
+</foreach>
+</update>
 
 </mapper>
