@@ -31,7 +31,7 @@ body {
 #flotBoxbg {
 	background-color: black;
 	width: 1600px;
-	height: 900px;
+	height: 1000px;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -41,7 +41,7 @@ body {
 
 #flotBox {
 	transform: translate(-50%, 0%);
-	margin: 15% 80%;
+	margin: -500px 750px;
 	position: absolute;
 	width: 600px;
 	height: 400px;
@@ -207,7 +207,26 @@ td:-webkit-scrollbar {
 </head>
 <body>
 
-	<div id="flotBoxDiv">
+	
+
+	<div id="baseBox">
+		<div id="baseinnerBox">
+			<a class="navbar-brand" href="main"><img
+				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
+			<table id="cListInfo">
+				<tr>
+					<th>상호명</th>
+					<th>사업자번호</th>
+					<th>전화번호</th>
+					<th>주소</th>
+					<th colspan="2">비고</th>
+				</tr>
+			</table>
+			<input type="button" id="btn1"
+				onclick="location.href ='createccodefrm'" value="사업장 추가"> <input
+				type="button" id="btn2" onclick="location.href = 'emailLogout'"
+				value="EMAIL 로그아웃">
+				<div id="flotBoxDiv">
 		<div id="flotBoxbg"></div>
 		<div id="flotBox">
 			<form name="cLogin" action="" onsubmit="return cloginTest()"
@@ -237,24 +256,6 @@ td:-webkit-scrollbar {
 			</form>
 		</div>
 	</div>
-
-	<div id="baseBox">
-		<div id="baseinnerBox">
-			<a class="navbar-brand" href="main"><img
-				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
-			<table id="cListInfo">
-				<tr>
-					<th>상호명</th>
-					<th>사업자번호</th>
-					<th>전화번호</th>
-					<th>주소</th>
-					<th colspan="2">비고</th>
-				</tr>
-			</table>
-			<input type="button" id="btn1"
-				onclick="location.href ='createccodefrm'" value="사업장 추가"> <input
-				type="button" id="btn2" onclick="location.href = 'emailLogout'"
-				value="EMAIL 로그아웃">
 		</div>
 	</div>
 </body>

@@ -31,7 +31,7 @@ body {
 
 img {
     width: 250px;
-    margin-top: -90px;
+    margin-top: -70px;
     float: left;
 }
 

@@ -83,7 +83,6 @@ li {
 #joinInfo {
 	width: 700px;
 	height: 590px;
-	/* border: 3px solid #81d4fa; */
 	font-size: 20px;
 	margin: 10px 370px;
 }

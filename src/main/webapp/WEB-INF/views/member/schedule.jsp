@@ -11,9 +11,12 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
-<link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/basicBox.css?after">
+<link rel="stylesheet" href="resources/css/calendar.css?afte"
+	type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte"
+	type="text/css">
 <style>
 body {
 	background-color: #e3f2fd;
@@ -79,8 +82,8 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
+	width: 1600px;
+	height: 1000px;
 	background: white;
 	opacity: 0.5;
 	filter: alpha(opacity = 50);
@@ -90,12 +93,12 @@ body {
 #main_layer {
 	position: absolute;
 	top: 30%;
-	left: 27%;
+	left: 40%;
 	width: 700px;
 	height: 670px;
 	margin: -150px 0 0 -194px;
 	padding: 28px 28px 0 28px;
-	border: 2px solid #555;
+	border: 3px solid #81d4fa;
 	background: #fff;
 	font-size: 18px;
 	z-index: 200;
@@ -136,9 +139,10 @@ body {
 				<div id="calendar_top">
 					<div id="emp_codeList"></div>
 					<div id="btn">
-						<label id="prevMonth"><button class="moveButton" onclick="movePrevMonth()">◁</button></label>
-						<span id="yearMonth"></span>
-						<label id="nextMonth"><button class="moveButton" onclick="moveNextMonth()">▷</button></label>
+						<label id="prevMonth"><button class="moveButton"
+								onclick="movePrevMonth()">◁</button></label> <span id="yearMonth"></span>
+						<label id="nextMonth"><button class="moveButton"
+								onclick="moveNextMonth()">▷</button></label>
 					</div>
 				</div>
 				<div id="calendar_main"></div>

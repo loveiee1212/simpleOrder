@@ -123,7 +123,8 @@ textarea:focus {
 }
 
 #main {
-	background-color: #e3f2fd; border : 3px solid #81d4fa;
+	background-color: #e3f2fd; 
+	border : 3px solid #81d4fa;
 	margin: 10px;
 	border: 3px solid #81d4fa;
 }

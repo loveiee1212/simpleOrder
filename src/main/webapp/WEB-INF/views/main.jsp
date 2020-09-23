@@ -92,7 +92,6 @@ ul {
 .login {
 	width: 700px;
 	height: 500px;
-	/* border: 3px solid #81d4fa; */
 	font-size: 28px;
 	margin-top: 30px;
 	margin-left: 370px;
