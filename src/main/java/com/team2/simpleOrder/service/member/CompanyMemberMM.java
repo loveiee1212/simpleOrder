@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.team2.simpleOrder.dao.member.ICompanyMemberDao1;
 
 @Service
-public class CompanyMemberMM1 {
+public class CompanyMemberMM {
 
 	@Autowired
 	private ICompanyMemberDao1 cDao;
@@ -231,7 +231,7 @@ public class CompanyMemberMM1 {
 	public String updateEmpInfo(HashMap<String, String> empInfo, HttpSession session, RedirectAttributes reat) { // emp
 																													// 정보
 																													// 수정
-		reat.addFlashAttribute("basicPath", "empSettingDivOn()");
+		reat.addFlashAttribute("basicPath", "includeAjax('empSettingFrm')");
 		empInfo.put("c_code", (String) session.getAttribute("c_code"));
 		if (!cDao.updateEmpInfo(empInfo)) {
 			reat.addFlashAttribute("error", "수정에실패하였습니다.");
@@ -250,7 +250,7 @@ public class CompanyMemberMM1 {
 		try {
 			empInfo.put("c_code", (String) session.getAttribute("c_code"));
 			cDao.creatEmp(empInfo);
-			reat.addFlashAttribute("basicPath", "empSettingDivOn()");
+			reat.addFlashAttribute("basicPath", "includeAjax('empSettingFrm')");
 			return "redirect:/posSetting";
 		} catch (Exception e) {
 			System.out.println(e);
@@ -262,10 +262,10 @@ public class CompanyMemberMM1 {
 		try {
 			empInfo.put("c_code", (String) session.getAttribute("c_code"));
 			cDao.fireEmpInfo(empInfo);
-			reat.addFlashAttribute("basicPath", "empSettingDivOn()");
+			reat.addFlashAttribute("basicPath", "includeAjax('empSettingFrm')");
 			return "redirect:/posSetting";
 		} catch (Exception e) {
-			reat.addFlashAttribute("basicPath", "empSettingDivOn()");
+			reat.addFlashAttribute("basicPath", "includeAjax('empSettingFrm')");
 			return "redirect:/posSetting";
 		}
 	}
@@ -317,7 +317,7 @@ public class CompanyMemberMM1 {
 	@Transactional
 	public void updatePositionGrant(HashMap<String, String> positionInfo, HttpSession session,
 			RedirectAttributes reat) {// 직급 권한 리스트 가져와서 업그레이드
-		reat.addFlashAttribute("basicPath", "postionGrantSettingFrmon()");
+		reat.addFlashAttribute("basicPath", "includeAjax('postionGrantSettingFrmOn')");
 		try {
 			cDao.PositionGrantDataDelect((String) session.getAttribute("c_code")); // 해당 사업장 코드의 모든 권한 삭제
 			Iterator<String> pgI = positionInfo.keySet().iterator(); // key값을 아이터 레이터로 만듬
@@ -353,10 +353,10 @@ public class CompanyMemberMM1 {
 		try {
 			positionInfo.put("c_code", (String) session.getAttribute("c_code"));
 			cDao.updatePosition(positionInfo);
-			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			reat.addFlashAttribute("basicPath", "includeAjax('postisionSettingFrmOn')");
 			return "redirect:/posSetting";
 		} catch (Exception e) {
-			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			reat.addFlashAttribute("basicPath", "includeAjax('postisionSettingFrmOn')");
 			System.out.println(e);
 			return "redirect:/posSetting";
 		}
@@ -368,12 +368,12 @@ public class CompanyMemberMM1 {
 			positionInfo.put("c_code", (String) session.getAttribute("c_code"));
 			cDao.allPositionUpdate(positionInfo);
 			cDao.deletePosition(positionInfo);
-			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			reat.addFlashAttribute("basicPath", "includeAjax('postisionSettingFrmOn')");
 			return "redirect:/posSetting";
 		} catch (Exception e) {
 			System.out.println(e);
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			reat.addFlashAttribute("basicPath", "includeAjax('postisionSettingFrmOn')");
 			return "redirect:/posSetting";
 		}
 	}
@@ -386,11 +386,11 @@ public class CompanyMemberMM1 {
 			positionInfo.put("c_code", (String) session.getAttribute("c_code"));
 
 			cDao.createPosition(positionInfo);
-			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			reat.addFlashAttribute("basicPath", "includeAjax('postisionSettingFrmOn')");
 			return "redirect:/posSetting";
 		} catch (Exception e) {
 			System.out.println(e);
-			reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
+			reat.addFlashAttribute("basicPath", "includeAjax('postisionSettingFrmOn')");
 			return "redirect:/posSetting";
 		}
 	}
@@ -405,10 +405,10 @@ public class CompanyMemberMM1 {
 		try {
 			securityCode.put("c_code", (String) session.getAttribute("c_code"));
 			cDao.ChangeSecurityCode(securityCode);
-			reat.addFlashAttribute("basicPath", "companyAPICodeChangeFrmOn()");
+			reat.addFlashAttribute("basicPath", "includeAjax('cSecurityCodeSettingFrmOn')");
 			return "redirect:/posSetting";
 		}catch(Exception e) {
-			reat.addFlashAttribute("basicPath", "companyAPICodeChangeFrmOn()");
+			reat.addFlashAttribute("basicPath", "includeAjax('cSecurityCodeSettingFrmOn')");
 			System.out.println(e);
 			return "redirect:/posSetting";
 		}

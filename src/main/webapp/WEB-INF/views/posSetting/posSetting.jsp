@@ -35,10 +35,10 @@ div {
 		<div id="divOne"></div>
 		<div id="divTwo">
 			<input type="button" value="테이블 설정" onclick=""><br />
-			<input type="button" value="직원 목록" onclick="empSettingDivOn()"><br />
-			<input type="button" value="직급 설정" onclick="postisionSettingFrmOn()"><br />
-			<input type="button" value="권한 설정"	onclick="postionGrantSettingFrmOn()"><br />
-			<input type="button" value="마스터 계정 비밀번호 변경" onclick="companyAPICodeChangeFrmOn()"><br /> 
+			<input type="button" value="직원 목록" onclick="includeAjax('empSettingFrm')"><br />
+			<input type="button" value="직급 설정" onclick="includeAjax('postisionSettingFrmOn')"><br />
+			<input type="button" value="권한 설정"	onclick="includeAjax('postionGrantSettingFrmOn')"><br />
+			<input type="button" value="마스터 계정 비밀번호 변경" onclick="includeAjax('cSecurityCodeSettingFrmOn')"><br /> 
 			<input type="button" value="키오스크 설정" onclick="location.href = 'kioskSettingFrm'"><br /> 
 			<input type="button" value="나가기" onclick="location.href = 'posmain'"><br />
 		</div>
@@ -46,40 +46,13 @@ div {
 </body>
 <script type="text/javascript" id="basicIncludeService">
 	${basicPath}
-	function empSettingDivOn() {//세션의 코드로 직원 목록 출력
+	function includeAjax(url){
 		$.ajax({
-			url : "empSettingFrm",
-			success : function(data) {
-				$("#divOne").html(data);
+			url : url,
+			success : function(html){
+				$("#divOne").html(html);
 			}
 		})
 	}
-	function postionGrantSettingFrmOn() {
-		$.ajax({
-			url : "postionGrantSettingFrmOn",
-			success : function(data) {
-				$("#divOne").html(data);
-			}
-		})
-	}
-	function postisionSettingFrmOn() {
-		$.ajax({
-			url : "postisionSettingFrmOn",
-			success : function(data) {
-				$("#divOne").html(data);
-			}
-		})
-	}
-	function companyAPICodeChangeFrmOn(){
-		$.ajax({
-			url : "cSecurityCodeSettingFrmOn",
-			success : function(data){
-				$("#divOne").html(data);
-			}
-		})
-	}
-</script>
-<script type="text/javascript" id="">
-	
 </script>
 </html>

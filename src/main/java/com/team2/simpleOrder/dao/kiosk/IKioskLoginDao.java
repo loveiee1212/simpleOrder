@@ -1,5 +1,5 @@
 package com.team2.simpleOrder.dao.kiosk;
 
-public interface IKioskDao2 {
+public interface IKioskLoginDao {
 
 }
