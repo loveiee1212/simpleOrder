@@ -36,7 +36,6 @@ public class OrderMM2 {
 		ModelAndView mav = new ModelAndView();
 		StoreManagement stmm = new StoreManagement();
 		List<Order> stList = oDao.getsaoList(odr);
-		log.info(stList);
 		mav.addObject("list", makesaoList(stList, odr));
 		mav.setViewName("seat/sellAndorder");
 		return mav;
@@ -70,44 +69,49 @@ public class OrderMM2 {
 		return sb.toString();
 	}
 
-	public String sendsaoList(HttpSession session, String oac_num, String sc_code, String st_num,
+	@Transactional
+	public String sendsaoList(HttpSession session, String sc_code, String oac_num, String st_num,
 			ArrayList<String> pdc_code, ArrayList<String> pdc_date, ArrayList<String> pd_date,
 			ArrayList<String> pd_code, ArrayList<String> oh_cnt, RedirectAttributes reat) {
 		String c_code = session.getAttribute("c_code").toString();
 		String bd_date = "2020-08-29 14:19:00";
 		try {
-			HashMap<String, String> hMap = new HashMap<String, String>();
-			hMap.put("c_code", session.getAttribute("c_code").toString());
-			hMap.put("bd_date", "2020-08-29 14:19:00");
-			hMap.put("sc_code", sc_code);
-			hMap.put("st_num", st_num);
 			if (oac_num == null) {
-				 oac_num = oDao.getNewOacCode(c_code,bd_date);
+				oac_num = oDao.getNewOacCode(c_code, bd_date);
+				HashMap<String, String> hMap = new HashMap<String, String>();
+				hMap.put("c_code", c_code);
+				hMap.put("bd_date", bd_date);
+				hMap.put("sc_code", sc_code);
+				hMap.put("st_num", st_num);
+				hMap.put("oac_num", oac_num);
+				log.info(hMap);
+				if (!oDao.createoacList(hMap)) {
+					log.info("!");
+					return "errorSellpage";
+				}
 			}
-			hMap.put("oac_num", oac_num);
-			if(!oDao.createoacList(hMap)) {
-				return "errorSellpage";
-			}
-			
-			for (int i = 0; i < pdc_code.size(); i++) {
-				HashMap<String, String> oacInfo = new HashMap<String, String>();
-				oacInfo.put("bd_date", "2020-08-29 14:19:00");// oacInfo.put("bd_date", session.getAttribute("bd_date").toString());
-				// oacInfo.put("bd_date", session.getAttribute("bd_date").toString());
 
-				oacInfo.put("bd_date", "2020-08-29 14:19:00");
+			for (int i = 0; i < pdc_code.size(); i++) {
+				System.out.println(pd_code.get(i));
+				HashMap<String, String> oacInfo = new HashMap<String, String>();
+				// oacInfo.put("bd_date", session.getAttribute("bd_date").toString());
+				oacInfo.put("c_code", c_code);
+				oacInfo.put("bd_date", bd_date);
 				oacInfo.put("pdc_code", pdc_code.get(i));
 				oacInfo.put("pdc_date", pdc_date.get(i));
 				oacInfo.put("pd_code", pd_code.get(i));
 				oacInfo.put("pd_date", pd_date.get(i));
 				oacInfo.put("oh_cnt", oh_cnt.get(i));
 				oacInfo.put("oac_num", oac_num);
-				oacInfo.put("c_code", session.getAttribute("c_code").toString());
+				log.info("oacInfo" + oacInfo);
 				if (!oDao.sendsaoList(oacInfo)) {
+					log.info("noinsert");
 					return "errorSellpage";
 				}
 			}
 			return "sellpage";
 		} catch (Exception e) {
+			System.out.println(e);
 			return "errorSellpage";
 		}
 	}
