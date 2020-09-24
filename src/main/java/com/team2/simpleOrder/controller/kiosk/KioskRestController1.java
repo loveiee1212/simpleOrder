@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.team2.simpleOrder.service.kiosk.KioskMM1;
 
 @RestController
@@ -76,7 +77,7 @@ public class KioskRestController1 {
 		String bd_date="2020-08-29 14:19:00";
 		String oac_num = "0001";
 		System.out.println(oac_num);
-		String sc_code="01";
+		String sc_code="03";
 		String st_num="1";
 		for (int i=0; i<bArr.size(); i++) {
 			System.out.println(bArr.get(i).get("pdc_code"));
@@ -90,10 +91,8 @@ public class KioskRestController1 {
 			bArr.get(i).get("pd_date");
 			bArr.get(i).get("oh_cnt");
 		}
-		//String result=km1.checkOrder(session,bArr,c_code,bd_date,oac_num,sc_code,st_num);
-		String result="kioskorder";
-
-		return result;
+		String result=km1.insertOrder(session,bArr,c_code,bd_date,oac_num,sc_code,st_num);
+		return new Gson().toJson(result);
 	}
 
 }

@@ -27,7 +27,7 @@ public class KioskMM1 {
 	@Autowired
 	private IKioskDao1 kDao1;
 	@Autowired
-	private IOrderDao2 iDao2;
+	private IOrderDao2 oDao2;
 	private KioskMakeHtml kmh;
 
 	// 판매 카테고리 리스트 및 판매키에 올라가 있는 상품 리스트 가져오는 메소드
@@ -68,26 +68,27 @@ public class KioskMM1 {
 
 	// 주문하기
 	@Transactional
-	public String checkOrder(HttpSession session, List<Map<String, String>> bArr, String c_code, String bd_date,
+	public String insertOrder(HttpSession session, List<Map<String, String>> bArr, String c_code, String bd_date,
 			String oac_num, String sc_code, String st_num) {
 		KioskEntity kn = new KioskEntity();
 		try {
 
 			if (oac_num == null) {
 				// 손님 초기주문
-				oac_num = oDao2.getOac_num(c_code, bd_date);
+				oac_num = oDao2.getNewOacCode(c_code, bd_date);
+				System.out.println(oac_num);
 				// order_and_credit안에 인서트 해줄 데이터들을 해쉬맵으로 넣는다
 				HashMap<String, String> oac = kn.getOac(c_code, bd_date, oac_num, sc_code, st_num);
 				// order_and_credit insert
 				// insert결과가 false가 나오면 에러페이지
-				if (!kDao1.createoacList(oac)) {
+				if (!oDao2.createoacList(oac)) {
 					return "errorkioskpage";
 				}
 				// order_history insert
 				// insert결과가 false가 나오면 에러페이지
 				List<HashMap<String, String>> ohList = kn.getOhList(c_code, bd_date, oac_num, bArr);
 				for (int i = 0; i < ohList.size(); i++) {
-					if (!iDao2.sendsaoList(ohList.get(i))) {
+					if (!oDao2.sendsaoList(ohList.get(i))) {
 						return "errorkioskpage";
 					}
 				}
@@ -100,7 +101,7 @@ public class KioskMM1 {
 				// insert결과가 false가 나오면 에러페이지
 				List<HashMap<String, String>> ohList = kn.getOhList(c_code, bd_date, oac_num, bArr);
 				for (int i = 0; i < ohList.size(); i++) {
-					if (!iDao2.sendsaoList(ohList.get(i))) {
+					if (!oDao2.sendsaoList(ohList.get(i))) {
 						return "errorkioskpage";
 					}
 				}

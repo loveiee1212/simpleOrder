@@ -102,20 +102,21 @@ i {
 
 .detail_body {
 	width: 240px;
-	height: 280px;
+	height: 300px;
 	border: solid rgb(133, 133, 133) 1px;
 	border-radius: 5px;
-	margin: 10px 20px;
+	margin: 15px 20px;
 	float: left;
 }
 
 .text_detail div {
-	margin: 4px 0;
+	margin: 10px 0;
 	text-align: center;
 	width: 240px;
 }
 
 .pd_name {
+	
 	font-size: 20px;
 	font-weight: bolder;
 }
@@ -128,7 +129,7 @@ i {
 .pd_imgName {
 	width: 200px;
 	height: 200px;
-	margin: 12px 20px 0 20px;
+	margin: 17px 20px 0 20px;
 }
 
 .pList_detail img {
@@ -220,50 +221,56 @@ tr, td {
 	<div id="bill"></div>
 </body>
 <script type="text/javascript">
+	//주문하기
 	function order() {
-		console.log($('#bBody').children().length);
-		if ($('#bBody').children().length === 0) {
-			alert("주문목록이 없습니다");
-			return false;
+		if (confirm("주문 하시겠습니까?")) {
 
-		}
-		var bsk_pdc_code = $('.bsk_pdc_code');
-		var bsk_pdc_date = $('.bsk_pdc_date');
-		var bsk_pd_code = $('.bsk_pd_code');
-		var bsk_pd_date = $('.bsk_pd_date');
-		var bsk_oh_cnt = $('.bsk_oh_cnt');
-		var bskArr = new Array();
-		for (var i = 0; i < bsk_pdc_code.length; i++) {
-			var obj = new Object();
-			console.log(bsk_pdc_code[i].innerText);
-			console.log(bsk_pdc_date[i].innerText);
-			console.log(bsk_pd_code[i].innerText);
-			console.log(bsk_pd_date[i].innerText);
-			console.log(bsk_oh_cnt[i].innerText);
-			obj.pdc_code = bsk_pdc_code[i].innerText;
-			obj.pdc_date = bsk_pdc_date[i].innerText;
-			obj.pd_code = bsk_pd_code[i].innerText;
-			obj.pd_date = bsk_pd_date[i].innerText;
-			obj.oh_cnt = bsk_oh_cnt[i].innerText;
-			bskArr.push(obj);
-		}
-		for (var i = 0; i < bskArr.length; i++) {
-			console.log(bskArr[i]);
-		}
-		var bArr = JSON.stringify(bskArr);
-		$.ajax({
-			url : 'rest/insertorder',
-			type : 'post',
-			data : bArr,
-			dataType : 'json',
-			contentType : "application/json; charset=UTF-8",
-			success : function(data) {
-				console.log(data);
-			},
-			error : function(err) {
-				console.log(err);
+			console.log($('#bBody').children().length);
+			if ($('#bBody').children().length === 0) {
+				alert("주문목록이 없습니다");
+				return false;
+
 			}
-		});
+			var bsk_pdc_code = $('.bsk_pdc_code');
+			var bsk_pdc_date = $('.bsk_pdc_date');
+			var bsk_pd_code = $('.bsk_pd_code');
+			var bsk_pd_date = $('.bsk_pd_date');
+			var bsk_oh_cnt = $('.bsk_oh_cnt');
+			var bskArr = new Array();
+			for (var i = 0; i < bsk_pdc_code.length; i++) {
+				var obj = new Object();
+				console.log(bsk_pdc_code[i].innerText);
+				console.log(bsk_pdc_date[i].innerText);
+				console.log(bsk_pd_code[i].innerText);
+				console.log(bsk_pd_date[i].innerText);
+				console.log(bsk_oh_cnt[i].innerText);
+				obj.pdc_code = bsk_pdc_code[i].innerText;
+				obj.pdc_date = bsk_pdc_date[i].innerText;
+				obj.pd_code = bsk_pd_code[i].innerText;
+				obj.pd_date = bsk_pd_date[i].innerText;
+				obj.oh_cnt = bsk_oh_cnt[i].innerText;
+				bskArr.push(obj);
+			}
+			for (var i = 0; i < bskArr.length; i++) {
+				console.log(bskArr[i]);
+			}
+			var bArr = JSON.stringify(bskArr);
+			$.ajax({
+				url : 'rest/insertorder',
+				type : 'post',
+				data : bArr,
+				dataType : 'json',
+				contentType : "application/json; charset=UTF-8",
+				success : function(data) {
+					console.log(data);
+					//return 가져온 데이터로 location.href 해주면 됨
+					location.href = data;
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			});
+		}
 	}
 	function modal(id) {
 		var zIndex = 9999;
@@ -461,7 +468,7 @@ tr, td {
 			console.log(sum);
 		}
 
-	sum = Number(sum).toLocaleString('en');
+		sum = Number(sum).toLocaleString('en');
 		$('#bskText').text("합계 " + sum + "원");
 		console.log($('#bskText').text());
 		console.log($('#bBody').children().length);
