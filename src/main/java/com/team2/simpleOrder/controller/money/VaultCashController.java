@@ -26,7 +26,7 @@ public class VaultCashController {
 	
 	@RequestMapping("/startVC")
 	public ModelAndView startVC() {
-		mav = new ModelAndView("redirect:money/vaultcash","vc_status","start");
+		mav = new ModelAndView("money/vaultcash","vc_status","start");
 		return mav;
 	}
 	

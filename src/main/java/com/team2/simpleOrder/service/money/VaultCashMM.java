@@ -50,6 +50,7 @@ public class VaultCashMM {
 			} else {
 				String bd_date = vDao.getBd_date(c_code);
 				session.setAttribute("bd_date", bd_date);
+				System.out.println(bd_date);
 			return "redirect:sellpage";
 			}
 		} catch (Exception e) {
@@ -64,10 +65,10 @@ public class VaultCashMM {
 		String checkNum = vDao.checkStartVC(c_code);
 		
 		if(checkNum == "-1") {
-			mav = new ModelAndView("redirect:money/vaultcash","vc_status","theEnd");
+			mav = new ModelAndView("money/vaultcash","vc_status","theEnd");
 			return mav;
 		}else {
-			mav = new ModelAndView("redirect:money/vaultcash","vc_status","end");
+			mav = new ModelAndView("money/vaultcash","vc_status","end");
 			return mav;
 		}
 	}

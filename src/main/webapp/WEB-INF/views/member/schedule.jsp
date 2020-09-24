@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>schedule</title>
+<title>SimpleOrder-근태</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -311,7 +311,6 @@ body {
 					type : 'get',
 					url : 'rest/getTime',
 					data : {
-						'c_code' : 123123123123,
 						'l_date' : year + "-" + month + "-" + day,
 						'f_date' : year + "-" + month + "-" + 01,
 						'emp_code' : emp_code
@@ -388,10 +387,7 @@ body {
 			type : 'post',
 			url : 'rest/insertAd_inTime',
 			data : {
-				"ad_inTime" : ad_inTime,
-				'c_code' : 123123123123,
-				'bd_date' : '2020-09-08 16:33:00',
-				'emp_code' : 0
+				"ad_inTime" : ad_inTime
 			},
 			dataType : "json",
 			success : function(data) {
@@ -412,15 +408,12 @@ body {
 	//퇴근 시간 입력
 	function ad_outTime() {
 		var ad_outTime = moment().format("YYYY-MM-DD HH:mm");
-		console.log(ad_outTime);
+		
 		$.ajax({
 			type : 'post',
 			url : 'rest/insertAd_outTime',
 			data : {
-				"ad_outTime" : ad_outTime,
-				'c_code' : 123123123123,
-				'bd_date' : '2020-08-29',
-				'emp_code' : 0
+				"ad_outTime" : ad_outTime
 			},
 			dataType : "json",
 			success : function(data) {
@@ -449,8 +442,7 @@ body {
 			success : function(data) {
 				$("#calendar").html(data);
 				$("#changeWorkTimeButton").html("스케줄로 돌아가기");
-				$("#changeWorkTimeButton").attr("onclick",
-						"location.href='schedule'");
+				$("#changeWorkTimeButton").attr("onclick","location.href='schedule'");
 			}
 		});
 	}
@@ -461,18 +453,12 @@ body {
 
 	//직원 리스트 출력
 	function getEmpList(day) {
-		$
-				.ajax({
+		$.ajax({
 					type : "get",
 					url : "rest/getemplist",
-					data : {
-						"c_code" : 123123123123
-					},
 					dataType : "json",
 					success : function(data) {
-						$("#emp_codeList")
-								.append(
-										$("<select name='emp_list' id='emp_list' onchange='getTime("
+						$("#emp_codeList").append($("<select name='emp_list' id='emp_list' onchange='getTime("
 												+ day + ")'>"));
 						$select = $("#emp_list");
 						$select.append("<option value='00000'>직원선택</option>");
@@ -480,18 +466,10 @@ body {
 						$select.append($("<optgroup label='퇴직' id='nowork'>"));
 						for ( var i in data) {
 							if (data[i].EMP_STATUS == "1") {
-								$("#work")
-										.append(
-												$(
-														"<option value="+data[i].EMP_CODE+">")
-														.html(data[i].EMP_NAME));
+								$("#work").append($("<option value="+data[i].EMP_CODE+">").html(data[i].EMP_NAME));
 							}
 							if (data[i].EMP_STATUS == "-1") {
-								$("#nowork")
-										.append(
-												$(
-														"<option value="+data[i].EMP_CODE+">")
-														.html(data[i].EMP_NAME));
+								$("#nowork").append($("<option value="+data[i].EMP_CODE+">").html(data[i].EMP_NAME));
 							}
 						}
 					}
@@ -504,15 +482,11 @@ body {
 		if ("${empCode}" == "00000") {
 			//모달박스 생성
 			$("#view_layer").addClass("open");
-			$
-					.ajax({
+			$.ajax({
 						type : "get",
 						url : "rest/showworktime",
 						data : {
-							'c_code' : 123123123123,
-							'bd_date' : moment(
-									$("#yearMonth").text() + "-" + day).format(
-									"YYYY-MM-DD")
+							'bd_date' : moment($("#yearMonth").text() + "-" + day).format("YYYY-MM-DD")
 						},
 						dataType : "json",
 						success : function(data) {
@@ -527,14 +501,16 @@ body {
 								$tr.append($("<td>").html(
 										moment(data[i].AD_INTIME).format(
 												"HH:mm:ss")));
-								$tr.append($("<td>").html(
+								if(data[i].AD_OUTTIME!=null){
+									$tr.append($("<td>").html(
 										moment(data[i].AD_OUTTIME).format(
 												"HH:mm:ss")));
-								// sql문 내에서 시간 계산 방법
-								$tr.append($("<td>").html(
+									// sql문 내에서 시간 계산 방법
+									$tr.append($("<td>").html(
 										data[i].HOUR + "시간 " + data[i].MINUTE
 												+ "분"));
-								$tr.append($("</tr>"));
+								}
+								$tr.append($("</tr>")); 
 							}
 							$table.append($("</table>"));
 						}
@@ -546,12 +522,10 @@ body {
 	function showAllWorkTime(day) {
 		$("#view_layer").addClass("open");
 
-		$
-				.ajax({
+		$.ajax({
 					type : "get",
 					url : "rest/showallworktime",
 					data : {
-						'c_code' : 123123123123,
 						'f_date' : moment($("#yearMonth").text() + "-" + 01)
 								.format("YYYY-MM-DD"),
 						'l_date' : moment($("#yearMonth").text() + "-" + day)
@@ -561,18 +535,19 @@ body {
 					success : function(data) {
 						$("#main_layer").text(" ");
 						$table = $("#main_layer").append($("<table>"));
-						$table
-								.append($("<tr><th>사번</th><th>직급</th><th>사원명</th><th>시간으로계산</th><th>분으로계산</th></tr>"));
+						$table.append($("<tr><th>사번</th><th>직급</th><th>사원명</th><th>시간으로계산</th><th>분으로계산</th></tr>"));
 
 						for ( var i in data) {
 							$tr = $table.append($("<tr>"));
 							$tr.append($("<td>").html(data[i].EMP_CODE));
 							$tr.append($("<td>").html(data[i].PST_NAME));
 							$tr.append($("<td>").html(data[i].EMP_NAME));
-							$tr.append($("<td>").html(data[i].HOUR + "시간 "));
-							$tr.append($("<td>").html(
+							if(data[i].HOUR!=null){
+								$tr.append($("<td>").html(data[i].HOUR + "시간 "));
+								$tr.append($("<td>").html(
 									Math.floor(data[i].MINUTE / 60) + "시간 "
 											+ data[i].MINUTE % 60 + "분"));
+							}
 							$tr.append($("</tr>"));
 						}
 						$table.append($("</table>"));

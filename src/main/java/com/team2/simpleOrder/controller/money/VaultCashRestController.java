@@ -23,7 +23,7 @@ public class VaultCashRestController {
 	@Autowired
 	VaultCashMM vm;
 	
-	@RequestMapping("/getsatrtvc")
+	@RequestMapping("/getstartvc")
 	public String getStartVC(HttpSession session) {
 		
 		return vm.getStartVC(session);
