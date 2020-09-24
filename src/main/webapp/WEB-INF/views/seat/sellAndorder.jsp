@@ -164,9 +164,7 @@ li input {
 
 			<div class="innerdiv">
 				<div id="listbox">
-					<center>
-					${list}
-					</center>
+					<center>${list}</center>
 				</div>
 				<div id="moneylist">
 					<ul>
@@ -174,8 +172,8 @@ li input {
 							id="totalmoney" value="108000"></li>
 						<li>결제금액 <input type="number" id="takemoney" value="0"
 							placeholder="0"></li>
-						<li id="Remain_money">남은금액 <input type="number" readonly="readonly"
-							id="uctmoney"></li>
+						<li id="Remain_money">남은금액 <input type="number"
+							readonly="readonly" id="uctmoney"></li>
 					</ul>
 				</div>
 				<div class="bottombox" id="paymentkind">
@@ -183,7 +181,7 @@ li input {
 						<li>현금결제</li>
 						<li>카드결제</li>
 						<li>외상결제</li>
-						<li onclick ='sendsaoList()'>주문하기</li>
+						<li onclick='sendsaoList()'>주문하기</li>
 						<li>메인으로</li>
 					</ul>
 				</div>
@@ -208,155 +206,198 @@ li input {
 	</div>
 </body>
 <script>
-
-totalprice();
-
-$("tr").children($("input")).keyup(function(evt){
 	totalprice();
-});
 
+	$("tr").children($("input")).keyup(function(evt) {
+		totalprice();
+	});
 
-function totalprice(){
-for(var i =0; i<$("tr").length; i++){
-	var $pdcnt = $("#pdcnt"+i).val();
-	var $hiddenprice = $("#hiddenprice"+i).val();
-	var totalprice = $pdcnt*$hiddenprice
-	$("#totalprice"+i).text(totalprice);
-}
-	 var sum = 0;
-	 
-	 var $price = $(".price");
-	 for(var i=0; i<$price.length;i++){
-		 var val = $price.eq(i).text();
-		 if(val=="") val = '0';
-		 sum+= Number(val);
-	 }
-	 
-	 console.log(sum);
-	 $("#totalmoney").val(sum);
-}
+	function totalprice() {
+		for (var i = 0; i < $("tr").length; i++) {
+			var $pdcnt = $("#pdcnt" + i).val();
+			var $hiddenprice = $("#hiddenprice" + i).val();
+			var totalprice = $pdcnt * $hiddenprice
+			$("#totalprice" + i).text(totalprice);
+		}
+		var sum = 0;
 
-	function sendsaoList(){
-		
+		var $price = $(".price");
+		for (var i = 0; i < $price.length; i++) {
+			var val = $price.eq(i).text();
+			if (val == "")
+				val = '0';
+			sum += Number(val);
+		}
+
+		//console.log(sum);
+		$("#totalmoney").val(sum);
+	}
+
+	function sendsaoList() {
+
 		var pdccodeArray = [];
-		var codeArray =[];
+		var codeArray = [];
 		var cntArray = [];
+		var pdcdateArray = [];
+		var dateArray = [];
 		var $pdccode = $("input[name = 'pdcode']");
 		//console.log($pdccode.length);
-		
-		for(var i=0; i<$pdccode.length; i++){
-			if($("#pdcnt"+i).val()-$("#hiddencnt"+i).val()!=0){
-			pdccodeArray.push($("#pdcode"+i).data('code'));
-			}				
-			
+
+		for (var i = 0; i < $pdccode.length; i++) {
+			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+				pdccodeArray.push($("#pdcode" + i).data('code'));
+			}
+
 		}
-		
-		for(var i=0; i<$pdccode.length; i++){
-			if($("#pdcnt"+i).val()-$("#hiddencnt"+i).val()!=0){				
-			codeArray.push($("#pdcode"+i).val());
+
+		if (pdccodeArray.length == 0) {
+			alert("변경 사항이 없습니다.")
+			return;
+		}
+		;
+
+		for (var i = 0; i < $pdccode.length; i++) {
+			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+				pdcdateArray.push($("#pddate" + i).data('code'));
+			}
+
+		}
+		for (var i = 0; i < $pdccode.length; i++) {
+			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+				dateArray.push($("#pddate" + i).val());
+			}
+
+		}
+
+		for (var i = 0; i < $pdccode.length; i++) {
+			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+				codeArray.push($("#pdcode" + i).val());
 			}
 		}
-		
-		
+
 		var $cnt = $("input[name='pdcnt']");
-		for(var i =0; i<$cnt.length; i++){
-			if($("#pdcnt"+i).val()-$("#hiddencnt"+i).val()!=0){				
-			cntArray.push($("#pdcnt"+i).val()-$("#hiddencnt"+i).val());
+		for (var i = 0; i < $cnt.length; i++) {
+			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+				cntArray
+						.push($("#pdcnt" + i).val() - $("#hiddencnt" + i).val());
 			}
 		}
+
 		
-		console.log(pdccodeArray);
-		console.log(codeArray);
-		console.log(cntArray);
 		var objparam = {
-				"oac_num" : $("#oac_num").val(),
-				"pdc_code" : pdccodeArray,
-				"pd_code" : codeArray,
-				"oh_cnt" : cntArray	
+			"oac_num" : $("#oac_num").val(),
+			"pdc_code" : pdccodeArray,
+			"pdc_date" : pdcdateArray,
+			"pd_date" : dateArray,
+			"pd_code" : codeArray,
+			"oh_cnt" : cntArray
 		}
-		 $.ajax({
+		$.ajax({
 			type : "post",
 			url : 'rest/sendsaolist',
 			data : objparam,
-			dataType : 'json',
-			success : function(result){
+			dataType : 'html',
+			success : function(result) {
+				
+				console.log("aaa");
 				console.log(result);
-				alert(result.result);
-				location.href = "./sellpage";
-			},
-			error : function(err){
-				console.log(err);
+				location.href = result;
 			}
-		}); 
+		});
 	}
 
-	 
-	 
 	var str = "";
 	$("#uctmoney").val($("#totalmoney").val());
-	
-	$("#keypad ul li").click(function() {
-		if ($(this).val() == 11 || $(this).val() == 12) {
-			return;
-		}
-		
-		str += $(this).val();
-		$("#takemoney").val(str);
-		$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());
-		
-		if(($("#totalmoney").val() - $("#takemoney").val())<0){
-			$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())*(-1));
-		}else{
-			$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val()));
-		}
-	});
-	
+
+	$("#keypad ul li")
+			.click(
+					function() {
+						if ($(this).val() == 11 || $(this).val() == 12) {
+							return;
+						}
+
+						str += $(this).val();
+						$("#takemoney").val(str);
+						$("#uctmoney").val(
+								$("#totalmoney").val() - $("#takemoney").val());
+
+						if (($("#totalmoney").val() - $("#takemoney").val()) < 0) {
+							$("#Remain_money")
+									.html(
+											"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+							$("#uctmoney").val(
+									($("#totalmoney").val() - $("#takemoney")
+											.val())
+											* (-1));
+						} else {
+							$("#Remain_money")
+									.html(
+											"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+							$("#uctmoney").val(
+									($("#totalmoney").val() - $("#takemoney")
+											.val()));
+						}
+					});
+
 	function reset() {
 		str = str.substring(str.length, str.length);
 		$("#takemoney").val(str);
-		$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+		$("#Remain_money").html(
+				"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
 		$("#uctmoney").val($("#totalmoney").val());
-		
+
 	}
-	
 
 	function backspace() {
-		console.log("length" + str.substr(0, str.length - 1));
+		//	console.log("length" + str.substr(0, str.length - 1));
 		$("#takemoney").val(str.substr(0, str.length - 1));
 		$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());
 		str = $("#takemoney").val();
-		
-		if(($("#totalmoney").val() - $("#takemoney").val())<0){
-			$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())*(-1));
-		}else{
-			$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val()));
+
+		if (($("#totalmoney").val() - $("#takemoney").val()) < 0) {
+			$("#Remain_money")
+					.html(
+							"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(
+					($("#totalmoney").val() - $("#takemoney").val()) * (-1));
+		} else {
+			$("#Remain_money")
+					.html(
+							"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney")
+					.val(($("#totalmoney").val() - $("#takemoney").val()));
 		}
 	}
-	
-	$("#takemoney").keyup(function(evt) {
-		//console.log(evt);
-		$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());
-		
-		if(($("#totalmoney").val() - $("#takemoney").val())<0){
-			$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())*(-1));
-		}else{
-			$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val()));
-		}
-	});
-	
+
+	$("#takemoney")
+			.keyup(
+					function(evt) {
+						//console.log(evt);
+						$("#uctmoney").val(
+								$("#totalmoney").val() - $("#takemoney").val());
+
+						if (($("#totalmoney").val() - $("#takemoney").val()) < 0) {
+							$("#Remain_money")
+									.html(
+											"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+							$("#uctmoney").val(
+									($("#totalmoney").val() - $("#takemoney")
+											.val())
+											* (-1));
+						} else {
+							$("#Remain_money")
+									.html(
+											"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+							$("#uctmoney").val(
+									($("#totalmoney").val() - $("#takemoney")
+											.val()));
+						}
+					});
+
 	$("#takemoney").focus(function() {
 		$("#takemoney").val("");
 	});
 
-	
-	
-	
 	function opencategory(evt, category) {
 
 		tablinks = document.getElementsByClassName("tablinks");
@@ -369,14 +410,13 @@ for(var i =0; i<$("tr").length; i++){
 
 		var data = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11' ];
 		var str = "";
-		console.log(data.length);
+		//console.log(data.length);
 		for ( var key in data) {
 			str += "<div class='productbox'>" + data[key] + "</div>"
 		}
 
 		$("#product").html(str);
 	}
-	
 </script>
 
 </html>

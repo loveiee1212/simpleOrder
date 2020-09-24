@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.simpleOrder.dto.Order;
 import com.team2.simpleOrder.service.order.OrderMM1;
@@ -46,6 +47,11 @@ public class OrderController2 {
 	@RequestMapping(value = "/sellpage",method = RequestMethod.GET)
 	public String sellpage() {
 		return "./seat/sellpage";
+	}
+	@RequestMapping(value = "/errorSellpage",method = RequestMethod.GET)
+	public String errorSellpage(RedirectAttributes reat) {
+		reat.addFlashAttribute("error","error");
+		return "redirect:/sellpage";
 	}
 	
 	

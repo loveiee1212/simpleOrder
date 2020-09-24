@@ -28,7 +28,9 @@ public class Order {
 	 String oac_num;
 	 String sc_code;
 	 String pdc_code;
+	 String pdc_date;
 	 String pd_code;
+	 String pd_date;
 	 int oh_cnt;
 	 String pd_name;
 	 int pd_price;

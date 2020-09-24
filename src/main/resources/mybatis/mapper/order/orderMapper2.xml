@@ -6,7 +6,7 @@
 <mapper namespace="com.team2.simpleOrder.dao.order.IOrderDao2">
 
 <select id="getsaoList" parameterType="order" resultType="order">
-SELECT PD.PDC_CODE,PD.PD_CODE,PD.PD_NAME,PD.PD_PRICE,SUM(OH.OH_CNT) AS OH_CNT
+SELECT PD.PDC_CODE,PD.PD_CODE,PD.PD_NAME,PD.PDC_DATE,PD.PD_DATE,PD.PD_PRICE,SUM(OH.OH_CNT) AS OH_CNT
 FROM ORDER_HISTORY AS OH JOIN ORDER_AND_CREDIT AS OAC JOIN PRODUCT AS PD
 ON  OAC.BD_DATE = OH.BD_DATE AND OH.PDC_CODE = PD.PDC_CODE AND OH.PD_CODE = PD.PD_CODE
 WHERE OAC.C_CODE = #{c_code} AND PD.PD_STATUS = "1" AND OAC.OAC_STATUS ="1" AND OAC.OAC_NUM = #{oac_num}  
@@ -15,18 +15,26 @@ GROUP BY PD.PDC_CODE,PD.PD_CODE
 
 </select>
 
- <insert id="sendsaoList" parameterType="order">
-INSERT INTO ORDER_HISTORY
-SELECT #{c_code},TIMESTAMP(#{bd_date}),#{oac_num},#{pdc_code},
-PD.PDC_DATE,#{pd_code},PD.PD_DATE,TIMESTAMP(NOW()),#{oh_cnt} 
-FROM ORDER_AND_CREDIT AS OAC JOIN PRODUCT AS PD 
-WHERE OAC.C_CODE = #{c_code} AND PD.PDC_CODE =#{pdc_code} AND PD.PD_CODE =#{pd_code} 
-AND PD.PD_STATUS = "1" 
-AND OAC.OAC_NUM=#{oac_num} AND OAC_STATUS = "1" 
-</insert> 
+<select id="selectsaoList" parameterType="string" resultType="order">
+SELECT OH.PDC_CODE,OH.PD_CODE,OH.PDC_DATE,OH.PD_DATE,SUM(OH_CNT) FROM ORDER_HISTORY AS OH
+WHERE OH.C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND OH.OAC_NUM = #{oac_num}
+GROUP BY OH.PDC_CODE,OH.PD_CODE
+
+</select>
+
+<!--  <insert id="sendsaoList" parameterType="java.util.List"> -->
+<!-- INSERT INTO ORDER_HISTORY  -->
+<!-- (C_CODE,BD_DATE,OAC_NUM,PDC_CODE,PDC_DATE,PD_CODE,PD_DATE,OH_CHANGETIME,OH_CNT) -->
+<!-- VALUES -->
+<!-- <foreach collection="list" item="odr" separator=","> -->
+<!-- (#{odr.c_code},#{odr.bd_date},#{odr.oac_num},#{odr.pdc_code}, -->
+<!-- #{odr.pdc_date},#{odr.pd_code},#{odr.pd_date},NOW(),#{odr.oh_cnt}) -->
+<!-- </foreach> -->
+
+<!-- </insert>  -->
 
 <update id="updatestkList" parameterType="java.util.List">
-<foreach collection="list" item="odr" open="DECLARE BEGIN" close="; END;" separator=";">
+<foreach collection="list" item="odr" separator=";">
 UPDATE  ORDER_HISTORY AS OH JOIN STOCK AS STK ON OH.PDC_CODE = STK.PDC_CODE AND OH.PD_CODE = STK.PD_CODE 
 SET STK.STK_STOCK = (STK.STK_STOCK-(#{odr.oh_cnt}))
 WHERE OH.C_CODE =#{odr.c_code} AND OH.OAC_NUM = #{odr.oac_num} AND OH.PDC_CODE = #{odr.pdc_code} 
