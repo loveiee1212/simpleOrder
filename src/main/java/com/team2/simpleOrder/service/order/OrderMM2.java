@@ -71,11 +71,8 @@ public class OrderMM2 {
 	public String sendsaoList(HttpSession session, String oac_num, ArrayList<String> pdc_code, ArrayList<String> pdc_date, ArrayList<String> pd_date, ArrayList<String> pd_code, ArrayList<String> oh_cnt, RedirectAttributes reat) {
 		try {
 			for (int i = 0; i < pdc_code.size(); i++) {
-				System.out.println(pd_code.get(i));
 				HashMap<String, String> oacInfo = new HashMap<String, String>();
-				// oacInfo.put("bd_date", session.getAttribute("bd_date").toString());
-				
-				oacInfo.put("bd_date", "2020-08-29 14:19:00");
+				oacInfo.put("bd_date", "2020-08-29 14:19:00");// oacInfo.put("bd_date", session.getAttribute("bd_date").toString());
 				oacInfo.put("pdc_code", pdc_code.get(i));
 				oacInfo.put("pdc_date", pdc_date.get(i));
 				oacInfo.put("pd_code", pd_code.get(i));
@@ -83,6 +80,7 @@ public class OrderMM2 {
 				oacInfo.put("oh_cnt", oh_cnt.get(i));
 				oacInfo.put("oac_num", oac_num);
 				oacInfo.put("c_code", session.getAttribute("c_code").toString());
+				System.out.println(oacInfo);
 				if(!oDao.sendsaoList(oacInfo)) {;
 				return "errorSellpage";}
 			}

@@ -8,15 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team2.simpleOrder.dao.kiosk.IKioskLoginDao;
+import com.team2.simpleOrder.dao.kiosk.KioskLoginAndSettingDao;
 import com.team2.simpleOrder.dao.money.IVaultCashDao;
 import com.team2.simpleOrder.dao.order.IOrderDao1;
 
 @Service
-public class KioskLoginMM {
+public class KioskLoginAndSettingMM {
 
 	@Autowired
-	private IKioskLoginDao kDao;
+	private KioskLoginAndSettingDao kDao;
 	@Autowired
 	private IVaultCashDao vDao;
 	@Autowired
@@ -42,6 +42,19 @@ public class KioskLoginMM {
 		System.out.println(hm);
 		return hm;
 		
+	}
+
+	public String accessSecurityCode(HashMap<String, String> securityCode, HttpSession session, RedirectAttributes reat) {
+		securityCode.put("c_code", session.getAttribute("c_code").toString());
+		if(securityCode.get("securityCode").equals(kDao.getSecurityCode(securityCode))) {
+			return "redirect:/kioskmenu";
+		};
+		reat.addFlashAttribute("error","인증번호를 다시 확인해주세요!");
+		return "redirect:/kioskLogin";
+	}
+
+	public HashMap<String, String> getRequsetList(String c_code) {
+		return null;
 	}
 
 }
