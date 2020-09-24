@@ -19,7 +19,8 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/basicBox.css?after">
 <style>
 body {
 	background-color: #e3f2fd;
@@ -33,16 +34,6 @@ body {
 		format('woff');
 	font-weight: normal;
 	font-style: normal;
-}
-
-#baseBox {
-	border: 3px solid #81d4fa;
-}
-
-img {
-	margin-top: 130px;
-	margin-left: 50px;
-	opacity: 0.5;
 }
 
 div {
@@ -85,11 +76,11 @@ div {
 }
 
 .tab button:hover {
-	background-color: #ddd;
+	background-color: #90caf9;
 }
 
 .tables {
-	border: 1px solid black;
+	border: 3px solid #81d4fa;
 	width: 250px;
 	height: 200px;
 	float: left;
@@ -100,15 +91,18 @@ div {
 }
 
 #rightdiv {
-	width: 200px;
-	height: 900px;
+	width: 250px;
+	height: 800px;
+	background-color: white;
+	border: 3px solid #81d4fa;
+	margin-left: 10px;
 }
 
 .clickdiv {
 	text-align: center;
-	width: 200px;
+	width: 220px;
 	height: 100px;
-	margin-left: 50px;
+	margin-left: 15px;
 	margin-top: 10px;
 	border: 1px solid white;
 	background-color: #81d4fa;
@@ -142,12 +136,12 @@ p {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
+	width: 1600px; height : 1000px;
 	background: #000;
 	opacity: 0.5;
 	filter: alpha(opatable = 50);
-	z-index: 100
+	z-index: 100;
+	height: 1000px;
 }
 
 #contents_layer {
@@ -178,7 +172,7 @@ p {
 	border-collapse: collapse;
 }
 
-#r_middle th, #r_middle tr, #r_middle td {
+#r_middle th, #r_middle tr {
 	width: 300px;
 	height: 50px;
 	text-align: center;
@@ -191,10 +185,6 @@ p {
 
 #r_middle th {
 	border-top-color: white;
-}
-
-table {
-	border-collapse: collapse;
 }
 
 #r_footer {
@@ -247,13 +237,24 @@ table {
 }
 
 #r_infotable input {
-	width: 120px;
+	width: 150px;
 	height: 30px;
+	border: 3px solid #81d4fa;
+	text-align: center;
+}
+
+textarea {
+	border: 3px solid #81d4fa;
 }
 
 #r_infotable button {
 	width: 100px;
 	height: 50px;
+}
+
+#r_date {
+	border: 3px solid #81d4fa;
+	text-align: center;
 }
 
 .pagebutton {
@@ -270,7 +271,12 @@ table {
 	font-size: 26px;
 	text-align: center;
 	margin-left: 20px;
-	margin-top: 5px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+#hours {
+	margin-left: 25px;
 }
 
 .clickdiv ul {
@@ -308,12 +314,14 @@ table {
 }
 
 #btn1, #upbtn {
+	width: 100px;
 	border: 3px solid #81d4fa;
 	background-color: #81d4fa;
 	color: white;
 }
 
 #btn2, #rebtn {
+	width: 100px;
 	border: 3px solid #81d4fa;
 	background-color: white;
 	color: #81d4fa;
@@ -332,7 +340,11 @@ input, #rsvm_memo {
 }
 
 i {
-margin-top: -5px;
+	margin-top: -5px;
+}
+
+#frm {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -343,7 +355,6 @@ margin-top: -5px;
 			<div class="leftdiv">
 				<div class="tab"></div>
 				<div id="seat"></div>
-				<img src="resources/image/logo.png" alt="SimpleOrder 홈페이지">
 			</div>
 			<div id="rightdiv">
 				<div class="clickdiv">
@@ -385,7 +396,7 @@ margin-top: -5px;
 			<div id="contents_layer">
 				<div id="r_header">
 					<h1>예약목록</h1>
-					<form action="#">
+					<form action="#" id="frm">
 						예약일 선택 <input type="date" name="r_date" id="r_date" /> <input
 							type="button" id="btn1" onclick="searchReserv()" value="검색" /> <input
 							type="button" id="btn2" onclick="reservation()" value="새로고침" />
