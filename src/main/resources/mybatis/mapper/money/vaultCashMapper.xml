@@ -5,11 +5,6 @@
 
 <mapper namespace="com.team2.simpleOrder.dao.money.IVaultCashDao">
 	
-	<!-- 시작시제여부 확인 -->
-	<select id="checkStartVC" parameterType="string" resultType="string">
-		SELECT VC_CODE FROM VAULT_CASH WHERE VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE=#{c_code})
-	</select>
-	
 	<!-- 영업일 입력 -->
 	<insert id="insertBd_date" parameterType="string">
 		INSERT INTO BUSINESS_DAY (C_CODE,BD_DATE) VALUES (#{c_code},#{bd_date})
@@ -19,4 +14,26 @@
 	<select id="getBd_date" parameterType="string" resultType="string">
 		SELECT MAX(BD_DATE) FROM BUSINESS_DAY WHERE C_CODE = #{c_code}
 	</select>
+	
+	<!-- 시작시제여부 확인 -->
+	<select id="checkStartVC" parameterType="string" resultType="string">
+		SELECT VC_CODE FROM VAULT_CASH WHERE VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE=#{c_code})
+	</select>
+	
+	<!-- 시작시제 가져오기 -->
+	<select id="getStartVC" parameterType="string" resultType="string">
+		SELECT SUM(D.VDC_CNT*U.CU_UNIT) AS STARTVC
+		FROM VC_DETAIL AS D INNER JOIN VAULT_CASH AS C ON D.C_CODE = C.C_CODE AND D.BD_DATE = C.BD_DATE AND D.VC_CODE =C.V_CODE
+			INNER JOIN CASH_UNIT AS U ON D.CU_CODE = U.CU_CODE
+		WHERE C.VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE = #{c_code})
+	</select>
+	
+	<!-- 시작시재 넣기 -->
+	<insert id="insertStartVC" parameterType="hashmap">
+		INSERT INTO VAULT_CASH (C_CODE, BD_DATE, VC_CODE, VC_CHANGETIME) VALUES (#{c_code}, #{bd_date}, 1, DEFAULT)
+	</insert>
+	<insert id="insertStartVC_Cnt" parameterType="hashmap">
+		INSERT INTO VC_DETAIL (C_CODE,BD_DATE,VC_CODE,CU_CODE,VCD_CNT)
+				VALUES (#{c_code},#{bd_date},1,#{cu_code},#{vcd_cnt})
+	</insert>
 </mapper>
