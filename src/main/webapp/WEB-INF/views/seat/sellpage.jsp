@@ -19,8 +19,7 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/basicBox.css?after">
+<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
 <style>
 body {
 	background-color: #e3f2fd;
@@ -136,7 +135,8 @@ p {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 1600px; height : 1000px;
+	width: 1600px;
+	height: 1000px;
 	background: #000;
 	opacity: 0.5;
 	filter: alpha(opatable = 50);
@@ -227,7 +227,6 @@ p {
 }
 
 #r_infotable td {
-	width: 250px;
 	height: 75px;
 }
 
@@ -313,11 +312,19 @@ textarea {
 	font-weight: bold;
 }
 
-#btn1, #upbtn {
+#btn1, #upbtn, #dtbtn {
 	width: 100px;
 	border: 3px solid #81d4fa;
 	background-color: #81d4fa;
 	color: white;
+}
+
+#upbtn {
+	margin-left: 20px;
+}
+
+#rebtn, #dtbtn {
+	margin-left: 15px;
 }
 
 #btn2, #rebtn {
@@ -403,7 +410,9 @@ i {
 						<br />
 					</form>
 				</div>
-				<div id="r_middle"><table id="reservtable"></table></div>
+				<div id="r_middle">
+					<table id="reservtable"></table>
+				</div>
 				<div id="r_footer">
 					<div id="r_info">
 						<form>
@@ -417,19 +426,20 @@ i {
 								</tr>
 								<tr>
 									<th>성함</th>
-									<td><input type="text" name="rsv_name" id="rsv_name" maxlength="5" /></td>
+									<td><input type="text" name="rsv_name" id="rsv_name"
+										maxlength="5" /></td>
 									<th>연락처</th>
-									<td><input type="text" name="rsv_phone" id="rsv_phone" maxlength="11" /></td>
+									<td><input type="text" name="rsv_phone" id="rsv_phone"
+										maxlength="11" /></td>
 								</tr>
 								<tr>
 									<th>메모</th>
-									<td colspan="2">
-									<textarea style="width: 330px; height: 70px;" name="rsvm_memo"id="rsvm_memo"></textarea>
-									</td>
-									<td id="worktd">
-									<input type="button" id="upbtn" onclick="updateReserv()" value='등록' />
-									<input type="reset" id="rebtn" value="새로고침" />
-									</td>
+									<td colspan="2"><textarea
+											style="width: 330px; height: 70px;" name="rsvm_memo"
+											id="rsvm_memo"></textarea></td>
+									<td id="worktd"><input type="button" id="upbtn"
+										onclick="updateReserv()" value='등록' /> <input type="reset"
+										id="rebtn" value="새로고침" /></td>
 								</tr>
 							</table>
 						</form>
@@ -445,9 +455,11 @@ i {
 							<li value="7">7</li>
 							<li value="8">8</li>
 							<li value="9">9</li>
-							<li onclick="backspace()" value="12"><i class="fa fa-arrow-left" style="font-size: 25px"></i></li>
+							<li onclick="backspace()" value="12"><i
+								class="fa fa-arrow-left" style="font-size: 25px"></i></li>
 							<li value="0">0</li>
-							<li onclick="reset()" value="11"><i class="fa fa-times" style="font-size: 25px"></i></li>
+							<li onclick="reset()" value="11"><i class="fa fa-times"
+								style="font-size: 25px"></i></li>
 						</ul>
 					</div>
 				</div>
@@ -461,9 +473,9 @@ i {
 	clockon();
 	getTablelist();
 	console.log()
- if(''!='${error}'){
- 	alert("주문이 정상적으로 처리 되지않았습니다. 다시 시도해 주세요");
- }
+	if ('' != '${error}') {
+		alert("주문이 정상적으로 처리 되지않았습니다. 다시 시도해 주세요");
+	}
 
 	/* Datepicker UI default 설정 */
 	$.datepicker.setDefaults({
@@ -515,32 +527,34 @@ i {
 					$("#seat").append("<div id='table"+i+"' class='tList'>");
 					for (var a = 1; a <= xylength; a++) {
 						//생성한 div에 테이블 가로X 세로 길이(테이블 갯수)만큼 div 생성하기
-						if(i<10){
+						if (i < 10) {
+							$("#table" + i).append(
+									"<div class='tables' id='tnum" + "0"
+											+ (parseInt(i) + 1) + a
+											+ "' data-code=" + "0"
+											+ (parseInt(i) + 1) + "-" + a + ">"
+											+ a + "</div>");
+						} else {
 							$("#table" + i).append(
 									"<div class='tables' id='tnum"
-											+ "0" +(parseInt(i) + 1) + a
-											+ "' data-code=" + "0"+(parseInt(i) + 1)
-											+ "-" + a + ">" + a + "</div>");
-						}else{					
-						$("#table" + i).append(
-								"<div class='tables' id='tnum"
-										+ (parseInt(i) + 1) + a
-										+ "' data-code=" + (parseInt(i) + 1)
-										+ "-" + a + ">" + a + "</div>");
+											+ (parseInt(i) + 1) + a
+											+ "' data-code="
+											+ (parseInt(i) + 1) + "-" + a + ">"
+											+ a + "</div>");
 						}
 						for ( var b in result[i].tlist) {
 							if (a == result[i].tlist[b]) {
 								//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
-								if(i<10){
-									$("#tnum" + "0"+(parseInt(i) + 1) + a).css(
-											"background-color", "white");
+								if (i < 10) {
+									$("#tnum" + "0" + (parseInt(i) + 1) + a)
+											.css("background-color", "white");
 									$("#tnum" + (parseInt(i) + 1) + a).css(
 											"opacity", "100");
-								}else{		
-								$("#tnum" + "0"+(parseInt(i) + 1) + a).css(
-										"background-color", "white");
-								$("#tnum" + (parseInt(i) + 1) + a).css(
-										"opacity", "100");
+								} else {
+									$("#tnum" + "0" + (parseInt(i) + 1) + a)
+											.css("background-color", "white");
+									$("#tnum" + (parseInt(i) + 1) + a).css(
+											"opacity", "100");
 								}
 							}
 						}
@@ -576,7 +590,8 @@ i {
 	};
 
 	function getorderList() {
-		$.ajax({
+		$
+				.ajax({
 					type : 'get',
 					url : 'rest/getorderlist',
 					data : {
