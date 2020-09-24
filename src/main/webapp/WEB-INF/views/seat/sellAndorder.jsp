@@ -150,6 +150,7 @@ li input {
 </style>
 </head>
 <body>
+${sc_code}
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div class="innerdiv">
@@ -207,6 +208,12 @@ li input {
 </body>
 <script>
 	totalprice();
+	console.log($("#oac_num").val()=="undefined");
+	if($("#oac_num").val()=="undefined"){
+		$("#oac_num").val(null);
+	}
+	
+	
 
 	$("tr").children($("input")).keyup(function(evt) {
 		totalprice();
@@ -224,8 +231,9 @@ li input {
 		var $price = $(".price");
 		for (var i = 0; i < $price.length; i++) {
 			var val = $price.eq(i).text();
-			if (val == "")
+			if (val == ""){				
 				val = '0';
+			}
 			sum += Number(val);
 		}
 
@@ -282,10 +290,12 @@ li input {
 						.push($("#pdcnt" + i).val() - $("#hiddencnt" + i).val());
 			}
 		}
-
+		
 		
 		var objparam = {
 			"oac_num" : $("#oac_num").val(),
+			"sc_code" : $("#sc_code").val(),
+			"st_num" : $("#st_num").val(),
 			"pdc_code" : pdccodeArray,
 			"pdc_date" : pdcdateArray,
 			"pd_date" : dateArray,

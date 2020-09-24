@@ -19,7 +19,7 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
 <style>
 body {
 	background-color: #e3f2fd;
@@ -33,16 +33,6 @@ body {
 		format('woff');
 	font-weight: normal;
 	font-style: normal;
-}
-
-#baseBox {
-	border: 3px solid #81d4fa;
-}
-
-img {
-	margin-top: 130px;
-	margin-left: 50px;
-	opacity: 0.5;
 }
 
 div {
@@ -85,11 +75,11 @@ div {
 }
 
 .tab button:hover {
-	background-color: #ddd;
+	background-color: #90caf9;
 }
 
 .tables {
-	border: 1px solid black;
+	border: 3px solid #81d4fa;
 	width: 250px;
 	height: 200px;
 	float: left;
@@ -100,15 +90,18 @@ div {
 }
 
 #rightdiv {
-	width: 200px;
-	height: 900px;
+	width: 250px;
+	height: 800px;
+	background-color: white;
+	border: 3px solid #81d4fa;
+	margin-left: 10px;
 }
 
 .clickdiv {
 	text-align: center;
-	width: 200px;
+	width: 220px;
 	height: 100px;
-	margin-left: 50px;
+	margin-left: 15px;
 	margin-top: 10px;
 	border: 1px solid white;
 	background-color: #81d4fa;
@@ -142,12 +135,13 @@ p {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
+	width: 1600px;
+	height: 1000px;
 	background: #000;
 	opacity: 0.5;
 	filter: alpha(opatable = 50);
-	z-index: 100
+	z-index: 100;
+	height: 1000px;
 }
 
 #contents_layer {
@@ -178,7 +172,7 @@ p {
 	border-collapse: collapse;
 }
 
-#r_middle th, #r_middle tr, #r_middle td {
+#r_middle th, #r_middle tr {
 	width: 300px;
 	height: 50px;
 	text-align: center;
@@ -191,10 +185,6 @@ p {
 
 #r_middle th {
 	border-top-color: white;
-}
-
-table {
-	border-collapse: collapse;
 }
 
 #r_footer {
@@ -237,7 +227,6 @@ table {
 }
 
 #r_infotable td {
-	width: 250px;
 	height: 75px;
 }
 
@@ -247,13 +236,24 @@ table {
 }
 
 #r_infotable input {
-	width: 120px;
+	width: 150px;
 	height: 30px;
+	border: 3px solid #81d4fa;
+	text-align: center;
+}
+
+textarea {
+	border: 3px solid #81d4fa;
 }
 
 #r_infotable button {
 	width: 100px;
 	height: 50px;
+}
+
+#r_date {
+	border: 3px solid #81d4fa;
+	text-align: center;
 }
 
 .pagebutton {
@@ -270,7 +270,12 @@ table {
 	font-size: 26px;
 	text-align: center;
 	margin-left: 20px;
-	margin-top: 5px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+#hours {
+	margin-left: 25px;
 }
 
 .clickdiv ul {
@@ -307,13 +312,23 @@ table {
 	font-weight: bold;
 }
 
-#btn1, #upbtn {
+#btn1, #upbtn, #dtbtn {
+	width: 100px;
 	border: 3px solid #81d4fa;
 	background-color: #81d4fa;
 	color: white;
 }
 
+#upbtn {
+	margin-left: 20px;
+}
+
+#rebtn, #dtbtn {
+	margin-left: 15px;
+}
+
 #btn2, #rebtn {
+	width: 100px;
 	border: 3px solid #81d4fa;
 	background-color: white;
 	color: #81d4fa;
@@ -332,7 +347,11 @@ input, #rsvm_memo {
 }
 
 i {
-margin-top: -5px;
+	margin-top: -5px;
+}
+
+#frm {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -343,7 +362,6 @@ margin-top: -5px;
 			<div class="leftdiv">
 				<div class="tab"></div>
 				<div id="seat"></div>
-				<img src="resources/image/logo.png" alt="SimpleOrder 홈페이지">
 			</div>
 			<div id="rightdiv">
 				<div class="clickdiv">
@@ -385,14 +403,16 @@ margin-top: -5px;
 			<div id="contents_layer">
 				<div id="r_header">
 					<h1>예약목록</h1>
-					<form action="#">
+					<form action="#" id="frm">
 						예약일 선택 <input type="date" name="r_date" id="r_date" /> <input
 							type="button" id="btn1" onclick="searchReserv()" value="검색" /> <input
 							type="button" id="btn2" onclick="reservation()" value="새로고침" />
 						<br />
 					</form>
 				</div>
-				<div id="r_middle"><table id="reservtable"></table></div>
+				<div id="r_middle">
+					<table id="reservtable"></table>
+				</div>
 				<div id="r_footer">
 					<div id="r_info">
 						<form>
@@ -406,19 +426,20 @@ margin-top: -5px;
 								</tr>
 								<tr>
 									<th>성함</th>
-									<td><input type="text" name="rsv_name" id="rsv_name" maxlength="5" /></td>
+									<td><input type="text" name="rsv_name" id="rsv_name"
+										maxlength="5" /></td>
 									<th>연락처</th>
-									<td><input type="text" name="rsv_phone" id="rsv_phone" maxlength="11" /></td>
+									<td><input type="text" name="rsv_phone" id="rsv_phone"
+										maxlength="11" /></td>
 								</tr>
 								<tr>
 									<th>메모</th>
-									<td colspan="2">
-									<textarea style="width: 330px; height: 70px;" name="rsvm_memo"id="rsvm_memo"></textarea>
-									</td>
-									<td id="worktd">
-									<input type="button" id="upbtn" onclick="updateReserv()" value='등록' />
-									<input type="reset" id="rebtn" value="새로고침" />
-									</td>
+									<td colspan="2"><textarea
+											style="width: 330px; height: 70px;" name="rsvm_memo"
+											id="rsvm_memo"></textarea></td>
+									<td id="worktd"><input type="button" id="upbtn"
+										onclick="updateReserv()" value='등록' /> <input type="reset"
+										id="rebtn" value="새로고침" /></td>
 								</tr>
 							</table>
 						</form>
@@ -434,9 +455,11 @@ margin-top: -5px;
 							<li value="7">7</li>
 							<li value="8">8</li>
 							<li value="9">9</li>
-							<li onclick="backspace()" value="12"><i class="fa fa-arrow-left" style="font-size: 25px"></i></li>
+							<li onclick="backspace()" value="12"><i
+								class="fa fa-arrow-left" style="font-size: 25px"></i></li>
 							<li value="0">0</li>
-							<li onclick="reset()" value="11"><i class="fa fa-times" style="font-size: 25px"></i></li>
+							<li onclick="reset()" value="11"><i class="fa fa-times"
+								style="font-size: 25px"></i></li>
 						</ul>
 					</div>
 				</div>
@@ -450,9 +473,9 @@ margin-top: -5px;
 	clockon();
 	getTablelist();
 	console.log()
- if(''!='${error}'){
- 	alert("주문이 정상적으로 처리 되지않았습니다. 다시 시도해 주세요");
- }
+	if ('' != '${error}') {
+		alert("주문이 정상적으로 처리 되지않았습니다. 다시 시도해 주세요");
+	}
 
 	/* Datepicker UI default 설정 */
 	$.datepicker.setDefaults({
@@ -504,32 +527,34 @@ margin-top: -5px;
 					$("#seat").append("<div id='table"+i+"' class='tList'>");
 					for (var a = 1; a <= xylength; a++) {
 						//생성한 div에 테이블 가로X 세로 길이(테이블 갯수)만큼 div 생성하기
-						if(i<10){
+						if (i < 10) {
+							$("#table" + i).append(
+									"<div class='tables' id='tnum" + "0"
+											+ (parseInt(i) + 1) + a
+											+ "' data-code=" + "0"
+											+ (parseInt(i) + 1) + "-" + a + ">"
+											+ a + "</div>");
+						} else {
 							$("#table" + i).append(
 									"<div class='tables' id='tnum"
-											+ "0" +(parseInt(i) + 1) + a
-											+ "' data-code=" + "0"+(parseInt(i) + 1)
-											+ "-" + a + ">" + a + "</div>");
-						}else{					
-						$("#table" + i).append(
-								"<div class='tables' id='tnum"
-										+ (parseInt(i) + 1) + a
-										+ "' data-code=" + (parseInt(i) + 1)
-										+ "-" + a + ">" + a + "</div>");
+											+ (parseInt(i) + 1) + a
+											+ "' data-code="
+											+ (parseInt(i) + 1) + "-" + a + ">"
+											+ a + "</div>");
 						}
 						for ( var b in result[i].tlist) {
 							if (a == result[i].tlist[b]) {
 								//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
-								if(i<10){
-									$("#tnum" + "0"+(parseInt(i) + 1) + a).css(
-											"background-color", "white");
+								if (i < 10) {
+									$("#tnum" + "0" + (parseInt(i) + 1) + a)
+											.css("background-color", "white");
 									$("#tnum" + (parseInt(i) + 1) + a).css(
 											"opacity", "100");
-								}else{		
-								$("#tnum" + "0"+(parseInt(i) + 1) + a).css(
-										"background-color", "white");
-								$("#tnum" + (parseInt(i) + 1) + a).css(
-										"opacity", "100");
+								} else {
+									$("#tnum" + "0" + (parseInt(i) + 1) + a)
+											.css("background-color", "white");
+									$("#tnum" + (parseInt(i) + 1) + a).css(
+											"opacity", "100");
 								}
 							}
 						}
@@ -565,7 +590,8 @@ margin-top: -5px;
 	};
 
 	function getorderList() {
-		$.ajax({
+		$
+				.ajax({
 					type : 'get',
 					url : 'rest/getorderlist',
 					data : {
