@@ -46,6 +46,8 @@ public class OrderMM2 {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<form action='#' method='post'>");
 		sb.append("<table>");
+		sb.append("<input type='hidden' id='sc_code' value='" + odr.getSc_code() + "'/>");
+		sb.append("<input type='hidden' id='st_num' value='" + odr.getSt_num() + "'/>");
 		sb.append("<input type='hidden' id='oac_num' value='" + odr.getOac_num() + "'/>");
 		for (int i = 0; i < stList.size(); i++) {
 			sb.append("<tr>");
@@ -68,13 +70,30 @@ public class OrderMM2 {
 		return sb.toString();
 	}
 
-	public String sendsaoList(HttpSession session, String oac_num, ArrayList<String> pdc_code, ArrayList<String> pdc_date, ArrayList<String> pd_date, ArrayList<String> pd_code, ArrayList<String> oh_cnt, RedirectAttributes reat) {
+	public String sendsaoList(HttpSession session, String oac_num, String sc_code, String st_num,
+			ArrayList<String> pdc_code, ArrayList<String> pdc_date, ArrayList<String> pd_date,
+			ArrayList<String> pd_code, ArrayList<String> oh_cnt, RedirectAttributes reat) {
+		String c_code = session.getAttribute("c_code").toString();
+		String bd_date = "2020-08-29 14:19:00";
 		try {
+			HashMap<String, String> hMap = new HashMap<String, String>();
+			hMap.put("c_code", session.getAttribute("c_code").toString());
+			hMap.put("bd_date", "2020-08-29 14:19:00");
+			hMap.put("sc_code", sc_code);
+			hMap.put("st_num", st_num);
+			if (oac_num == null) {
+				 oac_num = oDao.getNewOacCode(c_code,bd_date);
+			}
+			hMap.put("oac_num", oac_num);
+			if(!oDao.createoacList(hMap)) {
+				return "errorSellpage";
+			}
+			
 			for (int i = 0; i < pdc_code.size(); i++) {
 				System.out.println(pd_code.get(i));
 				HashMap<String, String> oacInfo = new HashMap<String, String>();
 				// oacInfo.put("bd_date", session.getAttribute("bd_date").toString());
-				
+
 				oacInfo.put("bd_date", "2020-08-29 14:19:00");
 				oacInfo.put("pdc_code", pdc_code.get(i));
 				oacInfo.put("pdc_date", pdc_date.get(i));
@@ -83,8 +102,9 @@ public class OrderMM2 {
 				oacInfo.put("oh_cnt", oh_cnt.get(i));
 				oacInfo.put("oac_num", oac_num);
 				oacInfo.put("c_code", session.getAttribute("c_code").toString());
-				if(!oDao.sendsaoList(oacInfo)) {;
-				return "errorSellpage";}
+				if (!oDao.sendsaoList(oacInfo)) {
+					return "errorSellpage";
+				}
 			}
 			return "sellpage";
 		} catch (Exception e) {
