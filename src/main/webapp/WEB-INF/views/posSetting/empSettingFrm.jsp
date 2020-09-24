@@ -97,9 +97,11 @@
 
 	}
 	function fireEmpInfo() { // form 엑션 변경 후 서브밋 (해고)
+	if(confirm("직원을 해고시키시겠습니까? 한번 해고된 직원 데이터는 복직으로 돌리수없습니다.")){
 		$("#method").val("patch");
 		empSettingForm.action = 'fireEmpInfo';
 		empSettingForm.submit();
+	}
 	}
 
 	function getEmpList(status) { // 세션의 저장된 사업체 코드로 직원의 목록 출력

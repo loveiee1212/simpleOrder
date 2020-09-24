@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team2.simpleOrder.service.member.CompanyMemberMM1;
+import com.team2.simpleOrder.service.member.CompanyMemberMM;
 
 @Controller
 public class CompanyMemberController1 {
 	
 	@Autowired
-	CompanyMemberMM1 mm;
+	CompanyMemberMM mm;
 	
 	@PostMapping("/cEmailLogin") //Email 로그인
 	public String cEmailLogin(@RequestParam HashMap<String, String> emailIdPw,HttpSession session, RedirectAttributes reat) {

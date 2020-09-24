@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css">
+<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
@@ -43,9 +43,9 @@ body {
 }
 
 img {
-	width: 200px;
-	margin-top: -65px;
-	margin-left: -80px;
+    width: 200px;
+    margin-top: -20px;
+    margin-left: -80px;
 }
 
 a.navbar-brand {
@@ -92,7 +92,6 @@ ul {
 .login {
 	width: 700px;
 	height: 500px;
-	/* border: 3px solid #81d4fa; */
 	font-size: 28px;
 	margin-top: 30px;
 	margin-left: 370px;

@@ -7,7 +7,7 @@
 <title>posmain</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
 </head>
 <style>
 body {
@@ -24,18 +24,18 @@ body {
 	font-style: normal;
 }
 
-img { /* 사진 수정예정 */
-	/* border: 1px solid black; */
-	width: 250px;
-	margin-top: -130px;
-	margin-right: -230px;
-	float: left;
+img {
+    width: 250px;
+    margin-top: -30px;
+    margin-right: -230px;
+    float: left;
 }
 
 h2 {
-	text-align: center;
-	font-size: 60px;
-	font-family: 'NEXON Lv1 Gothic OTF';
+    text-align: center;
+    font-size: 60px;
+    font-family: 'NEXON Lv1 Gothic OTF';
+    margin-top: 80px;
 }
 
 @font-face {
@@ -48,14 +48,14 @@ h2 {
 }
 
 #btn {
-	width: 300px;
-	height: 150px;
-	border: 2px;
-	margin: 10px 35px;
-	text-align: center;
-	background-color: #81d4fa;
-	font-size: 30px;
-	color: white;
+    width: 300px;
+    height: 150px;
+    border: 2px;
+    margin: 20px 35px;
+    text-align: center;
+    background-color: #81d4fa;
+    font-size: 30px;
+    color: white;
 }
 
 </style>
@@ -63,7 +63,7 @@ h2 {
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<a class="navbar-brand" href="main"><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
-			<h2>posmain</h2>
+			<h2>PosMain</h2>
 			<input type="button" id="btn" onclick="location.href = 'checkstartvc'" value="판매">
 			<input type="button" id="btn" onclick="location.href = 'endvc'" value="마감">
 			<input type="button" id="btn" onclick="location.href = 'cCodeAcountLogout'" value="사용자 전환">

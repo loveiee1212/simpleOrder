@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.service.member.EmpMemberMM;
 import com.team2.simpleOrder.dto.Member;
-import com.team2.simpleOrder.service.member.CompanyMemberMM1;
+import com.team2.simpleOrder.service.member.CompanyMemberMM;
 import com.team2.simpleOrder.service.member.MemberMM3;
 
 @RestController

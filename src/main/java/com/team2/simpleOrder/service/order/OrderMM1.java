@@ -49,7 +49,7 @@ public class OrderMM1 {
 			Order odr = new Order();
 			List<Integer> tNumList = new ArrayList<Integer>();
 			for (int j = 0; j < tList.size(); j++) {
-				if ((cList.get(i).getSc_name()).equals(tList.get(j).getSc_name())) {
+				if ((cList.get(i).getSc_code()).equals(tList.get(j).getSc_code())) {
 					System.out
 							.println("카테고리 이름 :" + cList.get(i).getSc_name() + "/ 테이블 번호 :" + tList.get(j).getSt_num());
 					System.out.println("=============================");
@@ -209,7 +209,6 @@ public class OrderMM1 {
 		for(int i = 0; i<oList.size();i++) {
 			odr=oList.get(i);
 			if(odr.getSc_code()==odr.getSc_code()&&odr.getSt_num()==odr.getSt_num()) {
-				System.out.println("상품이름:"+odr.getPd_name());
 				odr.setSc_code(odr.getSc_code());
 				odr.setSt_num(odr.getSt_num());
 				odr.setOac_num(odr.getOac_num());
@@ -217,7 +216,6 @@ public class OrderMM1 {
 				pdnList.add(odr.getPd_name());
 				pdccList.add(odr.getPdc_code());
 				cntList.add(odr.getOh_cnt());
-				System.out.println("code"+odr.getPd_code());
 			}
 			pdMap.put("pdcList", pdcList);
 			pdMap.put("pdnList", pdnList);

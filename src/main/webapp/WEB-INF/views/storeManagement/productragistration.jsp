@@ -138,6 +138,10 @@ tr {
 }
 
 .tab {
+	width: 99.6%;
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
 	overflow: hidden;
 	border: none;
 	background-color: #e3f2fd;
@@ -203,16 +207,39 @@ tr {
 </body>
 <script>
 	getproductcategoryList();
-	getproductList2();
+	
+	//상품리스트 출력
 	function getproductList2() {
 		$.ajax({
 			type : "post",
-			url : "rest/getproductlist2",
+			url : "rest/getproductlist",
 			dataType : 'json',
 			success : function(result) {
 				console.log(result);
 				$("#pListtable").html(result.pList2);
+				//출력후 상품클릭시 상세정보 출력
+				$("#pListtable tr").click(function() {
+					var tdArr = new Array();
+					var tr = $(this);
+					var td = tr.children();
+					console.log(tr.text());
+					/* tr 행의 정보들을 Arr에 담음 */
+					td.each(function(i) {
+						tdArr.push(td.eq(i).text());
+					});
+					$("#pListtable tr").css('background-color', 'white');
+					tr.css('background-color', '#ddd');
+					console.log("배열에 담긴 값 : " + tdArr);
+					/* 배열에 담긴 값을 상세정보에 출력 */
+					var pd_code = $(this).data("code");
+					var pd_name = td.eq(1).text();
+					console.log(pd_name);
+					$("#pd_name").val(pd_name);
+				
+				});
 			},
+			
+			
 			error : function(err) {
 				console.log(err);
 			}
@@ -220,7 +247,7 @@ tr {
 	}
 
 	function getproductcategoryList() {
-
+		getproductList2();
 		$.ajax({
 			type : "post",
 			url : "rest/getproductcategorylist",

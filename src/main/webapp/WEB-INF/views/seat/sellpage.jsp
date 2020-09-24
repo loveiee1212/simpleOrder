@@ -337,6 +337,7 @@ margin-top: -5px;
 </style>
 </head>
 <body>
+
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div class="leftdiv">
@@ -448,6 +449,10 @@ margin-top: -5px;
 <script>
 	clockon();
 	getTablelist();
+	console.log()
+ if(''!='${error}'){
+ 	alert("주문이 정상적으로 처리 되지않았습니다. 다시 시도해 주세요");
+ }
 
 	/* Datepicker UI default 설정 */
 	$.datepicker.setDefaults({
@@ -499,18 +504,33 @@ margin-top: -5px;
 					$("#seat").append("<div id='table"+i+"' class='tList'>");
 					for (var a = 1; a <= xylength; a++) {
 						//생성한 div에 테이블 가로X 세로 길이(테이블 갯수)만큼 div 생성하기
+						if(i<10){
+							$("#table" + i).append(
+									"<div class='tables' id='tnum"
+											+ "0" +(parseInt(i) + 1) + a
+											+ "' data-code=" + "0"+(parseInt(i) + 1)
+											+ "-" + a + ">" + a + "</div>");
+						}else{					
 						$("#table" + i).append(
 								"<div class='tables' id='tnum"
 										+ (parseInt(i) + 1) + a
 										+ "' data-code=" + (parseInt(i) + 1)
 										+ "-" + a + ">" + a + "</div>");
+						}
 						for ( var b in result[i].tlist) {
 							if (a == result[i].tlist[b]) {
 								//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
-								$("#tnum" + (parseInt(i) + 1) + a).css(
+								if(i<10){
+									$("#tnum" + "0"+(parseInt(i) + 1) + a).css(
+											"background-color", "white");
+									$("#tnum" + (parseInt(i) + 1) + a).css(
+											"opacity", "100");
+								}else{		
+								$("#tnum" + "0"+(parseInt(i) + 1) + a).css(
 										"background-color", "white");
 								$("#tnum" + (parseInt(i) + 1) + a).css(
 										"opacity", "100");
+								}
 							}
 						}
 					}
@@ -528,11 +548,9 @@ margin-top: -5px;
 									+ $(this).children("#oac_num").val());
 
 							var tSplit = $(this).data("code").split("-");
-							console.log(tSplit);
 							var sc_code = tSplit[0];
 							var st_num = tSplit[1];
 							var oac_num = $(this).children("#oac_num").val();
-							console.log(st_num)
 
 							location.href = "./sellandorder?sc_code=" + sc_code
 									+ "&st_num=" + st_num + "&oac_num="
@@ -547,8 +565,7 @@ margin-top: -5px;
 	};
 
 	function getorderList() {
-		$
-				.ajax({
+		$.ajax({
 					type : 'get',
 					url : 'rest/getorderlist',
 					data : {
