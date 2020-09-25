@@ -78,6 +78,10 @@ public class PageController1 {
 	public String kioskQrCodeListFrm() {
 		return "kioskSetting/kioskQrCodeListFrm";
 	}
+	@RequestMapping("/requsetListSettingFrm")
+	public String requsetListSettingFrm() {
+		return "kioskSetting/requsetListSettingFrm";
+	}
 	
 	@RequestMapping("/test")
 	public String test(RedirectAttributes reat) {

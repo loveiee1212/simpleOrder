@@ -37,7 +37,8 @@ div {
 			<h2>kioskSetting</h2>
 		</div>
 		<div id="divTwo">
-			<input type="button" value="테이블별 QR코드 가져오기" onclick="includeAjax('kioskQrCodeListFrm')">
+			<input type = "button" value = "테이블별 QR코드 가져오기" onclick = "includeAjax('kioskQrCodeListFrm')"><br/>
+			<input type = "button" value = "요청사항 수정하기" onclick = "includeAjax('requsetListSettingFrm')">
 		</div>
 	</div>
 </body>

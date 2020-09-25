@@ -1,11 +1,16 @@
 package com.team2.simpleOrder.service.kiosk;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.team2.simpleOrder.dto.Order;
 
 public class KioskLoginHtmlMaker {
 	StringBuilder sb = new StringBuilder();
+	HashMap<String, String> hm = new HashMap<String, String>();
 
 	public String getQrCodeListhtml(String c_code, List<Order> tlist) {
 		for (int i = 0; i < tlist.size(); i += 3) {
@@ -45,6 +50,17 @@ public class KioskLoginHtmlMaker {
 
 		}
 		return sb.toString();
+	}
+
+	public HashMap<String, String> requestList(ArrayList<HashMap<String, Object>> requsetList) {
+		for (HashMap<String, Object> req : requsetList) {
+			sb.append("<div>");
+			sb.append("<input type = 'text' name ='" + "RQ_NUM" +"' value ='" + req.get("RQ_KIND") + "' >");
+			sb.append("</div>");
+		}
+		hm.put("reqList", sb.toString());
+		return hm;
+
 	}
 
 }

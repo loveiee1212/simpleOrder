@@ -26,8 +26,13 @@ public class PageController2 {
 	}
 	
 	@RequestMapping(value = "/sellpage")
-	public String home() {
+	public String sellpage() {
 		
 		return "seat/sellpage";
+	}
+	@RequestMapping(value = "/creditcontrol")
+	public String creditcontrol() {
+		
+		return "money/creditControl";
 	}
 }

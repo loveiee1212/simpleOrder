@@ -23,6 +23,12 @@ public class StoreManagement {
 	private int pd_price;
 	private int pd_status;
 	
+	
+	private String skc_code;
+	private String skc_name;
+	private int skc_x;
+	private int skc_y;
+ 	
 	private String pdc_name;
 	private int pdc_status;
 	List<String> cpList;
