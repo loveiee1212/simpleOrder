@@ -16,7 +16,7 @@ public class KioskMakeHtml {
 		// 해더 판매 카테고리 리스트
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("<ul>");
-		sb1.append("<li><img alt='simpleOrderLogo' src='resources/image/logo.png'></li>");
+		sb1.append("<a href='kioskmenu'><li><img alt='simpleOrderLogo' src='resources/image/logo.png'></li></a>");
 		for (int i = 0; i < skcList.size(); i++) {
 			sb1.append("<li><a href='#skc" + skcList.get(i).get("SKC_CODE") + "'>" + skcList.get(i).get("SKC_NAME")
 					+ "</a></li>");

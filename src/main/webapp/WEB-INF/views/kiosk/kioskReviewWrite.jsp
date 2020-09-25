@@ -28,40 +28,50 @@ body {
 }
 
 #score {
-	height: 40px;
+	height: 50px;
 	margin: 20px 25px 0px;
 }
 
 .starR1 {
-	background:
-		url('http://miuu227.godohosting.com/images/icon/ico_review.png')
-		no-repeat -52px 0;
-	background-size: auto 100%;
-	width: 15px;
-	height: 30px;
-	float: left;
-	text-indent: -9999px;
-	cursor: pointer;
+    background: url(http://miuu227.godohosting.com/images/icon/ico_review.png) no-repeat -52px 0;
+    background-size: auto 100%;
+    width: 22px;
+    height: 40px;
+    float: left;
+    text-indent: -9999px;
+    cursor: pointer;
+    padding-left: 15px;
+    margin-left: -10px;
 }
 
 .starR2 {
-	background:
-		url('http://miuu227.godohosting.com/images/icon/ico_review.png')
-		no-repeat right 0;
-	background-size: auto 100%;
-	width: 15px;
-	height: 30px;
-	float: left;
-	text-indent: -9999px;
-	cursor: pointer;
+    background: url(http://miuu227.godohosting.com/images/icon/ico_review.png) no-repeat right 0;
+    background-size: auto 100%;
+    width: 22px;
+    height: 43px;
+    float: left;
+    text-indent: -9999px;
+    cursor: pointer;
+    margin-right: 1px;
+    margin-top: -2px;
 }
 
 .starR1.on {
-	background-position: 0 0;
+    background-position: 0 0;
+    width: 20px;
+    height: 40px;
+    margin-right: -15px;
+    margin-left: 10px;
 }
 
 .starR2.on {
-	background-position: -15px 0;
+    background-position: -15px 0;
+    width: 15px;
+    height: 40px;
+    margin-left: -4px;
+    margin-right: -15px;
+    padding-right: 10px;
+    padding-left: 15px;
 }
 
 #rv_text {
@@ -188,6 +198,16 @@ textarea:focus {
 	margin: 30px 25px 20px;
 	float: left;
 }
+
+@media ( max-width: 480px ) {
+        #frame {
+          width: auto;
+        }
+        #main {
+          float: none;
+          width: auto;
+        }
+    }
 </style>
 </head>
 <body>

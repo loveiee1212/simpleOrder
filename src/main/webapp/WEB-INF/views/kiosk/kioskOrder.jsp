@@ -34,7 +34,7 @@ li a {
 	display: block;
 	color: white;
 	text-align: center;
-	padding: 14px 43px;
+	padding: 30px 43px;
 	text-decoration: none;
 }
 
@@ -97,24 +97,26 @@ i {
 }
 #header_nav img {
 	width: 80px;
+	margin: 0 20px;
 }
 
 .detail_body {
 	width: 240px;
-	height: 280px;
+	height: 300px;
 	border: solid rgb(133, 133, 133) 1px;
 	border-radius: 5px;
-	margin: 10px 20px;
+	margin: 15px 20px;
 	float: left;
 }
 
 .text_detail div {
-	margin: 4px 0;
+	margin: 10px 0;
 	text-align: center;
 	width: 240px;
 }
 
 .pd_name {
+	
 	font-size: 20px;
 	font-weight: bolder;
 }
@@ -127,7 +129,7 @@ i {
 .pd_imgName {
 	width: 200px;
 	height: 200px;
-	margin: 12px 20px 0 20px;
+	margin: 17px 20px 0 20px;
 }
 
 .pList_detail img {
@@ -196,7 +198,7 @@ tr, td {
 		<div>
 			<ul>
 				<li><a href="javascript:void(0);" onclick="order();">주문하기</a></li>
-				<li><a id="basket_open_btn" href="javascript:void(0);">주문내역</a></li>
+				<li><a id="basket_open_btn" href="javascript:void(0);">장바구니</a></li>
 				<li><a id="bill_open_btn" href="javascript:void(0);">계산서</a></li>
 				<li><a href="kioskmenu">나가기</a></li>
 			</ul>
@@ -212,46 +214,63 @@ tr, td {
 
 				</tbody>
 			</table>
+			<h2 id="bskText">장바구니가 비어있습니다!</h2>
+
 		</div>
 	</div>
 	<div id="bill"></div>
 </body>
 <script type="text/javascript">
+	//주문하기
 	function order() {
-		var bsk_pdc_code = $('.bsk_pdc_code');
-		var bsk_pdc_date = $('.bsk_pdc_date');
-		var bsk_pd_code = $('.bsk_pd_code');
-		var bsk_pd_date = $('.bsk_pd_date');
-		var oh_cnt = $('.oh_cnt');
-		var bskArr = new Array();
-		for (var i = 0; i < bsk_pdc_code.length; i++) {
-			// console.log(bsk_pdc_code[i].innerText);
-			// console.log(bsk_pd_code[i].innerText);
-			// console.log(oh_cnt[i].innerText);
-			/* var arr=new Array();
-			arr[0]=bsk_pdc_code[i].innerText;
-			arr[1]=bsk_pd_code[i].innerText;
-			arr[2]=oh_cnt[i].innerText; */
-			bskArr[i] = bsk_pdc_code[i].innerText + '/'
-					+ bsk_pd_code[i].innerText + '/' + oh_cnt[i].innerText;
-			/* bskArr[i]=arr; */
-		}
-		for (var i = 0; i < bskArr.length; i++) {
-			console.log(bskArr[i]);
-		}
-		$.ajax({
-			url : 'rest/insertorder',
-			type : 'post',
-			data : {
-				"bskArr" : bskArr
-			},
-			success : function(data) {
-				console.log(data);
-			},
-			error : function(err) {
-				console.log(err);
+		if (confirm("주문 하시겠습니까?")) {
+
+			console.log($('#bBody').children().length);
+			if ($('#bBody').children().length === 0) {
+				alert("주문목록이 없습니다");
+				return false;
+
 			}
-		});
+			var bsk_pdc_code = $('.bsk_pdc_code');
+			var bsk_pdc_date = $('.bsk_pdc_date');
+			var bsk_pd_code = $('.bsk_pd_code');
+			var bsk_pd_date = $('.bsk_pd_date');
+			var bsk_oh_cnt = $('.bsk_oh_cnt');
+			var bskArr = new Array();
+			for (var i = 0; i < bsk_pdc_code.length; i++) {
+				var obj = new Object();
+				console.log(bsk_pdc_code[i].innerText);
+				console.log(bsk_pdc_date[i].innerText);
+				console.log(bsk_pd_code[i].innerText);
+				console.log(bsk_pd_date[i].innerText);
+				console.log(bsk_oh_cnt[i].innerText);
+				obj.pdc_code = bsk_pdc_code[i].innerText;
+				obj.pdc_date = bsk_pdc_date[i].innerText;
+				obj.pd_code = bsk_pd_code[i].innerText;
+				obj.pd_date = bsk_pd_date[i].innerText;
+				obj.oh_cnt = bsk_oh_cnt[i].innerText;
+				bskArr.push(obj);
+			}
+			for (var i = 0; i < bskArr.length; i++) {
+				console.log(bskArr[i]);
+			}
+			var bArr = JSON.stringify(bskArr);
+			$.ajax({
+				url : 'rest/insertorder',
+				type : 'post',
+				data : bArr,
+				dataType : 'json',
+				contentType : "application/json; charset=UTF-8",
+				success : function(data) {
+					console.log(data);
+					//return 가져온 데이터로 location.href 해주면 됨
+					location.href = data;
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			});
+		}
 	}
 	function modal(id) {
 		var zIndex = 9999;
@@ -361,13 +380,14 @@ tr, td {
 			str += "<td class='bsk_pd_code'>" + pd_code + "</td>";
 			str += "<td class='bsk_pd_date'>" + pd_date + "</td>";
 			str += "<td>" + pd_name + "</td>";
-			str += "<td>" + pd_price + "</td>";
+			str += "<td class='bsk_pd_price'>" + pd_price + "</td>";
 			str += "<td><input type='button' value='▲' onclick='cntUp($(this));'>";
 			str += "<input type='button' value='▼' onclick='cntDown($(this));'></td>"
-			str += "<td class='oh_cnt'>1</td>";
+			str += "<td class='bsk_oh_cnt'>1</td>";
 			str += "<td><input type='button' value='삭제' onclick='deleteCol($(this));'></td>";
 			str += "</tr>";
 			$('#bBody').append(str);
+			bskSum();
 			return true;
 		} else {
 			console.log('개수 추가');
@@ -385,11 +405,13 @@ tr, td {
 			if (pdc_code == a.eq(i).text()) {
 				for (var j = 0; j < b.length; j++) {
 					if (pd_code == b.eq(j).text()) {
-						$("#" + pdc_code + pd_code).find(".oh_cnt").text();
-						var num = ($("#" + pdc_code + pd_code).find(".oh_cnt")
-								.text()) * 1;
+						$("#" + pdc_code + pd_code).find(".bsk_oh_cnt").text();
+						var num = ($("#" + pdc_code + pd_code).find(
+								".bsk_oh_cnt").text()) * 1;
 						num++;
-						$("#" + pdc_code + pd_code).find(".oh_cnt").text(num)
+						$("#" + pdc_code + pd_code).find(".bsk_oh_cnt").text(
+								num)
+						bskSum();
 						return false;
 					}
 				}
@@ -399,28 +421,61 @@ tr, td {
 	}
 	//상품 개수 늘리기
 	function cntUp(elem) {
-		var num = elem.parents('tr').children('.oh_cnt').text()
+		var num = elem.parents('tr').children('.bsk_oh_cnt').text()
 		num++;
-		elem.parents('tr').children('.oh_cnt').text(num);
+		elem.parents('tr').children('.bsk_oh_cnt').text(num);
+		bskSum();
 	}
 	//상품 개수 줄이기
 	function cntDown(elem) {
-		var num = elem.parents('tr').children('.oh_cnt').text()
+		var num = elem.parents('tr').children('.bsk_oh_cnt').text()
 		num--;
+		elem.parents('tr').children('.bsk_oh_cnt').text(num);
+		bskSum();
 		//상품개수가 0이 되면 테이블 컬럼 삭제
 		if (num == 0) {
 			if (confirm("주문목록에서 삭제 하시겠습니까?")) {
 				elem.closest('tr').remove();
+				bskSum();
 			} else {
 				num++;
 			}
 		}
-		elem.parents('tr').children('.oh_cnt').text(num);
+		elem.parents('tr').children('.bsk_oh_cnt').text(num);
 	}
 	//장바구니에 담긴 테이블 컬럼 삭제
 	function deleteCol(elem) {
 		if (confirm("주문목록에서 삭제 하시겠습니까?")) {
 			elem.closest('tr').remove();
+			bskSum();
+		}
+	}
+	//장바구니 가격이랑 개수 합치기
+	function bskSum() {
+		var bsk_pd_price = $('.bsk_pd_price');
+		var bsk_oh_cnt = $('.bsk_oh_cnt');
+		var sum = 0;
+		for (var i = 0; i < bsk_pd_price.length; i++) {
+			var price = bsk_pd_price[i].innerText;
+			price = price.slice(0, -1);
+			price = price.replace(/(,)/g, "");
+			Number(price);
+			var cnt = Number(bsk_oh_cnt[i].innerText);
+
+			console.log(price);
+			console.log(cnt);
+			sum += (price * cnt);
+			console.log(sum);
+		}
+
+		sum = Number(sum).toLocaleString('en');
+		$('#bskText').text("합계 " + sum + "원");
+		console.log($('#bskText').text());
+		console.log($('#bBody').children().length);
+		if ($('#bBody').children().length === 0) {
+			console.log(sum + "원");
+			$('#bskText').text("장바구니가 비어있습니다!");
+
 		}
 	}
 </script>

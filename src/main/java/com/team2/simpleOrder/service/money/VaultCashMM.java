@@ -3,6 +3,9 @@ package com.team2.simpleOrder.service.money;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,7 +29,7 @@ public class VaultCashMM {
 	@Transactional
 	public String checkStartVC(HttpSession session) throws Exception {
 		String c_code = session.getAttribute("c_code").toString();
-		SimpleDateFormat moment = new SimpleDateFormat("YYYY-MM-DD HH:mm");
+		
 		try {
 			String checkNum = vDao.checkStartVC(c_code);
 			System.out.println(checkNum);
@@ -35,6 +38,7 @@ public class VaultCashMM {
 				//현재 날짜 가져오기
 				Calendar date = Calendar.getInstance();
 				//날짜 형 변환
+				SimpleDateFormat moment = new SimpleDateFormat("YYYY-MM-DD HH:mm");
 				String bd_date = moment.format(date.getTime());
 				
 				//business_day 데이터 입력
@@ -45,6 +49,8 @@ public class VaultCashMM {
 				
 			} else {
 				String bd_date = vDao.getBd_date(c_code);
+				session.setAttribute("bd_date", bd_date);
+				System.out.println(bd_date);
 			return "redirect:sellpage";
 			}
 		} catch (Exception e) {
@@ -52,6 +58,48 @@ public class VaultCashMM {
 			return "redirect:posmain";
 		}
 
+	}
+	
+	public ModelAndView checkEndVC(HttpSession session) {
+		String c_code = session.getAttribute("c_code").toString();
+		String checkNum = vDao.checkStartVC(c_code);
+		
+		if(checkNum == "-1") {
+			mav = new ModelAndView("money/vaultcash","vc_status","theEnd");
+			return mav;
+		}else {
+			mav = new ModelAndView("money/vaultcash","vc_status","end");
+			return mav;
+		}
+	}
+
+	public String getStartVC(HttpSession session) {
+		
+		return vDao.getStartVC(session.getAttribute("c_code").toString());
+	}
+
+	@Transactional
+	public String insertStartVC(HttpSession session, List<Map<String, String>> jArr) throws Exception {
+		try {
+			HashMap<String, String> jMap = new HashMap<String, String>();
+			jMap.put("c_code", session.getAttribute("c_code").toString());
+			jMap.put("bd_date", session.getAttribute("bd_date").toString());
+			
+			if(vDao.insertStartVC(jMap)==true){
+
+				for (int i=0; i<jArr.size(); i++) {
+					jMap.put("cu_code", jArr.get(i).get("cu_code"));
+					jMap.put("vcd_cnt", jArr.get(i).get("vcd_cnt"));
+
+					vDao.insertStartVC_Cnt(jMap);
+				}
+				return "success";
+			}else {
+				return "error";
+			}
+		} catch (Exception e) {
+			return "error";
+		}
 	}
 
 }

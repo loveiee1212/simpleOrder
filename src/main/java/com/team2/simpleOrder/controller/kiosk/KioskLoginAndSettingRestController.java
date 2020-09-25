@@ -10,21 +10,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team2.simpleOrder.service.kiosk.KioskLoginMM;
+import com.team2.simpleOrder.service.kiosk.KioskLoginAndSettingMM;
 
 
 @RestController
 @RequestMapping("/rest")
-public class KioskLoginRestController {
+public class KioskLoginAndSettingRestController {
 	
 	
 	@Autowired
-	KioskLoginMM km;
+	KioskLoginAndSettingMM km;
 	
 	@GetMapping("/getQrCodeList")
 	public HashMap<String, String> getQrCodeList(HttpSession session) {
 		return km.getQrCodeList((String) session.getAttribute("c_code"));
 	}
-	
+	@GetMapping("/getRequsetList")
+	public HashMap<String, String> getRequsetList(HttpSession session){
+		return km.getRequsetList(session.getAttribute("c_code").toString());
+	}
 
 }
