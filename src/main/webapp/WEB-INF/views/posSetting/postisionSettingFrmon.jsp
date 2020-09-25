@@ -7,6 +7,94 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>postisionSettingFrmon</title>
+<style>
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+h2 {
+	font-size: 35px;
+	color: #81d4fa;
+	font-weight: bold;
+	text-align: center;
+	width: 200px;
+	height: 30px;
+	background-color: white;
+	margin-left: 310px;
+	padding: 40px;
+}
+
+#postionList {
+	width: 800px;
+	height: 400px;
+	text-align: center;
+	font-size: 25px;
+	margin-left: 50px;
+	overflow: auto;
+	border-collapse: collapse;
+	background-color: white;
+}
+
+#postionList td {
+	border: 3px solid #81d4fa;
+}
+
+#postionList th {
+	border: 3px solid white;
+	border-top-color: #81d4fa;
+	background-color: #81d4fa;
+	color: white;
+	padding: 15px;
+}
+
+#postionList input[type="text" i] {
+	width: 200px;
+	height: 30px;
+	text-align: center;
+	font-size: 25px;
+	border: none;
+}
+
+.positionDeleteClass, .positionAddClass {
+	width: 120px;
+	height: 50px;
+	text-align: center;
+	font-size: 20px;
+	background-color: #81d4fa;
+	border: 3px solid white;
+	color: white;
+}
+
+.positionAddClass {
+	width: 400px;
+	height: 70px;
+	text-align: center;
+	font-size: 30px;
+	background-color: #81d4fa;
+	border: 3px solid white;
+	color: white;
+}
+
+.positionUpdateClass {
+	width: 120px;
+	height: 50px;
+	text-align: center;
+	font-size: 20px;
+	background-color: white;
+	border: 3px solid #81d4fa;
+	color: #81d4fa;
+}
+</style>
 </head>
 <body>
 	<h2>직급 설정</h2>
