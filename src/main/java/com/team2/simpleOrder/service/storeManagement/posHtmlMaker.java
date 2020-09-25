@@ -1,5 +1,7 @@
 package com.team2.simpleOrder.service.storeManagement;
 
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.anything;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,9 +10,10 @@ public class posHtmlMaker {
 	HashMap<String, String> hm = new HashMap<String, String>();
 
 	public String makeProListHtml(ArrayList<HashMap<String, Object>> proList) {
+	
 		for (int i = 0; i < proList.size(); i++) {
-			sb.append("<tr onmousedown ='getProInfo(this)' " + "data-pdc_date = '" + proList.get(i).get("PDC_DATE") + "' "
-					+ "data-pdc_code ='" + proList.get(i).get("PDC_CODE") + "' " + "data-pd_date ='"
+			sb.append("<tr onmousedown ='getProInfo(this)' " + "data-pdc_date = '" + proList.get(i).get("PDC_DATE")
+					+ "' " + "data-pdc_code ='" + proList.get(i).get("PDC_CODE") + "' " + "data-pd_date ='"
 					+ proList.get(i).get("PD_DATE") + "' " + "data-pd_code ='" + proList.get(i).get("PD_CODE") + "'>");
 			sb.append("<td>").append(proList.get(i).get("PD_NAME")).append("</td>");
 			sb.append("<td>").append(proList.get(i).get("PD_PRICE")).append("</td>");
@@ -26,6 +29,7 @@ public class posHtmlMaker {
 	}
 
 	public HashMap<String, String> sellkeyhtmlMake(ArrayList<HashMap<String, Object>> skCatList) {
+		sb.append("<form action='#' method='post'>");
 		// 판매키 선택 버튼
 		sb.append("<tr>");
 		for (int i = 0; i < skCatList.size(); i++) {
@@ -46,36 +50,32 @@ public class posHtmlMaker {
 			boolean flag = true;
 			sb.append("<table id = '" + skc.get("SKC_CODE") + "' hidden = 'hidden' class ='sellKeyBasicTable'>");
 			sb.append("<tr><td>").append(skc.get("SKC_NAME")).append("</td></tr>");
-			for (int i = 0; i < x * y; i += x) { //x값 마다 줄바꿈 <tr>
+			for (int i = 0; i < x * y; i += x) { // x값 마다 줄바꿈 <tr>
 				sb.append("<tr>");
 				for (int j = i; j < i + x; j++) { // sellkey의 갯수 만큼 반복
 					flag = true;
 					for (int f = 0; f < skc_code.size(); f++) {
 						if (j == Integer.parseInt(String.valueOf(skc_code.get(f).get("SK_NUM"))) - 1) {
-							sb.append("<td onmouseup = 'setProInfo(this)' "
-									+ "data-pdc_date ='"+String.valueOf(skc_code.get(f).get("PDC_DATE"))+"' "
-									+ "data-pdc_code ='"+String.valueOf(skc_code.get(f).get("PDC_CODE"))+"' "
-									+ "data-pd_date = '"+String.valueOf(skc_code.get(f).get("PD_DATE"))+"' "
-									+ "data-pd_code = '"+String.valueOf(skc_code.get(f).get("PD_CODE"))+"' "
-											+ ">");
+							sb.append("<td onmouseup = 'setProInfo(this)' " + "data-pdc_date ='"
+									+ String.valueOf(skc_code.get(f).get("PDC_DATE")) + "' " + "data-pdc_code ='"
+									+ String.valueOf(skc_code.get(f).get("PDC_CODE")) + "' " + "data-pd_date = '"
+									+ String.valueOf(skc_code.get(f).get("PD_DATE")) + "' " + "data-pd_code = '"
+									+ String.valueOf(skc_code.get(f).get("PD_CODE")) + "' " + ">");
 							sb.append("<div>").append(skc_code.get(f).get("PD_NAME")).append("</div>");
-							sb.append("<div>").append(String.valueOf(skc_code.get(f).get("PD_PRICE"))).append("</div>");
-							sb.append("<div>").append("버튼").append("</div>");
+							sb.append("<div>").append(String.valueOf(skc_code.get(f).get("PD_PRICE"))).append("원"+"</div>");
+							sb.append("<div>").append("<input type= 'button' value='삭제' onclcick='del()'").append("</div>");
 							sb.append("</td>");
 							flag = false;
 							break;
 						}
 					}
 					if (flag) {
-						sb.append("<td onmouseup = 'setProInfo(this)' "
-								+ "data-pdc_date ='' "
-								+ "data-pdc_code ='' "
-								+ "data-pd_date = '' "
-								+ "data-pd_code = '' "
-										+ ">");
+						sb.append("<td onmouseup = 'setProInfo(this)' " + "data-pdc_date ='' " + "data-pdc_code ='' "
+								+ "data-pd_date = '' " + "data-pd_code = '' " + ">");
 						sb.append("<div>").append(j + 1).append("</div>");
 						sb.append("<div>").append(j + 1).append("</div>");
-						sb.append("<div>").append("버튼").append("</div>");
+						sb.append("<div>").append("<input type= 'button' value='삭제' onclick='del($(this))'")
+								.append("</div>");
 						sb.append("</td>");
 					}
 				}
@@ -83,8 +83,11 @@ public class posHtmlMaker {
 			sb.append("</tr>");
 			sb.append("<tr><td>").append("<input type = 'number' value = '" + skc.get("SKC_X") + "'>");
 			sb.append("<input type = 'number' value = '" + skc.get("SKC_Y") + "'>").append("</td></tr>");
+	
 			sb.append("</table>");
 		}
+		sb.append("<input type = 'button' value='저장'  oncilck='saveCategiriSellkey()'</input>");
+		sb.append("</form>");
 		hm.put("sellkeyList", sb.toString());
 		return hm;
 	}

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,15 +93,19 @@ public class PosRestController1 {
 		return hMap;
 	}
 
-	@RequestMapping(value = "/insertproduct", method = RequestMethod.GET)
-	public HashMap<String, String> insertProduct(StoreManagement sm, MultipartFile file) {
-	
-		return pm1.insertProduct(sm);
+	@RequestMapping(value = "/updatesellkey", method = RequestMethod.POST)
+	public String updateSellKey(@RequestParam HashMap<String, String> sm, HttpSession session) {
+
+		return pm1.updateSellKey(sm, session);
 	}
+
+	
+
 	@GetMapping("getProList")
 	public HashMap<String, String> getProList(HttpSession session) {
 		return pm1.getProList(session);
 	}
+
 	@GetMapping("getSellKeyCatList")
 	public HashMap<String, String> getProCatList(HttpSession session) {
 		return pm1.getSellKeyCatList(session);
