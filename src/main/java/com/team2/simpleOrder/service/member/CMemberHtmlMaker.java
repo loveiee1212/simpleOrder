@@ -80,12 +80,12 @@ public class CMemberHtmlMaker {
 		for (int i = 0 ; i < position.size(); i++) {
 			sb.append("<tr id = '"+position.get(i).get("PST_POSITION")+"'>");
 			sb.append("<td>").append("<input class ='pst_name' type = 'text' value ='"+position.get(i).get("PST_NAME")+"'>").append("</td>");
-			sb.append("<td>").append("<input type = 'button' value ='삭제' onclick = 'deletePosition(this)'>").append("</td>");
+			sb.append("<td>").append("<input type = 'button' value ='삭제' onclick = 'deletePosition(this)' class = 'positionDeleteClass'>").append("</td>");
 			sb.append("<td>").append("<input type = 'button' value ='저장' onclick = 'updatePosition(this)' class = 'positionUpdateClass'>").append("</td>");
 			sb.append("</tr>");
 		}
 		sb.append("<tr><td>").append("<input type = 'text' id='newPst_name' name='pst_name'>").append("</td>");
-		sb.append("<td colspan = '2'>").append("<input type ='button' value ='추가' onclick='createPosition()'>");
+		sb.append("<td colspan = '2'>").append("<input type ='button' value ='추가' onclick='createPosition()' class = 'positionAddClass'>");
 		sb.append("</tr>");
 		
 		return sb.toString();
