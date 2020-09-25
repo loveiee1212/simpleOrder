@@ -33,45 +33,49 @@ body {
 }
 
 .starR1 {
-    background: url(http://miuu227.godohosting.com/images/icon/ico_review.png) no-repeat -52px 0;
-    background-size: auto 100%;
-    width: 22px;
-    height: 40px;
-    float: left;
-    text-indent: -9999px;
-    cursor: pointer;
-    padding-left: 15px;
-    margin-left: -10px;
+	background:
+		url(http://miuu227.godohosting.com/images/icon/ico_review.png)
+		no-repeat -52px 0;
+	background-size: auto 100%;
+	width: 22px;
+	height: 40px;
+	float: left;
+	text-indent: -9999px;
+	cursor: pointer;
+	padding-left: 15px;
+	margin-left: -10px;
 }
 
 .starR2 {
-    background: url(http://miuu227.godohosting.com/images/icon/ico_review.png) no-repeat right 0;
-    background-size: auto 100%;
-    width: 22px;
-    height: 43px;
-    float: left;
-    text-indent: -9999px;
-    cursor: pointer;
-    margin-right: 1px;
-    margin-top: -2px;
+	background:
+		url(http://miuu227.godohosting.com/images/icon/ico_review.png)
+		no-repeat right 0;
+	background-size: auto 100%;
+	width: 22px;
+	height: 43px;
+	float: left;
+	text-indent: -9999px;
+	cursor: pointer;
+	margin-right: 1px;
+	margin-top: -2px;
 }
 
 .starR1.on {
-    background-position: 0 0;
-    width: 20px;
-    height: 40px;
-    margin-right: -15px;
-    margin-left: 10px;
+	background-position: 0 0;
+	width: 20px;
+	height: 40px;
+	margin-right: -15px;
+	margin-left: 10px;
 }
 
 .starR2.on {
-    background-position: -15px 0;
-    width: 15px;
-    height: 40px;
-    margin-left: -4px;
-    margin-right: -15px;
-    padding-right: 10px;
-    padding-left: 15px;
+	background-position: -15px 0;
+	width: 15px;
+	height: 40px;
+	margin-left: -4px;
+	margin-right: -15px;
+	padding-right: 10px;
+	padding-left: 15px;
 }
 
 #rv_text {
@@ -133,8 +137,8 @@ textarea:focus {
 }
 
 #main {
-	background-color: #e3f2fd; 
-	border : 3px solid #81d4fa;
+	background-color: #e3f2fd;
+	border: 3px solid #81d4fa;
 	margin: 10px;
 	border: 3px solid #81d4fa;
 }
@@ -151,17 +155,6 @@ textarea:focus {
 	text-decoration: none;
 	font-family: verdana;
 	font-style: italic;
-}
-
-.filebox input[type="file"] {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	border: 0;
 }
 
 #image_container img {
@@ -199,15 +192,15 @@ textarea:focus {
 	float: left;
 }
 
-@media ( max-width: 480px ) {
-        #frame {
-          width: auto;
-        }
-        #main {
-          float: none;
-          width: auto;
-        }
-    }
+@media ( max-width : 480px ) {
+	#frame {
+		width: auto;
+	}
+	#main {
+		float: none;
+		width: auto;
+	}
+}
 </style>
 </head>
 <body>
@@ -225,12 +218,9 @@ textarea:focus {
 							class="starR1">6</span> <span class="starR2">7</span> <span
 							class="starR1">8</span> <span class="starR2">9</span>
 					</div>
-					<div class="filebox bs3-primary preview-image">
-						<div class="image" id="image_container"></div>
-						<label for="input_file">업로드</label> <input type="file"
-							id="input_file" class="upload-hidden" accept="image/*"
-							onchange="setThumbnail(event);" maxlength="3" multiple>
-					</div>
+					<div class="image" id="image_container"></div>
+					<input type="hidden" id="fileCheck" value="0"> <input
+						type="file" id="rv_file" name="rv_file" value="rv_file" multiple>
 					<br>
 					<textarea name="rv_text" id="rv_text" cols="80" rows="22"
 						placeholder="리뷰입력"></textarea>
@@ -254,30 +244,53 @@ textarea:focus {
 			console.log($('#rv_score').val())
 			return false;
 		});
+		$('#rv_file').on('change', function() {
+			console.dir(this);
+			console.dir(this.value);
+			if ($(this).val() == '') {
+				console.log("empty");
+				$('#fileCheck').val(0); //첨부 안됨
+			} else {
+				console.log("not empty");
+				$('#fileCheck').val(1); //첨부됨
+			}
+			console.log("check" + $('#fileCheck').val()); //1
+		});
 
 		function reviewWrite() {
 			var rv_file = $("#rv_file");
 			console.log(rv_file);
 			console.dir(rv_file[0].files);
 			console.dir(rv_file[0].files.length);
-			var reviewData = new FormData();
-		}
+			for (var i = 0; i < rv_file[0].files.length; i++) {
+				console.dir(rv_file[0].files[i]);
 
-		function setThumbnail(event) { 
-			for (var image of event.target.files) {
-				var reader = new FileReader(); 
-				reader.onload = function(event) { 
-					var img = document.createElement("img"); 
-					img.setAttribute("src", event.target.result); 
-					document.querySelector("div#image_container").appendChild(img);
-					}; 
-					console.log(image); 
-					reader.readAsDataURL(image); 
-					} 
 			}
-		
-		
-
+			console.log($("#rv_score").val());
+			console.log($("#rv_text").val());
+			var reviewData = new FormData();
+			reviewData.append("rv_score", $("#rv_score").val());
+			for (var i = 0; i < rv_file[0].files.length; i++) {
+				console.dir(rv_file[0].files[i]);
+				reviewData.append("rv_files", rv_file[0].files[i]);
+			}
+			reviewData.append("fileCheck", $('#fileCheck').val());
+			reviewData.append("rv_text", $("#rv_text").val());
+			$.ajax({
+				url : 'rest/insertreview',
+				type : 'post',
+				data : reviewData,
+				processData : false,
+				contentType : false,
+				dataType : 'json',
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(error) {
+					console.log(error);
+				}
+			});
+		}
 	</script>
 </body>
 </html>
