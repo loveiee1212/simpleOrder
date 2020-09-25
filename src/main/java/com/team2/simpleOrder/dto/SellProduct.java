@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @Alias("sellProduct")
 public class SellProduct {
-	private int skc_code;
+	private String skc_code;
 	private String pdc_code;
 	private String pdc_date;
 	private String pd_code;

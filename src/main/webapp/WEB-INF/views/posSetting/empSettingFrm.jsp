@@ -7,14 +7,116 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>empSettingFrm</title>
+<style>
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+#cListOption {
+	text-align: center;
+	border: 3px solid #81d4fa;
+	width: 350px;
+	height: 70px;
+	margin-left: 50px;
+	margin-top: 15px;
+	background-color: white;
+	font-weight: bold;
+	color: #81d4fa;
+	font-size: 25px;
+}
+
+#empList {
+    width: 800px;
+    height: 400px;
+    border: 3px solid #81d4fa;
+    overflow: auto;
+    background-color: white;
+    text-align: center;
+    font-size: 19px;
+    margin: 20px 50px;
+    font-weight: bold;
+}
+
+#empList th {
+	font-size: 20px;
+	background-color: #81d4fa;
+	color: white;
+}
+
+#frm table {
+	width: 600px;
+	height: 250px;
+	margin: 0px 0px 0 80px;
+}
+
+#frm th {
+	width: 200px;
+	height: 30px;
+	font-size: 20px;
+	margin: 10px 100px;
+}
+
+input[type="text" i] {
+	width: 300px;
+	height: 30px;
+	font-size: 20px;
+	text-align: center;
+	margin: 10px 30px;
+	border: 3px solid #81d4fa;
+}
+
+select {
+    width: 310px;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    margin: 10px 30px;
+    border: 3px solid #81d4fa;
+}
+
+#addORupdate {
+    text-align: center;
+    border: 2px solid white;
+    width: 310px;
+    height: 70px;
+    margin-left: 30px;
+    margin-top: -2px;
+    background-color: #81d4fa;
+    font-weight: bold;
+    color: white;
+    font-size: 25px;
+}
+
+#delect {
+	text-align: center;
+	border: 3px solid #81d4fa;
+	width: 310px;
+    height: 70px;
+	margin-left: 30px;
+    margin-top: -2px;
+	background-color: white;
+	font-weight: bold;
+	color: #81d4fa;
+	font-size: 25px;
+}
+</style>
 </head>
 <body>
-	<h2>empSettingFrm</h2>
 	<input type="button" onclick="fireEmpList(this)" value="퇴사자 목록"
 		id="cListOption">
 	<table id="empList">
 	</table>
-	<form name="empSettingForm" action=null method="post">
+	<form name="empSettingForm" action=null id="frm" method="post">
 		<input id="method" type="hidden" name="_method" value="null">
 		<table>
 			<tr>
@@ -97,11 +199,11 @@
 
 	}
 	function fireEmpInfo() { // form 엑션 변경 후 서브밋 (해고)
-	if(confirm("직원을 해고시키시겠습니까? 한번 해고된 직원 데이터는 복직으로 돌리수없습니다.")){
-		$("#method").val("patch");
-		empSettingForm.action = 'fireEmpInfo';
-		empSettingForm.submit();
-	}
+		if (confirm("직원을 해고시키시겠습니까? 한번 해고된 직원 데이터는 복직으로 돌리수없습니다.")) {
+			$("#method").val("patch");
+			empSettingForm.action = 'fireEmpInfo';
+			empSettingForm.submit();
+		}
 	}
 
 	function getEmpList(status) { // 세션의 저장된 사업체 코드로 직원의 목록 출력

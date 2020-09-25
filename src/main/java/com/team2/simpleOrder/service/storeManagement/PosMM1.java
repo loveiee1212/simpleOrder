@@ -9,8 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.team2.simpleOrder.dao.posManagement.IPosDao1;
 import com.team2.simpleOrder.dto.Order;
 import com.team2.simpleOrder.dto.StoreManagement;
@@ -82,6 +84,7 @@ public class PosMM1 {
 				sb.append("<td>" + sm.getPd_name() + "</td>");
 				sb.append("<td>" + sm.getPd_date() + "</td>");
 				sb.append("<td>" + sm.getStk_stock() + "개</td>");
+				sb.append("<input type= 'hidden'" + sm.getStk_stock() + "개</input>");
 				sb.append("</tr>");
 			}
 		} else {
@@ -225,11 +228,6 @@ public class PosMM1 {
 		return hMap;
 	}
 
-	public HashMap<String, String> insertProduct(StoreManagement sm) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public HashMap<String, String> getProList(HttpSession session) {
 		posHtmlMaker phm = new posHtmlMaker(); // htmlmaker 생성
 		ArrayList<HashMap<String, Object>> apl = pDao1.getProList(session.getAttribute("c_code").toString());
@@ -247,13 +245,14 @@ public class PosMM1 {
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("proList", phm.makeProListHtml(apl));
 		return hm;
-		
+
 	}
 
 	public HashMap<String, String> getSellKeyCatList(HttpSession session) {
 		posHtmlMaker phm = new posHtmlMaker();
-		ArrayList<HashMap<String, Object>> skCatList = pDao1.getSellKeyCatList(session.getAttribute("c_code").toString());
-		for(int i = 0; i < skCatList.size(); i++) {
+		ArrayList<HashMap<String, Object>> skCatList = pDao1
+				.getSellKeyCatList(session.getAttribute("c_code").toString());
+		for (int i = 0; i < skCatList.size(); i++) {
 			String c_code = skCatList.get(i).get("C_CODE").toString();
 			String skc_code = skCatList.get(i).get("SKC_CODE").toString();
 			HashMap<String, String> hm = new HashMap<String, String>();
@@ -263,4 +262,35 @@ public class PosMM1 {
 		}
 		return phm.sellkeyhtmlMake(skCatList);
 	}
+
+	public String updateSellKey(HashMap<String, String> sm, HttpSession session) {
+		sm.put("c_code", session.getAttribute("c_code").toString());
+		boolean result = pDao1.updateSellKey(sm);
+		System.out.println(result);
+		if (result) {
+			
+		}
+		return null;
+	}
+
+	/*
+	 * public HashMap<String, String> insertProduct(HttpSession session,
+	 * StoreManagement sm, String pd_code, String pd_date, String pd_name, int
+	 * pd_price, String pd_imagename, int pd_status, String stk_stock) {
+	 * 
+	 * sm.setPd_code(pd_code); sm.setPd_date(pd_date); sm.setPd_name(pd_name);
+	 * sm.setPd_price(pd_price); sm.setPd_imagename(pd_imagename);
+	 * sm.setPd_status(pd_status); sm.setStk_stock(stk_stock); // 수정 신규등록 확인
+	 * HashMap<String, String> hMap = new HashMap<String, String>();
+	 * 
+	 * if (sm.getPd_code() == "") { sm.setPd_code(null); } if (sm.getStk_stock() ==
+	 * "") { sm.setStk_stock(null); } if (sm.getPd_code() == null) {
+	 * List<StoreManagement> cnt = pDao1.getSellProductList1(session); boolean
+	 * result = false; boolean memoresult = false;
+	 * 
+	 * switch (cnt) { case 0: System.out.println("1111"); break; } } else if
+	 * (sm.getPd_code() != null) {
+	 * 
+	 * } return hMap; }
+	 */
 }

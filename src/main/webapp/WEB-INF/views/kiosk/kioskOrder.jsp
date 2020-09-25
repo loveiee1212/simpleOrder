@@ -116,7 +116,6 @@ i {
 }
 
 .pd_name {
-	
 	font-size: 20px;
 	font-weight: bolder;
 }
@@ -160,19 +159,7 @@ tr, td {
 			//판매키 카테고리 네비바 html삽입
 			$('#header_nav').html(data.sellCtList);
 			//판매키 카테고리 html삽입
-			$('#sellProList').html(data.sellProCtList);
-			//판매키 카테고리에 class준거 차례대로 배열에 담기
-			var pList = document.getElementsByClassName('pList');
-			//판매키에 담긴 상품리스트 반복문
-			for (var i = 0; i < data.pList.length; i++) {
-				//판매키 카테고리에 class준거 반복문
-				for (var j = 0; j < pList.length; j++) {
-					//판매키 카테고리코드(상품 카테고리 코드) 와 상품리스트(상품 카테고리 코드) 값이 같은 곳에 삽입
-					if (i == j) {
-						$(".pList").eq(i).append(data.pList[j]);
-					}
-				}
-			}
+			$('#sellProList').html(data.sellProList);
 			var pd_price = $('.pd_price');
 			for (var i = 0; i < pd_price.length; i++) {
 				var price = pd_price[i].innerText;
@@ -221,62 +208,34 @@ tr, td {
 	<div id="bill"></div>
 </body>
 <script type="text/javascript">
-	//주문하기
-	function order() {
-		if (confirm("주문 하시겠습니까?")) {
+	// 장바구니 모달창 띄우기
+	$('#basket_open_btn').on('click', function() {
+		//모달창 열기
+		modal('basket');
+	});
 
-			console.log($('#bBody').children().length);
-			if ($('#bBody').children().length === 0) {
-				alert("주문목록이 없습니다");
-				return false;
-
+	// 계산서 모달창 띄우기
+	$('#bill_open_btn').on('click', function() {
+		$.ajax({
+			url : 'rest/getbilllist',
+			type : 'post',
+			dataType : 'json',
+			success : function(data) {
+				//계산서 html 삽입
+				$('#bill').html(data.bill);
+				//모달창 열기
+				modal('bill');
+			},
+			error : function(err) {
+				console.log(err);
 			}
-			var bsk_pdc_code = $('.bsk_pdc_code');
-			var bsk_pdc_date = $('.bsk_pdc_date');
-			var bsk_pd_code = $('.bsk_pd_code');
-			var bsk_pd_date = $('.bsk_pd_date');
-			var bsk_oh_cnt = $('.bsk_oh_cnt');
-			var bskArr = new Array();
-			for (var i = 0; i < bsk_pdc_code.length; i++) {
-				var obj = new Object();
-				console.log(bsk_pdc_code[i].innerText);
-				console.log(bsk_pdc_date[i].innerText);
-				console.log(bsk_pd_code[i].innerText);
-				console.log(bsk_pd_date[i].innerText);
-				console.log(bsk_oh_cnt[i].innerText);
-				obj.pdc_code = bsk_pdc_code[i].innerText;
-				obj.pdc_date = bsk_pdc_date[i].innerText;
-				obj.pd_code = bsk_pd_code[i].innerText;
-				obj.pd_date = bsk_pd_date[i].innerText;
-				obj.oh_cnt = bsk_oh_cnt[i].innerText;
-				bskArr.push(obj);
-			}
-			for (var i = 0; i < bskArr.length; i++) {
-				console.log(bskArr[i]);
-			}
-			var bArr = JSON.stringify(bskArr);
-			$.ajax({
-				url : 'rest/insertorder',
-				type : 'post',
-				data : bArr,
-				dataType : 'json',
-				contentType : "application/json; charset=UTF-8",
-				success : function(data) {
-					console.log(data);
-					//return 가져온 데이터로 location.href 해주면 됨
-					location.href = data;
-				},
-				error : function(err) {
-					console.log(err);
-				}
-			});
-		}
-	}
+		});
+	});
 	function modal(id) {
 		var zIndex = 9999;
 		var modal = $('#' + id);
 
-		// 모달 div 배경 레이어
+		// 모달 div 배경 레이어 생성
 		var bg = $('<div>').css({
 			position : 'fixed',
 			zIndex : zIndex,
@@ -285,7 +244,7 @@ tr, td {
 			width : '100%',
 			height : '100%',
 			overflow : 'auto',
-			// 레이어 색갈은 여기서 바꾸면 됨
+			// 레이어 색깔은 여기서 바꾸면 됨
 			backgroundColor : 'rgba(0,0,0,0.4)'
 		}).appendTo('body');
 
@@ -318,29 +277,6 @@ tr, td {
 
 	}
 
-	// 장바구니 모달창 띄우기
-	$('#basket_open_btn').on('click', function() {
-		//모달창 열기
-		modal('basket');
-	});
-
-	// 계산서 모달창 띄우기
-	$('#bill_open_btn').on('click', function() {
-		$.ajax({
-			url : 'rest/getbilllist',
-			type : 'post',
-			dataType : 'json',
-			success : function(data) {
-				//계산서 html 삽입
-				$('#bill').html(data.bill);
-				//모달창 열기
-				modal('bill');
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		});
-	});
 	function orderLoading() {
 		//상품 클릭
 		$('.detail_body').on(
@@ -450,7 +386,7 @@ tr, td {
 			bskSum();
 		}
 	}
-	//장바구니 가격이랑 개수 합치기
+	//장바구니 안에 있는 상품 가격이랑 개수 합치기
 	function bskSum() {
 		var bsk_pd_price = $('.bsk_pd_price');
 		var bsk_oh_cnt = $('.bsk_oh_cnt');
@@ -476,6 +412,51 @@ tr, td {
 			console.log(sum + "원");
 			$('#bskText').text("장바구니가 비어있습니다!");
 
+		}
+	}
+	//주문하기
+	function order() {
+		if (confirm("주문 하시겠습니까?")) {
+			console.log($('#bBody').children().length);
+			if ($('#bBody').children().length === 0) {
+				alert("주문목록이 없습니다");
+				return false;
+			}
+			//class 이름별로 변수에 담아서 풀어주기
+			var bsk_pdc_code = $('.bsk_pdc_code');
+			var bsk_pdc_date = $('.bsk_pdc_date');
+			var bsk_pd_code = $('.bsk_pd_code');
+			var bsk_pd_date = $('.bsk_pd_date');
+			var bsk_oh_cnt = $('.bsk_oh_cnt');
+			var bskArr = new Array();
+			for (var i = 0; i < bsk_pdc_code.length; i++) {
+				var obj = new Object();
+				obj.pdc_code = bsk_pdc_code[i].innerText;
+				obj.pdc_date = bsk_pdc_date[i].innerText;
+				obj.pd_code = bsk_pd_code[i].innerText;
+				obj.pd_date = bsk_pd_date[i].innerText;
+				obj.oh_cnt = bsk_oh_cnt[i].innerText;
+				bskArr.push(obj);
+			}
+			for (var i = 0; i < bskArr.length; i++) {
+				console.log(bskArr[i]);
+			}
+			var bArr = JSON.stringify(bskArr);
+			$.ajax({
+				url : 'rest/insertorder',
+				type : 'post',
+				data : bArr,
+				dataType : 'json',
+				contentType : "application/json; charset=UTF-8",
+				success : function(data) {
+					console.log(data);
+					//return 가져온 데이터로 location.href 해주면 됨
+					location.href = data;
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			});
 		}
 	}
 </script>

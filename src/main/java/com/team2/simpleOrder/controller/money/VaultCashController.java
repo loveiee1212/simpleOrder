@@ -34,13 +34,9 @@ public class VaultCashController {
 	public ModelAndView endVC(HttpSession session) {
 		
 		return vcm.checkEndVC(session);
-	}
-	
-	@RequestMapping("/checkstartvc")
-	public String checkStartVC(HttpSession session) throws Exception {
-		
-		return vcm.checkStartVC(session);
-	}
 
+		
+		
+	}
 
 }

@@ -12,12 +12,14 @@ div#one, #two {
 	border: 1px solid black;
 	float: left;
 }
-table,td,tr,th{
-border: 1px solid black;
+
+table, td, tr, th {
+	border: 1px solid black;
 }
-td{
-width: 100px;
-height: 100px;
+
+td {
+	width: 100px;
+	height: 100px;
 }
 </style>
 <meta charset="UTF-8">
@@ -26,9 +28,9 @@ height: 100px;
 <body>
 	<h2>storeManagement</h2>
 	<div id="one">
-	<table id="proCategoriList">
-	
-	</table>
+		<table id="proCategoriList">
+			<form action='updatesellkey' method='post'>
+		</table>
 	</div>
 	<div id="two">
 		<table id="proList"></table>
@@ -39,26 +41,26 @@ height: 100px;
 	let flag = false;
 	getProCatList();
 	getProList();
-	
+
 	let pdc_date = "";
 	let pdc_code = "";
 	let pd_date = "";
 	let pd_code = "";
 	let pd_name = "";
 	let pd_price = "";
-	
-	function setProInfo(ele){
-		if(flag){
-		ele.dataset.pdc_date = pdc_date;
-		ele.dataset.pdc_code = pdc_code;
-		ele.dataset.pd_date = pd_date;
-		ele.dataset.pd_code = pd_code;
-		ele.childNodes[0].innerHTML = pd_name;
-		ele.childNodes[1].innerHTML = pd_price;
-		flag = false;
+
+	function setProInfo(ele) {
+		if (flag) {
+			ele.dataset.pdc_date = pdc_date;
+			ele.dataset.pdc_code = pdc_code;
+			ele.dataset.pd_date = pd_date;
+			ele.dataset.pd_code = pd_code;
+			ele.childNodes[0].innerHTML = pd_name;
+			ele.childNodes[1].innerHTML = pd_price;
+			flag = false;
 		}
 	}
-	function getProInfo(ele){
+	function getProInfo(ele) {
 		pd_name = ele.childNodes[0].innerHTML;
 		pd_price = ele.childNodes[1].innerHTML;
 		flag = true;
@@ -67,10 +69,10 @@ height: 100px;
 		pd_date = ele.dataset.pd_date;
 		pd_code = ele.dataset.pd_code;
 	}
-	function selectSKC(ele){
+	function selectSKC(ele) {
 		let selectId = ele.parentNode.dataset.skc_code;
-		$(".sellKeyBasicTable").attr("hidden","hidden");
-		$("#"+selectId).removeAttr("hidden");
+		$(".sellKeyBasicTable").attr("hidden", "hidden");
+		$("#" + selectId).removeAttr("hidden");
 	}
 	function getProList() {
 		$.ajax({

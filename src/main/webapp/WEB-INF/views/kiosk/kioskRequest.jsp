@@ -8,7 +8,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>kioskRequest</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
+#frame {
+	width: 568px;
+	height: auto;
+	margin: auto;
+}
+
+#header {
+	border: 3px solid #e3f2fd;;
+	background-color: #e0e0e0;
+	margin: 10px;
+	height: 80px;
+	margin: 10px;
+}
+
+.req {
+	width: 150px;
+	height: 100px;
+	border: solid 1px black;
+	float: left;
+	margin: 10px;
+}
+
+#requestList {
+	margin: 20px;
+	border: solid 1px black;
+	height: 380px;
+}
 </style>
 </head>
 <script>
@@ -26,9 +55,32 @@
 	});
 </script>
 <body>
-	<h2>kioskRequest.jsp</h2>
-	<div id="requestList"></div>
-	<button>요청하기</button>
-
+	<div id="frame">
+		<div id="header">광고&로고</div>
+		<div id="main">
+			<div id="requestList">
+			</div>
+			 <form action="requestcall" method="post" target="_blank">
+                <input type="text" id="text" name="text">
+                <button id="reqBtn">요청하기</button>
+            </form>
+			<button onclick="empCall();">직원호출</button>
+			<button onclick="location.href='kioskreview'">나가기</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function reqClick(req) {
+			console.log();
+          var request=req.innerText;
+          $('#text').val(request+" 요청");
+          $('#reqBtn').trigger('click');
+          $('#text').val("");
+		}
+      function empCall(){
+          $('#text').val("직원호출");
+          $('#reqBtn').trigger('click');
+          $('#text').val("");
+      }
+	</script>
 </body>
 </html>
