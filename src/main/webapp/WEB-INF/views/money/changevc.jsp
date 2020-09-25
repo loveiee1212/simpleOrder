@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?afte"
-	type="text/css">
-<title>시재 - SimpleOrder</title>
+<title>SimpleOrder-시제변경</title>
 <style>
 #cashZone {
 	border: 1px solid #81d4fa;
@@ -194,129 +189,6 @@ td.leftTd input {
 		</div>
 	</div>
 </body>
-
-<script type="text/javascript">
-	//시재 작업
-
-	$(document).ready(function() {
-		if ("${vc_status}" == "start") {
-			$("#insertVC").text("시작시재입력");
-			$("#insertVC").attr("onclick", "insertStartVC()");
-		}
-
-		if ("${vc_status}" == "end") {
-			getStartVC();
-			//getCashSales();
-			getDiff();
-			$("#insertVC").text("마감시재입력");
-			$("#insertVC").attr("onclick", "insertEndVC()");
-		}
-
-		if ("${vc_status}" == "theEnd") {
-			getStartVC();
-			//getCashSales();
-			getEndVC();
-			getDiff();
-			alert("영업이 종료되었습니다.");
-		}
-	})
-
-	//시작시재 입력하기
-	function insertStartVC() {
-		var arr = new Array();
-
-		for (var i = 0; i < $(".num").length; i++) {
-			var obj = new Object();
-			obj.cu_code = $(".num").eq(i).attr("id");
-			obj.vcd_cnt = $(".num").eq(i).val();
-			if (obj.vcd_cnt != "") {
-				arr.push(obj);
-			}
-		}
-		var jArr = JSON.stringify(arr);
-
-		$.ajax({
-			type : "post",
-			url : "rest/insertstartvc",
-			data : jArr,
-			contentType : "application/json; charset=UTF-8",
-			dataType : "json",
-			success : function(data) {
-				if (data == "success") {
-					alert("시제가 입력되었습니다.");
-					location.href = "sellpage";
-				} else if (data == "error") {
-					alert("시제입력에 실패했습니다.");
-				}
-			}
-		});
-	}
-
-	//마감시재 입력하기
-	function insertEndVC() {
-		if (confirm("마감하시겠습니까?")) {
-			var arr = new Array();
-
-			for (var i = 0; i < $(".num").length; i++) {
-				var obj = new Object();
-				obj.cu_code = $(".num").eq(i).attr("id");
-				obj.vcd_cnt = $(".num").eq(i).val();
-				if (obj.vcd_cnt != "") {
-					arr.push(obj);
-				}
-			}
-			var jArr = JSON.stringify(arr);
-
-			$.ajax({
-				type : "post",
-				url : "rest/insertendvc",
-				data : jArr,
-				contentType : "application/json; charset=UTF-8",
-				dataType : "json",
-				success : function(data) {
-					if (data == "success") {
-						alert("마감이 완료되었습니다");
-					} else if (data == "error") {
-						alert("마감이 실패했습니다.");
-					}
-				}
-			});
-		}
-	}
-
-	//시작시재 불러오기
-	function getStartVC() {
-		$.ajax({
-			type : "get",
-			url : "rest/getstartvc",
-			dataType : "json",
-			success : function(data) {
-				$("#differenceSC").text(data);
-			}
-		});
-	}
-
-	//현금매출 불러오기
-	function getCashSales() {
-		
-	}
-
-	//마감시재 불러오기
-	function getEndVC() {
-		$.ajax({
-			type : "get",
-			url : "rest/getendvc",
-			dataType : "json",
-			success : function(data) {
-				$("#differenceEC").text(data);
-			}
-		});
-	}
-	
-	function getDiff() {
-		$("#difference").text(($("#differenceSC").text() + $("#cash").text())-$("#differenceEC").text());
-	}
-</script>
 
 <script type="text/javascript">
 	//시제 계산
