@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team2.simpleOrder.dao.money.ICreditDao">
+	<select id="getcreditList" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT OAC.C_CODE,OAC.BD_DATE,OAC.OAC_NUM,CRD_CODE,CRD_NAME,CRD_PHONE,CRD_DATE,PD_PRICE*OH_CNT AS TOTALPRICE
+FROM CREDIT AS CRD JOIN ORDER_AND_CREDIT AS OAC JOIN PRODUCT AS PD RIGHT OUTER JOIN ORDER_HISTORY AS OH 
+ON CRD.OAC_NUM = OAC.OAC_NUM AND CRD.BD_DATE = OAC.BD_DATE AND CRD.C_CODE = OAC.C_CODE AND OH.OAC_NUM = OAC.OAC_NUM AND OH.BD_DATE = OAC.BD_DATE AND PD.PD_CODE = OH.PD_CODE AND PD.PDC_CODE = OH.PDC_CODE
+WHERE CRD.C_CODE = #{c_code} AND OAC.OAC_STATUS= #{oac_status} AND PD_STATUS = 1
+GROUP BY OH.BD_DATE,OH.OAC_NUM;
+	</select>
+</mapper>

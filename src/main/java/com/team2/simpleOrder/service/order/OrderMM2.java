@@ -85,11 +85,8 @@ public class OrderMM2 {
 				hMap.put("st_num", st_num);
 				hMap.put("oac_num", oac_num);
 				log.info(hMap);
-				if (!oDao.createoacList(hMap)) {
-					log.info("!");
-					return "errorSellpage";
-				}
-			}
+				if (!oDao.createoacList(hMap)){
+					return "errorSellpage";}}
 
 			for (int i = 0; i < pdc_code.size(); i++) {
 				System.out.println(pd_code.get(i));
@@ -103,18 +100,12 @@ public class OrderMM2 {
 				oacInfo.put("pd_date", pd_date.get(i));
 				oacInfo.put("oh_cnt", oh_cnt.get(i));
 				oacInfo.put("oac_num", oac_num);
-				log.info("oacInfo" + oacInfo);
 				if (!oDao.sendsaoList(oacInfo)) {
-					log.info("noinsert");
-					return "errorSellpage";
-				}
-			}
-			return "sellpage";
-		} catch (Exception e) {
+					return "errorSellpage";}}
+			return "sellpage";} 
+		catch (Exception e) {
 			System.out.println(e);
-			return "errorSellpage";
-		}
-	}
+			return "errorSellpage";}}
 
 //	@Transactional
 //	public HashMap<String, String> sendsaoList(HttpSession session, String oac_num, List<String> pdc_code,

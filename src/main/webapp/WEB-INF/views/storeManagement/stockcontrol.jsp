@@ -337,34 +337,39 @@ tr, td {
 	//재고 수정 업데이트
 	function updateStock() {
 
-		console.log($("#p_code0").data("code"));
+		console.log($("#pd_code0").data("code"));
 		var pdArray = [];
 		var pdcArray = [];
 		var pdnArray = [];
 		var stkArray = [];
-		var $pcode = $("input[name='p_code']");
-		var $stock = $("input[name='stk_stock']");
-		var $pname = $("input[name='pd_name']");
-		for (var i = 0; i < $pcode.length; i++) {
-			pdArray.push($("#p_code" + i).val());
+		var $pdcode = $("input[name='pd_code']");
+		var $pdname = $("input[name='pd_name']");
+		
+		for (var i = 0; i < $pdcode.length; i++) {
+			pdArray.push($("#pd_code" + i).val());
 		}
-		for (var i = 0; i < $pcode.length; i++) {
+		
+		for (var i = 0; i < $pdcode.length; i++) {
 			console.log("input[]")
-			if ($("#p_code" + i).data("code") < 10) {
-				pdcArray.push("0" + $("#p_code" + i).data("code"));
+			if ($("#pd_code" + i).data("code") < 10) {
+				pdcArray.push("0" + $("#pd_code" + i).data("code"));
 			} else {
-				pdcArray.push($("#p_code" + i).data("code"));
-			}
-		}
-		for (var i = 0; i < $pcode.length; i++) {
-			console.log("input[]")
-			if ($("#stk_stock" + i).data("code") < 10) {
-				pdcArray.push("0" + $("#stk_stock" + i).data("code"));
-			} else {
-				pdcArray.push($("#stk_stock" + i).data("code"));
+				pdcArray.push($("#pd_code" + i).data("code"));
 			}
 		}
 		
+		for (var i = 0; i < $pdname.length; i++) {
+			pdnArray.push($("#pd_name" + i).val());
+		}
+		
+		for (var i = 0; i < $pdname.length; i++) {
+			console.log("input[]")
+			if ($("#pd_name" + i).data("code") < 10) {
+				pdnArray.push("0" + $("#pd_name" + i).data("code"));
+			} else {
+				stkArray.push($("#pd_name" + i).data("code"));
+			}
+		}
 
 		console.log(pdArray);
 		console.log(pdcArray);
@@ -375,7 +380,7 @@ tr, td {
 			"pdc_code" : pdcArray,
 			"pd_code" : pdArray,
 			"pd_name" : pdnArray,
-			"stk_stock" : stkArray
+			"stk_stock" : stkArray,
 		}
 
 		$.ajax({
