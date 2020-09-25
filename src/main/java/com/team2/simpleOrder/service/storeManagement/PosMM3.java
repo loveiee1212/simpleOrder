@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dao.posManagement.IPosDao1;
-import com.team2.simpleOrder.dao.posManagement.IPosDao2;
+import com.team2.simpleOrder.dao.posManagement.ITableDao2;
 import com.team2.simpleOrder.dao.posManagement.IPosDao3;
 import com.team2.simpleOrder.dto.StoreManagement;
 
@@ -17,7 +17,7 @@ public class PosMM3 {
 	private IPosDao1 pDao1;
 	
 	@Autowired
-	private IPosDao2 pDao2;
+	private ITableDao2 pDao2;
 	
 	@Autowired
 	private IPosDao3 pDao3;

@@ -54,8 +54,8 @@ public class KioskLoginHtmlMaker {
 
 	public HashMap<String, String> requestList(ArrayList<HashMap<String, Object>> requsetList) {
 		for (HashMap<String, Object> req : requsetList) {
-			sb.append("<div>");
-			sb.append("<input type = 'text' name ='" + "RQ_NUM" +"' value ='" + req.get("RQ_KIND") + "' >");
+			sb.append("<div class = 'reqDivList'>");
+			sb.append("<input class = 'requestList' type = 'text' name ='" + req.get("RQ_NUM") +"' value ='" + req.get("RQ_KIND") + "' >");
 			sb.append("</div>");
 		}
 		hm.put("reqList", sb.toString());

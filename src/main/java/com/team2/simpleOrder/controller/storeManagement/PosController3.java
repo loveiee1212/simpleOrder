@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.service.storeManagement.PosMM1;
-import com.team2.simpleOrder.service.storeManagement.PosMM2;
+import com.team2.simpleOrder.service.storeManagement.TableMM2;
 import com.team2.simpleOrder.service.storeManagement.PosMM3;
 
 
@@ -20,7 +20,7 @@ public class PosController3 {
 	PosMM1 pm1;
 	
 	@Autowired
-	PosMM2 pm2;
+	TableMM2 pm2;
 	
 	@Autowired
 	PosMM3 pm3;

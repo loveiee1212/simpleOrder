@@ -1,12 +1,17 @@
 package com.team2.simpleOrder.service.kiosk;
 
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.simpleOrder.dao.kiosk.KioskLoginAndSettingDao;
@@ -58,9 +63,27 @@ public class KioskLoginAndSettingMM {
 		return klhm.requestList(kDao.getRequsetList(c_code));
 	}
 
+	@Transactional
 	public String updateRequestList(HashMap<String, String> reqList, HttpSession session, RedirectAttributes reat) {
-			System.out.println(reqList.keySet());
-		return null;
+		try{
+			HashMap<String, String>	hm = new HashMap<String, String>();
+			Set<String> rq_numset = reqList.keySet();
+			Iterator<String> rq_numlist = rq_numset.iterator();
+			kDao.deleteAllRequsetList(session.getAttribute("c_code").toString());
+			while(rq_numlist.hasNext()) {
+				String rq_num= rq_numlist.next();
+				hm.put("c_code", session.getAttribute("c_code").toString());
+				hm.put("rq_num", rq_num);
+				hm.put("rq_kind", reqList.get(rq_num));
+				kDao.insertRequset(hm);
+			}
+			reat.addFlashAttribute("basicPath","includeAjax('requestListSettingFrm')");
+			return "redirect:/kioskSettingFrm";
+		}catch (Exception e) {
+			System.err.println(e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return "redirect:/kioskSettingFrm";
+		}
 	}
 
 }

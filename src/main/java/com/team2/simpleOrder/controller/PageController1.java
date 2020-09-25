@@ -78,9 +78,13 @@ public class PageController1 {
 	public String kioskQrCodeListFrm() {
 		return "kioskSetting/kioskQrCodeListFrm";
 	}
-	@RequestMapping("/requsetListSettingFrm")
+	@RequestMapping("/requestListSettingFrm")
 	public String requsetListSettingFrm() {
-		return "kioskSetting/requsetListSettingFrm";
+		return "kioskSetting/requestListSettingFrm";
+	}
+	@RequestMapping("/seatSettinFrm")
+	public String seatSettinFrm() {
+		return "posSetting/seatSettinFrm";
 	}
 	
 	@RequestMapping("/test")

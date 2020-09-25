@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dto.StoreManagement;
 import com.team2.simpleOrder.service.storeManagement.PosMM1;
-import com.team2.simpleOrder.service.storeManagement.PosMM2;
+import com.team2.simpleOrder.service.storeManagement.TableMM2;
 import com.team2.simpleOrder.service.storeManagement.PosMM3;
 
 
@@ -39,11 +39,6 @@ public class PosController1 {
 	 * 
 	 * mav=pm1.insertProduct(sm); return mav; }
 	 */
-	@Autowired
-	PosMM2 pm2;
-	
-	@Autowired
-	PosMM3 pm3;
 	
 
 }
