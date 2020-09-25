@@ -6,7 +6,7 @@
 <mapper namespace="com.team2.simpleOrder.dao.money.IVaultCashDao">
 	
 	<!-- 영업일 입력 -->
-	<insert id="insertBd_date" parameterType="string">
+	<insert id="insertBd_date" parameterType="hashmap">
 		INSERT INTO BUSINESS_DAY (C_CODE,BD_DATE) VALUES (#{c_code},#{bd_date})
 	</insert>
 	
@@ -25,7 +25,15 @@
 		SELECT SUM(D.VCD_CNT*U.CU_UNIT) AS STARTVC
 		FROM VC_DETAIL AS D INNER JOIN VAULT_CASH AS C ON D.C_CODE = C.C_CODE AND D.BD_DATE = C.BD_DATE AND D.VC_CODE =C.VC_CODE
 			INNER JOIN CASH_UNIT AS U ON D.CU_CODE = U.CU_CODE
-		WHERE C.VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE = #{c_code})
+		WHERE C.VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE = #{c_code} AND VC_CODE NOT IN(-1))
+	</select>
+	
+	<!-- 마감시재 가져오기 -->
+	<select id="getEndVC" parameterType="string" resultType="string">
+		SELECT SUM(D.VCD_CNT*U.CU_UNIT) AS ENDVC
+		FROM VC_DETAIL AS D INNER JOIN VAULT_CASH AS C ON D.C_CODE = C.C_CODE AND D.BD_DATE = C.BD_DATE AND D.VC_CODE =C.VC_CODE
+			INNER JOIN CASH_UNIT AS U ON D.CU_CODE = U.CU_CODE
+		WHERE C.VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE = #{c_code} AND VC_CODE = -1)
 	</select>
 	
 	<!-- 시작시재 넣기 -->
@@ -35,5 +43,14 @@
 	<insert id="insertStartVC_Cnt" parameterType="hashmap">
 		INSERT INTO VC_DETAIL (C_CODE,BD_DATE,VC_CODE,CU_CODE,VCD_CNT)
 				VALUES (#{c_code},#{bd_date},1,#{cu_code},#{vcd_cnt})
+	</insert>
+	
+	<!-- 마감시재 넣기 -->
+	<insert id="insertEndVC" parameterType="hashmap">
+		INSERT INTO VAULT_CASH (C_CODE, BD_DATE, VC_CODE, VC_CHANGETIME) VALUES (#{c_code}, #{bd_date}, -1, DEFAULT)
+	</insert>
+	<insert id="insertEndVC_Cnt" parameterType="hashmap">
+		INSERT INTO VC_DETAIL (C_CODE,BD_DATE,VC_CODE,CU_CODE,VCD_CNT)
+				VALUES (#{c_code},#{bd_date},-1,#{cu_code},#{vcd_cnt})
 	</insert>
 </mapper>

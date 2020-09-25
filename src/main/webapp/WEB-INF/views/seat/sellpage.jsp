@@ -19,7 +19,8 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/basicBox.css?after">
 <style>
 body {
 	background-color: #e3f2fd;

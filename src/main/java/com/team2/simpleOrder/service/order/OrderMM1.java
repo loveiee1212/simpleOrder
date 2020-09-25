@@ -68,6 +68,7 @@ public class OrderMM1 {
 		return ctgList;
 	}
 
+
 	// 예약정보 가져오기
 	public HashMap<String, String> getReservList(Order odr) {
 		List<Order> rList = oDao.getReservList(odr);
@@ -194,11 +195,13 @@ public class OrderMM1 {
 		return hMap;
 	}
 
-	public List<Order> getorderList(HttpSession session, int oac_status) {
-		//String c_code = session.getAttribute("c_code").toString();
-		String c_code = "123123123123";
+	public List<Order> getorderList(HttpSession session, int oac_status,String bd_date) {
+		String c_code = session.getAttribute("c_code").toString();
+		if(bd_date == null) {
+			bd_date = session.getAttribute("bd_date").toString();
+		}
 		Order odr = new Order();
-		List<Order> oList = oDao.getorderList(c_code,oac_status);
+		List<Order> oList = oDao.getorderList(c_code,oac_status,bd_date);
 		log.info("oList :"+oList);
 		List<Order> odrList = new ArrayList<Order>();
 		HashMap<String, List<String>> pdMap = new HashMap<String, List<String>>();

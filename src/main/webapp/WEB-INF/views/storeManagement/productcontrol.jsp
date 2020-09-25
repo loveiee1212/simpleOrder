@@ -158,17 +158,18 @@ tr, td {
 				</div>
 				<div id="innerdiv2">
 					<div id="listbox">
-						<form action="sendupdateprice">
+						<form action="insertProduct" id="insertProductFrm" method="post"
+							enctype="multipart/form-data" method="post">
 							<input type="text" name="pd_code" id="pd_code"
-								readonly="readonly" placeholder="1-11" style="width: 50px;" />
+								readonly="readonly"style="width: 50px;" />
 							<button type="reset">다시 작성</button>
 							<br />
 							<center>
 								이름<input type="text" name="pd_name" id="pd_name"
 									placeholder="상품 이름" /><br /> 가격<input type="number"
-									name="pd_price" id="pd_price" placeholder="가격 입력" /><br /> 재고 <input
-									type="number" name="stk_stock" id="stk_stock"></input><br />
-								<input type="file" name="pd_img" id="pd_img"
+									name="pd_price" id="pd_price" placeholder="가격 입력" /><br /> 재고<input
+									type="number" name="stk_stock" id="stk_stock"></input><br /> <input
+									type="file" name="pd_img" id="pd_img"
 									style="width: 300px; height: 30px;" /><br /> <select
 									name="pd_printer">
 									<option value="">프린터 없음</option>
@@ -176,7 +177,6 @@ tr, td {
 									<option value="prt-2000M">prt-2000M</option>
 								</select>
 							</center>
-						</form>
 					</div>
 
 					<div class="bottombox" id="paymentkind">
@@ -205,6 +205,7 @@ tr, td {
 			</div>
 		</div>
 	</div>
+	</form>
 </body>
 <script>
 	//상품리스트 출력
@@ -234,12 +235,15 @@ tr, td {
 				var pd_name = td.eq(1).text();
 				var pd_price = td.eq(2).text();
 				var stk_stock = td.eq(3).text();
+				var pd_code= td.eq(4).text();
 				console.log(pd_name);
 				console.log(pd_price);
 				console.log(stk_stock);
+				console.log(pd_code);
 				$("#pd_name").val(pd_name);
 				$("#pd_price").val(pd_price);
 				$("#stk_stock").val(stk_stock);
+				$("#pd_code").val(pd_code);
 			});
 		},
 		error : function(err) {

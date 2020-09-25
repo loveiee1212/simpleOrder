@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.team2.simpleOrder.dao.posManagement.IPosDao1;
+import com.team2.simpleOrder.dto.Order;
 import com.team2.simpleOrder.dto.StoreManagement;
 
 @Service
@@ -21,7 +27,6 @@ public class PosMM1 {
 	// productcontrol 왼쪽 상품 정보 출력
 	public HashMap<String, String> getsellproductlist1(String c_code) {
 		List<StoreManagement> pList = pDao1.getSellProductList1(c_code);
-		System.out.println(pList);
 		HashMap<String, String> hMap = makehtmlpList(pList);
 		return hMap;
 	}
@@ -64,14 +69,12 @@ public class PosMM1 {
 	// stockcontrol 오른쪽 재고상품리스트 출력
 	public HashMap<String, String> getStockList(StoreManagement sm) {
 		List<StoreManagement> sList = pDao1.getStockList(sm);
-		System.out.println(sList);
 		HashMap<String, String> hMap = makehtmlsList(sList);
 		return hMap;
 	}
 
 	// stockcontrol 오른쪽 재고상품리스트 출력 html 변환
 	private HashMap<String, String> makehtmlsList(List<StoreManagement> sList) {
-		System.out.println(sList.size());
 		StringBuilder sb = new StringBuilder();
 		if (sList.size() != 0) {
 			for (int i = 0; i < sList.size(); i++) {
@@ -81,6 +84,7 @@ public class PosMM1 {
 				sb.append("<td>" + sm.getPd_name() + "</td>");
 				sb.append("<td>" + sm.getPd_date() + "</td>");
 				sb.append("<td>" + sm.getStk_stock() + "개</td>");
+				sb.append("<input type= 'hidden'" + sm.getStk_stock() + "개</input>");
 				sb.append("</tr>");
 			}
 		} else {
@@ -97,7 +101,6 @@ public class PosMM1 {
 	// stockcontrol 왼쪽 재고상품리스트 출력
 	public HashMap<String, String> getPstockList(String c_code) {
 		List<StoreManagement> psList = pDao1.getPstockList(c_code);
-		System.out.println(psList);
 		HashMap<String, String> hMap = makehtmlpsList(psList);
 		return hMap;
 
@@ -115,10 +118,10 @@ public class PosMM1 {
 		for (int i = 0; i < psList.size(); i++) {
 			StoreManagement pd = psList.get(i);
 			sb.append("<tr>");
-
-			sb.append("<td><input type='hidden' name='p_code' id='p_code" + i + "' data-code='" + pd.getPdc_code()
+			sb.append("<td><input type='hidden' name='pd_code' id='pd_code" + i + "' data-code='" + pd.getPdc_code()
 					+ "' value='" + pd.getPd_code() + "'/>" + pd.getPd_name() + "</td>");
-
+			sb.append("<td hidden=''><input type='text' name='pd_name' id='pd_name" + i + "' data-code='"
+					+ pd.getStk_stock() + "' value='" + pd.getPd_name() + "'/></td>");
 			sb.append("<td>" + "<input type='number'name='stk_stock' class='num stk_stock'" + "value="
 					+ pd.getStk_stock() + ">" + "개</td>");
 
@@ -134,7 +137,6 @@ public class PosMM1 {
 	// productragistration 오른쪽 상품 출력
 	public HashMap<String, String> getSellProductList(String c_code) {
 		List<StoreManagement> pList2 = pDao1.getProductList(c_code);
-		System.out.println(pList2);
 		HashMap<String, String> hMap = makehtmlpList2(pList2);
 		return hMap;
 	}
@@ -142,13 +144,18 @@ public class PosMM1 {
 // productragistration 오른쪽 상품 출력 html 변환
 	private HashMap<String, String> makehtmlpList2(List<StoreManagement> pList2) {
 		StringBuilder sb = new StringBuilder();
+		sb.append("<tr>");
+		sb.append("<th>" + "상품번호" + "</th>");
+		sb.append("<th>" + "상품이름" + "</th>");
+		sb.append("<th>" + "상품가격" + "</th>");
+		sb.append("<th>" + "등록여부" + "</th>");
+		sb.append("</tr>");
 		for (int i = 0; i < pList2.size(); i++) {
 			StoreManagement pd = pList2.get(i);
 			sb.append("<tr>");
 			sb.append("<td>" + (i + 1) + "</td>");
 			sb.append("<td>" + pd.getPd_name() + "</td>");
 			sb.append("<td>" + pd.getPd_price() + "</td>");
-
 			if (pd.getPd_status() == 1) {
 				sb.append("<td>등록</td>");
 			} else {
@@ -163,22 +170,20 @@ public class PosMM1 {
 
 	public List<StoreManagement> getproductCategoryList() {
 		String c_code = "123123123123";
-		System.out.println("c_code:" + c_code);
 		// 카테고리 가져오기
 		List<StoreManagement> cList = pDao1.getproductCategoryList(c_code);
-		System.out.println("cList:" + cList);
-
+		System.out.println("cList" + cList);
 		List<StoreManagement> pList = pDao1.getProductList(c_code);
-		System.out.println("pList : " + pList);
-
+		System.out.println("pList" + cList);
 		List<StoreManagement> ctgList = new ArrayList<StoreManagement>();
+		System.out.println("ctgList" + cList);
 		for (int i = 0; i < cList.size(); i++) {
 			StoreManagement sm = new StoreManagement();
 			List<String> pnameList = new ArrayList<String>();
 			for (int j = 0; j < pList.size(); j++) {
 				if (cList.get(i).getPdc_name().equals(pList.get(j).getPdc_name())) {
-					System.out.println("cListname:" + cList.get(i).getPdc_name() + "상품이름:" + pList.get(j).getPd_name());
-					pnameList.add(pList.get(j).getPd_name());
+					pnameList.add(pList.get(j).getPd_name() + pList.get(j).getPd_price()
+							+ "<input type='button' onclick='del($(this))' value='삭제'/>" + " </br>");
 				}
 				sm.setCpList(pnameList);
 			}
@@ -189,21 +194,103 @@ public class PosMM1 {
 				sm.setPdc_name("<button class='category' onclick='opentable(event,\"product" + i + "\")'>"
 						+ cList.get(i).getPdc_name() + "</button>");
 			}
-
 			ctgList.add(sm);
-
 		}
 		return ctgList;
 	}
 
-	public HashMap<String, String> updateStock(StoreManagement sm) {
+	public HashMap<String, String> updateStock(HttpSession session, List<String> pdc_code, List<String> pd_code,
+			List<String> pd_name, List<String> stk_stock) {
+		StoreManagement sm = new StoreManagement();
 		String c_code = "123123123123";
+		List<StoreManagement> sList = new ArrayList<StoreManagement>();
+		for (int i = 0; i < pdc_code.size(); i++) {
+			sm.setC_code("123123123123");
+			sm.setPdc_code(pdc_code.get(i));
+			sm.setPd_code(pd_code.get(i));
+			sm.setStk_stock(stk_stock.get(i));
+			sList.add(sm);
+		}
 		HashMap<String, String> hMap = new HashMap<String, String>();
-		boolean result = pDao1.updateStock(c_code);
-		if (result) {
-			hMap.put("result", "수정되었습니다.");
+		if (sList == null) {
+			hMap.put("result", "수정한 재고가 없습니다.");
+			return hMap;
+		} else {
+			List<StoreManagement> sOriList = pDao1.getStockList(sm);
+			for (int i = 0; i < sList.size(); i++) {
+				StoreManagement stm = new StoreManagement();
+				for (int j = 0; i < sOriList.size(); j++) {
+					if (sList.get(i).getStk_stock().equals(sOriList.get(j).getStk_stock())) {
+					}
+				}
+			}
 		}
 		return hMap;
 	}
 
+	public HashMap<String, String> getProList(HttpSession session) {
+		posHtmlMaker phm = new posHtmlMaker(); // htmlmaker 생성
+		ArrayList<HashMap<String, Object>> apl = pDao1.getProList(session.getAttribute("c_code").toString());
+		ArrayList<HashMap<String, Object>> skl = pDao1.getSellKeyProList(session.getAttribute("c_code").toString());
+		for (int i = 0; i < apl.size(); i++) {
+			for (int j = 0; j < skl.size(); j++) {
+				if (apl.get(i).get("PDC_DATE").equals(skl.get(j).get("PDC_DATE"))
+						&& apl.get(i).get("PDC_CODE").equals(skl.get(j).get("PDC_CODE"))
+						&& apl.get(i).get("PD_DATE").equals(skl.get(j).get("PD_DATE"))
+						&& apl.get(i).get("PD_CODE").equals(skl.get(j).get("PD_CODE"))) {
+					apl.get(i).put("sellkey", "sellkey");
+				}
+			}
+		}
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("proList", phm.makeProListHtml(apl));
+		return hm;
+
+	}
+
+	public HashMap<String, String> getSellKeyCatList(HttpSession session) {
+		posHtmlMaker phm = new posHtmlMaker();
+		ArrayList<HashMap<String, Object>> skCatList = pDao1
+				.getSellKeyCatList(session.getAttribute("c_code").toString());
+		for (int i = 0; i < skCatList.size(); i++) {
+			String c_code = skCatList.get(i).get("C_CODE").toString();
+			String skc_code = skCatList.get(i).get("SKC_CODE").toString();
+			HashMap<String, String> hm = new HashMap<String, String>();
+			hm.put("c_code", c_code);
+			hm.put("skc_code", skc_code);
+			skCatList.get(i).put("SKC_CODEList", pDao1.getsellKeyInfo(hm));
+		}
+		return phm.sellkeyhtmlMake(skCatList);
+	}
+
+	public String updateSellKey(HashMap<String, String> sm, HttpSession session) {
+		sm.put("c_code", session.getAttribute("c_code").toString());
+		boolean result = pDao1.updateSellKey(sm);
+		System.out.println(result);
+		if (result) {
+			
+		}
+		return null;
+	}
+
+	/*
+	 * public HashMap<String, String> insertProduct(HttpSession session,
+	 * StoreManagement sm, String pd_code, String pd_date, String pd_name, int
+	 * pd_price, String pd_imagename, int pd_status, String stk_stock) {
+	 * 
+	 * sm.setPd_code(pd_code); sm.setPd_date(pd_date); sm.setPd_name(pd_name);
+	 * sm.setPd_price(pd_price); sm.setPd_imagename(pd_imagename);
+	 * sm.setPd_status(pd_status); sm.setStk_stock(stk_stock); // 수정 신규등록 확인
+	 * HashMap<String, String> hMap = new HashMap<String, String>();
+	 * 
+	 * if (sm.getPd_code() == "") { sm.setPd_code(null); } if (sm.getStk_stock() ==
+	 * "") { sm.setStk_stock(null); } if (sm.getPd_code() == null) {
+	 * List<StoreManagement> cnt = pDao1.getSellProductList1(session); boolean
+	 * result = false; boolean memoresult = false;
+	 * 
+	 * switch (cnt) { case 0: System.out.println("1111"); break; } } else if
+	 * (sm.getPd_code() != null) {
+	 * 
+	 * } return hMap; }
+	 */
 }

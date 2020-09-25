@@ -29,5 +29,9 @@ public class KioskLoginAndSettingController {
 	public String accessSecurityCode(@RequestParam HashMap<String, String> securityCode, HttpSession session, RedirectAttributes reat ) {
 		return km.accessSecurityCode(securityCode, session, reat);
 	}
+	@PostMapping("/updateRequestList")
+	public String updateRequestList(@RequestParam HashMap<String, String>reqList, HttpSession session, RedirectAttributes reat) {
+		return km.updateRequestList(reqList,session, reat);
+	}
 	
 }

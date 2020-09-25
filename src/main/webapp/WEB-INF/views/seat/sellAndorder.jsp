@@ -7,105 +7,118 @@
 <title>sellAndorder-판매</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="resources/css/basicBox.css?after">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body {
-	padding: 0;
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
 }
 
-#baseBox {
-	border: 1px solid black;
-	float: left;
-	padding: 2%;
-	transform: translate(-50%, 0%);
-	margin: 0% 50%;
-}
-
-#baseinnerBox {
-	float: left;
-	border: pink 1px solid;
-	width: 1500px;
-	height: 800px;
-	padding: 30px;
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 .innerdiv {
-	border: 1px solid black;
-	width: 745px;
+	border: 3px solid #81d4fa;
+	width: 740px;
 	height: 800px;
 	float: left;
 }
 
 #listbox button {
+	width: 70px;
+	height: 50px;
 	color: red;
 	background-color: white;
 	border: none;
+	font-size: 20px;
 	button: focus{ outline: none;
 	box-shadow: none;
 }
 
-}
 #listbox {
-	border: 1px solid black;
+	background-color: white;
+	border: 3px solid #81d4fa;
 	width: 700px;
 	height: 400px;
-	margin-left: 25px;
+	margin-left: 17px;
 	margin-top: 10px;
+	border-collapse: collapse;
 }
 
 div #listbox tr, td {
-	/* border: 1px solid black; */
+	border: none;
+	border-bottom: 3px solid #81d4fa;
 	width: 80px;
 	height: 20px;
 	padding: 20px;
 	margin: 30px;
 	text-align: center;
+	font-size: 20px;
 }
 
 #moneylist {
-	border: 1px solid black;
+	border-top: none;
+	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 50px;
-	margin-left: 25px;
+	height: 70px;
+	margin-left: 17px;
+	background-color: white;
+	font-size: 20px;
 }
 
 #moneylist ul li {
 	list-style: none;
 	float: left;
-	margin-left: 60px;
+	margin-left: 15px;
 }
 
 li input {
 	width: 80px;
+	font-size: 20px;
 }
 
 .bottombox {
 	width: 300px;
 	height: 280px;
-	margin-top: 30px;
+	margin-top: 15px;
 	margin-left: 45px;
 	float: left;
 }
 
 #paymentkind ul li {
 	list-style: none;
-	border: 1px solid black;
 	width: 80px;
 	height: 30px;
-	margin-top: 25px;
-	margin-left: 5px;
+	margin-top: 5px;
+	margin-left: 9px;
+	margin-right: -5px;
 	text-align: center;
-	padding: 10px;
+	padding: 20px;
 	float: left;
+	font-size: 20px;
 }
 
 #keypad ul li {
 	list-style: none;
-	border: 1px solid black;
+	border: 1px solid white;
+	background-color: #81d4fa;
+	color: white;
 	width: 30px;
 	height: 20px;
 	text-align: center;
 	padding: 20px;
 	float: left;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 #moneylist ul li input[type="number"]::-webkit-outer-spin-button,
@@ -113,14 +126,18 @@ li input {
 	-webkit-appearance: none;
 	margin: 0;
 } /* input 태그 안 number로 주었을 때 */
+
 .tab {
 	overflow: hidden;
 	border: 1px solid #ccc;
-	background-color: #f1f1f1;
+	background-color: white;
 }
 
 .tab button {
-	background-color: inherit;
+	color: #1565c0;
+	font-weight: bold;
+	font-size: 20px;
+	background-color: white;
 	float: left;
 	border: none;
 	outline: none;
@@ -132,11 +149,11 @@ li input {
 }
 
 .tab button:hover {
-	background-color: #ddd;
+	background-color: #90caf9;
 }
 
 .tab button.active {
-	background-color: #ccc;
+	background-color: #90caf9;
 }
 
 .productbox {
@@ -144,13 +161,34 @@ li input {
 	height: 120px;
 	margin-top: 15px;
 	margin-left: 25px;
-	border: 1px solid black;
+	border: 3px solid #81d4fa;
+	font-size: 20px;
 	float: left;
+}
+
+#totalmoney, #takemoney, #uctmoney {
+	width: 100px;
+	height: 40px;
+	margin-left: 10px;
+	border: none;
+	text-align: center;
+}
+
+#btn1, #btn2, #btn3 {
+	border: 3px solid white;
+	background-color: #81d4fa;
+	color: white;
+}
+
+#btn4, #btn5 {
+	border: 3px solid #81d4fa;
+	background-color: white;
+	color: #81d4fa;
 }
 </style>
 </head>
 <body>
-${sc_code}
+	${sc_code}
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div class="innerdiv">
@@ -179,11 +217,11 @@ ${sc_code}
 				</div>
 				<div class="bottombox" id="paymentkind">
 					<ul>
-						<li>현금결제</li>
-						<li>카드결제</li>
-						<li>외상결제</li>
-						<li onclick='sendsaoList()'>주문하기</li>
-						<li>메인으로</li>
+						<li id="btn1">현금결제</li>
+						<li id="btn2">카드결제</li>
+						<li id="btn3">외상결제</li>
+						<li id="btn4" onclick='sendsaoList()'>주문하기</li>
+						<li id="btn5">메인으로</li>
 					</ul>
 				</div>
 				<div class="bottombox" id="keypad">
@@ -197,9 +235,11 @@ ${sc_code}
 						<li value="7">7</li>
 						<li value="8">8</li>
 						<li value="9">9</li>
-						<li onclick="reset()" value="11">CE</li>
+						<li onclick="backspace()" value="12"><i
+							class="fa fa-arrow-left" style="font-size: 25px"></i></li>
 						<li value="0">0</li>
-						<li onclick="backspace()" value="12">C</li>
+						<li onclick="reset()" value="11"><i class="fa fa-times"
+							style="font-size: 25px"></i></li>
 					</ul>
 				</div>
 			</div>
@@ -208,12 +248,10 @@ ${sc_code}
 </body>
 <script>
 	totalprice();
-	console.log($("#oac_num").val()=="undefined");
-	if($("#oac_num").val()=="undefined"){
+	console.log($("#oac_num").val() == "undefined");
+	if ($("#oac_num").val() == "undefined") {
 		$("#oac_num").val(null);
 	}
-	
-	
 
 	$("tr").children($("input")).keyup(function(evt) {
 		totalprice();
@@ -231,7 +269,7 @@ ${sc_code}
 		var $price = $(".price");
 		for (var i = 0; i < $price.length; i++) {
 			var val = $price.eq(i).text();
-			if (val == ""){				
+			if (val == "") {
 				val = '0';
 			}
 			sum += Number(val);
@@ -290,8 +328,7 @@ ${sc_code}
 						.push($("#pdcnt" + i).val() - $("#hiddencnt" + i).val());
 			}
 		}
-		
-		
+
 		var objparam = {
 			"oac_num" : $("#oac_num").val(),
 			"sc_code" : $("#sc_code").val(),
@@ -308,7 +345,7 @@ ${sc_code}
 			data : objparam,
 			dataType : 'html',
 			success : function(result) {
-				
+
 				console.log("aaa");
 				console.log(result);
 				location.href = result;
