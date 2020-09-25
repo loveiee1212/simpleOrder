@@ -52,7 +52,7 @@ button {
 	color: red;
 	background-color: white;
 	border: none;
-	button: focus; 
+	button: focus;
 	outline: none;
 	box-shadow: none;
 }
@@ -118,11 +118,11 @@ td {
 	border: 3px solid #81d4fa;
 	border-top-color: white;
 	border-left-color: white;
-	border-right-color : white; 
-	padding : 20px;
-	margin : 30px; 
-	text-align : center; 
-	font-size : 19px;
+	border-right-color: white;
+	padding: 20px;
+	margin: 30px;
+	text-align: center;
+	font-size: 19px;
 	font-weight: bold;
 }
 
@@ -207,7 +207,7 @@ tr {
 </body>
 <script>
 	getproductcategoryList();
-	
+	getproductList2();
 	//상품리스트 출력
 	function getproductList2() {
 		$.ajax({
@@ -233,13 +233,15 @@ tr {
 					/* 배열에 담긴 값을 상세정보에 출력 */
 					var pd_code = $(this).data("code");
 					var pd_name = td.eq(1).text();
+					var pd_price = td.eq(2).text();
 					console.log(pd_name);
-					$("#pd_name").val(pd_name);
-				
+					console.log(pd_price);
+					$("#pdts").val(pd_name);
+					$("#pdts").val(pd_price);
+
 				});
 			},
-			
-			
+
 			error : function(err) {
 				console.log(err);
 			}
@@ -247,7 +249,7 @@ tr {
 	}
 
 	function getproductcategoryList() {
-		getproductList2();
+		
 		$.ajax({
 			type : "post",
 			url : "rest/getproductcategorylist",
@@ -300,6 +302,11 @@ tr {
 		if ($("#" + categoryname).attr('class') == 'pList') {
 			$("#" + categoryname).attr('class', 'blockCtg');
 		}
+	};
+	function del(elem) {
+		var delCode="#"+elem.parent().parent().attr("id")+" #"+elem.parent().attr("id");
+		console.log(delCode);
+		$(delCode).remove();
 	};
 </script>
 </html>
