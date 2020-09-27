@@ -3,11 +3,14 @@ package com.team2.simpleOrder.controller;
 
 
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -88,9 +91,10 @@ public class PageController1 {
 	}
 	
 	@RequestMapping("/test")
-	public String test(RedirectAttributes reat) {
-		reat.addFlashAttribute("basicPath", "postisionSettingFrmon()");
-		return "posSetting/posSetting";
+	public String test(@RequestParam HashMap<String, String> test, RedirectAttributes reat) {
+		System.out.println(test);
+		reat.addFlashAttribute("basicPath", "includeAjax('seatSettinFrm')");
+		return "redirect:/posSetting";
 	}
 
 }

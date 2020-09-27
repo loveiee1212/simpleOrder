@@ -86,29 +86,25 @@ input:focus {
 			<div id="totalDiv">
 				<div id="divOne"></div>
 				<div id="divTwo">
-					<input type="button" id="btn1" value="테이블 설정" onclick=""><br />
-					<input type="button" id="btn2" value="직원 목록"
-						onclick="includeAjax('empSettingFrm')"><br /> <input
-						type="button" id="btn3" value="직급 설정"
-						onclick="includeAjax('postisionSettingFrmOn')"><br /> <input
-						type="button" id="btn4" value="권한 설정"
-						onclick="includeAjax('postionGrantSettingFrmOn')"><br />
-					<input type="button" id="btn5" value="마스터 계정 비밀번호 변경"
-						onclick="includeAjax('cSecurityCodeSettingFrmOn')"><br />
-					<input type="button" id="btn6" value="키오스크 설정"
-						onclick="location.href = 'kioskSettingFrm'"><br /> <input
-						type="button" id="btn7" value="나가기"
-						onclick="location.href = 'posmain'"><br />
+					<input type="button" id="btn1" value="테이블 설정" onclick="includeAjax('seatSettinFrm')"><br />
+					<input type="button" id="btn2" value="직원 목록" onclick="includeAjax('empSettingFrm')"><br/> 
+					<input type="button" id="btn3" value="직급 설정" onclick="includeAjax('postisionSettingFrmOn')"><br />
+					 <input type="button" id="btn4" value="권한 설정" onclick="includeAjax('postionGrantSettingFrmOn')"><br />
+					 <input type="button" id="btn5" value="마스터 계정 비밀번호 변경" onclick="includeAjax('cSecurityCodeSettingFrmOn')"><br />
+					 <input type="button" id="btn6" value="키오스크 설정" onclick="location.href = 'kioskSettingFrm'"><br /> 
+					 <input type="button" id="btn7" value="나가기" onclick="location.href = 'posmain'"><br />
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript" id="basicIncludeService">
-	$
-	{
-		basicPath
-	}
+	${basicPath}
+	
+	
+
+
+
 	function includeAjax(url) {
 		$.ajax({
 			url : url,
