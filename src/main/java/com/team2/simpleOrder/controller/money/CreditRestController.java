@@ -25,4 +25,10 @@ public class CreditRestController {
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		return cm.getcreditList(session,oac_status);
 	}
+	
+	@RequestMapping(value = "/showdetailcredit", method = RequestMethod.POST)
+	public HashMap<String, String> getdetailCredit(HttpSession session,String bd_date, String oac_num,int oac_status) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		return cm.getdetailCredit(session,bd_date,oac_num,oac_status);
+	}
 }

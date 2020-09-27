@@ -121,60 +121,36 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	margin: 0;
 }
 
-#crdtableList tr, #crdtableList td{
-width : 150px;
+#crdtableList tr, #crdtableList td {
+	width: 150px;
 }
-
 </style>
 </head>
 <body>
 	<div id="baseBox">
 		<div id="baseinnerBox">
-				<center>
-			<div class="innerdiv" id="creditList">
-					
-			</div>
-				</center>
+			<center>
+				<div class="innerdiv" id="creditList"></div>
+			</center>
 
 			<div class="innerdiv">
-				<div id="listbox">
-					<center>
-						<table>
-							<tr>
-								<td>상품1</td>
-								<td>10,000</td>
-								<td style="border: none;"><input type="text" value="2"
-									style="width: 30px; height: 40px;"></td>
-							</tr>
-							<tr>
-								<td>상품2</td>
-								<td>50,000</td>
-								<td style="border: none;"><input type="text" value="2"
-									style="width: 30px; height: 40px;"></td>
-							</tr>
-							<tr>
-								<td>상품3</td>
-								<td>97,000</td>
-								<td style="border: none;"><input type="text" value="4"
-									style="width: 30px; height: 40px;"></td>
-							</tr>
-						</table>
-					</center>
-				</div>
+				<center>
+					<div id="listbox"></div>
+				</center>
 				<div id="moneylist">
 					<ul>
 						<li>총금액 <input type="number" readonly="readonly"
-							id="totalmoney" value="108000"></li>
-						<li>수금 <input type="number" id="takemoney" value="0"
+							id="totalmoney"></li>
+						<li>결제금액 <input type="number" id="takemoney" value="0"
 							placeholder="0"></li>
-						<li>미수금 <input type="number" readonly="readonly"
-							id="uctmoney"></li>
+						<li id="Remain_money">남은금액 <input type="number"
+							readonly="readonly" id="uctmoney"></li>
 					</ul>
 				</div>
 				<div class="bottombox" id="paymentkind">
 					<ul>
-						<li>현금결제</li>
-						<li>카드결제</li>
+						<li onclick="creditPayment(1)">현금결제</li>
+						<li onclick="creditPayment(2)">카드결제</li>
 						<li>메인으로</li>
 					</ul>
 				</div>
@@ -201,6 +177,8 @@ width : 150px;
 <script>
 getCreditList();
 
+
+
 	/* 외상 정보 가져오기 */
 	function getCreditList(){	
 	 $.ajax({
@@ -213,30 +191,111 @@ getCreditList();
 	 $("#creditList").html(result.data);
 	 $("#crdtableList .crdinfo").click(function() {
 			var tdArr = new Array();
-					var tr = $(this);
-					var td = tr.children();
-					console.log(tr.text());
-					/* tr 행의 정보들을 Arr에 담음 */
-					td.each(function(i) {
-						tdArr.push(td.eq(i).text());
-					});
-					$("#crdtableList tr[class='.crdinfo']").css('background-color','white');
-					tr.css('background-color', '#ddd');
-					console.log("배열에 담긴 값 : " + tdArr);
+			var tr = $(this);
+			var td = tr.children();
+			console.log(tr.text());
+			/* tr 행의 정보들을 Arr에 담음 */
+			$("#crdtableList tr[class='.crdinfo']").css('background-color','white');
+			tr.css('background-color', '#ddd');
+			console.log("배열에 담긴 값 : " + tdArr);
+			
+			var bd_date = $(this).children("#bd_date").val();
+			var oac_num = $(this).children("#oac_num").val();
+			getdetailCredit(bd_date,oac_num);
 	 });
 	 }
 	 })
 	};
 	
-	function detailcrdInfo(){
+	function getdetailCredit(bd_date,oac_num){
+		var objparam ={"bd_date":bd_date,
+						"oac_num" : oac_num,
+						"oac_status" : 0};
+		console.log(objparam);
 		$.ajax({
 			type : 'post',
-			url : 'rest/getorderlist',
-			data : {oac_status : "0" }
+			url : 'rest/showdetailcredit',
+			data : objparam,
+			dataType : 'json',
+			success : function (data){
+				console.log(data);
+				$("#listbox").html(data.data);
+				totalprice();
+				$("#uctmoney").val($("#totalmoney").val());
+				/* 수량변경시 값 수정 */
+			}
+	
 		})
 	}
-	 
-	 
+	
+	function creditPayment(paytype){
+		var oac_num = $("#sendoac_num").val();
+		var bd_date = $("#sendbd_date").val();
+		
+		if($("#takemoney").val()-$("#totalmoney").val()>0){
+		var getmoney = $("#totalmoney").val();
+		}else{
+		var getmoney = $("#takemoney").val();
+		}//결제금액이 총금액보다 큰 경우 총금액이 결제금액으로 설정
+		
+		var text = $("#Remain_money").text();
+		
+		if(text.match("남은금액")){
+		var totalmoney = $("#totalmoney").val($("#uctmoney").val());
+			console.log("남은금액"+$("#uctmoney").val());
+		}//남은금액이 있을경우 남은금액이 총금액의 값으로 들어가게 됨
+		
+		if(paytype == "1"){
+			console.log("현금결제")
+		}else{
+			console.log("카드결제")
+		}//결제타입이 1일경우 현금결제 2일경우 카드결제
+		
+		console.log("주문번호"+oac_num);
+		console.log("영업일"+bd_date);
+		console.log("받은금액"+getmoney);
+		
+		var objparam = {
+				"bd_date":bd_date,
+				"oac_num":oac_num,
+				"getmoney":getmoney,
+				"paytype":paytype
+		}
+		console.log(objparam);
+		
+		/* $ajax({
+		type : 'post',
+		url : 'rest/moneypayment',
+		data : objparam,
+		dataType : 'json',
+		success : function(result){
+			
+		} 
+		})*/
+	}
+		
+	
+		
+		function totalprice() {
+			for (var i = 0; i < $("tr").length; i++) {
+				var $pdcnt = $("#pdcnt" + i).val();
+				var $hiddenprice = $("#hiddenprice" + i).val();
+				var totalprice = $pdcnt * $hiddenprice
+				$("#totalprice" + i).text(totalprice);
+			}
+			var sum = 0;
+
+			var $price = $(".price");
+			for (var i = 0; i < $price.length; i++) {
+				var val = $price.eq(i).text();
+				if (val == "") {
+					val = '0';
+				}
+				sum += Number(val);
+			}
+			$("#totalmoney").val(sum);
+		}
+	/* 키패드 */
 	var str = "";
 	$("#uctmoney").val($("#totalmoney").val());
 
@@ -283,6 +342,7 @@ getCreditList();
 		}
 	}
 
+	/* 키패드 */
 	$("#takemoney").keyup(function(evt) {
 	$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());
 	if (($("#totalmoney").val() - $("#takemoney").val()) < 0) {

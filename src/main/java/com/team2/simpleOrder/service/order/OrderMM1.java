@@ -195,11 +195,9 @@ public class OrderMM1 {
 		return hMap;
 	}
 
-	public List<Order> getorderList(HttpSession session, int oac_status,String bd_date) {
+	public List<Order> getorderList(HttpSession session, int oac_status) {
 		String c_code = session.getAttribute("c_code").toString();
-		if(bd_date == null) {
-			bd_date = session.getAttribute("bd_date").toString();
-		}
+		String bd_date = session.getAttribute("bd_date").toString();
 		Order odr = new Order();
 		List<Order> oList = oDao.getorderList(c_code,oac_status,bd_date);
 		log.info("oList :"+oList);

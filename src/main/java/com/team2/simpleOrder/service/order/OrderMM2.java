@@ -32,9 +32,17 @@ public class OrderMM2 {
 
 	ModelAndView mav;
 
-	public ModelAndView getsaoList(Order odr) {
+	public ModelAndView getsaoList(HttpSession session, String sc_code, String st_num, String oac_num) {
 		ModelAndView mav = new ModelAndView();
-		StoreManagement stmm = new StoreManagement();
+		if (oac_num.equals("undefined")) {
+			oac_num = null;
+		}
+		Order odr = new Order();
+		odr.setSc_code(sc_code);
+		odr.setSt_num(Integer.parseInt(st_num));
+		odr.setOac_num(oac_num);
+		odr.setC_code(session.getAttribute("c_code").toString());
+		odr.setBd_date(session.getAttribute("bd_date").toString());
 		List<Order> stList = oDao.getsaoList(odr);
 		mav.addObject("list", makesaoList(stList, odr));
 		mav.setViewName("seat/sellAndorder");
@@ -43,29 +51,29 @@ public class OrderMM2 {
 
 	private String makesaoList(List<Order> stList, Order odr) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<form action='#' method='post'>");
-		sb.append("<table>");
 		sb.append("<input type='hidden' id='sc_code' value='" + odr.getSc_code() + "'/>");
 		sb.append("<input type='hidden' id='st_num' value='" + odr.getSt_num() + "'/>");
 		sb.append("<input type='hidden' id='oac_num' value='" + odr.getOac_num() + "'/>");
-		for (int i = 0; i < stList.size(); i++) {
-			sb.append("<tr>");
-			sb.append("<td><input type='hidden' name='pdcode' id='pdcode" + i + "' data-code='"
-					+ stList.get(i).getPdc_code() + "' value='" + stList.get(i).getPd_code() + "'/>"
-					+ "<input type='hidden' name='pddate' id='pddate" + i + "' data-code='"
-					+ stList.get(i).getPdc_date() + "' value='" + stList.get(i).getPd_date() + "'/>"
-					+ stList.get(i).getPd_name() + "</td>");
-			sb.append("<td><p class ='price' id='totalprice" + i + "'></p>");
-			sb.append("<input type='hidden' id='hiddenprice" + i + "' value='" + stList.get(i).getPd_price()
-					+ "'/></td>");
-			sb.append("<td><input type='hidden' id='hiddencnt" + i + "' value='" + stList.get(i).getOh_cnt()
-					+ "'/><input type='Number' name ='pdcnt' id='pdcnt" + i + "' value='" + stList.get(i).getOh_cnt()
-					+ "'/></td>");
-			sb.append("<td><button>취소</button></td>");
+		if (stList.size() > 0) {
+			sb.append("<table>");
+			for (int i = 0; i < stList.size(); i++) {
+				sb.append("<tr>");
+				sb.append("<td><input type='hidden' name='pdcode' id='pdcode" + i + "' data-code='"
+						+ stList.get(i).getPdc_code() + "' value='" + stList.get(i).getPd_code() + "'/>"
+						+ "<input type='hidden' name='pddate' id='pddate" + i + "' data-code='"
+						+ stList.get(i).getPdc_date() + "' value='" + stList.get(i).getPd_date() + "'/>"
+						+ stList.get(i).getPd_name() + "</td>");
+				sb.append("<td><p class ='price' id='totalprice" + i + "'></p>");
+				sb.append("<input type='hidden' id='hiddenprice" + i + "' value='" + stList.get(i).getPd_price()
+						+ "'/></td>");
+				sb.append("<td><input type='hidden' id='hiddencnt" + i + "' value='" + stList.get(i).getOh_cnt()
+						+ "'/><input type='Number' name ='pdcnt' id='pdcnt" + i + "' value='"
+						+ stList.get(i).getOh_cnt() + "'/></td>");
+				sb.append("<td><button>취소</button></td>");
 
+			}
+			sb.append("</table>");
 		}
-		sb.append("</table>");
-		sb.append("</form>");
 		return sb.toString();
 	}
 
@@ -76,7 +84,7 @@ public class OrderMM2 {
 		String c_code = session.getAttribute("c_code").toString();
 		String bd_date = "2020-08-29 14:19:00";
 		try {
-			if (oac_num == null) {
+			if (oac_num == "") {
 				oac_num = oDao.getNewOacCode(c_code, bd_date);
 				HashMap<String, String> hMap = new HashMap<String, String>();
 				hMap.put("c_code", c_code);
@@ -85,8 +93,10 @@ public class OrderMM2 {
 				hMap.put("st_num", st_num);
 				hMap.put("oac_num", oac_num);
 				log.info(hMap);
-				if (!oDao.createoacList(hMap)){
-					return "errorSellpage";}}
+				if (!oDao.createoacList(hMap)) {
+					return "errorSellpage";
+				}
+			}
 
 			for (int i = 0; i < pdc_code.size(); i++) {
 				System.out.println(pd_code.get(i));
@@ -101,11 +111,15 @@ public class OrderMM2 {
 				oacInfo.put("oh_cnt", oh_cnt.get(i));
 				oacInfo.put("oac_num", oac_num);
 				if (!oDao.sendsaoList(oacInfo)) {
-					return "errorSellpage";}}
-			return "sellpage";} 
-		catch (Exception e) {
+					return "errorSellpage";
+				}
+			}
+			return "sellpage";
+		} catch (Exception e) {
 			System.out.println(e);
-			return "errorSellpage";}}
+			return "errorSellpage";
+		}
+	}
 
 //	@Transactional
 //	public HashMap<String, String> sendsaoList(HttpSession session, String oac_num, List<String> pdc_code,
