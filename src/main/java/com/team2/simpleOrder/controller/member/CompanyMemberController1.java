@@ -62,8 +62,7 @@ public class CompanyMemberController1 {
 	
 	@GetMapping("/empLogOut") // 
 	public String empLogOut(HttpSession session) {
-		System.out.println("로그아웃입니다.");
-		return mm.cCodeAcountLogout(session);
+		return mm.empLogOut(session);
 	}
 	
 	@PatchMapping("/updateEmpInfo")

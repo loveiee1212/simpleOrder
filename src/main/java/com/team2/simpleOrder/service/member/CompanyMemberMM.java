@@ -1,10 +1,13 @@
 
 package com.team2.simpleOrder.service.member;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
@@ -182,6 +185,18 @@ public class CompanyMemberMM {
 			empAcountInfo.put("c_code", (String) session.getAttribute("c_code"));
 			if (cDao.empAcountlogin(empAcountInfo)) { // 직원 계정 로그인 성공
 				session.setAttribute("emp_code", empAcountInfo.get("emp_code"));
+				String pst_position = cDao.getempPosition(empAcountInfo);
+				HashMap<String, Boolean> grantBoolean = new HashMap<String, Boolean>();
+				ArrayList<Boolean> grantBooleanArr = new ArrayList<Boolean>(); 
+				for(int i = 0 ; i < cDao.numberOfGrant(); i++) {
+					HashMap<String, String> hm = new HashMap<String, String>();
+					hm.put("c_code", session.getAttribute("c_code").toString());
+					hm.put("pst_position", pst_position);
+					hm.put("gpc_code",i+"");
+//					grantBoolean.put(""+i, cDao.getGrantActivestatus(hm));
+					grantBooleanArr.add(cDao.getGrantActivestatus(hm));
+				}
+				session.setAttribute("grantList", grantBooleanArr);
 				return "redirect:/posmain";
 			} else { // 직원 계정 로그인 실패
 				empAcountInfo.put("error", "회원 코드와 비밀번호가 일치하지 않습니다.");
@@ -196,15 +211,6 @@ public class CompanyMemberMM {
 		}
 	}
 
-	public String cCodeAcountLogout(HttpSession session) {
-		try {
-			session.setAttribute("ce_email", cDao.getcCodeEmailInfo((String) session.getAttribute("c_code")));
-			session.removeAttribute("emp_code");
-			return "redirect:/poslogin";
-		} catch (Exception e) {
-			return "redirect:/poslogin";
-		}
-	}
 
 	public HashMap<String, String> getEmpList(HttpSession session, HashMap<String, String> empinfo) {
 		CMemberHtmlMaker hm = new CMemberHtmlMaker();
@@ -412,6 +418,12 @@ public class CompanyMemberMM {
 			System.out.println(e);
 			return "redirect:/posSetting";
 		}
+	}
+
+	public String empLogOut(HttpSession session) {
+		session.removeAttribute("emp_code");
+		System.out.println("emp로그아웃.");
+		return "redirect:/poslogin";
 	}
 
 
