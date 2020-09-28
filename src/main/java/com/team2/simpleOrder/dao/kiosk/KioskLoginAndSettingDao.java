@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 public interface KioskLoginAndSettingDao {
@@ -20,5 +21,7 @@ public interface KioskLoginAndSettingDao {
 
 	@Insert("INSERT INTO REQUEST VALUES (#{c_code}, #{rq_num}, #{rq_kind})")
 	boolean insertRequset(HashMap<String, String> hm);
+	@Select("SELECT OAC_NUM FROM ORDER_AND_CREDIT WHERE C_CODE=#{c_code} AND BD_DATE=#{bd_date} AND SC_CODE=#{sc_code} AND ST_NUM=#{st_num} AND OAC_STATUS='1'")
+	String checkOac_num(@Param("c_code") String c_code,@Param("bd_date") String bd_date,@Param("sc_code") String sc_code,@Param("st_num") String st_num);
 
 }

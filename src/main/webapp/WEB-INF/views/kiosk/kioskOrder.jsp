@@ -10,6 +10,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
 <style>
 #frame {
@@ -160,22 +161,30 @@ tr, td {
 			$('#header_nav').html(data.sellCtList);
 			//판매키 카테고리 html삽입
 			$('#sellProList').html(data.sellProList);
-			var pd_price = $('.pd_price');
-			for (var i = 0; i < pd_price.length; i++) {
-				var price = pd_price[i].innerText;
-				price = Number(price).toLocaleString('en');
-				pd_price[i].innerText = price + "원";
-			}
+			priceUpdate();
 			orderLoading();
 		},
 		error : function(err) {
 			console.log(err);
 		}
 	});
+	function priceUpdate() {
+		var pd_price = $('.pd_price');
+		for (var i = 0; i < pd_price.length; i++) {
+			var price = pd_price[i].innerText;
+			price = Number(price).toLocaleString('en');
+			pd_price[i].innerText = price + "원";
+		}
+	}
 </script>
 </head>
 <!-- <h2>kioskOrder.jsp</h2> -->
 <body>
+	<h2>${sessionScope.c_code}</h2>
+	<h2>${sessionScope.bd_date}</h2>
+	<h2>${sessionScope.sc_code}</h2>
+	<h2>${sessionScope.st_num}</h2>
+	<h2>${sessionScope.oac_num}</h2>
 	<div id="frame">
 		<nav id="header_nav"></nav>
 		<div id="sellProList"></div>
@@ -197,15 +206,24 @@ tr, td {
 			<strong>장바구니</strong><i id="basket_close_btn" class="fa fa-close"
 				style="font-size: 36px"></i>
 			<table>
-				<tbody id="bBody">
+				<tbody id="bskBody">
 
 				</tbody>
 			</table>
-			<h2 id="bskText">장바구니가 비어있습니다!</h2>
-
+			<h2 id="bskText">장바구니가 비어있습니다</h2>
+			<h2 id="bskSum"></h2>
 		</div>
 	</div>
-	<div id="bill"></div>
+	<div id="bill">
+		<strong>계산서</strong><i id="bill_close_btn" class='fa fa-close'
+			style='font-size: 36px'></i>
+		<table>
+			<tbody id="billBody">
+
+			</tbody>
+		</table>
+		<h2 id="billSum"></h2>
+	</div>
 </body>
 <script type="text/javascript">
 	// 장바구니 모달창 띄우기
@@ -216,21 +234,53 @@ tr, td {
 
 	// 계산서 모달창 띄우기
 	$('#bill_open_btn').on('click', function() {
+		//모달창 열기
+		modal('bill');
 		$.ajax({
 			url : 'rest/getbilllist',
 			type : 'post',
 			dataType : 'json',
 			success : function(data) {
 				//계산서 html 삽입
-				$('#bill').html(data.bill);
-				//모달창 열기
-				modal('bill');
+				$('#billBody').html(data.bill);
+				billSum();
+				billPriceUpdate();
 			},
 			error : function(err) {
-				console.log(err);
+				$('#billBody').html("주문내역이 없습니다");
 			}
 		});
 	});
+	//계산서 안에 있는 상품 가격이랑 개수 합치기
+	function billSum() {
+		var bill_pd_price = $('.bill_pd_price');
+		var bill_oh_cnt = $('.bill_oh_cnt');
+		var sum = 0;
+		for (var i = 0; i < bill_pd_price.length; i++) {
+			var price = Number(bill_pd_price[i].innerText);
+			var cnt = Number(bill_oh_cnt[i].innerText);
+
+			console.log(price);
+			sum += (price * cnt);
+		}
+		console.log(sum);
+		sum = sum.toLocaleString('en');
+		console.log(sum);
+		$('#billSum').text("합계 " + sum + "원");
+	}
+	function billPriceUpdate() {
+		var pd_price = $('.bill_pd_price');
+		var oh_cnt = $('.bill_oh_cnt');
+		for (var i = 0; i < pd_price.length; i++) {
+			var price = pd_price[i].innerText;
+			var cnt = oh_cnt[i].innerText;
+			price = Number(price).toLocaleString('en');
+			console.log(price);
+			pd_price[i].innerText = price + "원";
+			oh_cnt[i].innerText = cnt + "개";
+		}
+	}
+
 	function modal(id) {
 		var zIndex = 9999;
 		var modal = $('#' + id);
@@ -322,7 +372,9 @@ tr, td {
 			str += "<td class='bsk_oh_cnt'>1</td>";
 			str += "<td><input type='button' value='삭제' onclick='deleteCol($(this));'></td>";
 			str += "</tr>";
-			$('#bBody').append(str);
+			$('#bskBody').append(str);
+			$('#bskText').hide();
+			$('#bskSum').show();
 			bskSum();
 			return true;
 		} else {
@@ -367,23 +419,32 @@ tr, td {
 		var num = elem.parents('tr').children('.bsk_oh_cnt').text()
 		num--;
 		elem.parents('tr').children('.bsk_oh_cnt').text(num);
-		bskSum();
 		//상품개수가 0이 되면 테이블 컬럼 삭제
 		if (num == 0) {
 			if (confirm("주문목록에서 삭제 하시겠습니까?")) {
 				elem.closest('tr').remove();
-				bskSum();
+				if ($('#bskBody').children().length == 0) {
+					$('#bskText').show();
+					$('#bskSum').hide();
+				}
 			} else {
 				num++;
 			}
 		}
 		elem.parents('tr').children('.bsk_oh_cnt').text(num);
+		bskSum();
 	}
 	//장바구니에 담긴 테이블 컬럼 삭제
 	function deleteCol(elem) {
 		if (confirm("주문목록에서 삭제 하시겠습니까?")) {
 			elem.closest('tr').remove();
 			bskSum();
+			console.log($('#bskBody').children().length);
+			if ($('#bskBody').children().length == 0) {
+				$('#bskText').show();
+				$('#bskSum').hide();
+			}
+
 		}
 	}
 	//장바구니 안에 있는 상품 가격이랑 개수 합치기
@@ -405,21 +466,20 @@ tr, td {
 		}
 
 		sum = Number(sum).toLocaleString('en');
-		$('#bskText').text("합계 " + sum + "원");
+		$('#bskSum').text("합계 " + sum + "원");
 		console.log($('#bskText').text());
-		console.log($('#bBody').children().length);
-		if ($('#bBody').children().length === 0) {
+		console.log($('#bskBody').children().length);
+		if ($('#bskBody').children().length === 0) {
 			console.log(sum + "원");
-			$('#bskText').text("장바구니가 비어있습니다!");
 
 		}
 	}
 	//주문하기
 	function order() {
 		if (confirm("주문 하시겠습니까?")) {
-			console.log($('#bBody').children().length);
-			if ($('#bBody').children().length === 0) {
-				alert("주문목록이 없습니다");
+			console.log($('#bskBody').children().length);
+			if ($('#bskBody').children().length === 0) {
+				alert("장바구니가 비어있습니다");
 				return false;
 			}
 			//class 이름별로 변수에 담아서 풀어주기

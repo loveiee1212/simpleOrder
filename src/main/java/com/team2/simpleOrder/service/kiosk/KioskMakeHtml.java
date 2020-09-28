@@ -25,7 +25,8 @@ public class KioskMakeHtml {
 		StringBuilder sb2 = new StringBuilder();
 		for (int i = 0; i < skcList.size(); i++) {
 			sb2.append("<div id='skc" + skcList.get(i).get("SKC_CODE") + "' class='pList'>");
-			sb2.append("<div id='pro"+skcList.get(i).get("SKC_CODE")+"'>" + skcList.get(i).get("SKC_NAME") + "</div>");
+			sb2.append("<div id='pro"+skcList.get(i).get("SKC_CODE")+"'>" + skcList.get(i).get("SKC_NAME"));
+			sb2.append("<i class='fas fa-angle-up' style='font-size:36px'></i></div>");
 			for(int j=0; j<sellProList.size(); j++) {
 				//판매키에 올라가 있는 상품리스트
 				//skc_code가 같다면 추가
@@ -113,16 +114,13 @@ public class KioskMakeHtml {
 	// 계산서 리스트 Html 만드는 메소드
 	public HashMap<String, String> billListHtml(List<Bill> bill) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<strong>계산서</strong><i id='bill_close_btn' class='fa fa-close' style='font-size:36px'></i>");
 		for (int i = 0; i < bill.size(); i++) {
-			sb.append("<div class='pList_detail'>");
-			sb.append("<div class='pd_name'>" + bill.get(i).getPd_name() + "</div>");
-			sb.append("<div class='pd_price'>" + bill.get(i).getPd_price() + "</div>");
-			sb.append("<div class='oh_count'>" + bill.get(i).getOh_cnt() + "</div>");
-			sb.append("</div>");
+			sb.append("<tr>");
+			sb.append("<td class='bill_pd_name'>" + bill.get(i).getPd_name() + "</td>");
+			sb.append("<td class='bill_pd_price'>" + bill.get(i).getPd_price() + "</td>");
+			sb.append("<td class='bill_oh_cnt'>" + bill.get(i).getOh_cnt() + "</td>");
+			sb.append("</tr>");
 		}
-		sb.append("<h2 id='sum'></h2>");
-
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		hMap.put("bill", sb.toString());
 		return hMap;

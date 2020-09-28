@@ -11,16 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.team2.simpleOrder.service.kiosk.KioskMM2;
 
 @Controller
-public class KioskController1 {
+public class KioskMainController {
 	@Autowired
 	private KioskMM2 km2;
 
 	@PostMapping(value = "/requestcall")
 	public ModelAndView requestCall(HttpSession session, @RequestParam(value = "text") String text, ModelAndView mav) {
-//		String sc_code = session.getAttribute("sc_code").toString();
-//		String st_num = session.getAttribute("st_num").toString();
-		String sc_code = "03";
-		String st_num = "1";
-		return km2.msgSave(sc_code, st_num, text);
+		return km2.msgSave(session,text);
 	}
 }

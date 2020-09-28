@@ -50,8 +50,18 @@ public class KioskLoginAndSettingMM {
 	}
 
 	public String accessSecurityCode(HashMap<String, String> securityCode, HttpSession session, RedirectAttributes reat) {
+		String c_code = session.getAttribute("c_code").toString();
+		String bd_date = session.getAttribute("bd_date").toString();
+		String sc_code = session.getAttribute("sc_code").toString();
+		String st_num = session.getAttribute("st_num").toString();
 		securityCode.put("c_code", session.getAttribute("c_code").toString());
 		if(securityCode.get("securityCode").equals(kDao.getSecurityCode(securityCode))) {
+			//주문번호가 있는지 확인
+			String oac_num=kDao.checkOac_num(c_code,bd_date,sc_code,st_num);
+			//
+			if(oac_num!=null) {
+				session.setAttribute("oac_num", oac_num);
+			}
 			return "redirect:/kioskmenu";
 		};
 		reat.addFlashAttribute("error","인증번호를 다시 확인해주세요!");

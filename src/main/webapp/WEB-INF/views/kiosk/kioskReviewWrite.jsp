@@ -204,11 +204,16 @@ textarea:focus {
 </style>
 </head>
 <body>
+<h2>${sessionScope.c_code}</h2>
+		<h2>${sessionScope.bd_date}</h2>
+		<h2>${sessionScope.sc_code}</h2>
+		<h2>${sessionScope.st_num}</h2>
+		<h2>${sessionScope.oac_num}</h2>
 	<div id="frame">
 		<div id="header">광고&로고</div>
 		<div id="main">
-			<form action="reviewWrite" id="frm" method="POST"
-				enctype="multipart/form-data">
+			<form action="rest/insertreview" id="frm" method="POST"
+				enctype="multipart/form-data" onsubmit="return reviewWriteCheck()">
 				<div>
 					<div id="score">
 						<input type="hidden" name="rv_score" id="rv_score" value="0">
@@ -219,15 +224,14 @@ textarea:focus {
 							class="starR1">8</span> <span class="starR2">9</span>
 					</div>
 					<div class="image" id="image_container"></div>
-					<input type="hidden" id="fileCheck" value="0"> <input
+					<input
 						type="file" id="rv_file" name="rv_file" value="rv_file" multiple>
 					<br>
 					<textarea name="rv_text" id="rv_text" cols="80" rows="22"
 						placeholder="리뷰입력"></textarea>
 				</div>
 				<div id="footer">
-					<button class="btn" id="btn1" type="button"
-						onclick="reviewWrite();">리뷰작성</button>
+					<button class="btn" id="btn1" type="submit">리뷰작성</button>
 					<button class="btn" id="btn2" type="reset">취소</button>
 					<button class="btn" id="btn3" type="button"
 						onclick="location.href='kioskMenu.jsp'">나가기</button>
@@ -257,39 +261,12 @@ textarea:focus {
 			console.log("check" + $('#fileCheck').val()); //1
 		});
 
-		function reviewWrite() {
+		function reviewWriteCheck() {
 			var rv_file = $("#rv_file");
-			console.log(rv_file);
-			console.dir(rv_file[0].files);
-			console.dir(rv_file[0].files.length);
-			for (var i = 0; i < rv_file[0].files.length; i++) {
-				console.dir(rv_file[0].files[i]);
-
+			if(rv_file[0].files.length>4){
+				alert("사진첨부는 세개까지만 가능합니다.");
+				return false;
 			}
-			console.log($("#rv_score").val());
-			console.log($("#rv_text").val());
-			var reviewData = new FormData();
-			reviewData.append("rv_score", $("#rv_score").val());
-			for (var i = 0; i < rv_file[0].files.length; i++) {
-				console.dir(rv_file[0].files[i]);
-				reviewData.append("rv_files", rv_file[0].files[i]);
-			}
-			reviewData.append("fileCheck", $('#fileCheck').val());
-			reviewData.append("rv_text", $("#rv_text").val());
-			$.ajax({
-				url : 'rest/insertreview',
-				type : 'post',
-				data : reviewData,
-				processData : false,
-				contentType : false,
-				dataType : 'json',
-				success : function(data) {
-					console.log(data);
-				},
-				error : function(error) {
-					console.log(error);
-				}
-			});
 		}
 	</script>
 </body>

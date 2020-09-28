@@ -3,7 +3,9 @@ package com.team2.simpleOrder.dao.kiosk;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.team2.simpleOrder.dto.Bill;
 import com.team2.simpleOrder.dto.Review;
@@ -33,4 +35,16 @@ public interface IKioskDao1 {
 	// 상품코드 등록날짜, 상품 등록날짜 가져오기
 	List<HashMap<String, Object>> find_pdc_and_pd_date(@Param("c_code") String c_code,
 			@Param("pdc_code") String pdc_code, @Param("pd_code") String pd_code);
+
+	@Insert("INSERT INTO REVIEW VALUES(#{c_code},#{bd_date},#{oac_num},DEFAULT,#{rv_text},#{rv_score})")
+	boolean insertReview(Review rv);
+
+	@Insert("INSERT INTO REVIEW_IMG VALUES(#{c_code},#{bd_date},#{oac_num},#{rvImg_sysName})")
+	void insertRvImg(Review rv);
+
+	@Select("SELECT SC_NAME FROM SEAT_CT WHERE C_CODE=#{c_code} AND SC_CODE=#{sc_code}")
+	String getSc_name(@Param("c_code") String c_code, @Param("sc_code") String sc_code);
+
+	@Select("SELECT C_REVIEWUSE FROM COMPANY WHERE C_CODE=#{c_code}")
+	String getReviewUse(@Param("c_code") String c_code);
 }
