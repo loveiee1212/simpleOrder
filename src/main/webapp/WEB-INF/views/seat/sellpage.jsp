@@ -56,7 +56,6 @@ div {
 
 .tab {
 	overflow: hidden;
-	border: 1px solid #ccc;
 	background-color: #f1f1f1;
 }
 
@@ -80,14 +79,14 @@ div {
 }
 
 .tables {
-	border: 3px solid #81d4fa;
-	width: 250px;
-	height: 200px;
-	float: left;
-	margin: 15px;
-	opacity: 0.5;
-	background-color: silver;
-	font-size: 20px;
+    border: 3px solid #81d4fa;
+    width: 250px;
+    height: 200px;
+    float: left;
+    margin: 15px;
+    opacity: 0.5;
+    background-color: silver;
+    font-size: 25px;
 }
 
 #rightdiv {
@@ -171,6 +170,22 @@ p {
 	height: 250px;
 	overflow: auto;
 	border-collapse: collapse;
+}
+
+#r_middle::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: white;
+}
+
+#r_middle::-webkit-scrollbar {
+	width: 10px;
+	background-color: #81d4fa;
+}
+
+#r_middle::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
 }
 
 #r_middle th, #r_middle tr {

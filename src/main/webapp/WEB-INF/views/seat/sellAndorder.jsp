@@ -31,6 +31,14 @@ body {
 	width: 740px;
 	height: 800px;
 	float: left;
+	background-color: white;
+}
+
+.innerdiv2 {
+	border: 3px solid #81d4fa;
+	width: 740px;
+	height: 800px;
+	float: left;
 }
 
 #listbox button {
@@ -40,18 +48,38 @@ body {
 	background-color: white;
 	border: none;
 	font-size: 20px;
-	button: focus{ outline: none;
 	box-shadow: none;
 }
 
+#listbox button:focus {
+	outline: none;
+}
+
 #listbox {
+    background-color: white;
+    border: 3px solid #81d4fa;
+    width: 700px;
+    height: 400px;
+    margin-left: 17px;
+    margin-top: 10px;
+    border-collapse: collapse;
+    overflow: auto;
+}
+
+#listbox::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
-	border: 3px solid #81d4fa;
-	width: 700px;
-	height: 400px;
-	margin-left: 17px;
-	margin-top: 10px;
-	border-collapse: collapse;
+}
+
+#listbox::-webkit-scrollbar {
+	width: 10px;
+	background-color: #81d4fa;
+}
+
+#listbox::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
 }
 
 div #listbox tr, td {
@@ -126,10 +154,8 @@ li input {
 	-webkit-appearance: none;
 	margin: 0;
 } /* input 태그 안 number로 주었을 때 */
-
 .tab {
 	overflow: hidden;
-	border: 1px solid #ccc;
 	background-color: white;
 }
 
@@ -157,13 +183,15 @@ li input {
 }
 
 .productbox {
-	width: 150px;
-	height: 120px;
-	margin-top: 15px;
-	margin-left: 25px;
-	border: 3px solid #81d4fa;
-	font-size: 20px;
-	float: left;
+    width: 150px;
+    height: 120px;
+    margin-top: 15px;
+    margin-left: 25px;
+    border: 3px solid #81d4fa;
+    font-size: 25px;
+    float: left;
+    opacity: 0.5;
+    background-color: silver;
 }
 
 #totalmoney, #takemoney, #uctmoney {
@@ -200,7 +228,7 @@ li input {
 
 			</div>
 
-			<div class="innerdiv">
+			<div class="innerdiv2">
 				<div id="listbox">
 					<center>${list}</center>
 				</div>

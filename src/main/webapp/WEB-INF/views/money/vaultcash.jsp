@@ -7,33 +7,48 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?afte"
-	type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
 <title>시재 - SimpleOrder</title>
 <style>
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 #cashZone {
-	border: 1px solid #81d4fa;
-	height: 800px;
-	width: 700px;
-	float: left;
+    border: 3px solid #81d4fa;
+    height: 795px;
+    width: 900px;
+    float: left;
+    background-color: white;
 }
 
 table, tr, td, th {
-	border: 1px solid #81d4fa;
+	border: 3px solid #81d4fa;
 }
 
 #cashZone table {
-	width: 500px;
+	width: 700px;
 	height: 700px;
 	position: absolute;
 	margin-left: 98px;
 	position: absolute;
-	margin-left: 98px;
-	margin-top: 41px;
+	margin-top: 46px;
+	border-collapse: collapse;
 }
 
 #cashZone th {
-	width: 100px;
+	width: 200px;
+	font-size: 30px;
 }
 
 #cashZone td.leftTd {
@@ -41,29 +56,82 @@ table, tr, td, th {
 }
 
 td.leftTd input {
-	width: 99px;
+	width: 200px;
 	height: 59px;
 	border: 0px;
-	font-size: 20px;
+	font-size: 30px;
+	text-align: center;
 }
 
-#vcZone {
-	border: 1px solid #81d4fa;
-	height: 800px;
-	width: 700px;
-	float: right;
+td.leftTd input:focus {
+	outline: none;
+}
+
+td {
+	font-size: 30px;
+	text-align: center;
 }
 
 #vcZone table {
+    border: 3px solid #81d4fa;
+    font-size: 25px;
+    width: 550px;
+    height: 800px;
+    float: right;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+#clock {
+	margin-top: 5px;
+	margin-left: 70px;
+	width: 400px;
+	height: 150px;
+}
+
+#date {
+	font-size: 40px;
+}
+
+#clock ul {
+	width: 400px;
+	margin-left: -40px;
+}
+
+#clock ul li {
+	font-size: 40px;
+}
+
+#insertVC {
+	text-align: center;
+	border: 2px solid white;
+	width: 250px;
+	height: 95px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
 	font-size: 25px;
 }
 
-#vcZone th {
-	width: 150px;
+#btn {
+	text-align: center;
+	border: 3px solid #81d4fa;
+	width: 200px;
+	height: 95px;
+	margin-left: 20px;
+	background-color: white;
+	font-weight: bold;
+	color: #81d4fa;
+	font-size: 25px;
+	background-color: white;
 }
 
-#vcZone td {
-	width:
+#vcZone th {
+	width: 200px;
+}
+
+button:focus {
+	outline: none;
 }
 </style>
 </head>
@@ -77,77 +145,99 @@ td.leftTd input {
 						<td class="leftTd"><input id="10" class="num" type="number"
 							placeholder="갯수입력" min="0"
 							onchange="carculate(100000,value,'100000tx'),vctext()"></td>
-						<td><div><span id="100000tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="100000tx" class="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>50000원</th>
 						<td class="leftTd"><input id="09" class="num" type="number"
 							min="0" placeholder="갯수입력"
 							onchange="carculate(50000,value,'50000tx'), vctext()"></td>
-						<td><div><span id="50000tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="50000tx" class="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>10000원</th>
 						<td class="leftTd"><input id="08" class="num" type="number"
 							min="0" placeholder="갯수입력"
 							onchange="carculate(10000,value,'10000tx'), vctext()"></td>
-						<td><div><span id="10000tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="10000tx" class="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>5000원</th>
 						<td class="leftTd"><input id="07" class="num" type="number"
 							min="0" placeholder="갯수입력"
 							onchange="carculate(5000,value,'5000tx'), vctext()"></td>
-						<td><div><span id="5000tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="5000tx" class="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>1000원</th>
 						<td class="leftTd"><input id="06" class="num" type="number"
 							min="0" placeholder="갯수입력"
 							onchange="carculate(1000,value,'1000tx'), vctext()"></td>
-						<td><div><span id="1000tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="1000tx" class="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>500원</th>
 						<td class="leftTd"><input id="05" class="num" type="number"
 							min="0" placeholder="갯수입력"
 							onchange="carculate(500,value,'500tx'), vctext()"></td>
-						<td><div><span id="500tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="500tx" class="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>100원</th>
 						<td class="leftTd"><input id="04" class="num" type="number"
 							min="0" placeholder="갯수입력"
 							onchange="carculate(100,value,'100tx'), vctext()"></td>
-						<td><div><span id="100tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="100tx" class="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>50원</th>
 						<td class="leftTd"><input id="03" class="num" type="number"
 							min="0" placeholder="갯수입력"
 							onchange="carculate(50,value,'50tx'), vctext()"></td>
-						<td><div><span id="50tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="50tx" class="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>10원</th>
 						<td class="leftTd"><input id="02" class="num" type="number"
 							min="0" placeholder="갯수입력"
 							onchange="carculate(10,value,'10tx'), vctext()"></td>
-						<td><div><span id="10tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="10tx" class="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>5원</th>
 						<td class="leftTd"><input id="01" class="num" type="number"
 							min="0" placeholder="갯수입력"
 							onchange="carculate(5,value,'5tx'), vctext()"></td>
-						<td><div><span id="5tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="5tx" class="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>1원</th>
 						<td class="leftTd"><input id="00" class="num" type="number"
 							value="0" min="0" placeholder="갯수입력"
 							onchange="carculate(1,value,'1tx'), vctext()"></td>
-						<td><div><span id="1tx" class="cash"></span></div></td>
+						<td><div>
+								<span id="1tx" class="cash"></span>
+							</div></td>
 					</tr>
 				</table>
 			</div>
@@ -169,27 +259,34 @@ td.leftTd input {
 					</tr>
 					<tr>
 						<th>시작시재</th>
-						<td><div><span id="differenceSC"></span></div></td>
+						<td><div>
+								<span id="differenceSC"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>현금매출</th>
-						<td><div><span id="cash"></span></div></td>
+						<td><div>
+								<span id="cash"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>마감시재
-						<td><div><span id="differenceEC"></span></div></td>
+						<td><div>
+								<span id="differenceEC"></span>
+							</div></td>
 					</tr>
 					<tr>
 						<th>시재차</th>
-						<td><div><span id="difference"></span></div></td>
+						<td><div>
+								<span id="difference"></span>
+							</div></td>
 					</tr>
 					<tr>
-						<td><button id="insertVC">시재저장</button></td>
-						<td><button onclick="location.href='posmain'">나가기</button></td>
+						<td colspan="2"><button id="insertVC">시재저장</button>
+							<button id="btn" onclick="location.href='posmain'">나가기</button></td>
 					</tr>
 				</table>
-				<div>
-				</div>
+				<div></div>
 			</div>
 		</div>
 	</div>
@@ -298,7 +395,7 @@ td.leftTd input {
 
 	//현금매출 불러오기
 	function getCashSales() {
-		
+
 	}
 
 	//마감시재 불러오기
@@ -312,9 +409,11 @@ td.leftTd input {
 			}
 		});
 	}
-	
+
 	function getDiff() {
-		$("#difference").text(($("#differenceSC").text() + $("#cash").text())-$("#differenceEC").text());
+		$("#difference").text(
+				($("#differenceSC").text() + $("#cash").text())
+						- $("#differenceEC").text());
 	}
 </script>
 
