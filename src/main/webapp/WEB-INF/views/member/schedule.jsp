@@ -180,24 +180,16 @@ body {
 	</div>
 </body>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						makeCalendar();
-						resetDay();
-						showDay();
-						clockOn();
-						if ("${empCode}" == "00000") {
-							$("#changeWorkTime")
-									.append(
-											$(
-													"<button id = 'changeWorkTimeButton' onclick='changeWorkTime()'>")
-													.html("근무시간변경"));
-							$("#showAllWorkTime").append(
-									$("<button id= 'showAllWorkTimeButton'>")
-											.html("전체근무시간"));
-						}
-					});
+	$(document).ready(function() {
+		makeCalendar();
+		resetDay();
+		showDay();
+		clockOn();
+		if ("${empCode}" == "00000") {
+			$("#changeWorkTime").append($("<button id = 'changeWorkTimeButton' onclick='changeWorkTime()'>").html("근무시간변경"));
+			$("#showAllWorkTime").append($("<button id= 'showAllWorkTimeButton'>").html("전체근무시간"));
+		}
+	});
 
 	//캘린더 생성
 	function makeCalendar() {
@@ -306,16 +298,14 @@ body {
 			var emp_code = null;
 		}
 
-		$
-				.ajax({
-					type : 'get',
-					url : 'rest/getTime',
-					data : {
-						'l_date' : year + "-" + month + "-" + day,
-						'f_date' : year + "-" + month + "-" + 01,
-						'emp_code' : emp_code
-
-					},
+		$.ajax({
+				type : 'get',
+				url : 'rest/getTime',
+				data : {
+					'l_date' : year + "-" + month + "-" + day,
+					'f_date' : year + "-" + month + "-" + 01,
+					'emp_code' : emp_code
+				},
 					dataType : 'json',
 					success : function(data) {
 						$tdText.text(" ");

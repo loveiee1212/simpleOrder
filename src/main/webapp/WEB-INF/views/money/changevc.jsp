@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>SimpleOrder-시제변경</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte"
+	type="text/css">
+<title>SimpleOrder-시재변경</title>
 <style>
 #cashZone {
 	border: 1px solid #81d4fa;
@@ -163,34 +167,39 @@ td.leftTd input {
 						</td>
 					</tr>
 					<tr>
-						<th>시작시재</th>
-						<td><div><span id="differenceSC"></span></div></td>
+						<th>이전시재</th>
+						<td><div><span id="startVC"></span></div></td>
 					</tr>
 					<tr>
-						<th>현금매출</th>
-						<td><div><span id="cash"></span></div></td>
-					</tr>
-					<tr>
-						<th>마감시재
-						<td><div><span id="differenceEC"></span></div></td>
+						<th>변경시재</th>
+						<td><div><span id="changeVC"></span></div></td>
 					</tr>
 					<tr>
 						<th>시재차</th>
 						<td><div><span id="difference"></span></div></td>
 					</tr>
 					<tr>
-						<td><button id="insertVC">시재저장</button></td>
-						<td><button onclick="location.href='posmain'">나가기</button></td>
+						<th colspan="2">시재 변경 사유</th>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" id="vcChangeText"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><button id="insertVC" onclick="insertVC()">시재저장</button>
+						<button id="changeLog" onclick="changeLog()">시재변경내역</button>
+						<button onclick="location.href='posmain'">나가기</button></td>
 					</tr>
 				</table>
-				<div>
-				</div>
 			</div>
 		</div>
 	</div>
 </body>
 
 <script type="text/javascript">
+	$(document).ready(function(){
+		getStartVC();
+	})
+	
 	//시제 계산
 	function carculate(money, num, position) {
 		var result = money * num;
@@ -202,16 +211,62 @@ td.leftTd input {
 		for (var i = 0; i < $(".cash").length; i++) {
 			sum += ($(".cash").eq(i).text()) * 1;
 		}
-		if ("${vc_status}" == "start") {
-			$("#differenceSC").text(sum);
-		} else if ("${vc_status}" == "end") {
-			$("#differenceEC").text(sum);
+			$("#changeVC").text(sum);
 			//시제차 텍스트 찍기
-			$("#difference").text(
-					($("#differenceSC").text() + $("#cash").text())
-							- $("#differenceEC").text());
-		}
+			$("#difference").text($("#changeVC").text()-$("#startVC").text());
+	}
+	
+	//시작시재 불러오기
+	function getStartVC() {
+		$.ajax({
+			type : "get",
+			url : "rest/getstartvc",
+			dataType : "json",
+			success : function(data) {
+				$("#startVC").text(data);
+			}
+		});
+	}
+	
+	//환전시재 입력하기
+	function insertVC() {
+		if(confirm("시재를 변경하시겠습니까?")){
+		
+			var arr = new Array();
+		
+			var obj = new Object();
+			obj.vcc_memo = $("#vcChangeText").val();
+			arr.push(obj);
+		
+			for (var i = 0; i < $(".num").length; i++) {
+				var obj = new Object();
+				obj.cu_code = $(".num").eq(i).attr("id");
+				obj.vcd_cnt = $(".num").eq(i).val();
+				if (obj.vcd_cnt != "") {
+					arr.push(obj);
+				}
+			}
+			var jArr = JSON.stringify(arr);
 
+			$.ajax({
+				type : "post",
+				url : "rest/insertchangevc",
+				data : jArr,
+				contentType : "application/json; charset=UTF-8",
+				dataType : "json",
+				success : function(data) {
+					if (data == "success") {
+						alert("시제가 변경되었습니다.");
+					} else if (data == "error") {
+						alert("시제변경에 실패했습니다.");
+					} else if (data == "end"){
+						if(confirm("영업이 종료되었습니다.\r\n영업을 시작하시겠습니까?\r\n'확인'을 누르시면 시작시재로 이동합니다.")){
+							location.href = "StartVC";
+						}
+					}
+				}
+			});
+		}
 	}
 </script>
 
