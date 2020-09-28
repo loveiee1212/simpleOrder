@@ -41,6 +41,10 @@ div {
 	float: left;
 }
 
+div #seat {
+clear :both;
+}
+
 #outerdiv {
 	width: 1850px;
 	height: 950px;
@@ -79,14 +83,14 @@ div {
 }
 
 .tables {
-    border: 3px solid #81d4fa;
-    width: 250px;
-    height: 200px;
-    float: left;
-    margin: 15px;
-    opacity: 0.5;
-    background-color: silver;
-    font-size: 25px;
+	border: 3px solid #81d4fa;
+	width : 100px;
+	height : 100px;
+	float: left;
+	margin: 15px;
+	opacity: 0.5;
+	background-color: silver;
+	font-size: 25px;
 }
 
 #rightdiv {
@@ -377,7 +381,8 @@ i {
 		<div id="baseinnerBox">
 			<div class="leftdiv">
 				<div class="tab"></div>
-				<div id="seat"></div>
+				<div id="seat">	
+				</div>
 			</div>
 			<div id="rightdiv">
 				<div class="clickdiv">
@@ -534,51 +539,21 @@ i {
 			url : "rest/gettablelist",
 			dataType : 'json',
 			success : function(result) {
-				for ( var i in result) {
-					//테이블 가로 X 세로 길이 구하기
-					var xylength = (result[i].sc_x) * (result[i].sc_y);
-					//테이블 카테고리 추가하기
-					$("div.tab").append(result[i].sc_name);
-					//seat div 에 카테고리 갯수만큼 div 생성
-					$("#seat").append("<div id='table"+i+"' class='tList'>");
-					for (var a = 1; a <= xylength; a++) {
-						//생성한 div에 테이블 가로X 세로 길이(테이블 갯수)만큼 div 생성하기
-						if (i < 10) {
-							$("#table" + i).append(
-									"<div class='tables' id='tnum" + "0"
-											+ (parseInt(i) + 1) + a
-											+ "' data-code=" + "0"
-											+ (parseInt(i) + 1) + "-" + a + ">"
-											+ a + "</div>");
-						} else {
-							$("#table" + i).append(
-									"<div class='tables' id='tnum"
-											+ (parseInt(i) + 1) + a
-											+ "' data-code="
-											+ (parseInt(i) + 1) + "-" + a + ">"
-											+ a + "</div>");
-						}
-						for ( var b in result[i].tlist) {
-							if (a == result[i].tlist[b]) {
-								//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
-								if (i < 10) {
-									$("#tnum" + "0" + (parseInt(i) + 1) + a)
-											.css("background-color", "white");
-									$("#tnum" + (parseInt(i) + 1) + a).css(
-											"opacity", "100");
-								} else {
-									$("#tnum" + "0" + (parseInt(i) + 1) + a)
-											.css("background-color", "white");
-									$("#tnum" + (parseInt(i) + 1) + a).css(
-											"opacity", "100");
-								}
-							}
-						}
-					}
-
+				$("div.tab").append(result.ctginfo);
+				$("#seat").append(result.tableinfo);
+				for ( var a in result.list) {
+					console.log("a"+a);
+				for(var b in result.list[a].tlist){				
+				//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
+				console.log(result.list[a].tlist[b]);
+				if(result.list[a].tlist[b]<10){
+				$("#tnum" + "0"+(parseInt(a)+1)+ result.list[a].tlist[b]).css({"background-color" : "white",'visibility': 'visible'});
+				$("#tnum" +"0"+(parseInt(a)+1)+ result.list[a].tlist[b]).css("opacity", "100");
 				}
-
-				console.log(result);
+				$("#tnum"  + result.list[a].tlist[b]).css({"background-color" : "white",'visibility': 'visible'});
+				$("#tnum" + result.list[a].tlist[b]).css("opacity", "100");
+					}
+				}
 
 				getorderList();
 
@@ -639,15 +614,12 @@ i {
 
 	/* 테이블 카테고리 클릭시 오픈 */
 	function opentable(evt, categoryname) {
-		console.log(1);
 		var table = $("div[id*='table']");
-		console.log(table.length);
 		for (var i = 0; i < table.length; i++) {
 			table[i].className = table[i].className
 					.replace("blockCtg", "tList");
 		}
 
-		console.log($("#" + categoryname).attr('class'));
 		if ($("#" + categoryname).attr('class') == 'tList') {
 			$("#" + categoryname).attr('class', 'blockCtg');
 		}

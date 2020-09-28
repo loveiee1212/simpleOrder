@@ -40,7 +40,7 @@ public class CMemberHtmlMaker {
 			sb.append("</tr>");
 			i++;
 		}
-		sb.append("<tr>").append("<td>").append("<input type = 'button' value = '추가' onclick = 'createempSetting()'>")
+		sb.append("<tr>").append("<td>").append("<input id='addbtn' type = 'button' value = '추가' onclick = 'createempSetting()'>")
 				.append("<td/>").append("<tr/>");
 		return sb.toString();
 	}

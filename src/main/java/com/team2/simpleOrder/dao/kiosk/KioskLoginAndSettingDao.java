@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface KioskLoginAndSettingDao {
 
@@ -20,5 +21,11 @@ public interface KioskLoginAndSettingDao {
 
 	@Insert("INSERT INTO REQUEST VALUES (#{c_code}, #{rq_num}, #{rq_kind})")
 	boolean insertRequset(HashMap<String, String> hm);
+
+	@Select("SELECT C_REVIEWUSE FROM COMPANY WHERE C_CODE = #{value}")
+	int getreveiwUsagestatus(String c_code);
+
+	@Update("UPDATE COMPANY SET C_REVIEWUSE = #{c_reviewuse} WHERE C_CODE = #{c_code}")
+	void updatereveiwUsagestatus(HashMap<String, String> hm);
 
 }

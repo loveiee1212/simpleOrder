@@ -89,12 +89,16 @@ public class PageController1 {
 	public String seatSettinFrm() {
 		return "posSetting/seatSettinFrm";
 	}
+	@RequestMapping("/reveiwUsagestatusFrm")
+	public String reveiwUsagestatusFrm() {
+		return "kioskSetting/reveiwUsagestatusFrm";
+	}
 	
 	@RequestMapping("/test")
 	public String test(@RequestParam HashMap<String, String> test, RedirectAttributes reat) {
 		System.out.println(test);
-		reat.addFlashAttribute("basicPath", "includeAjax('seatSettinFrm')");
-		return "redirect:/posSetting";
+		reat.addFlashAttribute("basicPath", "includeAjax('reveiwUsagestatusFrm')");
+		return "redirect:/kioskSettingFrm";
 	}
 
 }

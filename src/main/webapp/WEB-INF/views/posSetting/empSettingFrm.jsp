@@ -109,6 +109,17 @@ select {
 	color: #81d4fa;
 	font-size: 25px;
 }
+
+#addbtn {
+    text-align: center;
+    border: 3px solid #81d4fa;
+    width: 100px;
+    height: 50px;
+    background-color: white;
+    font-weight: bold;
+    color: #81d4fa;
+    font-size: 20px;
+}
 </style>
 </head>
 <body>

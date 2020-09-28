@@ -29,5 +29,10 @@ public class KioskLoginAndSettingRestController {
 	public HashMap<String, String> getRequsetList(HttpSession session){
 		return km.getRequsetList(session.getAttribute("c_code").toString());
 	}
+	@GetMapping("/getreveiwUsagestatus")
+	public boolean getreveiwUsagestatus(HttpSession session){
+		return km.getreveiwUsagestatus(session.getAttribute("c_code").toString());
+	}
+	
 
 }

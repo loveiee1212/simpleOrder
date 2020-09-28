@@ -29,9 +29,8 @@ public class OrderRestController1 {
 	OrderMM1 om;
 	//테이블정보가져오기
 	@RequestMapping(value = "/gettablelist", method = RequestMethod.POST)
-	public List<Order> getTablelist() {
-		List<Order> tList = om.getTablelist();
-		return tList;
+	public HashMap<String, Object> getTablelist() {
+		return om.getTablelist();
 	}
 	
 	//예약정보가져오기
