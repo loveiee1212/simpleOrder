@@ -12,7 +12,7 @@
 	
 	<!-- 좌석 정보 select -->
 	<select id="getTList" parameterType="string" resultType="order">
-	SELECT * FROM SEAT_CT AS SC JOIN SEAT AS ST ON ST.C_CODE = #{c_code} AND SC.SC_CODE = ST.SC_CODE
+	SELECT * FROM SEAT_CT AS SC JOIN SEAT AS ST ON SC.SC_CODE = ST.SC_CODE WHERE ST.C_CODE = #{c_code}
 	
 	</select>
 	
