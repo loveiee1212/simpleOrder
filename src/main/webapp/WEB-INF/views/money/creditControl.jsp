@@ -79,7 +79,7 @@ div#listbox tr, td {
 #moneylist ul li {
 	list-style: none;
 	float: left;
-	margin-left: 60px;
+	margin-left: 10px;
 }
 
 li input {
@@ -141,7 +141,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 					<ul>
 						<li>총금액 <input type="number" readonly="readonly"
 							id="totalmoney"></li>
-						<li>결제금액 <input type="number" id="takemoney" value="0"
+						<li>결제금액 <input type="number" readonly="readonly"
+							id="endpay"></li>
+						<li>받은금액 <input type="number" id="takemoney"
 							placeholder="0"></li>
 						<li id="Remain_money">남은금액 <input type="number"
 							readonly="readonly" id="uctmoney"></li>
@@ -187,18 +189,14 @@ getCreditList();
 	 data:{"oac_status": 0 },
 	 dataType:"json",
 	 success : function(result){
-	 console.log(result);
 	 $("#creditList").html(result.data);
 	 $("#crdtableList .crdinfo").click(function() {
 			var tdArr = new Array();
 			var tr = $(this);
 			var td = tr.children();
-			console.log(tr.text());
 			/* tr 행의 정보들을 Arr에 담음 */
 			$("#crdtableList tr[class='.crdinfo']").css('background-color','white');
 			tr.css('background-color', '#ddd');
-			console.log("배열에 담긴 값 : " + tdArr);
-			
 			var bd_date = $(this).children("#bd_date").val();
 			var oac_num = $(this).children("#oac_num").val();
 			getdetailCredit(bd_date,oac_num);
@@ -211,20 +209,42 @@ getCreditList();
 		var objparam ={"bd_date":bd_date,
 						"oac_num" : oac_num,
 						"oac_status" : 0};
-		console.log(objparam);
 		$.ajax({
 			type : 'post',
 			url : 'rest/showdetailcredit',
 			data : objparam,
 			dataType : 'json',
 			success : function (data){
-				console.log(data);
 				$("#listbox").html(data.data);
 				totalprice();
-				$("#uctmoney").val($("#totalmoney").val());
 				/* 수량변경시 값 수정 */
+				$("#uctmoney").val($("#totalmoney").val());
+				var a = Number(data.endpay);
+				$("#endpay").val(a);
+				$("#takemoney").val(0);
+				var b = $("#totalmoney").val();
+				console.log(a);
+				console.log(b);
+				console.log(a==b);
+				if(a==b){
+					updateOac(bd_date,oac_num);
+				}
 			}
 	
+		})
+	}
+	
+	function updateOac(bd_date,oac_num){
+		$.ajax({
+			type : 'post',
+			url : 'rest/updateoac',
+			data : {"bd_date":bd_date,"oac_num":oac_num},
+			dataType : 'json',
+			success : function (result){
+				console.log(result);
+				alert(result.result);
+				location.href = "./posmain";
+			}
 		})
 	}
 	
@@ -232,49 +252,39 @@ getCreditList();
 		var oac_num = $("#sendoac_num").val();
 		var bd_date = $("#sendbd_date").val();
 		
-		if($("#takemoney").val()-$("#totalmoney").val()>0){
-		var getmoney = $("#totalmoney").val();
-		}else{
 		var getmoney = $("#takemoney").val();
+		
+		if($("#takemoney").val()-$("#totalmoney").val()>0){
+		var paymoney = $("#totalmoney").val();
+		}else{
+		var paymoney = $("#takemoney").val();
 		}//결제금액이 총금액보다 큰 경우 총금액이 결제금액으로 설정
 		
 		var text = $("#Remain_money").text();
 		
 		if(text.match("남은금액")){
 		var totalmoney = $("#totalmoney").val($("#uctmoney").val());
-			console.log("남은금액"+$("#uctmoney").val());
 		}//남은금액이 있을경우 남은금액이 총금액의 값으로 들어가게 됨
-		
-		if(paytype == "1"){
-			console.log("현금결제")
-		}else{
-			console.log("카드결제")
-		}//결제타입이 1일경우 현금결제 2일경우 카드결제
-		
-		console.log("주문번호"+oac_num);
-		console.log("영업일"+bd_date);
-		console.log("받은금액"+getmoney);
 		
 		var objparam = {
 				"bd_date":bd_date,
 				"oac_num":oac_num,
 				"getmoney":getmoney,
+				"paymoney" : paymoney,
 				"paytype":paytype
 		}
-		console.log(objparam);
 		
-		/* $ajax({
+		 $.ajax({
 		type : 'post',
 		url : 'rest/moneypayment',
 		data : objparam,
 		dataType : 'json',
 		success : function(result){
-			
+			alert(result.result);
+			getdetailCredit(bd_date,oac_num);
 		} 
-		})*/
+		})
 	}
-		
-	
 		
 		function totalprice() {
 			for (var i = 0; i < $("tr").length; i++) {
@@ -302,10 +312,10 @@ getCreditList();
 	$("#keypad ul li").click(function() {
 	if ($(this).val() == 11 || $(this).val() == 12) {return;}
 	str += $(this).val();
-	$("#takemoney").val(str);
+	$("#takemoney").val(Number(str));
 	$("#uctmoney").val(
 	$("#totalmoney").val() - $("#takemoney").val());
-	if (($("#totalmoney").val() - $("#takemoney").val()) < 0) {
+	if (($("#totalmoney").val()  - $("#takemoney").val()) < 0) {
 	$("#Remain_money").html(
 	"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
 	$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())* (-1));} 
@@ -316,7 +326,7 @@ getCreditList();
 
 	function reset() {
 		str = str.substring(str.length, str.length);
-		$("#takemoney").val(str);
+		$("#takemoney").val(Number(str));
 		$("#Remain_money").html(
 				"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
 		$("#uctmoney").val($("#totalmoney").val());}
@@ -324,21 +334,15 @@ getCreditList();
 	function backspace() {
 		//	console.log("length" + str.substr(0, str.length - 1));
 		$("#takemoney").val(str.substr(0, str.length - 1));
-		$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());
+		$("#uctmoney").val($("#totalmoney").val()  - $("#takemoney").val());
 		str = $("#takemoney").val();
 
 		if (($("#totalmoney").val() - $("#takemoney").val()) < 0) {
-			$("#Remain_money")
-					.html(
-							"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(
-					($("#totalmoney").val() - $("#takemoney").val()) * (-1));
+			$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val()) * (-1));
 		} else {
-			$("#Remain_money")
-					.html(
-							"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney")
-					.val(($("#totalmoney").val() - $("#takemoney").val()));
+			$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(($("#totalmoney").val()- $("#takemoney").val()));
 		}
 	}
 
@@ -346,12 +350,10 @@ getCreditList();
 	$("#takemoney").keyup(function(evt) {
 	$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());
 	if (($("#totalmoney").val() - $("#takemoney").val()) < 0) {
-	$("#Remain_money").html(
-	"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-	$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())* (-1));} 
-	else {$("#Remain_money").html(
-	"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-	$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val()));}
+	$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+	$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())*(-1));} 
+	else {$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+	$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());}
 	});
 	$("#takemoney").focus(function() {
 	$("#takemoney").val("");
