@@ -39,6 +39,7 @@ div {
 		<div id="divTwo">
 			<input type = "button" value = "테이블별 QR코드 가져오기" onclick = "includeAjax('kioskQrCodeListFrm')"><br/>
 			<input type = "button" value = "요청사항 수정하기" onclick = "includeAjax('requestListSettingFrm')"><br/>
+			<input type = "button" value = "리뷰 사용 여부 체크" onclick = "includeAjax('reveiwUsagestatusFrm')"><br/>
 			<input type = "button" value = "포스 설정으로 " onclick = "location.href = 'posSetting'">
 		</div>
 	</div>
@@ -51,7 +52,6 @@ function includeAjax(url){
 		success : function(html){
 			$("#divOne").html(html)
 		}
-		
 	})
 }
 </script>

@@ -1,7 +1,5 @@
 package com.team2.simpleOrder.service.kiosk;
 
-import java.awt.List;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -84,6 +82,23 @@ public class KioskLoginAndSettingMM {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			return "redirect:/kioskSettingFrm";
 		}
+	}
+
+	public boolean getreveiwUsagestatus(String c_code) {
+		if(kDao.getreveiwUsagestatus(c_code)==1) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public String updatereveiwUsagestatus(String c_code, String c_reviewuse, RedirectAttributes reat) {
+		HashMap<String , String> hm = new HashMap<String, String>();
+		hm.put("c_code", c_code);
+		hm.put("c_reviewuse", c_reviewuse);
+		reat.addFlashAttribute("basicPath", "includeAjax('reveiwUsagestatusFrm')");
+		kDao.updatereveiwUsagestatus(hm);
+		return "redirect:/kioskSettingFrm";
 	}
 
 }

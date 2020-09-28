@@ -33,5 +33,9 @@ public class KioskLoginAndSettingController {
 	public String updateRequestList(@RequestParam HashMap<String, String>reqList, HttpSession session, RedirectAttributes reat) {
 		return km.updateRequestList(reqList,session, reat);
 	}
-	
+	@PostMapping("/updatereveiwUsagestatus")
+	public String updatereveiwUsagestatus(String c_reviewuse,HttpSession session, RedirectAttributes reat) {
+		return km.updatereveiwUsagestatus(session.getAttribute("c_code").toString(),c_reviewuse, reat);
+		
+	}
 }
