@@ -43,7 +43,6 @@ public class KioskLoginAndSettingMM {
 		KioskLoginHtmlMaker klhm = new KioskLoginHtmlMaker();
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("tableQrcodeList", klhm.getQrCodeListhtml(c_code, oDao.getTList(c_code)));
-		System.out.println(hm);
 		return hm;
 	}
 
