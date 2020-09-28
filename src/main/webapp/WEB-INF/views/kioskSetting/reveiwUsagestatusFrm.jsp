@@ -19,7 +19,7 @@
 
 <tr>
 	<td><input type="radio" name = 'c_reviewuse' value='1' id="active"></td>
-	<td><input type="radio" name = 'c_reviewuse' value='-1' checked="checked"></td>
+	<td><input type="radio" name = 'c_reviewuse' value='-1' id='unactive'></td>
 </tr>
 </table>
 <input type="submit" value="저장">
@@ -36,6 +36,8 @@ $.ajax({
 	success : function (result){
 		if(result){
 			$("#active").attr("checked","checked");
+		}else{
+			$("#unactive").attr("checked","checked");
 		}
 			
 	}
