@@ -6,9 +6,56 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>reveiwUsagestatusFrm</title>
+<style type="text/css">
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+table {
+margin-top: 100px;
+margin-left: 50px;
+}
+
+th {
+font-size: 35px;
+text-align: center;
+padding-left: 190px;
+}
+
+input[type="radio" i] {
+width: 70px;
+height: 70px;
+margin-left: 200px;
+}
+
+#save {
+text-align: center;
+    border: 2px solid white;
+    width: 150px;
+    height: 80px;
+    margin-right: 50px;
+    margin-top: 100px;
+    background-color: #81d4fa;
+    font-weight: bold;
+    color: white;
+    font-size: 30px;
+    float: right;
+}
+
+</style>
 </head>
 <body>
-<h2>reveiwUsagestatusFrm</h2>
+<h2>리뷰 사용 여부</h2>
 <form action="updatereveiwUsagestatus" method="post">
 <!-- <form action="test" method="post"> -->
 <table>
@@ -22,7 +69,7 @@
 	<td><input type="radio" name = 'c_reviewuse' value='-1' id='unactive'></td>
 </tr>
 </table>
-<input type="submit" value="저장">
+<input type="submit" id="save" value="저장">
 </form>
 
 

@@ -34,9 +34,17 @@ public class VaultCashController {
 	public ModelAndView endVC(HttpSession session) {
 		
 		return vcm.checkEndVC(session);
-
+	}
+	
+	@RequestMapping("/changevc")
+	public String changeVC() {
 		
-		
+		return "money/changevc";
+	}
+	
+	@RequestMapping("/changelog")
+	public String changeLog() {
+		return "money/changelog";
 	}
 
 }

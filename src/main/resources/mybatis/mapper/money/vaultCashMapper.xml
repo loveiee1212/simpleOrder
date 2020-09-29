@@ -15,12 +15,26 @@
 		SELECT MAX(BD_DATE) FROM BUSINESS_DAY WHERE C_CODE = #{c_code}
 	</select>
 	
-	<!-- 시작시제여부 확인 -->
-	<select id="checkStartVC" parameterType="string" resultType="string">
+	<!-- 시재여부 확인 -->
+	<select id="checkVc_code" parameterType="string" resultType="object">
 		SELECT VC_CODE FROM VAULT_CASH WHERE VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE=#{c_code})
 	</select>
 	
-	<!-- 시작시제 가져오기 -->
+	<!-- 시재 넣기 -->
+	<insert id="insertVC" parameterType="hashmap">
+		INSERT INTO VAULT_CASH (C_CODE, BD_DATE, VC_CODE, VC_CHANGETIME) VALUES (#{c_code}, #{bd_date}, #{vc_code}, DEFAULT)
+	</insert>
+	<insert id="insertVC_Cnt" parameterType="hashmap">
+		INSERT INTO VC_DETAIL (C_CODE,BD_DATE,VC_CODE,CU_CODE,VCD_CNT)
+				VALUES (#{c_code},#{bd_date},#{vc_code},#{cu_code},#{vcd_cnt})
+	</insert>
+	<!-- 환전 메모넣기 -->
+	<insert id="insertVCChangeMemo" parameterType="hashmap">
+		INSERT INTO VC_CHANGE (C_CODE, BD_DATE, VC_CODE, VCC_MEMO) 
+				VALUES (#{c_code},#{bd_date},#{vc_code},#{vcc_memo})
+	</insert>
+	
+	<!-- 시작시재 가져오기 -->
 	<select id="getStartVC" parameterType="string" resultType="string">
 		SELECT SUM(D.VCD_CNT*U.CU_UNIT) AS STARTVC
 		FROM VC_DETAIL AS D INNER JOIN VAULT_CASH AS C ON D.C_CODE = C.C_CODE AND D.BD_DATE = C.BD_DATE AND D.VC_CODE =C.VC_CODE
@@ -36,21 +50,24 @@
 		WHERE C.VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE = #{c_code} AND VC_CODE = -1)
 	</select>
 	
-	<!-- 시작시재 넣기 -->
-	<insert id="insertStartVC" parameterType="hashmap">
-		INSERT INTO VAULT_CASH (C_CODE, BD_DATE, VC_CODE, VC_CHANGETIME) VALUES (#{c_code}, #{bd_date}, 1, DEFAULT)
-	</insert>
-	<insert id="insertStartVC_Cnt" parameterType="hashmap">
-		INSERT INTO VC_DETAIL (C_CODE,BD_DATE,VC_CODE,CU_CODE,VCD_CNT)
-				VALUES (#{c_code},#{bd_date},1,#{cu_code},#{vcd_cnt})
-	</insert>
+	<!-- 월시재 가져오기 -->
+	<select id="getMonthVC" parameterType="hashmap" resultType="hashmap">
+		SELECT SUM(D.VCD_CNT*U.CU_UNIT) AS VC, C.BD_DATE, D.VC_CODE
+		FROM VC_DETAIL AS D INNER JOIN VAULT_CASH AS C ON D.C_CODE = C.C_CODE AND D.BD_DATE = C.BD_DATE AND D.VC_CODE = C.VC_CODE
+			INNER JOIN CASH_UNIT AS U ON D.CU_CODE = U.CU_CODE
+		WHERE C.C_CODE=#{c_code} AND DATE(C.BD_DATE) BETWEEN #{f_date} AND #{l_date}
+		GROUP BY C.BD_DATE, D.VC_CODE
+		ORDER BY C.BD_DATE ,D.VC_CODE DESC
+	</select>
 	
-	<!-- 마감시재 넣기 -->
-	<insert id="insertEndVC" parameterType="hashmap">
-		INSERT INTO VAULT_CASH (C_CODE, BD_DATE, VC_CODE, VC_CHANGETIME) VALUES (#{c_code}, #{bd_date}, -1, DEFAULT)
-	</insert>
-	<insert id="insertEndVC_Cnt" parameterType="hashmap">
-		INSERT INTO VC_DETAIL (C_CODE,BD_DATE,VC_CODE,CU_CODE,VCD_CNT)
-				VALUES (#{c_code},#{bd_date},-1,#{cu_code},#{vcd_cnt})
-	</insert>
+	<!-- 일시재 기록가져오기-->
+	<select id="getDayVCLog" parameterType="hashmap" resultType="hashmap">
+		SELECT SUM(D.VCD_CNT*U.CU_UNIT) AS VC, C.VC_CHANGETIME, D.VC_CODE, CH.VCC_MEMO
+		FROM VC_DETAIL AS D INNER JOIN VAULT_CASH AS C ON D.C_CODE = C.C_CODE AND D.BD_DATE = C.BD_DATE AND D.VC_CODE = C.VC_CODE
+			INNER JOIN CASH_UNIT AS U ON D.CU_CODE = U.CU_CODE 
+			LEFT JOIN VC_CHANGE AS CH ON C.C_CODE = CH.C_CODE AND C.BD_DATE = CH.BD_DATE AND C.VC_CODE = CH.VC_CODE
+		WHERE C.C_CODE=#{c_code} AND DATE(C.BD_DATE) = #{bd_date}
+		GROUP BY C.VC_CHANGETIME, D.VC_CODE, CH.VCC_MEMO
+		ORDER BY C.VC_CHANGETIME ASC;
+	</select>
 </mapper>

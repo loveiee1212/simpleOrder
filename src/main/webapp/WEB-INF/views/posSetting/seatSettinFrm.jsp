@@ -49,7 +49,7 @@ table, tr, td, th {
     width: 300px;
     height: 80px;
     text-align: center;
-    color: #81d4fa;
+    color: #1565c0;
     font-size: 20px;
     font-weight: bold;
     border-collapse: collapse;
@@ -160,7 +160,7 @@ ${msg}
 			$(".seatList").attr("hidden", "hidden");
 			$("#" + sc_code).removeAttr("hidden");
 			$(".categoriList").attr("style", "background : none;");
-			$(ele).attr("style","background : #1565c0;")
+			$(ele).attr("style","background : #90caf9;")
 		}
 		
 		function updateSeatXYInfo(ele) { // seat카테고리의 X,Y축 업데이트
@@ -187,7 +187,7 @@ ${msg}
 					$("#CategoriList").html(data.CategoriList);
 					$("#seatList").html(data.seatList);
 					$("#01").removeAttr("hidden");
-					$(".categoriList").eq(0).attr("style","background :  #1565c0;");
+					$(".categoriList").eq(0).attr("style","background : #90caf9;");
 				}
 			})
 		}
