@@ -23,7 +23,14 @@ public interface IPosDao1 {
 
 	boolean updateStock(List<StoreManagement> sList);
 
-	List<StoreManagement> getSellProductList1(String c_code);
+	@Select("SELECT * "
+		  + "FROM PRODUCT P "
+		  + "JOIN PRODUCT_CT PC "
+		  + "ON P.PDC_CODE = PC.PDC_CODE "
+		  + "LEFT OUTER JOIN STOCK S "
+		  + "ON P.PD_CODE = S.PD_CODE AND P.PDC_CODE = S.PDC_CODE "
+		  + "WHERE P.C_CODE = #{value} AND P.PD_STATUS = '1'")
+	List<StoreManagement> getsproductlist(String c_code);
 
 	@Insert("INSERT INTO PRODUCT VALUES (#{c_code}, #{pdc_code}, #{pdc_date}, #{pd_code}, #{pdc_date}, #{pd_name}, #{pd_imgname}, #{pd_price},{pd_status})")
 	boolean insertProduct(StoreManagement sm);

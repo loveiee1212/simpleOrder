@@ -23,17 +23,16 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RestController
 @RequestMapping("/rest")
-public class PosRestController1 {
+public class ProductRestController1 {
 	// Only Pos Rest Controller Number1
 
 	@Autowired
 	PosMM1 pm1;
 
 	// productcontrol 왼쪽 상품 정보 출력
-	@RequestMapping(value = "/getsellproductlist1", method = RequestMethod.POST)
-	public HashMap<String, String> getsellproductlist() {
-		String c_code = "123123123123";
-		return pm1.getsellproductlist1(c_code);
+	@RequestMapping(value = "/getsproductlist", method = RequestMethod.POST)
+	public HashMap<String, String> getsellproductlist(HttpSession session) {
+		return pm1.getsproductlist(session.getAttribute("c_code").toString());
 	}
 
 	// stockcontrol 오른쪽 재고상품리스트 출력
