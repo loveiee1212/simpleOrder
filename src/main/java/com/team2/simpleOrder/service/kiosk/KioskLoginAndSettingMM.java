@@ -30,7 +30,7 @@ public class KioskLoginAndSettingMM {
 		session.setAttribute("c_code", c_code);
 		session.setAttribute("sc_code", sc_code);
 		session.setAttribute("st_num", st_num);
-		if ((int)(vDao.checkVc_code(sc_code)) != -1) {
+		if (Integer.parseInt((String.valueOf(vDao.checkVc_code(c_code)))) != -1) {
 			session.setAttribute("bd_date", vDao.getBd_date(c_code));
 		}else {
 			reat.addFlashAttribute("msg","영업 시작 전입니다.");

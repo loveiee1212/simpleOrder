@@ -22,24 +22,25 @@ body {
 }
 
 table {
-margin-top: 100px;
-margin-left: 50px;
+	margin-top: 100px;
+	margin-left: 200px;
 }
 
 th {
-font-size: 35px;
-text-align: center;
-padding-left: 190px;
+	font-size: 30px;
+	text-align: center;
+	width: 250px;
 }
 
-input[type="radio" i] {
-width: 70px;
-height: 70px;
-margin-left: 200px;
+#active, #unactive, td {
+    width: 50px;
+    height: 50px;
+    margin-top: 30px;
+    margin-left: 100px;
 }
 
 #save {
-text-align: center;
+    text-align: center;
     border: 2px solid white;
     width: 150px;
     height: 80px;
@@ -48,10 +49,9 @@ text-align: center;
     background-color: #81d4fa;
     font-weight: bold;
     color: white;
-    font-size: 30px;
+    font-size: 25px;
     float: right;
 }
-
 </style>
 </head>
 <body>

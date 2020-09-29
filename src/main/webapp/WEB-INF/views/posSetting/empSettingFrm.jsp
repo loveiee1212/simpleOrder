@@ -39,7 +39,8 @@ body {
     width: 800px;
     height: 400px;
     border: 3px solid #81d4fa;
-    overflow: auto;
+    overflow-x: scroll;
+	overflow-y: scroll;
     background-color: white;
     text-align: center;
     font-size: 19px;
@@ -47,10 +48,31 @@ body {
     font-weight: bold;
 }
 
-#empList th {
-	font-size: 20px;
+#empList::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
 	background-color: #81d4fa;
-	color: white;
+}
+
+#empList::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#empList::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#empList th {
+    font-size: 25px;
+    background-color: #81d4fa;
+    color: white;
+    height: 60px;
+    width: 100px;
 }
 
 #frm table {

@@ -218,9 +218,6 @@ body {
 		$.ajax({
 			type : "get",
 			url : "rest/getemplist",
-			data : {
-				c_code : "123123123123"
-			},
 			dataType : "json",
 			success : function(data) {
 				for ( var i in data) {
@@ -282,8 +279,7 @@ body {
 			type : "get",
 			url : "rest/getempinfo",
 			data : {
-				emp_code : emp_code,
-				c_code : "123123123123"
+				emp_code : emp_code
 			},
 			dataType : "json",
 			success : function(data) {
@@ -306,7 +302,6 @@ body {
 					data : {
 						"emp_code" : $("#emp_code").text(),
 						"bd_date" : $(this).val(),
-						"c_code" : "123123123123"
 					},
 					dataType : "json",
 					success : function(data) {
@@ -344,7 +339,6 @@ body {
 			data : {
 				"emp_code" : $("#emp_code").text(),
 				"bd_date" : $("#bd_date").val(),
-				"c_code" : "123123123123",
 				"ad_inTime" : ad_inTime,
 				"ad_outTime" : ad_outTime
 			},
