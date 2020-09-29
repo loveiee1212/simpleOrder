@@ -12,11 +12,6 @@ import com.team2.simpleOrder.service.storeManagement.PosMM3;
 
 @Controller
 public class PosController1 {
-	//Only Pos Controller Number1
 	
-	@Autowired
-	PosMM1 pm1;
-	
-	ModelAndView mav;
 
 }

@@ -86,9 +86,7 @@ $.ajax({
 		}else{
 			$("#unactive").attr("checked","checked");
 		}
-			
 	}
-	
 })
 </script>
 </html>

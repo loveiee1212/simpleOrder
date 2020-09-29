@@ -73,7 +73,7 @@ h2 {
 			<input type="button" id="btn" class='grantList'	onclick="location.href = ''" value="매출 현황"> 
 			<input type="button" id="btn" class='grantList' onclick="checkBd_date('kimsangIron')" value="외상 처리">
 			<input type="button" id="btn" class='grantList'	onclick="checkBd_date('changevc')" value="시재 변경">
-			<input type="button" id="btn" class='grantList' onclick="location.href = ''" value="상품 관리">
+			<input type="button" id="btn" class='grantList' onclick="location.href = 'productcontrol'" value="상품 관리">
 			<input type="button" id="btn" class='grantList'	onclick="location.href = ''" value="판매 상품 관리">
 			<input type="button" id="btn" class='grantList'	onclick="location.href = 'posSetting'" value="포스 설정">
 			<button id="btn" onclick="location.href ='emailLogout'">종료</button>

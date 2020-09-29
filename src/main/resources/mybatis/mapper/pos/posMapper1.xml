@@ -7,19 +7,6 @@
 
 <mapper
 	namespace="com.team2.simpleOrder.dao.posManagement.IPosDao1">
-	<!-- productcontrol 왼쪽 상품 정보 출력 -->
-	<select id="getSellProductList1" parameterType="String"
-		resultType="product">
-		SELECT * FROM PRODUCT AS PD
-		LEFT OUTER JOIN STOCK AS STK ON
-		PD.C_CODE = STK.C_CODE
-		AND
-		PD.PD_CODE=STK.PD_CODE
-		AND PD.PDC_CODE =
-		STK.PDC_CODE
-		WHERE PD_STATUS = 1
-		AND PD.C_CODE = #{c_code};
-	</select>
 
 	<!-- stockcontrol 오른쪽 재고상품리스트 출력 -->
 	<select id="getStockList" parameterType="product"
