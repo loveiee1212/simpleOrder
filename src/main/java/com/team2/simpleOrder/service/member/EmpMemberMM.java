@@ -88,7 +88,6 @@ public class EmpMemberMM {
 		mb.put("c_code",session.getAttribute("c_code").toString());
 		String json = null;
 		boolean result = mDao2.updateWorkTime(mb);
-		System.out.println(result);
 		if (result) {
 			json = new Gson().toJson("1");
 		}

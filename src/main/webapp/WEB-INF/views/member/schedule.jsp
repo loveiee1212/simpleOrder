@@ -332,68 +332,52 @@ button:focus {
 					'f_date' : year + "-" + month + "-" + 01,
 					'emp_code' : emp_code
 				},
-					dataType : 'json',
-					success : function(data) {
-						$tdText.text(" ");
+				dataType : 'json',
+				success : function(data) {
+					$tdText.text(" ");
 
-						for ( var i in data) {
+					for ( var i in data) {
+						if (data[i].BD_DATE != null) {
+							var bd_date = moment(data[i].BD_DATE).format("DD");
+							var bd_dateYM = moment(data[i].BD_DATE).format("YYYY MM");
+						}
+						if (data[i].AD_INTIME != null) {
+							var ad_inTime = moment(data[i].AD_INTIME).format("HH:mm:ss");
+						}
+						if (data[i].AD_OUTTIME != null) {
+							var ad_outTime = moment(data[i].AD_OUTTIME).format("HH:mm:ss");
+							/* var ad_outTime = data[i].AD_OUTTIME.substr(12, 9);
+							ad_outTime = ad_outTime.replace(/\s/g,"");
+							ad_outTime = ad_outTime.replace(/[a-zA-Z]+/g,""); */
+						} else {
+							var ad_outTime = "null";
+						}
 
-							if (data[i].BD_DATE != null) {
-								var bd_date = moment(data[i].BD_DATE).format(
-										"DD");
-								var bd_dateYM = moment(data[i].BD_DATE).format(
-										"YYYY MM");
-							}
-							if (data[i].AD_INTIME != null) {
-								var ad_inTime = moment(data[i].AD_INTIME)
-										.format("HH:mm:ss");
-							}
-							if (data[i].AD_OUTTIME != null) {
-								var ad_outTime = moment(data[i].AD_OUTTIME)
-										.format("HH:mm:ss");
-								/* var ad_outTime = data[i].AD_OUTTIME.substr(12, 9);
-								ad_outTime = ad_outTime.replace(/\s/g,"");
-								ad_outTime = ad_outTime.replace(/[a-zA-Z]+/g,""); */
-							} else {
-								var ad_outTime = "null";
-							}
+						for (var j = firstDay.getDay(); j < firstDay.getDay()+ lastDay.getDate(); j++) {
 
-							for (var j = firstDay.getDay(); j < firstDay
-									.getDay()
-									+ lastDay.getDate(); j++) {
-
-								if (bd_dateYM == $("#yearMonth").text()) {
-									if (bd_date == $tdDay.eq(j).text()) {
-										if (ad_outTime == "null") {
-											$tdText.eq(j).text(
-													"출근: " + ad_inTime);
-										} else {
-											// moment.js 라이브러리를 이용하여 시간계산 방법
-											var difHour = moment(
-													data[i].AD_OUTTIME).diff(
-													data[i].AD_INTIME, "hours");
-											var difMinute = moment(
-													data[i].AD_OUTTIME).diff(
-													data[i].AD_INTIME,
-													"minutes");
-											$tdText.eq(j).text(
-													"출근: " + ad_inTime
-															+ "\r\n퇴근: "
-															+ ad_outTime
-															+ "\r\n\r\n시간: "
-															+ difHour + "시간 "
-															+ difMinute % 60
-															+ "분");
-										}
+							if (bd_dateYM == $("#yearMonth").text()) {
+								if (bd_date == $tdDay.eq(j).text()) {
+									if (ad_outTime == "null") {
+										$tdText.eq(j).text("출근: " + ad_inTime);
+									} else {
+										// moment.js 라이브러리를 이용하여 시간계산 방법
+										var difHour = moment(data[i].AD_OUTTIME).diff(
+												data[i].AD_INTIME, "hours");
+										
+										var difMinute = moment(data[i].AD_OUTTIME).diff(
+													data[i].AD_INTIME,"minutes");
+										$tdText.eq(j).text("출근: " + ad_inTime+ "\r\n퇴근: "+ ad_outTime
+														+ "\r\n\r\n시간: "+ difHour + "시간 "+ difMinute % 60+ "분");
 									}
 								}
 							}
 						}
-					},
-					error : function(err) {
-						console.log(err);
 					}
-				});
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			});
 	}
 
 	//출근 시간 입력
@@ -470,38 +454,31 @@ button:focus {
 
 	//직원 리스트 출력
 	function getEmpList(day) {
-		$
-				.ajax({
-					type : "get",
-					url : "rest/getemplist",
-					dataType : "json",
-					success : function(data) {
-						$("#emp_codeList")
-								.append(
-										$("<select name='emp_list' id='emp_list' onchange='getTime("
-												+ day + ")'>"));
-						$select = $("#emp_list");
-						$select.append("<option value='00000'>직원선택</option>");
-						$select.append($("<optgroup label='재직' id='work'>"));
-						$select.append($("<optgroup label='퇴직' id='nowork'>"));
-						for ( var i in data) {
-							if (data[i].EMP_STATUS == "1") {
-								$("#work")
-										.append(
-												$(
-														"<option value="+data[i].EMP_CODE+">")
-														.html(data[i].EMP_NAME));
-							}
-							if (data[i].EMP_STATUS == "-1") {
-								$("#nowork")
-										.append(
-												$(
-														"<option value="+data[i].EMP_CODE+">")
-														.html(data[i].EMP_NAME));
-							}
+		if ("${empCode}" == "00000") {
+			$.ajax({
+				type : "get",
+				url : "rest/getemplist",
+				dataType : "json",
+				success : function(data) {
+					$("#emp_codeList").text("");
+					$("#emp_codeList").append(
+							$("<select name='emp_list' id='emp_list' onchange='getTime("+ day + ")'>"));
+					$select = $("#emp_list");
+					$select.append("<option value='00000'>직원선택</option>");
+					$select.append($("<optgroup label='재직' id='work'>"));
+					$select.append($("<optgroup label='퇴직' id='nowork'>"));
+				
+					for ( var i in data) {
+						if (data[i].EMP_STATUS == "1") {
+							$("#work").append($("<option value="+data[i].EMP_CODE+">").html(data[i].EMP_NAME));
+						}
+						if (data[i].EMP_STATUS == "-1") {
+							$("#nowork").append($("<option value="+data[i].EMP_CODE+">").html(data[i].EMP_NAME));
 						}
 					}
-				});
+				}
+			});
+		}
 	}
 
 	//전체 직원의 일 근무시간 확인
@@ -510,42 +487,32 @@ button:focus {
 		if ("${empCode}" == "00000") {
 			//모달박스 생성
 			$("#view_layer").addClass("open");
-			$
-					.ajax({
-						type : "get",
-						url : "rest/showworktime",
-						data : {
-							'bd_date' : moment(
-									$("#yearMonth").text() + "-" + day).format(
-									"YYYY-MM-DD")
-						},
-						dataType : "json",
-						success : function(data) {
-							$("#main_layer").text(" ");
-							$table = $("#main_layer").append($("<table>"));
-							$table
-									.append($("<tr><th>사번</th><th>사원명</th><th>출근시간</th><th>퇴근시간</th><th>근무시간</th></tr>"));
-							for ( var i in data) {
-								$tr = $table.append($("<tr>"));
-								$tr.append($("<td>").html(data[i].EMP_CODE));
-								$tr.append($("<td>").html(data[i].EMP_NAME));
-								$tr.append($("<td>").html(
-										moment(data[i].AD_INTIME).format(
-												"HH:mm:ss")));
-								if (data[i].AD_OUTTIME != null) {
-									$tr.append($("<td>").html(
-											moment(data[i].AD_OUTTIME).format(
-													"HH:mm:ss")));
-									// sql문 내에서 시간 계산 방법
-									$tr.append($("<td>").html(
-											data[i].HOUR + "시간 "
-													+ data[i].MINUTE + "분"));
-								}
-								$tr.append($("</tr>"));
-							}
-							$table.append($("</table>"));
+			$.ajax({
+				type : "get",
+				url : "rest/showworktime",
+				data : {
+					'bd_date' : moment($("#yearMonth").text() + "-" + day).format("YYYY-MM-DD")
+				},
+				dataType : "json",
+				success : function(data) {
+					$("#main_layer").text(" ");
+					$table = $("#main_layer").append($("<table>"));
+					$table.append($("<tr><th>사번</th><th>사원명</th><th>출근시간</th><th>퇴근시간</th><th>근무시간</th></tr>"));
+					for ( var i in data) {
+						$tr = $table.append($("<tr>"));
+						$tr.append($("<td>").html(data[i].EMP_CODE));
+						$tr.append($("<td>").html(data[i].EMP_NAME));
+						$tr.append($("<td>").html(moment(data[i].AD_INTIME).format("HH:mm:ss")));
+						if (data[i].AD_OUTTIME != null) {
+							$tr.append($("<td>").html(moment(data[i].AD_OUTTIME).format("HH:mm:ss")));
+							// sql문 내에서 시간 계산 방법
+							$tr.append($("<td>").html(data[i].HOUR + "시간 "+ data[i].MINUTE + "분"));
 						}
-					});
+						$tr.append($("</tr>"));
+					}
+					$table.append($("</table>"));
+				}
+			});
 		}
 	}
 
@@ -553,42 +520,35 @@ button:focus {
 	function showAllWorkTime(day) {
 		$("#view_layer").addClass("open");
 
-		$
-				.ajax({
-					type : "get",
-					url : "rest/showallworktime",
-					data : {
-						'f_date' : moment($("#yearMonth").text() + "-" + 01)
-								.format("YYYY-MM-DD"),
-						'l_date' : moment($("#yearMonth").text() + "-" + day)
-								.format("YYYY-MM-DD")
-					},
-					dataType : "json",
-					success : function(data) {
-						$("#main_layer").text(" ");
-						$table = $("#main_layer").append($("<table>"));
-						$table
-								.append($("<tr><th>사번</th><th>직급</th><th>사원명</th><th>시간으로계산</th><th>분으로계산</th></tr>"));
+		$.ajax({
+			type : "get",
+			url : "rest/showallworktime",
+			data : {
+				'f_date' : moment($("#yearMonth").text() + "-" + 01).format("YYYY-MM-DD"),
+				'l_date' : moment($("#yearMonth").text() + "-" + day).format("YYYY-MM-DD")
+			},
+			dataType : "json",
+			success : function(data) {
+				$("#main_layer").text(" ");
+				$table = $("#main_layer").append($("<table>"));
+				$table.append($("<tr><th>사번</th><th>직급</th><th>사원명</th><th>시간으로계산</th><th>분으로계산</th></tr>"));
 
-						for ( var i in data) {
-							$tr = $table.append($("<tr>"));
-							$tr.append($("<td>").html(data[i].EMP_CODE));
-							$tr.append($("<td>").html(data[i].PST_NAME));
-							$tr.append($("<td>").html(data[i].EMP_NAME));
-							if (data[i].HOUR != null) {
-								$tr
-										.append($("<td>").html(
-												data[i].HOUR + "시간 "));
-								$tr.append($("<td>").html(
-										Math.floor(data[i].MINUTE / 60) + "시간 "
-												+ data[i].MINUTE % 60 + "분"));
-							}
-							$tr.append($("</tr>"));
-						}
-						$table.append($("</table>"));
+				for ( var i in data) {
+					$tr = $table.append($("<tr>"));
+					$tr.append($("<td>").html(data[i].EMP_CODE));
+					$tr.append($("<td>").html(data[i].PST_NAME));
+					$tr.append($("<td>").html(data[i].EMP_NAME));
+					if (data[i].HOUR != null) {
+						$tr.append($("<td>").html(data[i].HOUR + "시간 "));
+						$tr.append($("<td>").html(Math.floor(data[i].MINUTE / 60) + "시간 "
+													+ data[i].MINUTE % 60 + "분"));
 					}
+					$tr.append($("</tr>"));
+				}
+				$table.append($("</table>"));
+			}
 
-				});
+		});
 	}
 
 	//모달박스 해제

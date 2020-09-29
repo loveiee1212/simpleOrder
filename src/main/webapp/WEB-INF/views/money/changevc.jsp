@@ -271,6 +271,20 @@ td.leftTd input {
 </script>
 
 <script type="text/javascript">
+	//시재변경 내역보기
+	function changeLog() {
+		$.ajax({
+			type : "get",
+			url : "changelog",
+			dataType : "html",
+			success : function(data) {
+				$("#baseinnerBox").html(data);
+			}
+		});
+	}
+</script>
+
+<script type="text/javascript">
 	$(document).ready(function() {
 		clockOn();
 	})
