@@ -1,4 +1,4 @@
-package com.team2.simpleOrder.dao.posManagement;
+package com.team2.simpleOrder.dao.storeManagement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
