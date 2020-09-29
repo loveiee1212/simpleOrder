@@ -22,7 +22,7 @@ body {
 
 h2 {
 	font-size: 35px;
-	color: #81d4fa;
+	color: #1565c0;
 	font-weight: bold;
 	text-align: center;
 	width: 500px;

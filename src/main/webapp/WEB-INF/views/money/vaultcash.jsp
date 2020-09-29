@@ -57,7 +57,7 @@ table, tr, td, th {
 
 td.leftTd input {
 	width: 200px;
-	height: 59px;
+	height: 57px;
 	border: 0px;
 	font-size: 30px;
 	text-align: center;
@@ -90,7 +90,8 @@ td {
 }
 
 #date {
-	font-size: 40px;
+    font-size: 40px;
+    margin-top: 20px;
 }
 
 #clock ul {
@@ -123,7 +124,6 @@ td {
 	font-weight: bold;
 	color: #81d4fa;
 	font-size: 25px;
-	background-color: white;
 }
 
 #vcZone th {
