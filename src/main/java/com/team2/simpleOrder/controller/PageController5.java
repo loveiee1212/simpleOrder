@@ -7,12 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.team2.simpleOrder.service.storeManagement.PosMM1;
+import com.team2.simpleOrder.service.storeManagement.ProductMM;
 
 @Controller
 public class PageController5 {
 	@Autowired
-	PosMM1 pm1;
+	ProductMM pm1;
 	
 	@RequestMapping("testProducreagistraition")
 	public String testProducreagistraition(HttpSession session) {

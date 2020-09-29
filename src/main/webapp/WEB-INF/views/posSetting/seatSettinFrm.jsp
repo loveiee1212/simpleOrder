@@ -31,7 +31,7 @@ td, th {
 
 h2 {
 	font-size: 35px;
-	color: #81d4fa;
+	color: #1565c0;
 	font-weight: bold;
 	text-align: center;
 	width: 200px;
@@ -46,77 +46,89 @@ table, tr, td, th {
 }
 
 #CategoriList {
-    width: 300px;
-    height: 80px;
-    text-align: center;
-    color: #1565c0;
-    font-size: 20px;
-    font-weight: bold;
-    border-collapse: collapse;
+	width: 300px;
+	height: 80px;
+	text-align: center;
+	color: #1565c0;
+	font-size: 20px;
+	font-weight: bold;
+	border-collapse: collapse;
 }
 
 #seatList {
- width: 600px;
-    height: 300px;
- overflow-x: hidden;
-	overflow-y: hidden;
-}
-
-#seatList table {
-width: 600px;
-    height: 300px;
-} 
-
-#seatList td {
-width: 150px;
-    height: 80px;
-    background-color: #81d4fa;
-    font-size: 20px;
-}
-
-#x, #y {
-width: 200px;
-height: 30px;
-font-size: 20px;
-text-align: center;
-border: 3px solid #81d4fa;
-}
-
-#seatList:hover {
 	width: 900px;
- height: 450px;
+	height: 300px;
 	overflow-x: scroll;
 	overflow-y: scroll;
 }
 
-#seatList::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-	background-color: white;
+#seatList table {
+    width: 100%;
+    height: 100%;
+    margin-top: 5px;
+}
+
+#seatList td {
+	width: 50px;
+	height: 80px;
+	background-color: #81d4fa;
+	font-size: 20px;
+}
+
+#x, #y {
+	width: 300px;
+	height: 50px;
+	margin-top: 10px; font-size : 25px;
+	text-align: center;
+	border: 3px solid #81d4fa;
+	font-size: 25px;
 }
 
 #seatList::-webkit-scrollbar {
 	width: 10px;
+	height: 10px;
 	background-color: #81d4fa;
 }
 
 #seatList::-webkit-scrollbar-thumb {
 	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#seatList::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+input[type="button" i] {
+	text-align: center;
+	border: 2px solid white;
+	width: 150px;
+	height: 60px;
+	margin-right: 49px;
+	margin-top: 10px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 25px;
+	float: right;
 }
 
 #submit {
-text-align: center;
-    border: 2px solid white;
-    width: 250px;
-    height: 70px;
-    margin-right: 49px;
-    margin-top: 10px;
-    background-color: #81d4fa;
-    font-weight: bold;
-    color: white;
-    font-size: 20px;
-    float: right;
+	text-align: center;
+	border: 2px solid white;
+	width: 250px;
+	height: 70px;
+	margin-right: 49px;
+	margin-top: 10px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 20px;
+	float: right;
 }
 </style>
 <title>seatSettinFrm</title>

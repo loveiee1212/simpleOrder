@@ -58,6 +58,10 @@ h2 {
 	font-size: 30px;
 	color: white;
 }
+
+input:focus {
+	outline: none;
+}
 </style>
 <body>
 	<div id="baseBox">

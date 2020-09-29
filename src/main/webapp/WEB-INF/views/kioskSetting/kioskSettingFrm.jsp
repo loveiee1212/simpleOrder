@@ -24,7 +24,7 @@ body {
 
 h2 {
 	font-size: 35px;
-	color: #81d4fa;
+	color: #1565c0;
 	font-weight: bold;
 	text-align: center;
 	width: 300px;
@@ -68,18 +68,19 @@ h2 {
 	border: 3px solid #81d4fa;
 }
 
-#kioskQrCodeListFrm, #requestListSettingFrm, #reveiwUsagestatusFrm, #posSetting {
-text-align: center;
-    border: 2px solid white;
-    width: 350px;
-    height: 100px;
-    margin-left: 49px;
-    margin-top: 50px;
-    background-color: #81d4fa;
-    font-weight: bold;
-    color: white;
-    font-size: 25px;
-} 
+#kioskQrCodeListFrm, #requestListSettingFrm, #reveiwUsagestatusFrm,
+	#posSetting {
+	text-align: center;
+	border: 2px solid white;
+	width: 350px;
+	height: 100px;
+	margin-left: 49px;
+	margin-top: 50px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 25px;
+}
 
 input:focus {
 	outline: none;

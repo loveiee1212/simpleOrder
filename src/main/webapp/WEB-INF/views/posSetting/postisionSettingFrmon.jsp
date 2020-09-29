@@ -24,7 +24,7 @@ body {
 
 h2 {
 	font-size: 35px;
-	color: #81d4fa;
+	color: #1565c0;
 	font-weight: bold;
 	text-align: center;
 	width: 200px;
@@ -40,9 +40,29 @@ h2 {
 	text-align: center;
 	font-size: 25px;
 	margin-left: 50px;
-	overflow: auto;
+	overflow-x: scroll;
+	overflow-y: scroll;
 	border-collapse: collapse;
 	background-color: white;
+}
+
+#postionList::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: #81d4fa;
+}
+
+#postionList::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#postionList::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #postionList td {
