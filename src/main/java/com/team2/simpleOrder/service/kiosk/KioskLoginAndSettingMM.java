@@ -1,7 +1,5 @@
 package com.team2.simpleOrder.service.kiosk;
 
-import java.awt.List;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -32,7 +30,7 @@ public class KioskLoginAndSettingMM {
 		session.setAttribute("c_code", c_code);
 		session.setAttribute("sc_code", sc_code);
 		session.setAttribute("st_num", st_num);
-		if (Integer.parseInt(vDao.checkStartVC(c_code)) != -1) {
+		if (Integer.parseInt((String.valueOf(vDao.checkVc_code(c_code)))) != -1) {
 			session.setAttribute("bd_date", vDao.getBd_date(c_code));
 		}else {
 			reat.addFlashAttribute("msg","영업 시작 전입니다.");
@@ -45,13 +43,22 @@ public class KioskLoginAndSettingMM {
 		KioskLoginHtmlMaker klhm = new KioskLoginHtmlMaker();
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("tableQrcodeList", klhm.getQrCodeListhtml(c_code, oDao.getTList(c_code)));
-		System.out.println(hm);
 		return hm;
 	}
 
 	public String accessSecurityCode(HashMap<String, String> securityCode, HttpSession session, RedirectAttributes reat) {
+		String c_code = session.getAttribute("c_code").toString();
+		String bd_date = session.getAttribute("bd_date").toString();
+		String sc_code = session.getAttribute("sc_code").toString();
+		String st_num = session.getAttribute("st_num").toString();
 		securityCode.put("c_code", session.getAttribute("c_code").toString());
 		if(securityCode.get("securityCode").equals(kDao.getSecurityCode(securityCode))) {
+			//주문번호가 있는지 확인
+			String oac_num=kDao.checkOac_num(c_code,bd_date,sc_code,st_num);
+			//
+			if(oac_num!=null) {
+				session.setAttribute("oac_num", oac_num);
+			}
 			return "redirect:/kioskmenu";
 		};
 		reat.addFlashAttribute("error","인증번호를 다시 확인해주세요!");
@@ -84,6 +91,23 @@ public class KioskLoginAndSettingMM {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			return "redirect:/kioskSettingFrm";
 		}
+	}
+
+	public boolean getreveiwUsagestatus(String c_code) {
+		if(kDao.getreveiwUsagestatus(c_code)==1) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public String updatereveiwUsagestatus(String c_code, String c_reviewuse, RedirectAttributes reat) {
+		HashMap<String , String> hm = new HashMap<String, String>();
+		hm.put("c_code", c_code);
+		hm.put("c_reviewuse", c_reviewuse);
+		reat.addFlashAttribute("basicPath", "includeAjax('reveiwUsagestatusFrm')");
+		kDao.updatereveiwUsagestatus(hm);
+		return "redirect:/kioskSettingFrm";
 	}
 
 }

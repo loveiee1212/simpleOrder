@@ -4,281 +4,216 @@
 <%@ page session="false"%>
 <html>
 <head>
+<style type="text/css">
+div.basic {
+	float: left;
+	border: 1px black solid;
+}
+</style>
 <title>productControl-상품관리</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style>
-body {
-	padding: 0;
-}
-
-#baseBox {
-	border: 1px solid black;
-	float: left;
-	padding: 2%;
-	transform: translate(-50%, 0%);
-	margin: 0 50%;
-}
-
-#baseinnerBox {
-	float: left;
-	border: pink 1px solid;
-	width: 1500px;
-	height: 800px;
-	padding: 30px;
-}
-
-#outerdiv {
-	width: 1500px;
-	height: 800px;
-	margin: 20px;
-}
-
-#innerdiv1 {
-	border: 1px solid black;
-	width: 700px;
-	height: 755px;
-	float: left;
-	/* margin-left: 30px; */
-	/* 	margin-top: 20px; */
-}
-
-#innerdiv2 {
-	border: 1px solid black;
-	width: 700px;
-	height: 755px;
-	float: left;
-	margin-left: 55px;
-}
-
-button {
-	color: red;
-	background-color: white;
-	border: none;
-	button: focus{ outline: none;
-	box-shadow: none;
-}
-
-}
-#listbox {
-	border: 1px solid black;
-	width: 600px;
-	height: 400px;
-	margin-left: 50px;
-	margin-top: 10px;
-}
-
-#listbox input {
-	width: 200px;
-	height: 30px;
-	margin: 20px;
-	font-size: 20px;
-	clear: both;
-}
-
-#listbox button {
-	float: right;
-	margin: 10px;
-}
-
-.bottombox {
-	width: 300px;
-	height: 280px;
-	margin-top: 10px;
-	margin-left: 30px;
-	float: left;
-}
-
-#paymentkind ul li {
-	list-style: none;
-	border: 1px solid black;
-	width: 110px;
-	height: 30px;
-	/* margin-left: 30px;*/
-	margin-top: 20px;
-	text-align: center;
-	padding: 20px;
-}
-
-#keypad ul li {
-	list-style: none;
-	border: 1px solid black;
-	width: 20px;
-	height: 15px;
-	text-align: center;
-	padding: 25px;
-	float: left;
-}
-
-input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
-	{
-	-webkit-appearance: none;
-	margin: 0;
-}
-
-select {
-	width: 150px;
-	height: 50px;
-	margin: 50px;
-	font-size: 15px;
-}
-
-p {
-	font-size: 20px;
-}
-
-tr, td {
-	border: 1px solid black;
-	width: 80px;
-	height: 20px;
-	padding: 20px;
-	margin: 30px;
-	text-align: center;
-}
-</style>
 </head>
 
 <body>
-	<div id="baseBox">
-		<div id="baseinnerBox">
-			<div id="outerdiv">
-				<div id="innerdiv1">
-					<div id="productList">
-						<table id="pListtable">
-							<tr>
-								<td>번호</td>
-								<td>상품이름</td>
-								<td>가격</td>
-								<td>재고</td>
-								<td>등록여부</td>
-								<td>삭제</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				<div id="innerdiv2">
-					<div id="listbox">
-						<form action="insertProduct" id="insertProductFrm" method="post"
-							enctype="multipart/form-data" method="post">
-							<input type="text" name="pd_code" id="pd_code"
-								readonly="readonly"style="width: 50px;" />
-							<button type="reset">다시 작성</button>
-							<br />
-							<center>
-								이름<input type="text" name="pd_name" id="pd_name"
-									placeholder="상품 이름" /><br /> 가격<input type="number"
-									name="pd_price" id="pd_price" placeholder="가격 입력" /><br /> 재고<input
-									type="number" name="stk_stock" id="stk_stock"></input><br /> <input
-									type="file" name="pd_img" id="pd_img"
-									style="width: 300px; height: 30px;" /><br /> <select
-									name="pd_printer">
-									<option value="">프린터 없음</option>
-									<option value="prt-1001">prt-1001</option>
-									<option value="prt-2000M">prt-2000M</option>
-								</select>
-							</center>
-					</div>
-
-					<div class="bottombox" id="paymentkind">
-						<ul>
-							<li onclick="updateproduct()">수정/등록</li>
-							<li onclick="gomain()">메인으로</li>
-						</ul>
-					</div>
-					<div class="bottombox" id="keypad">
-						<ul>
-							<li value="1">1</li>
-							<li value="2">2</li>
-							<li value="3">3</li>
-							<li value="4">4</li>
-							<li value="5">5</li>
-							<li value="6">6</li>
-							<li value="7">7</li>
-							<li value="8">8</li>
-							<li value="9">9</li>
-							<li onclick="reset()" value="11">CE</li>
-							<li value="0">0</li>
-							<li onclick="backspace()" value="12">C</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="basic">
+		<table id="pListtable">
+		</table>
 	</div>
+
+	<div class="basic">
+		<table>
+			<tr>
+				<th colspan="2">카테고리 수정</th>
+			</tr>
+			<tr>
+				<td>
+					<select class='categorilist' onchange="categoriUpdate(this)" id="select2">
+					</select>
+					<input type="text" id="updateCategoriCode">
+				</td>
+				<td>
+					<input type="button" value="삭제">  
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" id="updateCategoriCode">
+				</td>
+				<td>
+					<input type="button" value="수정">
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="basic">
+	<form action="createProCategori" method="post">
+		<table>
+			<tr>
+				<th colspan="2">카테고리 등록</th>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" name ='pdc_name'>
+				</td>
+				<td>
+					<input type="submit" value="추가">
+				</td>
+			</tr>
+		</table>
 	</form>
+	</div>
+	
+	<div class="basic">
+		<form name="createAndUpdateProduct" action="null" method="post">
+			<table>
+				<tr>
+					<th colspan="2">상품 등록</th>
+				</tr>
+				<tr>
+					<th>상품 코드</th>
+					<th>상품 이름</th>
+				</tr>
+				<tr>
+					<th><input type="text" id="pd_code" name="pd_code" readonly="readonly"> <input type="hidden" id="pd_date" name="pd_date"></th>
+					<th><input type="text" id="pd_name" name="pd_name"></th>
+				</tr>
+				<tr>
+					<th>상품 카테고리</th>
+					<th>상품 가격</th>
+				</tr>
+				<tr>
+					<th>
+					<select class="categorilist" id="select1"></select>
+					
+					</th>
+					<th><input type="text" id="pd_price"></th>
+				</tr>
+				<tr>
+					<th>재고 사용 여부</th>
+					<th>재고</th>
+				</tr>
+				<tr>
+					<th>
+						사용<input type="radio" name="stockUse" value=true>
+						미사용<input type="radio" name="stockUse" value=false>
+					</th>
+					<th><input type="number" name="stk_stock" id="stk_stock"
+						readonly="readonly"></th>
+				</tr>
+				<tr>
+					<th>이미지</th>
+					<th><input type="file"></th>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="button" value='추가'
+						id="createAndUpdateProduct"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div></div>
+
 </body>
 <script>
-	//상품리스트 출력
-	$.ajax({
-		type : "post",
-		url : "rest/getsellproductlist1",
-		dataType : 'json',
-		success : function(result) {
-			console.log(result);
-			$("#pListtable").html(result.pList);
+	//모든 상품 노출
+	getproList();
+	//카테고리 가져오기
+	getProCategoriList();
 
-			//출력후 상품클릭시 상세정보 출력
-			$("#pListtable tr").click(function() {
-				var tdArr = new Array();
-				var tr = $(this);
-				var td = tr.children();
-				console.log(tr.text());
-				/* tr 행의 정보들을 Arr에 담음 */
-				td.each(function(i) {
-					tdArr.push(td.eq(i).text());
-				});
-				$("#pListtable tr").css('background-color', 'white');
-				tr.css('background-color', '#ddd');
-				console.log("배열에 담긴 값 : " + tdArr);
-				/* 배열에 담긴 값을 상세정보에 출력 */
-				var pd_code = $(this).data("code");
-				var pd_name = td.eq(1).text();
-				var pd_price = td.eq(2).text();
-				var stk_stock = td.eq(3).text();
-				var pd_code= td.eq(4).text();
-				console.log(pd_name);
-				console.log(pd_price);
-				console.log(stk_stock);
-				console.log(pd_code);
-				$("#pd_name").val(pd_name);
-				$("#pd_price").val(pd_price);
-				$("#stk_stock").val(stk_stock);
-				$("#pd_code").val(pd_code);
-			});
-		},
-		error : function(err) {
-			console.log(err);
+	//재고 사용 여부 채크
+	$("input:radio").change(function() { //재고 사용 여부
+		if (!$("input:radio[value=true]").is(":checked")) {
+			$("#stk_stock").attr("readonly", "readonly");
+			$("#stk_stock").val("");
+		} else {
+			$("#stk_stock").removeAttr("readonly");
 		}
-	});
+	})
+	// 상품 카테고리 변경시
+	$("#select1").change(function() {
+		let pdc_code = $("#select1").children("option:checked").val();
+		$("#pd_code").val(getNewPd_code(pdc_code));
+	})
+	
+	function categoriUpdate(ele){
+		let pdc_code = $(ele).children("option:checked").val();
+		$("#updateCategoriCode").val(pdc_code);
+	}
 
-	//상품 가격입력할수있는 키패드 
-	var str = "";
-	$("#keypad ul li").click(function() {
-		if ($(this).val() == 11 || $(this).val() == 12) {
-			return;
+	function getproList() {
+		$.ajax({
+			type : "get",
+			url : "rest/getsproductlist",
+			dataType : 'json',
+			success : function(listmap) {
+				$("#pListtable").html(listmap.pList);
+				$("#pd_code").val(getNewPd_code('01'));
+			},
+		});
+	}
+	// 카테고리 리스트를 셀렉트 박스로
+	function getProCategoriList() {
+		$.ajax({
+			type : "get",
+			url : "rest/getProCategoriList",
+			dataType : 'json',
+			success : function(listmap) {
+				$(".categorilist").html(listmap.categoriList)
+			}
+		})
+	}
+
+	function getProInfo(ele) { //상품의 정보 로드 
+		if ('null' == ele.dataset.stk_stock) {
+			$("input:radio").eq(1).prop("checked", true);
+			$("input:radio").eq(0).prop("checked", false);
+			$("#stk_stock").attr("readonly", "readonly");
+			$("#stk_stock").val("");
+		} else {
+			$("#stk_stock").val(ele.dataset.stk_stock);
+			$("input:radio").eq(0).prop("checked", true);
+			$("input:radio").eq(1).prop("checked", false);
+			$("#stk_stock").removeAttr("readonly");
 		}
-		console.log($(this).val());
-		str += $(this).val();
-		//console.log(str);
-		$("#pd_price").val(str);
-	});
-
-	function reset() {
-		$("#pd_price").val("");
+		$("#pd_code").val(ele.dataset.pd_code);
+		$("#pdc_code").val(ele.dataset.pdc_code);
+		$("#pd_date").val(ele.dataset.pd_date);
+		$("#pd_name").val(ele.dataset.pd_name);
+		$("#pd_price").val(ele.dataset.pd_price);
 	}
 
-	function backspace() {
-		console.log("length" + str.substr(0, str.length - 1));
-		$("#pd_price").val(str.substr(0, str.length - 1));
-		str = $("#pd_price").val();
+	function readyCreatProFrm() { // 새로운 상품 등록 폼 재공
+		createProduct.reset();
+		$("#pd_code").val(getNewPd_code('01'));
 	}
 
-	function updateproduct() {
-		/* 상품수정/등록 */
+	function getNewPd_code(pdc_code) {
+		var result = "0";
+		$.ajax({
+			url : "rest/getProductofNumber",
+			type : "get",
+			async : false,
+			data : {
+				"pdc_code" : pdc_code
+			},
+			success : function(data) {
+				result = data;
+			}
+		})
+		return result;
 	}
-
-	function gomain() {
-		/* 메인으로 돌아가기 */
+	function deleteProduct(ele) {
+		if (confirm("상품을 삭제하시겠습니까?")) {
+			ele = $(ele).prev()[0];
+			$form = $("<form name ='deleteProductForm' action = 'deleteProduct' method='post' hidden = 'hidden'>");
+			$form.append("<input name = 'pdc_code' value ='"+ele.dataset.pdc_code+"'>");
+			$form.append("<input name = 'pd_code' value ='"+ele.dataset.pd_code+"'>");
+			$form.append("<input name = 'pd_date' value ='"+ele.dataset.pd_date+"'>");
+			$("body").append($form);
+			deleteProductForm.submit();
+		}
 	}
 </script>
 </html>

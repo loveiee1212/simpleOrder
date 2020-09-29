@@ -4,31 +4,50 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>SimpleOrder-시제변경</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte"
+	type="text/css">
+<title>SimpleOrder-시재변경</title>
 <style>
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 #cashZone {
-	border: 1px solid #81d4fa;
-	height: 800px;
-	width: 700px;
+	border: 3px solid #81d4fa;
+	height: 795px;
+	width: 800px;
 	float: left;
+	background-color: white;
 }
 
 table, tr, td, th {
-	border: 1px solid #81d4fa;
+	border: 3px solid #81d4fa;
 }
 
 #cashZone table {
-	width: 500px;
+	width: 700px;
 	height: 700px;
 	position: absolute;
-	margin-left: 98px;
-	position: absolute;
-	margin-left: 98px;
-	margin-top: 41px;
+	margin-left: 50px;
+	margin-top: 46px;
+	border-collapse: collapse;
 }
 
 #cashZone th {
-	width: 100px;
+	width: 200px;
+	font-size: 30px;
 }
 
 #cashZone td.leftTd {
@@ -36,29 +55,107 @@ table, tr, td, th {
 }
 
 td.leftTd input {
-	width: 99px;
-	height: 59px;
+	width: 200px;
+	height: 57px;
 	border: 0px;
-	font-size: 20px;
+	font-size: 30px;
+	text-align: center;
 }
 
-#vcZone {
-	border: 1px solid #81d4fa;
-	height: 800px;
-	width: 700px;
-	float: right;
+td.leftTd input:focus {
+	outline: none;
+}
+
+td {
+	font-size: 30px;
+	text-align: center;
 }
 
 #vcZone table {
+	border: 3px solid #81d4fa;
 	font-size: 25px;
+	width: 650px;
+	height: 800px;
+	float: right;
+	border-collapse: collapse;
+	background-color: white;
+	text-align: center;
 }
 
 #vcZone th {
-	width: 150px;
+	width: 200px;
 }
 
-#vcZone td {
-	width:
+#startVC {
+	text-align: center;
+}
+
+#clock {
+	margin-top: 5px;
+	margin-left: 120px;
+	width: 400px;
+	height: 150px;
+}
+
+#date {
+	font-size: 40px;
+	margin-top: 20px;
+}
+
+#clock ul {
+	width: 400px;
+	margin-left: -40px;
+}
+
+#clock ul li {
+	font-size: 40px;
+}
+
+#vcChangeText {
+	width: 340px;
+	height: 50px;
+	text-align: center;
+	font-size: 20px;
+	border: 3px solid #81d4fa;
+}
+
+input:focus, button:focus {
+	outline: none;
+}
+
+#insertVC {
+	text-align: center;
+	border: 3px solid white;
+	width: 180px;
+	height: 70px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 25px;
+}
+
+#changeLog {
+	text-align: center;
+	border: 3px solid white;
+	width: 180px;
+	height: 70px;
+	margin-left: 20px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 25px;
+}
+
+#Exit {
+	text-align: center;
+	border: 3px solid #81d4fa;
+	width: 150px;
+	height: 70px;
+	margin-left: 20px;
+	background-color: white;
+	font-weight: bold;
+	color: #81d4fa;
+	font-size: 25px;
 }
 </style>
 </head>
@@ -163,34 +260,39 @@ td.leftTd input {
 						</td>
 					</tr>
 					<tr>
-						<th>시작시재</th>
-						<td><div><span id="differenceSC"></span></div></td>
+						<th>이전시재</th>
+						<td><div><span id="startVC"></span></div></td>
 					</tr>
 					<tr>
-						<th>현금매출</th>
-						<td><div><span id="cash"></span></div></td>
-					</tr>
-					<tr>
-						<th>마감시재
-						<td><div><span id="differenceEC"></span></div></td>
+						<th>변경시재</th>
+						<td><div><span id="changeVC"></span></div></td>
 					</tr>
 					<tr>
 						<th>시재차</th>
 						<td><div><span id="difference"></span></div></td>
 					</tr>
 					<tr>
-						<td><button id="insertVC">시재저장</button></td>
-						<td><button onclick="location.href='posmain'">나가기</button></td>
+						<th colspan="2">시재 변경 사유</th>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" id="vcChangeText"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><button id="insertVC" onclick="insertVC()">시재저장</button>
+						<button id="changeLog" onclick="changeLog()">시재변경내역</button>
+						<button id="Exit" onclick="location.href='posmain'">나가기</button></td>
 					</tr>
 				</table>
-				<div>
-				</div>
 			</div>
 		</div>
 	</div>
 </body>
 
 <script type="text/javascript">
+	$(document).ready(function(){
+		getStartVC();
+	})
+	
 	//시제 계산
 	function carculate(money, num, position) {
 		var result = money * num;
@@ -202,16 +304,76 @@ td.leftTd input {
 		for (var i = 0; i < $(".cash").length; i++) {
 			sum += ($(".cash").eq(i).text()) * 1;
 		}
-		if ("${vc_status}" == "start") {
-			$("#differenceSC").text(sum);
-		} else if ("${vc_status}" == "end") {
-			$("#differenceEC").text(sum);
+			$("#changeVC").text(sum);
 			//시제차 텍스트 찍기
-			$("#difference").text(
-					($("#differenceSC").text() + $("#cash").text())
-							- $("#differenceEC").text());
-		}
+			$("#difference").text($("#changeVC").text()-$("#startVC").text());
+	}
+	
+	//시작시재 불러오기
+	function getStartVC() {
+		$.ajax({
+			type : "get",
+			url : "rest/getstartvc",
+			dataType : "json",
+			success : function(data) {
+				$("#startVC").text(data);
+			}
+		});
+	}
+	
+	//환전시재 입력하기
+	function insertVC() {
+		if(confirm("시재를 변경하시겠습니까?")){
+		
+			var arr = new Array();
+		
+			var obj = new Object();
+			obj.vcc_memo = $("#vcChangeText").val();
+			arr.push(obj);
+		
+			for (var i = 0; i < $(".num").length; i++) {
+				var obj = new Object();
+				obj.cu_code = $(".num").eq(i).attr("id");
+				obj.vcd_cnt = $(".num").eq(i).val();
+				if (obj.vcd_cnt != "") {
+					arr.push(obj);
+				}
+			}
+			var jArr = JSON.stringify(arr);
 
+			$.ajax({
+				type : "post",
+				url : "rest/insertchangevc",
+				data : jArr,
+				contentType : "application/json; charset=UTF-8",
+				dataType : "json",
+				success : function(data) {
+					if (data == "success") {
+						alert("시제가 변경되었습니다.");
+					} else if (data == "error") {
+						alert("시제변경에 실패했습니다.");
+					} else if (data == "end"){
+						if(confirm("영업이 종료되었습니다.\r\n영업을 시작하시겠습니까?\r\n'확인'을 누르시면 시작시재로 이동합니다.")){
+							location.href = "StartVC";
+						}
+					}
+				}
+			});
+		}
+	}
+</script>
+
+<script type="text/javascript">
+	//시재변경 내역보기
+	function changeLog() {
+		$.ajax({
+			type : "get",
+			url : "changelog",
+			dataType : "html",
+			success : function(data) {
+				$("#baseinnerBox").html(data);
+			}
+		});
 	}
 </script>
 

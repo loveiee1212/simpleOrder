@@ -14,13 +14,6 @@ public class KioskLoginHtmlMaker {
 
 	public String getQrCodeListhtml(String c_code, List<Order> tlist) {
 		for (int i = 0; i < tlist.size(); i += 3) {
-
-			System.out.println(tlist.get(i).getSc_name());
-			System.out.println(tlist.get(i).getSc_code());
-			System.out.println(tlist.get(i).getSt_num());
-			;
-			System.out.println();
-
 			sb.append("<tr>");
 			for (int j = i; j < i + 3; j++) {
 				if (j < tlist.size()) {

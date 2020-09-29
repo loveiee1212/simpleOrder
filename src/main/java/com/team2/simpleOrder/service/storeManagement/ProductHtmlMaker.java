@@ -1,14 +1,91 @@
 package com.team2.simpleOrder.service.storeManagement;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.anything;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class posHtmlMaker {
+import com.team2.simpleOrder.dto.StoreManagement;
+
+public class ProductHtmlMaker {
 	StringBuilder sb = new StringBuilder();
 	HashMap<String, String> hm = new HashMap<String, String>();
 
+	
+	public HashMap<String, String> makehtmlpList(List<StoreManagement> pList) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<tr>");
+		sb.append("<th>" + "카테고리 코드" + "</th>");
+		sb.append("<th>" + "카테고리 이름" + "</th>");
+		sb.append("<th>" + "상품 코드" + "</th>");
+		sb.append("<th>" + "상품이름" + "</th>");
+		sb.append("<th>" + "상품가격" + "</th>");
+		sb.append("<th>" + "재고" + "</th>");
+		sb.append("</tr>");
+		for (int i = 0; i < pList.size(); i++) {
+			StoreManagement pd = pList.get(i);
+			sb.append("<tr>");
+			sb.append("<td>" + pd.getPdc_code() + "</td>");
+			sb.append("<td>" + pd.getPdc_name() + "</td>");
+			sb.append("<td>" + pd.getPd_code() + "</td>");
+			sb.append("<td>" + pd.getPd_name() + "</td>");
+			sb.append("<td>" + pd.getPd_price() + "</td>");
+			if (pd.getStk_stock() == null) {
+				sb.append("<td>사용안함</td>");
+			} else {
+				sb.append("<td>" + pd.getStk_stock() + "</td>");
+			}
+			sb.append("<td onclick ='getProInfo(this)' "
+					+ "data-pdc_code ='"+pd.getPdc_code()+"' "
+					+ "data-pd_code ='"+pd.getPd_code()+"' "
+					+ "data-pd_date ='"+pd.getPd_date()+"' "
+					+ "data-pd_name ='"+pd.getPd_name()+"' "
+					+ "data-pd_price ='"+pd.getPd_price()+"' "
+					+ "data-stk_stock ='"+pd.getStk_stock()+"' "
+							+ "'>");
+			sb.append("<input type='button' value='수정'>");
+			sb.append("</td>");
+			
+			sb.append("<td onclick='deleteProduct(this)'>");
+			sb.append("<input type='button' value='삭제'>");
+			sb.append("</td>");
+			sb.append("</tr>");
+		}
+		sb.append("<tr>").append("<td>").append("<input type ='button' value ='추가' onclick ='readyCreatProFrm()'>").append("</td>").append("</tr>");
+		HashMap<String, String> hMap = new HashMap<>();
+		hMap.put("pList", sb.toString());
+		return hMap;
+	}
+	
+	
+	public String getProCategoriList(ArrayList<HashMap<String, Object>> proCategoriList) {
+		for (HashMap<String, Object> categori : proCategoriList) {
+			sb.append("<option value ='"+categori.get("PDC_CODE")+"'>");
+			sb.append(categori.get("PDC_NAME"));
+			sb.append("</option>");
+		}
+		return sb.toString();
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public String makeProListHtml(ArrayList<HashMap<String, Object>> proList) {
 	
 		for (int i = 0; i < proList.size(); i++) {
@@ -92,4 +169,26 @@ public class posHtmlMaker {
 		return hm;
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 }

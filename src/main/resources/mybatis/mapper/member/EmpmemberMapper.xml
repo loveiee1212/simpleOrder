@@ -55,17 +55,18 @@
 	<update id="updateWorkTime" parameterType="hashmap">
 		UPDATE ATTENDANCE
 		SET AD_INTIME = #{ad_inTime}, AD_OUTTIME = #{ad_outTime}
-		WHERE C_CODE =#{c_code} AND BD_DATE = #{bd_date} AND EMP_CODE = LPAD(#{emp_code},5,0)
+		WHERE C_CODE =#{c_code} AND DATE(BD_DATE) = #{bd_date} AND EMP_CODE = LPAD(#{emp_code},5,0)
 	</update>
 
 	<!-- 직원 리스트 출력 -->
 	<select id="getEmpList" parameterType="hashmap" resultType="hashmap">
 		SELECT E.EMP_CODE, E.EMP_NAME, E.EMP_STATUS, A.AD_OUTTIME, A.AD_INTIME
 		FROM EMP AS E LEFT JOIN ATTENDANCE AS A ON E.C_CODE = A.C_CODE AND E.EMP_CODE = A.EMP_CODE
-		WHERE (A.BD_DATE IN (SELECT MAX(BD_DATE) FROM ATTENDANCE WHERE C_CODE=#{c_code}) OR ( E.C_CODE=#{c_code} AND A.BD_DATE IS NULL)
+		WHERE (A.BD_DATE IN (SELECT MAX(BD_DATE) FROM ATTENDANCE WHERE C_CODE=#{c_code} GROUP BY EMP_CODE) OR ( E.C_CODE=#{c_code} AND A.BD_DATE IS NULL)
 			AND E.EMP_STATUS ="1") OR 
-			(A.BD_DATE IN (SELECT MAX(BD_DATE) FROM ATTENDANCE WHERE C_CODE=#{c_code}) OR ( E.C_CODE=#{c_code} AND A.BD_DATE IS NULL)
+			(A.BD_DATE IN (SELECT MAX(BD_DATE) FROM ATTENDANCE WHERE C_CODE=#{c_code} GROUP BY EMP_CODE) OR ( E.C_CODE=#{c_code} AND A.BD_DATE IS NULL)
 			AND E.EMP_STATUS ="-1")
+		GROUP BY E.EMP_CODE
 	</select>
 	
 	<!-- 직원 정보 출력 -->

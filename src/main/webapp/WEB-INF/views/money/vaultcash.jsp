@@ -57,7 +57,7 @@ table, tr, td, th {
 
 td.leftTd input {
 	width: 200px;
-	height: 59px;
+	height: 57px;
 	border: 0px;
 	font-size: 30px;
 	text-align: center;
@@ -90,7 +90,8 @@ td {
 }
 
 #date {
-	font-size: 40px;
+    font-size: 40px;
+    margin-top: 20px;
 }
 
 #clock ul {
@@ -123,7 +124,6 @@ td {
 	font-weight: bold;
 	color: #81d4fa;
 	font-size: 25px;
-	background-color: white;
 }
 
 #vcZone th {
@@ -322,6 +322,9 @@ button:focus {
 	function insertStartVC() {
 		var arr = new Array();
 
+		var obj = new Object();
+		obj.vc_code = 1;
+		arr.push(obj);
 		for (var i = 0; i < $(".num").length; i++) {
 			var obj = new Object();
 			obj.cu_code = $(".num").eq(i).attr("id");
@@ -334,14 +337,14 @@ button:focus {
 
 		$.ajax({
 			type : "post",
-			url : "rest/insertstartvc",
+			url : "rest/insertvc",
 			data : jArr,
 			contentType : "application/json; charset=UTF-8",
 			dataType : "json",
 			success : function(data) {
 				if (data == "success") {
-					alert("시제가 입력되었습니다.");
-					location.href = "sellpage";
+					alert("시제가 입력되었습니다.\r\n메인으로 이동합니다.");
+					location.href = "posmain";
 				} else if (data == "error") {
 					alert("시제입력에 실패했습니다.");
 				}
@@ -354,6 +357,9 @@ button:focus {
 		if (confirm("마감하시겠습니까?")) {
 			var arr = new Array();
 
+			var obj = new Object();
+			obj.vc_code = -1;
+			arr.push(obj);
 			for (var i = 0; i < $(".num").length; i++) {
 				var obj = new Object();
 				obj.cu_code = $(".num").eq(i).attr("id");
@@ -366,7 +372,7 @@ button:focus {
 
 			$.ajax({
 				type : "post",
-				url : "rest/insertendvc",
+				url : "rest/insertvc",
 				data : jArr,
 				contentType : "application/json; charset=UTF-8",
 				dataType : "json",

@@ -1,4 +1,4 @@
-package com.team2.simpleOrder.dto;
+package com.team2.simpleOrder.service.kiosk;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class KioskEntity {
+
 	// order_and_credit HashMap
 	public HashMap<String, String> getOac(String c_code, String bd_date, String oac_num, String sc_code,
 			String st_num) {
@@ -29,11 +30,6 @@ public class KioskEntity {
 			System.out.println(bArr.get(i).get("pd_code"));
 			System.out.println(bArr.get(i).get("pd_date"));
 			System.out.println(bArr.get(i).get("oh_cnt"));
-			bArr.get(i).get("pdc_code");
-			bArr.get(i).get("pdc_date");
-			bArr.get(i).get("pd_code");
-			bArr.get(i).get("pd_date");
-			bArr.get(i).get("oh_cnt");
 			orderInfo.put("c_code", c_code);
 			orderInfo.put("bd_date", bd_date);
 			orderInfo.put("oac_num", oac_num);
@@ -45,6 +41,5 @@ public class KioskEntity {
 			orderList.add(orderInfo);
 		}
 		return orderList;
-
 	}
 }

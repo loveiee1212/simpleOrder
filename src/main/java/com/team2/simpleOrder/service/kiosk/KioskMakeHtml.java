@@ -21,30 +21,44 @@ public class KioskMakeHtml {
 					+ "</a></li>");
 		}
 		sb1.append("</ul>");
-		//상품 리스트
+		// 상품 리스트
 		StringBuilder sb2 = new StringBuilder();
 		for (int i = 0; i < skcList.size(); i++) {
-			sb2.append("<div id='skc" + skcList.get(i).get("SKC_CODE") + "' class='pList'>");
-			sb2.append("<div id='pro"+skcList.get(i).get("SKC_CODE")+"'>" + skcList.get(i).get("SKC_NAME") + "</div>");
-			for(int j=0; j<sellProList.size(); j++) {
-				//판매키에 올라가 있는 상품리스트
-				//skc_code가 같다면 추가
-				if(skcList.get(i).get("SKC_CODE").equals(sellProList.get(j).getSkc_code())) {
+			sb2.append("<div class='pList'>"+skcList.get(i).get("SKC_NAME"));
+			sb2.append("<i class='fas fa-angle-up tgBtn' id='"+skcList.get(i).get("SKC_CODE")+"' style='font-size:36px'></i></div>");
+			sb2.append("<div id='pro"+skcList.get(i).get("SKC_CODE")+"' class='pro'>");
+			for (int j = 0; j < sellProList.size(); j++) {
+				// 판매키에 올라가 있는 상품리스트
+				// skc_code가 같다면 추가
+				if (skcList.get(i).get("SKC_CODE").equals(sellProList.get(j).getSkc_code())) {
+					if(sellProList.get(j).getStk_stock()==0) {
+						sb2.append("<div class='soldOut'><div class='pList_detail'><div class='pd_imgName'>");
+						sb2.append("<img src='resources/productImg/" + sellProList.get(j).getPd_imgName() + "' alt='"
+								+ sellProList.get(j).getPd_name() + "'></div>");
+						sb2.append("<div class='text_detail'>");
+						sb2.append("<div class='pdc_code'>" + sellProList.get(j).getPdc_code() + "</div>");
+						sb2.append("<div class='pd_code'>" + sellProList.get(j).getPd_code() + "</div>");
+						sb2.append("<div class='pd_date'>" + sellProList.get(j).getPd_date() + "</div>");
+						sb2.append("<div class='pd_name'>" + sellProList.get(j).getPd_name() + "</div>");
+						sb2.append(
+								"<div class='pd_soldOut'>품절</div></div></div></div>");
+					}else {
 					sb2.append("<div class='detail_body'><div class='pList_detail'><div class='pd_imgName'>");
 					sb2.append("<img src='resources/productImg/" + sellProList.get(j).getPd_imgName() + "' alt='"
 							+ sellProList.get(j).getPd_name() + "'></div>");
 					sb2.append("<div class='text_detail'>");
 					sb2.append("<div class='pdc_code'>" + sellProList.get(j).getPdc_code() + "</div>");
-					sb2.append("<div class='pdc_date'>" + sellProList.get(j).getPdc_date() + "</div>");
 					sb2.append("<div class='pd_code'>" + sellProList.get(j).getPd_code() + "</div>");
 					sb2.append("<div class='pd_date'>" + sellProList.get(j).getPd_date() + "</div>");
 					sb2.append("<div class='pd_name'>" + sellProList.get(j).getPd_name() + "</div>");
-					sb2.append("<div class='pd_price'>" + sellProList.get(j).getPd_price()+ "</div></div></div></div>");
+					sb2.append(
+							"<div class='pd_price'>" + sellProList.get(j).getPd_price() + "</div></div></div></div>");
+					}
 				}
 			}
 			sb2.append("</div>");
 		}
-		
+
 		HashMap<String, Object> hMap = new HashMap<>();
 		hMap.put("sellCtList", sb1.toString());
 		hMap.put("sellProList", sb2.toString());
@@ -113,16 +127,15 @@ public class KioskMakeHtml {
 	// 계산서 리스트 Html 만드는 메소드
 	public HashMap<String, String> billListHtml(List<Bill> bill) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<strong>계산서</strong><i id='bill_close_btn' class='fa fa-close' style='font-size:36px'></i>");
 		for (int i = 0; i < bill.size(); i++) {
-			sb.append("<div class='pList_detail'>");
-			sb.append("<div class='pd_name'>" + bill.get(i).getPd_name() + "</div>");
-			sb.append("<div class='pd_price'>" + bill.get(i).getPd_price() + "</div>");
-			sb.append("<div class='oh_count'>" + bill.get(i).getOh_cnt() + "</div>");
-			sb.append("</div>");
+			if (bill.get(i).getOh_cnt() != 0) {
+				sb.append("<tr>");
+				sb.append("<td class='bill_pd_name'>" + bill.get(i).getPd_name() + "</td>");
+				sb.append("<td class='bill_pd_price'>" + bill.get(i).getPd_price() + "</td>");
+				sb.append("<td class='bill_oh_cnt'>" + bill.get(i).getOh_cnt() + "</td>");
+				sb.append("</tr>");
+			}
 		}
-		sb.append("<h2 id='sum'></h2>");
-
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		hMap.put("bill", sb.toString());
 		return hMap;

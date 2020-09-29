@@ -17,4 +17,5 @@ public class SellProduct {
 	private String pd_imgName;
 	private String pd_name;
 	private int pd_price;
+	private int stk_stock;
 }
