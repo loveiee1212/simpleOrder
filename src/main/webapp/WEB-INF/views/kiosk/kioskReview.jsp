@@ -14,18 +14,21 @@
 	width: 568px;
 	height: auto;
 	margin: auto;
-	border: 1px solid black;
 }
 
 #header {
-	height: 100px;
-	border: 1px solid black;
+	border: 3px solid #e3f2fd;
+	background-color: #e0e0e0;
 	margin: 10px;
+	height: 100px;
 }
 
-ul{
-	list-style: none;
+ul {
 	padding-left: 0px;
+}
+
+li {
+	list-style: none;
 }
 
 .rv_score {
@@ -67,6 +70,17 @@ ul{
 
 .rv_detail {
 	margin: 20px;
+	margin-bottom: 30px;
+	padding-bottom: 50px;
+	border-bottom: 1px solid gray;
+}
+
+.rv_text {
+	font-size: 20px;
+}
+
+.rv_code_name {
+	font-size: 18px;
 }
 
 .rv_img {
@@ -83,20 +97,44 @@ ul{
 .rv_code_time {
 	margin-left: 50px;
 }
-#addBtnP
-{width: 500px;}
-.btn {
+
+#addBtn {
+	text-align: center;
+	border: 2px solid white;
+	width: 568px;
+	height: 50px;
+	background-color: #e3f2fd;
+	font-weight: bold;
+	color: #1565c0;
+	font-size: 20px;
+}
+
+.write {
+	border: 2px solid white;
+	background-color: #81d4fa;
+	font-size: 19px;
+	font-weight: bold;
+	color: white;
+	margin-top: 10px;
 	height: 60px;
 }
 
-#footer .btn {
-	width: 249px;
-	margin: 10px;
+.Exit {
+	border: 3px solid #81d4fa;
+	background-color: white;
+	font-size: 19px;
+	font-weight: bold;
+	color: #81d4fa;
+	margin-left: 22px;
+	height: 60px;
 }
 
-#footer {
-	border: 1px solid black;
-	margin: 10px;
+#footer .write, #footer .Exit {
+	width: 270px;
+}
+
+button:focus {
+	outline: none;
 }
 </style>
 </head>
@@ -116,11 +154,11 @@ ul{
 	});
 </script>
 <body>
-<h2>${sessionScope.c_code}</h2>
-		<h2>${sessionScope.bd_date}</h2>
-		<h2>${sessionScope.sc_code}</h2>
-		<h2>${sessionScope.st_num}</h2>
-		<h2>${sessionScope.oac_num}</h2>
+	<h2>${sessionScope.c_code}</h2>
+	<h2>${sessionScope.bd_date}</h2>
+	<h2>${sessionScope.sc_code}</h2>
+	<h2>${sessionScope.st_num}</h2>
+	<h2>${sessionScope.oac_num}</h2>
 	<!-- <h2>kioskReview.jsp</h2> -->
 	<div id="frame">
 		<div id="header">
@@ -128,9 +166,9 @@ ul{
 		</div>
 		<div id="reviewList"></div>
 		<div id="footer">
-			<button class="btn" type="button"
+			<button class="write" type="button"
 				onclick="location.href='./kioskreviewwrite'">리뷰작성</button>
-			<button class="btn" type="button"
+			<button class="Exit" type="button"
 				onclick="location.href='./kioskmenu'">나가기</button>
 		</div>
 	</div>

@@ -10,29 +10,44 @@
 	type="text/css">
 <title>SimpleOrder-시재변경</title>
 <style>
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 #cashZone {
-	border: 1px solid #81d4fa;
-	height: 800px;
-	width: 700px;
+	border: 3px solid #81d4fa;
+	height: 795px;
+	width: 800px;
 	float: left;
+	background-color: white;
 }
 
 table, tr, td, th {
-	border: 1px solid #81d4fa;
+	border: 3px solid #81d4fa;
 }
 
 #cashZone table {
-	width: 500px;
+	width: 700px;
 	height: 700px;
 	position: absolute;
-	margin-left: 98px;
-	position: absolute;
-	margin-left: 98px;
-	margin-top: 41px;
+	margin-left: 50px;
+	margin-top: 46px;
+	border-collapse: collapse;
 }
 
 #cashZone th {
-	width: 100px;
+	width: 200px;
+	font-size: 30px;
 }
 
 #cashZone td.leftTd {
@@ -40,29 +55,107 @@ table, tr, td, th {
 }
 
 td.leftTd input {
-	width: 99px;
-	height: 59px;
+	width: 200px;
+	height: 57px;
 	border: 0px;
-	font-size: 20px;
+	font-size: 30px;
+	text-align: center;
 }
 
-#vcZone {
-	border: 1px solid #81d4fa;
-	height: 800px;
-	width: 700px;
-	float: right;
+td.leftTd input:focus {
+	outline: none;
+}
+
+td {
+	font-size: 30px;
+	text-align: center;
 }
 
 #vcZone table {
+	border: 3px solid #81d4fa;
 	font-size: 25px;
+	width: 650px;
+	height: 800px;
+	float: right;
+	border-collapse: collapse;
+	background-color: white;
+	text-align: center;
 }
 
 #vcZone th {
-	width: 150px;
+	width: 200px;
 }
 
-#vcZone td {
-	width:
+#startVC {
+	text-align: center;
+}
+
+#clock {
+	margin-top: 5px;
+	margin-left: 120px;
+	width: 400px;
+	height: 150px;
+}
+
+#date {
+	font-size: 40px;
+	margin-top: 20px;
+}
+
+#clock ul {
+	width: 400px;
+	margin-left: -40px;
+}
+
+#clock ul li {
+	font-size: 40px;
+}
+
+#vcChangeText {
+	width: 340px;
+	height: 50px;
+	text-align: center;
+	font-size: 20px;
+	border: 3px solid #81d4fa;
+}
+
+input:focus, button:focus {
+	outline: none;
+}
+
+#insertVC {
+	text-align: center;
+	border: 3px solid white;
+	width: 180px;
+	height: 70px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 25px;
+}
+
+#changeLog {
+	text-align: center;
+	border: 3px solid white;
+	width: 180px;
+	height: 70px;
+	margin-left: 20px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 25px;
+}
+
+#Exit {
+	text-align: center;
+	border: 3px solid #81d4fa;
+	width: 150px;
+	height: 70px;
+	margin-left: 20px;
+	background-color: white;
+	font-weight: bold;
+	color: #81d4fa;
+	font-size: 25px;
 }
 </style>
 </head>
@@ -187,7 +280,7 @@ td.leftTd input {
 					<tr>
 						<td colspan="2"><button id="insertVC" onclick="insertVC()">시재저장</button>
 						<button id="changeLog" onclick="changeLog()">시재변경내역</button>
-						<button onclick="location.href='posmain'">나가기</button></td>
+						<button id="Exit" onclick="location.href='posmain'">나가기</button></td>
 					</tr>
 				</table>
 			</div>

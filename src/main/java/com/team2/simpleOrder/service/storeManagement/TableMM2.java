@@ -13,7 +13,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team2.simpleOrder.dao.posManagement.ITableDao2;
+import com.team2.simpleOrder.dao.storeManagement.ITableDao2;
 
 @Service
 public class TableMM2 {

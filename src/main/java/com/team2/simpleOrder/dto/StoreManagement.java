@@ -15,7 +15,6 @@ public class StoreManagement {
 	private String c_code;
 
 	private String pdc_code;
-	private String pdc_date;
 	private String pd_code;
 	private String pd_date;
 	private String pd_name;

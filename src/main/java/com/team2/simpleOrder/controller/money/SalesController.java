@@ -14,13 +14,15 @@ import com.team2.simpleOrder.service.money.SalesMM;
 @Controller
 public class SalesController {
 	//Only Money Controller Number2
-	
+
 	@Autowired
-	VaultCashMM mom1;
-	
-	@Autowired
-	SalesMM mom2;
+	SalesMM sm;
 	
 	ModelAndView mav;
 
+	@RequestMapping ("/salescontrol")
+	public String salesControl() {
+		
+		return "money/salescontrol";
+	}
 }
