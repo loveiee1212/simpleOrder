@@ -60,7 +60,7 @@ public class KioskMM1 {
 	public HashMap<String, String> getBillList(HttpSession session) {
 		// 계산서리스트 가져오기
 		String c_code="123123123123";
-		String bd_date="2020-08-29 14:19:00";
+		String bd_date="2020-09-29 11:27:00";
 		String oac_num="0001";
 //		List<Bill> bill = kDao1.getBillList(session.getAttribute("c_code").toString(),
 //				session.getAttribute("oac_num").toString(), session.getAttribute("bd_date").toString());
@@ -89,7 +89,7 @@ public class KioskMM1 {
 				System.out.println(oac);
 				// order_and_credit insert
 				if (!oDao2.createoacList(oac)) {
-					return "errorkioskpage";
+					return "kioskorder";
 				}
 				// order_history insert
 				// order_history안에 인서트 해줄 데이터들을 해쉬맵에 넣는다
@@ -99,7 +99,7 @@ public class KioskMM1 {
 					System.out.println(ohList.get(i));
 					// insert결과가 false가 나오면 에러페이지
 					if (!oDao2.sendsaoList(ohList.get(i))) {
-						return "errorkioskpage";
+						return "kioskorder";
 					}
 				}
 				// 세션에 oac_num저장
@@ -112,7 +112,7 @@ public class KioskMM1 {
 				for (int i = 0; i < ohList.size(); i++) {
 					System.out.println(ohList.get(i));
 					if (!oDao2.sendsaoList(ohList.get(i))) {
-						return "errorkioskpage";
+						return "kioskorder";
 					}
 				}
 			}
@@ -126,13 +126,13 @@ public class KioskMM1 {
 	public String insertReview(ArrayList<MultipartFile> rv_file, Review rv, HttpSession session) {
 		if (kDao1.insertReview(rv)) { // 등록이 됐다면
 			if (rv_file.size() != 0) {
-				KioskEntity kn = new KioskEntity();
+				KioskFileManager kfm = new KioskFileManager();
 
 				for (int i = 0; i < rv_file.size(); i++) {
-					rv.setRvImg_sysName(kn.makeSysName(rv, i, rv_file.get(i).getOriginalFilename()));
+					rv.setRvImg_sysName(kfm.makeSysName(rv, i, rv_file.get(i).getOriginalFilename()));
 					kDao1.insertRvImg(rv);
 				}
-				kn.fileUp(rv, rv_file, session);
+				kfm.fileUp(rv, rv_file, session);
 			}
 			return "kioskmenu";
 		} else {
@@ -140,9 +140,22 @@ public class KioskMM1 {
 		}
 	}
 
-	public String getReviewUse(HttpSession session) {
+	public HashMap<String, String> kioskMainReady(HttpSession session) {
+		String c_code="123123123123";
+		String bd_date="2020-08-29 14:19:00";
+		String oac_num="0001";
+//		List<Bill> bill = kDao1.getBillList(session.getAttribute("c_code").toString(),
+//				session.getAttribute("oac_num").toString(), session.getAttribute("bd_date").toString());
+		List<Bill> bill = kDao1.getBillList(c_code,oac_num,bd_date);
+		kmh = new KioskMakeHtml();
+		HashMap<String, String> mainInfo=kmh.billListHtml(bill);
+		String rvUseCode=kDao1.getReviewUse(session.getAttribute("c_code").toString());
+		mainInfo.put("rvUseCode", rvUseCode);
+		String sc_name = kDao1.getSc_name(session.getAttribute("c_code").toString(),
+				session.getAttribute("sc_code").toString());
+		mainInfo.put("sc_name", sc_name);
 		
-		return kDao1.getReviewUse(session.getAttribute("c_code").toString());
+		return mainInfo;
 	}
 
 }

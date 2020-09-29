@@ -101,7 +101,7 @@ i {
 	margin: 0 20px;
 }
 
-.detail_body {
+.detail_body, .soldOut {
 	width: 240px;
 	height: 300px;
 	border: solid rgb(133, 133, 133) 1px;
@@ -141,13 +141,23 @@ i {
 	clear: both;
 }
 
-.pdc_code, .pdc_date, .pd_code, .pd_date, .bsk_pdc_code, .bsk_pdc_date,
-	.bsk_pd_code, .bsk_pd_date {
+.pdc_code, .pd_code, .pd_date, .bsk_pdc_code, .bsk_pd_code, .bsk_pd_date
+	{
 	display: none;
+}
+
+.pd_soldOut {
+	color: red;
 }
 
 tr, td {
 	border: 1px solid black;
+}
+
+.pList {
+	height: 80px;
+	border: 1px solid black;
+	margin: 5px 0 10px 0;
 }
 </style>
 <script type="text/javascript">
@@ -163,6 +173,7 @@ tr, td {
 			$('#sellProList').html(data.sellProList);
 			priceUpdate();
 			orderLoading();
+			proHide();
 		},
 		error : function(err) {
 			console.log(err);
@@ -175,6 +186,14 @@ tr, td {
 			price = Number(price).toLocaleString('en');
 			pd_price[i].innerText = price + "원";
 		}
+	}
+	function proHide() {
+		var pro = $('.pro');
+		for (var i = 0; i < pro.length; i++) {
+			console.log(pro.eq(i).attr("id"));
+			$("#" + pro.eq(i).attr("id")).hide();
+		}
+		$("#" + pro.eq(0).attr("id")).show();
 	}
 </script>
 </head>
@@ -336,25 +355,39 @@ tr, td {
 						//클릭한 상품의 상품 카테고리 코드, 상품 코드, 상품 이름, 상품 가격 가져옴 
 						var pdc_code = $(this).children().eq(0).children()
 								.eq(1).children().eq(0).text()
-						var pdc_date = $(this).children().eq(0).children()
-								.eq(1).children().eq(1).text()
 						var pd_code = $(this).children().eq(0).children().eq(1)
-								.children().eq(2).text()
+								.children().eq(1).text()
 						var pd_date = $(this).children().eq(0).children().eq(1)
-								.children().eq(3).text()
+								.children().eq(2).text()
 						var pd_name = $(this).children().eq(0).children().eq(1)
-								.children().eq(4).text()
+								.children().eq(3).text()
 						var pd_price = $(this).children().eq(0).children()
-								.eq(1).children().eq(5).text()
+								.eq(1).children().eq(4).text()
 						//상품 카테고리 코드, 상품 코드, 상품 이름, 상품 가격 파라미터로 넘김
-						insertOrder(pdc_code, pdc_date, pd_code, pd_date,
-								pd_name, pd_price);
+						insertOrder(pdc_code, pd_code, pd_date, pd_name,
+								pd_price);
 					}
 				})
+
+		$('.soldOut').on("click", function() {
+			console.log("품절");
+			alert("죄송합니다 품절 상품입니다");
+		});
+
+		$('.tgBtn').on("click", function() {
+			var skc = $(this).attr("id");
+			$('#pro' + skc).toggle(600);
+			if ($(this).hasClass("fa-angle-up")) {
+				$(this).removeClass("fa-angle-up");
+				$(this).addClass("fa-angle-down");
+			} else {
+				$(this).removeClass("fa-angle-down");
+				$(this).addClass("fa-angle-up");
+			}
+		});
 	}
 	//장바구니에 담기
-	function insertOrder(pdc_code, pdc_date, pd_code, pd_date, pd_name,
-			pd_price) {
+	function insertOrder(pdc_code, pd_code, pd_date, pd_name, pd_price) {
 		//장바구니에 상품이 이미 담겨 있는지 확인
 		var result = insertCheck(pdc_code, pd_code);
 		if (result) {
@@ -362,7 +395,6 @@ tr, td {
 			var str = '';
 			str += "<tr id = '" + pdc_code + pd_code + "'>";
 			str += "<td class='bsk_pdc_code'>" + pdc_code + "</td>";
-			str += "<td class='bsk_pdc_date'>" + pdc_date + "</td>";
 			str += "<td class='bsk_pd_code'>" + pd_code + "</td>";
 			str += "<td class='bsk_pd_date'>" + pd_date + "</td>";
 			str += "<td>" + pd_name + "</td>";
@@ -444,7 +476,6 @@ tr, td {
 				$('#bskText').show();
 				$('#bskSum').hide();
 			}
-
 		}
 	}
 	//장바구니 안에 있는 상품 가격이랑 개수 합치기
@@ -484,7 +515,6 @@ tr, td {
 			}
 			//class 이름별로 변수에 담아서 풀어주기
 			var bsk_pdc_code = $('.bsk_pdc_code');
-			var bsk_pdc_date = $('.bsk_pdc_date');
 			var bsk_pd_code = $('.bsk_pd_code');
 			var bsk_pd_date = $('.bsk_pd_date');
 			var bsk_oh_cnt = $('.bsk_oh_cnt');
@@ -492,7 +522,6 @@ tr, td {
 			for (var i = 0; i < bsk_pdc_code.length; i++) {
 				var obj = new Object();
 				obj.pdc_code = bsk_pdc_code[i].innerText;
-				obj.pdc_date = bsk_pdc_date[i].innerText;
 				obj.pd_code = bsk_pd_code[i].innerText;
 				obj.pd_date = bsk_pd_date[i].innerText;
 				obj.oh_cnt = bsk_oh_cnt[i].innerText;

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div id="msg">
-		${sc_name} <br> ${st_num} <br> ${text}
+		${sc_name} <br> ${st_num} <br> ${text}하였습니다
 	</div>
 
 </body>

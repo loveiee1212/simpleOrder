@@ -1,29 +1,11 @@
 package com.team2.simpleOrder.service.kiosk;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import com.team2.simpleOrder.dao.kiosk.IKioskDao1;
-import com.team2.simpleOrder.dto.Review;
-import com.team2.simpleOrder.dto.ReviewImg;
-
 public class KioskEntity {
-	@Autowired
-	private IKioskDao1 kDao1;
 
 	// order_and_credit HashMap
 	public HashMap<String, String> getOac(String c_code, String bd_date, String oac_num, String sc_code,
@@ -59,28 +41,5 @@ public class KioskEntity {
 			orderList.add(orderInfo);
 		}
 		return orderList;
-	}
-
-	public void fileUp(Review rv, ArrayList<MultipartFile> rv_file, HttpSession session) {
-		try {
-			String root = session.getServletContext().getRealPath("/");
-			String path = "resources/reviewImg/";
-			for(int i = 0; i < rv_file.size(); i++) {
-				String fileName = makeSysName(rv,i,rv_file.get(i).getOriginalFilename());
-				rv_file.get(i).transferTo(new File(root + path + fileName));
-			}
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		}
-
-	}
-
-	public String makeSysName(Review rv, int i, String fileName) {
-		String fileExtender = "."+ fileName.substring(fileName.lastIndexOf(".") + 1);
-		String result = rv.getBd_date().replaceAll("-", "");
-		result = result.substring(2, 8);
-		result = result + rv.getOac_num() + "IMG" + (i+1) ;
-		return result+fileExtender;
 	}
 }

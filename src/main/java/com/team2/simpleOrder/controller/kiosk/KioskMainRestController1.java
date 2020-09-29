@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.team2.simpleOrder.dto.Review;
@@ -22,7 +21,7 @@ import com.team2.simpleOrder.service.kiosk.KioskMM1;
 
 @RestController
 @RequestMapping("/rest")
-public class KioskRestController1 {
+public class KioskMainRestController1 {
 
 	@Autowired
 	KioskMM1 km1;
@@ -61,11 +60,11 @@ public class KioskRestController1 {
 		rv.setC_code("123123123123").setBd_date("2020-08-29 14:19:00").setOac_num("0001");
 		return km1.insertReview(rv_file, rv, session);
 	}
-	@PostMapping(value="/getreviewuse")
-	public String getReviewUse(HttpSession session) {
-		
-		return km1.getReviewUse(session);
-		
+
+	@PostMapping(value = "/kioskmainready")
+	public HashMap<String, String> kioskMainReady(HttpSession session) {
+
+		return km1.kioskMainReady(session);
 	}
 
 }

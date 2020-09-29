@@ -14,48 +14,62 @@
 	height: auto;
 	margin: auto;
 	border: 1px solid black;
-	
 }
-#bill{
+
+#bill {
 	border: 1px solid black;
 	width: 300px;
 	height: 350px;
-	margin: 20px;
+	margin: 20px 10px 20px 20px;
 }
-.smallBox{
+
+#aside {
+	width: 200px;
+	height: 350px;
+	border: 1px solid black;
+	margin: 20px 20px 20px 10px;
+}
+
+#aside div {
 	border: 1px solid black;
 	width: 150px;
-	height: 80px;
-
+	height: 90px;
+	text-align: center;
+	margin: 18px 24px;
 }
+
 #clickdiv ul li {
 	display: inline;
-	font-size: 24px;
-	text-align: center;
+}
+tr,td{
+border: 1px solid black;
+}
+input[type="button"]{
+	padding: 24px 50px;
+	margin: 18px;
 }
 </style>
 <script type="text/javascript">
 	$.ajax({
-		url : 'rest/getreviewuse',
-		type : 'post',
-		success : function(data) {
-			if (data == '-1') {
-				$('#rvBtn').attr("onclick", "");
-				$('#rvBtn').remove();
-			}
-		}
-	});
-	$.ajax({
-		url : 'rest/getbilllist',
+		url : 'rest/kioskmainready',
 		type : 'post',
 		dataType : 'json',
 		success : function(data) {
+			console.log(data);
 			//계산서 html 삽입
 			$('#billBody').html(data.bill);
 			billSum();
 			billPriceUpdate();
+			//리뷰 사용여부 확인
+			if (data.rvUseCode == '-1') {
+				$('#rvBtn').attr("onclick", "");
+				$('#rvBtn').remove();
+			}
+			//테이블 카테고리 적어주기
+			$('#seat').html(data.sc_name+"<br>"+"${sessionScope.st_num}번 테이블");
 		},
 		error : function(err) {
+			console.log(err);
 			$('#billBody').html("주문내역이 없습니다");
 		}
 	});
@@ -74,7 +88,7 @@
 		console.log(sum);
 		sum = sum.toLocaleString('en');
 		console.log(sum);
-		$('#billSum').text("합계 " + sum + "원");
+		$('#billSum').html("합계<br>" + sum + "원");
 	}
 	function billPriceUpdate() {
 		var pd_price = $('.bill_pd_price');
@@ -107,17 +121,19 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="seat" class="smallBox"></div>
-		<div id="billSum" class="smallBox"></div>
-		<div id="clickdiv" class="smallBox">
-			<ul>
-				<li id="date"></li>
-				<li id="hours"></li>
-				<li id="point">:</li>
-				<li id="min"></li>
-				<li id="point">:</li>
-				<li id="sec"></li>
-			</ul>
+		<div id="aside">
+			<div id="seat"></div>
+			<div id="billSum"></div>
+			<div id="clickdiv">
+				<ul>
+					<li id="date"></li>
+					<li id="hours"></li>
+					<li id="point">:</li>
+					<li id="min"></li>
+					<li id="point">:</li>
+					<li id="sec"></li>
+				</ul>
+			</div>
 		</div>
 		<input type="button" id="odBtn" value="주문추가"
 			onclick="location.href='kioskorder'"> <input type="button"

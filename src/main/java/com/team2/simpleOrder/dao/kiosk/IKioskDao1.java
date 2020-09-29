@@ -36,15 +36,19 @@ public interface IKioskDao1 {
 	List<HashMap<String, Object>> find_pdc_and_pd_date(@Param("c_code") String c_code,
 			@Param("pdc_code") String pdc_code, @Param("pd_code") String pd_code);
 
+	// 리뷰 인서트
 	@Insert("INSERT INTO REVIEW VALUES(#{c_code},#{bd_date},#{oac_num},DEFAULT,#{rv_text},#{rv_score})")
 	boolean insertReview(Review rv);
 
+	// 리뷰이미지 인서트
 	@Insert("INSERT INTO REVIEW_IMG VALUES(#{c_code},#{bd_date},#{oac_num},#{rvImg_sysName})")
 	void insertRvImg(Review rv);
 
+	// sc_name가져오기
 	@Select("SELECT SC_NAME FROM SEAT_CT WHERE C_CODE=#{c_code} AND SC_CODE=#{sc_code}")
 	String getSc_name(@Param("c_code") String c_code, @Param("sc_code") String sc_code);
 
+	// 리뷰 사용 여부 가져오기
 	@Select("SELECT C_REVIEWUSE FROM COMPANY WHERE C_CODE=#{c_code}")
 	String getReviewUse(@Param("c_code") String c_code);
 }
