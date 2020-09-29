@@ -310,7 +310,6 @@ li input {
 		var pdccodeArray = [];
 		var codeArray = [];
 		var cntArray = [];
-		var pdcdateArray = [];
 		var dateArray = [];
 		var $pdccode = $("input[name = 'pdcode']");
 
@@ -327,12 +326,6 @@ li input {
 		}
 		;
 
-		for (var i = 0; i < $pdccode.length; i++) {
-			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
-				pdcdateArray.push($("#pddate" + i).data('code'));
-			}
-
-		}
 		for (var i = 0; i < $pdccode.length; i++) {
 			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
 				dateArray.push($("#pddate" + i).val());
@@ -359,7 +352,6 @@ li input {
 			"sc_code" : $("#sc_code").val(),
 			"st_num" : $("#st_num").val(),
 			"pdc_code" : pdccodeArray,
-			"pdc_date" : pdcdateArray,
 			"pd_date" : dateArray,
 			"pd_code" : codeArray,
 			"oh_cnt" : cntArray

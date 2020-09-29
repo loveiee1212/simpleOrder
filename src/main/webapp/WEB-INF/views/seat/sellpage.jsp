@@ -42,7 +42,8 @@ div {
 }
 
 div #seat {
-clear :both;
+	clear: both;
+	margin-top: 30px;
 }
 
 #outerdiv {
@@ -84,13 +85,14 @@ clear :both;
 
 .tables {
 	border: 3px solid #81d4fa;
-	width : 100px;
-	height : 100px;
+	width: 120px;
+	height: 100px;
 	float: left;
 	margin: 15px;
 	opacity: 0.5;
 	background-color: silver;
 	font-size: 25px;
+	float: left;
 }
 
 #rightdiv {
@@ -373,16 +375,62 @@ i {
 #frm {
 	font-size: 20px;
 }
+
+#movediv {
+	border: 2px solid skyblue;
+	background-color: white;
+	margin-left: 320px;
+	width: 600px;
+	height: 150px;
+	position: absolute;
+	width: 600px;
+	display: none;
+}
+
+#movediv p {
+	margin-left: 0px;
+	margin-top: 30px;
+}
+
+#cancelbutton {
+	width: 70px;
+	height: 50px;
+	border: 3px solid #81d4fa;
+	background-color: white;
+	color: #81d4fa;
+	margin-left: 500px;
+}
+
+.sumorchange {
+	width: 150px;
+	height: 90px;
+	border: 3px solid #81d4fa;
+	background-color: white;
+	color: #81d4fa;
+	margin-top : 60px;
+	margin-left: 100px;
+	display: none;
+	float : left;
+}
+
 </style>
 </head>
 <body>
 
 	<div id="baseBox">
+		<div id="movediv">
+			<center>
+			<p id="movep">이동시킬 테이블을 클릭해주세요</p>
+			</center>
+			<button id='cancelbutton'>취소</button>
+			<br/>
+			<input type="button" class="sumorchange" value="합석" data-code="1"/>
+			<input type="button" class="sumorchange" value="자리교체" data-code="2"/>
+		</div>
 		<div id="baseinnerBox">
 			<div class="leftdiv">
 				<div class="tab"></div>
-				<div id="seat">	
-				</div>
+				<div id="seat"></div>
 			</div>
 			<div id="rightdiv">
 				<div class="clickdiv">
@@ -404,7 +452,7 @@ i {
 				<div class="clickdiv" onclick="jointable()">
 					<p>단체</p>
 				</div>
-				<div class="clickdiv">
+				<div class="clickdiv" onclick='changetable()'>
 					<p>이동</p>
 				</div>
 				<div class="clickdiv" onclick="location.href='bill'">
@@ -542,84 +590,50 @@ i {
 				$("div.tab").append(result.ctginfo);
 				$("#seat").append(result.tableinfo);
 				for ( var a in result.list) {
-					console.log("a"+a);
-				for(var b in result.list[a].tlist){				
-				//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
-				console.log(result.list[a].tlist[b]);
-				if(result.list[a].tlist[b]<10){
-				$("#tnum" + "0"+(parseInt(a)+1)+ result.list[a].tlist[b]).css({"background-color" : "white",'visibility': 'visible'});
-				$("#tnum" +"0"+(parseInt(a)+1)+ result.list[a].tlist[b]).css("opacity", "100");
-				}
-				$("#tnum"  + result.list[a].tlist[b]).css({"background-color" : "white",'visibility': 'visible'});
-				$("#tnum" + result.list[a].tlist[b]).css("opacity", "100");
+					for ( var b in result.list[a].tlist) {
+						//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
+						if (result.list[a].tlist[b] < 10) {
+							$("#tnum" + "0" + (parseInt(a) + 1)+ result.list[a].tlist[b]).css({"background-color" : "white",'visibility' : 'visible'});
+							$("#tnum" + "0" + (parseInt(a) + 1)+ result.list[a].tlist[b]).css("opacity", "100");}
+						$("#tnum" + result.list[a].tlist[b]).css({"background-color" : "white",'visibility' : 'visible'});
+						$("#tnum" + result.list[a].tlist[b]).css("opacity","100");
 					}
 				}
-
+				$("#table0").attr("class", "blockCtg");
 				getorderList();
+				$(".tables").click(function() {
+				var tSplit = $(this).data("code").split("-");
+				var sc_code = tSplit[0];
+				var st_num = tSplit[1];
+				var oac_num = $(this).children("#oac_num").val();
+				location.href = "./sellandorder?sc_code=" + sc_code+ "&st_num=" + st_num + "&oac_num="+ oac_num;
+				});
 
-				$(".tables").click(
-						function() {
-							console.log("테이블 데이터코드 : " + $(this).data("code"));
-							console.log("테이블 주문번호"
-									+ $(this).children("#oac_num").val());
-
-							var tSplit = $(this).data("code").split("-");
-							var sc_code = tSplit[0];
-							var st_num = tSplit[1];
-							var oac_num = $(this).children("#oac_num").val();
-
-							location.href = "./sellandorder?sc_code=" + sc_code
-									+ "&st_num=" + st_num + "&oac_num="
-									+ oac_num;
-						});
-
-			},
-			error : function(err) {
-				console.log(err);
 			}
 		});
 	};
 
 	function getorderList() {
-		$
-				.ajax({
-					type : 'get',
-					url : 'rest/getorderlist',
-					data : {
-						"oac_status" : 1
-					},
-					dataType : 'json',
-					success : function(data) {
-						console.log(data);
-						for ( var i in data) {
-							var str = "";
-							if(data[i].oac_num!=null){
-							str += data[i].st_num + "번" + "<br/><br/>";
-							for (var j = 0; j < data[i].pdMap.pdnList.length; j++) {
-								//console.log(data[i].pdMap.pdnList[j]);
-								str += data[i].pdMap.pdnList[j] + " ";
-								str += data[i].cntList[j] + "<br/>"; }
-							str += "<input type='hidden' id='oac_num' value='"+data[i].oac_num+"'/>";
-							$("#tnum" + (data[i].sc_code) + (data[i].st_num))
-									.html(str); }
-
-						}
-
-					},
-					error : function(err) {
-						console.log(err);
-					}
-				});
+		$.ajax({
+		type : 'get',
+		url : 'rest/getorderlist',
+		data : {"oac_status" : 1},
+		dataType : 'json',
+		success : function(data) {
+			console.log(data);
+			for(var i in data){
+				$("#tnum"+(data[i].sc_code)+(data[i].st_num)).append("<input type='hidden' id='oac_num' value='"+data[i].oac_num+"'/>");
+				$("#tnum"+(data[i].sc_code)+(data[i].st_num)).append("<br/>"+data[i].pd_name+" "+data[i].oh_cnt);
+			}
+		}
+	});
 	}
-
 	/* 테이블 카테고리 클릭시 오픈 */
 	function opentable(evt, categoryname) {
 		var table = $("div[id*='table']");
 		for (var i = 0; i < table.length; i++) {
-			table[i].className = table[i].className
-					.replace("blockCtg", "tList");
+			table[i].className = table[i].className.replace("blockCtg", "tList");
 		}
-
 		if ($("#" + categoryname).attr('class') == 'tList') {
 			$("#" + categoryname).attr('class', 'blockCtg');
 		}
@@ -632,10 +646,7 @@ i {
 		var dayNames = [ "일", "월", "화", "수", "목", "금", "토" ]
 		var newDate = new Date();
 		newDate.setDate(newDate.getDate());
-		$('#Date').html(
-				newDate.getFullYear() + " " + monthNames[newDate.getMonth()]
-						+ " " + newDate.getDate() + " "
-						+ dayNames[newDate.getDay()]);
+		$('#Date').html(newDate.getFullYear() + " " + monthNames[newDate.getMonth()]+ " " + newDate.getDate() + " "+ dayNames[newDate.getDay()]);
 		setInterval(function() {
 			var seconds = new Date().getSeconds();
 			$("#sec").html((seconds < 10 ? "0" : "") + seconds);
@@ -660,15 +671,12 @@ i {
 		url : "rest/getreservlist",
 		dataType : 'json',
 		success : function(result) {
-		console.log(result);
 		$("#reservtable").html(result.reservList);
-	/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
+		/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
 		$("#reservtable tr").click(function() {
 		var tdArr = new Array();
 		var tr = $(this);
 		var td = tr.children();
-		console.log($(this).data("code"));
-		console.log(tr.text());
 		$("#upbtn").val("수정");
 		$("#dtbtn").remove();
 		$("#worktd").append("<input type='button' id='dtbtn'  onclick='deleteReserv()' value='삭제'>");
@@ -702,44 +710,39 @@ i {
 	function searchReserv() {
 		console.log($("#rsv_date").val());
 		$.ajax({
-		type : "post",
-		url : "rest/searchreserv",
-		data : {
-		rsv_date : $("#r_date").val()
-		},
-		dataType : 'json',
-		success : function(result) {
-		console.log(result);
-		$("#reservtable").html(result.reservList);
-		/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
-		$("#reservtable tr").click(function() {
-		var tdArr = new Array();
-		var tr = $(this);
-		var td = tr.children();
-		console.log(tr.text());
-		/* tr 행의 정보들을 Arr에 담음 */
-		td.each(function(i) {tdArr.push(td.eq(i).text());});
-		$("#upbtn").val("수정");
-		$("#dtbtn").remove();
-		$("#worktd").append("<input type='button' id='dtbtn'  onclick='deleteReserv()' value='삭제'>");
-		$("#reservtable tr").css('background-color','white');
-		tr.css('background-color', '#ddd');
-		console.log("배열에 담긴 값 : " + tdArr);
-		/* 배열에 담긴 값을 상세정보에 출력 */
-		var rsv_code = $(this).data("code");
-		var rsv_phone = td.eq(1).text();
-		var rsv_name = td.eq(2).text();
-		var rsv_date = td.eq(3).text().slice(0, 10);
-		var rsv_time = td.eq(3).text().slice(11, 16);
-		var rsvm_memo = td.eq(4).text();
-		$("#rsv_code").val(rsv_code);
-		$("#rsv_phone").val(rsv_phone);
-		$("#rsv_name").val(rsv_name);
-		$("#rsv_date").datepicker("setDate", rsv_date);
-		$("#rsv_time").val(rsv_time);
-		$("#rsvm_memo").val(rsvm_memo);
-		});
-		}
+			type : "post",
+			url : "rest/searchreserv",
+			data : {rsv_date : $("#r_date").val()},
+			dataType : 'json',
+			success : function(result) {
+			$("#reservtable").html(result.reservList);
+			/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
+			$("#reservtable tr").click(function() {
+			var tdArr = new Array();
+			var tr = $(this);
+			var td = tr.children();
+			/* tr 행의 정보들을 Arr에 담음 */
+			td.each(function(i) {tdArr.push(td.eq(i).text());});
+			$("#upbtn").val("수정");
+			$("#dtbtn").remove();
+			$("#worktd").append("<input type='button' id='dtbtn'  onclick='deleteReserv()' value='삭제'>");
+			$("#reservtable tr").css('background-color','white');
+			tr.css('background-color', '#ddd');
+			/* 배열에 담긴 값을 상세정보에 출력 */
+			var rsv_code = $(this).data("code");
+			var rsv_phone = td.eq(1).text();
+			var rsv_name = td.eq(2).text();
+			var rsv_date = td.eq(3).text().slice(0, 10);
+			var rsv_time = td.eq(3).text().slice(11, 16);
+			var rsvm_memo = td.eq(4).text();
+			$("#rsv_code").val(rsv_code);
+			$("#rsv_phone").val(rsv_phone);
+			$("#rsv_name").val(rsv_name);
+			$("#rsv_date").datepicker("setDate", rsv_date);
+			$("#rsv_time").val(rsv_time);
+			$("#rsvm_memo").val(rsvm_memo);
+				});
+			}
 		});
 	}
 
@@ -758,25 +761,24 @@ i {
 		var rsv_name = $("#rsv_name").val();
 		var rsv_date = $("#rsv_date").val() + " " + $("#rsv_time").val();
 		var rsvm_memo = $("#rsvm_memo").val();
-		$.ajax({
-			type : 'post',
-			url : "rest/updatereserv",
-			data : {
+		var objparam = {
 				"rsv_code" : rsv_code,
 				"rsv_phone" : rsv_phone,
 				"rsv_phone" : rsv_phone,
 				"rsv_name" : rsv_name,
 				"rsv_date" : rsv_date,
 				"rsvm_memo" : rsvm_memo
-			},
+		};
+		$.ajax({
+			type : 'post',
+			url : "rest/updatereserv",
+			data : objparam,
 			dataType : 'json',
 			success : function(data) {
-				console.log(data);
 				alert(data.result);
 				reservation();
 			},
 			error : function(err) {
-
 			}
 		});
 	}
@@ -785,9 +787,7 @@ i {
 		$.ajax({
 			type : 'post',
 			url : "rest/deletereserv",
-			data : {
-				"rsv_code" : $("#rsv_code").val()
-			},
+			data : {"rsv_code" : $("#rsv_code").val()},
 			dataType : 'json',
 			success : function(data) {
 				console.log(data);
@@ -853,24 +853,91 @@ i {
 			console.log($(".tables").data("code"));
 			tnum.push($(".tables").data("code"));
 		}
-		console.log(tnum);
 		location.href = "./sao?tnum=" + tnum;
 	};
 
 	/* 이동클릭 */
 	function changetable() {
-		/* $.ajax({
-			type : 'post',
-			url : "updatetablenum",
-			data : { "btNum" : tableNum , "atNum" : tableNum }
-			dataType : 'json',
-			success : function(result){
-				console.log(result);
-			},
-			error : function(error){
-				console.log(error);
+		$(".tables").off();
+		$("#movediv").css('display', 'block');
+		$(".tables").on("click",function() {
+			var firstcode = $(this).data("code");
+			var firstoac_num = $(this).children("#oac_num").val();
+			console.log("첫번째로 선택된 값:" + firstcode + firstoac_num);
+			console.log($(this).children("#oac_num").val() == null);
+			if ($(this).children("#oac_num").val() == null) {
+				$("#movep").html("주문중인 테이블만 이동이 가능합니다.");
+				return false;
+			} else {
+				$(this).css("border", "3px solid #0756FF");
+				movetable(firstcode, firstoac_num);
 			}
-		}); */
+		});
 	};
+	$("#cancelbutton").click(function() {
+		location.reload();
+		$(".tables").off();
+		$(".tables").on();
+		changetable()
+		$("#movediv").css('display', 'none');
+		$(".tables").css("border", "3px solid #81d4fa");
+		$("#movep").text("이동시킬 테이블을 클릭해주세요");
+		$("#movebutton").css("display", 'block');
+		$("#gomove").css("display", 'none');
+
+	});
+	function movetable(firstcode, firstoac_num) {
+		console.log("넘어온 값:" + firstcode + firstoac_num)
+		$("#movep").text("이동할 위치의 테이블을 클릭해주세요");
+		$("#movebutton").css("display", 'none');
+		$("#gomove").css("display", 'block');
+		$(".tables").one("click",function() {
+			if ($(this).children("#oac_num").val() != null) {
+				var secondcode = $(this).data("code");
+				var secondoac_num = $(this).children("#oac_num").val();
+				$(this).css("border", "3px solid #F9484B");
+				$("#movep").text("합석 또는 서로이동을 선택해주세요");
+				$(".sumorchange").css("display", 'block');
+				$(".sumorchange").click(function(){
+					var changetype = $(this).data("code");
+				$("#movep").text("잠시만 기다려 주십시오.");
+				$(".sumorchange").css("display","none");
+				changeseatajax(firstcode,firstoac_num,secondcode,secondoac_num,changetype);
+				});
+			} else {
+			var secondcode = $(this).data("code");
+			changeseatajax(firstcode,firstoac_num,secondcode,null,"0");
+			$("#movep").text("잠시만 기다려 주십시오.");
+			$(this).css("border", "3px solid #F9484B");
+			}
+		});
+	}
+		function changeseatajax(firstcode,firstoac_num,secondcode,secondoac_num,changetype){
+			console.log(firstcode);
+			console.log(secondcode);
+			console.log(firstoac_num);
+			console.log(secondoac_num);
+			console.log(changetype);
+			var objparam = {
+					"fcode" : firstcode,
+					"foac_num" :firstoac_num ,
+					"scode" : secondcode ,			
+					"soac_num" : secondoac_num,	
+					"type" : changetype
+			}
+			console.log("objparam:"+objparam);
+			$.ajax({
+				type : 'post',
+				url : "rest/changeseat",
+				data : objparam,
+				dataType : 'json',
+				success : function(result){
+					console.log(result);
+					$("#movep").html(result.result);
+					$("#cancelbutton").css("display","none");
+					setTimeout(function(){location.reload();},1500);
+				}
+			}) 
+		}
 </script>
 </html>

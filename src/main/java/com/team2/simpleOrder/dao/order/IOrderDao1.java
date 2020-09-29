@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import com.team2.simpleOrder.dto.Order;
 
@@ -30,8 +31,20 @@ public interface IOrderDao1 {
 	boolean updateReserv(Order odr);
 	//예약삭제
 	boolean deleteReserv(@Param("c_code") String c_code, @Param("rsv_code") String rsv_code);
-	
+	//주문정보 조회
 	List<Order> getorderList(@Param("c_code") String c_code,@Param("oac_status") int oac_status,@Param("bd_date") String bd_date);
+	//단순 자리이동
+	@Update("UPDATE ORDER_AND_CREDIT SET SC_CODE=#{ssc_code},ST_NUM=#{sst_num} WHERE C_CODE =#{c_code} AND BD_DATE=#{bd_date} AND OAC_NUM = #{foac_num}")
+	boolean changeSeatver1(HashMap<String, Object> instMap);
+	//자리교체
+	@Update("UPDATE ORDER_AND_CREDIT SET SC_CODE=#{fsc_code},ST_NUM=#{fst_num} WHERE C_CODE =#{c_code} AND BD_DATE=#{bd_date} AND OAC_NUM = #{soac_num}")
+	boolean changeSeatver2(HashMap<String, Object> instMap);
+	//합석(자리를 옮기는 쪽의 주문정보가 상실)
+	@Update("UPDATE ORDER_HISTORY SET OAC_NUM=#{soac_num} WHERE C_CODE = #{c_code} AND BD_DATE =#{bd_date} AND OAC_NUM =#{foac_num}")
+	boolean sumSeat(HashMap<String, Object> instMap);
+	//합석(옮긴 뒤 주문번호 상태 바꾸기)
+	@Update("UPDATE ORDER_AND_CREDIT SET OAC_STATUS = 2 WHERE C_CODE = #{c_code} AND BD_DATE =#{bd_date} AND OAC_NUM =#{foac_num}")
+	boolean deleteOrdernum(HashMap<String, Object> instMap);
 	
 	
 	

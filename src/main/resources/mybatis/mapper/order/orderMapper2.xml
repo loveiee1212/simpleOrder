@@ -7,7 +7,7 @@
 
 	<select id="getsaoList" parameterType="order" resultType="order">
 		SELECT
-		PD.PDC_CODE,PD.PD_CODE,PD.PD_NAME,PD.PDC_DATE,PD.PD_DATE,PD.PD_PRICE,SUM(OH.OH_CNT)
+		PD.PDC_CODE,PD.PD_CODE,PD.PD_NAME,PD.PD_DATE,PD.PD_PRICE,SUM(OH.OH_CNT)
 		AS OH_CNT
 		FROM ORDER_HISTORY AS OH JOIN ORDER_AND_CREDIT AS OAC JOIN PRODUCT AS PD
 		ON OAC.BD_DATE = OH.BD_DATE AND OH.PDC_CODE = PD.PDC_CODE AND
@@ -21,24 +21,13 @@
 
 	<select id="selectsaoList" parameterType="string"
 		resultType="order">
-		SELECT OH.PDC_CODE,OH.PD_CODE,OH.PDC_DATE,OH.PD_DATE,SUM(OH_CNT) FROM
+		SELECT OH.PDC_CODE,OH.PD_CODE,OH.PD_DATE,SUM(OH_CNT) FROM
 		ORDER_HISTORY AS OH
 		WHERE OH.C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND OH.OAC_NUM =
 		#{oac_num}
 		GROUP BY OH.PDC_CODE,OH.PD_CODE
 
 	</select>
-
-	<!-- <insert id="sendsaoList" parameterType="java.util.List"> -->
-	<!-- INSERT INTO ORDER_HISTORY -->
-	<!-- (C_CODE,BD_DATE,OAC_NUM,PDC_CODE,PDC_DATE,PD_CODE,PD_DATE,OH_CHANGETIME,OH_CNT) -->
-	<!-- VALUES -->
-	<!-- <foreach collection="list" item="odr" separator=","> -->
-	<!-- (#{odr.c_code},#{odr.bd_date},#{odr.oac_num},#{odr.pdc_code}, -->
-	<!-- #{odr.pdc_date},#{odr.pd_code},#{odr.pd_date},NOW(),#{odr.oh_cnt}) -->
-	<!-- </foreach> -->
-
-	<!-- </insert> -->
 
 	<update id="updatestkList" parameterType="java.util.List">
 		<foreach collection="list" item="odr" separator=";">

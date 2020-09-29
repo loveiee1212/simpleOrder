@@ -77,10 +77,10 @@ public class OrderMM1 {
 					sb.append("<td>");
 					if (i < 10) {
 						sb.append("<div class='tables' id='tnum" + "0" + (i + 1) + (b + 1) + "' data-code=" + "0"
-								+ (b + 1) + "-" + (b + 1) + " style = 'visibility: hidden;'>" + (b + 1) + "</div>");
+								+ (i+1) + "-" + (b + 1) + " style = 'visibility: hidden;'>" + (b + 1) + "</div>");
 					} else {
 						sb.append("<div class='tables' id='tnum" + (i + 1) + (b + 1) + "' data-code=" + (i + 1) + "-"
-								+ (b + 1) + " style = 'visibility: hidden;'>" + (b + 1) + "</div>");
+								+ (b+1) + " style = 'visibility: hidden;'>" + (b + 1) + "</div>");
 					}
 					sb.append("</td>");
 				}
@@ -153,7 +153,6 @@ public class OrderMM1 {
 		// String c_code=session.getAttribute("c_code").toString();
 		String c_code = "123123123123";
 		odr.setC_code(c_code);
-		log.info("odr : " + odr);
 		// 수정인지 예약인지 구분하기
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		if (odr.getRsv_code() == "") {
@@ -172,21 +171,16 @@ public class OrderMM1 {
 			// 하나도 없다면 예약코드가 1인 데이터 insert / 하나라도 있다면 제일 숫자가 큰 예약코드에 1을 더한 예약코드 생성 뒤 insert
 			switch (cnt) {
 			case 0:
-				System.out.println("11");
 				result = oDao.insertFirstReserv(odr);
 				break;
 
 			default:
-				System.out.println("22");
 				result = oDao.insertReserv(odr);
 			}
 			// 메모 데이터가 있다면 예약메모테이블에 등록
-			log.info("result:" + result);
-			System.out.println(odr.getRsvm_memo());
 			if (odr.getRsvm_memo() != null) {
 				memoresult = oDao.insertReservmemo(odr);
 			} else if (odr.getRsvm_memo() == null) {
-				System.out.println("0000000000000000000000000");
 				hMap.put("result", "등록이 완료되었습니다.");
 				return hMap;
 			}
@@ -235,35 +229,54 @@ public class OrderMM1 {
 		Order odr = new Order();
 		List<Order> oList = oDao.getorderList(c_code, oac_status, bd_date);
 		log.info("oList :" + oList);
-		List<Order> odrList = new ArrayList<Order>();
-		HashMap<String, List<String>> pdMap = new HashMap<String, List<String>>();
-		List<String> pdnList = new ArrayList<String>();
-		List<String> pdcList = new ArrayList<String>();
-		List<String> pdccList = new ArrayList<String>();
-		List<Integer> cntList = new ArrayList<Integer>();
-		for (int i = 0; i < oList.size(); i++) {
-			odr = oList.get(i);
-			if (odr.getSc_code() == odr.getSc_code() && odr.getSt_num() == odr.getSt_num()) {
-				odr.setSc_code(odr.getSc_code());
-				odr.setSt_num(odr.getSt_num());
-				odr.setOac_num(odr.getOac_num());
-				pdcList.add(odr.getPd_code());
-				pdnList.add(odr.getPd_name());
-				pdccList.add(odr.getPdc_code());
-				cntList.add(odr.getOh_cnt());
+		return oList;
+	}
+
+	//자리이동
+	@Transactional
+	public HashMap<String, String> changeSeat(HttpSession session, String fcode, String foac_num, String scode,
+			String soac_num, int type) {
+		log.info("soac_num"+soac_num);
+		log.info("type"+type);
+		String[] splitfcode = fcode.split("-");
+		String fsc_code = splitfcode[0];
+		int fst_num = Integer.parseInt(splitfcode[1]);
+		String[] splitscode = scode.split("-");
+		String ssc_code = splitscode[0];
+		int sst_num = Integer.parseInt(splitscode[1]);
+		System.out.println("fsc_code"+fsc_code+"fst_num"+fst_num+"ssc_code"+ssc_code+"sstnum:"+sst_num);
+		HashMap<String, Object> instMap = new HashMap<String, Object>();
+		instMap.put("c_code",session.getAttribute("c_code").toString());
+		instMap.put("bd_date",session.getAttribute("bd_date").toString());
+		instMap.put("fsc_code",fsc_code);
+		instMap.put("fst_num",fst_num);
+		instMap.put("ssc_code",ssc_code);
+		instMap.put("sst_num",sst_num);
+		instMap.put("foac_num",foac_num);
+		instMap.put("scode",scode);
+		if(type!=0) {instMap.put("soac_num",soac_num);};
+		HashMap<String,String> hMap = new HashMap<String, String>();
+		switch (type) {
+		//단순 자리이동
+		case 0:
+			if(oDao.changeSeatver1(instMap)) {
+				hMap.put("result", "이동이 완료되었습니다.<br/>페이지를 다시 로드합니다.");
 			}
-			pdMap.put("pdcList", pdcList);
-			pdMap.put("pdnList", pdnList);
-			pdMap.put("pdccList", pdccList);
-			odr.setPdMap(pdMap);
-			odr.setCntList(cntList);
+			break;
+		//합석
+		case 1:
+			if(oDao.sumSeat(instMap)&&oDao.deleteOrdernum(instMap)) {
+				hMap.put("result", "합석이 완료되었습니다.<br/>페이지를 다시 로드합니다.");
+			}
+			break;
+		//자리교체
+		case 2:
+			if(oDao.changeSeatver2(instMap)&&oDao.changeSeatver1(instMap)) {
+				hMap.put("result", "교체가 완료되었습니다.<br/>페이지를 다시 로드합니다.");
+			};
+			break;
 		}
-		odr.setPd_name(null);
-		odr.setPdc_code(null);
-		odr.setPd_code(null);
-		odrList.add(odr);
-		log.info("odrList:" + odrList);
-		return odrList;
+		return hMap;
 	}
 
 }

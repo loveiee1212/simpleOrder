@@ -79,10 +79,10 @@ public class OrderMM2 {
 
 	@Transactional
 	public String sendsaoList(HttpSession session, String sc_code, String oac_num, String st_num,
-			ArrayList<String> pdc_code, ArrayList<String> pdc_date, ArrayList<String> pd_date,
+			ArrayList<String> pdc_code, ArrayList<String> pd_date,
 			ArrayList<String> pd_code, ArrayList<String> oh_cnt, RedirectAttributes reat) {
 		String c_code = session.getAttribute("c_code").toString();
-		String bd_date = "2020-08-29 14:19:00";
+		String bd_date = session.getAttribute("bd_date").toString();
 		try {
 			if (oac_num == "") {
 				oac_num = oDao.getNewOacCode(c_code, bd_date);
@@ -105,7 +105,6 @@ public class OrderMM2 {
 				oacInfo.put("c_code", c_code);
 				oacInfo.put("bd_date", bd_date);
 				oacInfo.put("pdc_code", pdc_code.get(i));
-				oacInfo.put("pdc_date", pdc_date.get(i));
 				oacInfo.put("pd_code", pd_code.get(i));
 				oacInfo.put("pd_date", pd_date.get(i));
 				oacInfo.put("oh_cnt", oh_cnt.get(i));
@@ -121,48 +120,5 @@ public class OrderMM2 {
 		}
 	}
 
-//	@Transactional
-//	public HashMap<String, String> sendsaoList(HttpSession session, String oac_num, List<String> pdc_code,
-//			List<String> pd_code, List<String> oh_cnt) {
-//		HashMap<String, String> hMap = new HashMap<String, String>();
-//
-//		// String c_code=session.getAttribute("c_code").toString();
-//		// String bd_date =session.getAttribute("bd_date").toString();
-//		Order odr = new Order();
-//		String c_code = "123123123123";
-//		String bd_date = "2020-08-29 14:19:00";
-//		List<Order> oList = new ArrayList<Order>();
-//		List<Order> sList = oDao.selectsaoList(c_code, oac_num, bd_date);
-//		for (int i = 0; i < sList.size(); i++) {
-//			for (int j = 0; j < pdc_code.size(); j++) {
-//				if (sList.get(i).getPdc_code().equals(pdc_code.get(j))
-//						&& sList.get(i).getPd_code().equals(pd_code.get(j))) {
-//					odr.setC_code(c_code);
-//					odr.setBd_date(bd_date);
-//					odr.setOac_num(oac_num);
-//					odr.setPdc_code(pdc_code.get(j));
-//					odr.setPdc_date(sList.get(i).getPdc_date());
-//					odr.setPd_code(pd_code.get(j));
-//					odr.setPd_date(sList.get(i).getPd_date());
-//					odr.setOh_cnt(Integer.parseInt(oh_cnt.get(j)));
-//					oList.add(odr);
-//				}
-//			}
-//
-//			System.out.println("oList" + oList);
-//			if (oList.size() != 0) {
-//				boolean result = oDao.sendsaoList(oList);
-//				boolean stkresult = oDao.updatestkList(oList);
-//				System.out.println(result);
-//				System.out.println(stkresult);
-//				if (result && stkresult) {
-//					hMap.put("result", "주문이 완료되었습니다.");
-//					return hMap;
-//				}
-//			}
-//		}
-//
-//		return hMap;
-//	}
 
 }

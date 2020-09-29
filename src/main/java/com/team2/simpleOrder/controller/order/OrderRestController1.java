@@ -1,6 +1,5 @@
 package com.team2.simpleOrder.controller.order;
 
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,65 +26,64 @@ public class OrderRestController1 {
 
 	@Autowired
 	OrderMM1 om;
-	//테이블정보가져오기
+
+	// 테이블정보가져오기
 	@RequestMapping(value = "/gettablelist", method = RequestMethod.POST)
 	public HashMap<String, Object> getTablelist() {
 		return om.getTablelist();
 	}
-	
-	//예약정보가져오기
+
+	// 예약정보가져오기
 	@RequestMapping(value = "/getreservlist", method = RequestMethod.GET)
 	public HashMap<String, String> getReservList() {
 		Order odr = new Order();
 		String c_code = "123123123123";
 		odr.setC_code(c_code);
-		HashMap<String,String> hMap = om.getReservList(odr);
+		HashMap<String, String> hMap = om.getReservList(odr);
 		return hMap;
 	}
-	
-	//특정일에 대한 예약정보 가져오기
+
+	// 특정일에 대한 예약정보 가져오기
 	@RequestMapping(value = "/searchreserv", method = RequestMethod.POST)
 	public HashMap<String, String> searchReserv(String rsv_date) {
-		log.info("rsv_date"+rsv_date);
+		log.info("rsv_date" + rsv_date);
 		String c_code = "123123123123";
 		Order odr = new Order();
 		odr.setC_code(c_code);
 		odr.setRsv_date(rsv_date);
-		HashMap<String,String> hMap = om.getReservList(odr);
+		HashMap<String, String> hMap = om.getReservList(odr);
 		return hMap;
 	}
-	
-	
+
 	@RequestMapping(value = "/updatereserv", method = RequestMethod.POST)
-	public HashMap<String, String> updateReserv(String rsv_code,String rsv_name,String rsv_date,String rsv_phone,String rsvm_memo,HttpSession session) {
+	public HashMap<String, String> updateReserv(String rsv_code, String rsv_name, String rsv_date, String rsv_phone,
+			String rsvm_memo, HttpSession session) {
 		Order odr = new Order();
 		odr.setRsv_code(rsv_code);
 		odr.setRsv_name(rsv_name);
 		odr.setRsv_date(rsv_date);
 		odr.setRsv_phone(rsv_phone);
 		odr.setRsvm_memo(rsvm_memo);
-		HashMap<String,String> hMap = om.updateReserv(session,odr);
+		HashMap<String, String> hMap = om.updateReserv(session, odr);
 		return hMap;
 	}
 
 	@RequestMapping(value = "/deletereserv", method = RequestMethod.POST)
 	public HashMap<String, String> deleteReserv(HttpSession session, String rsv_code) {
-		HashMap<String,String> hMap = om.deleteReserv(session,rsv_code);
+		HashMap<String, String> hMap = om.deleteReserv(session, rsv_code);
 		return hMap;
 	}
-	
+
 	@RequestMapping(value = "/getorderlist", method = RequestMethod.GET)
 	public List<Order> getorderList(HttpSession session, int oac_status) {
-		List<Order> oList = om.getorderList(session,oac_status);
+		List<Order> oList = om.getorderList(session, oac_status);
 		return oList;
 	}
-	
 
-	@Autowired
-	OrderMM2 om2;
-
-	@Autowired
-	OrderMM3 om3;
+	@RequestMapping(value = "/changeseat", method = RequestMethod.POST)
+	public HashMap<String, String>changeSeat(HttpSession session, String fcode,String foac_num, String scode,String soac_num,int type) {
+		return om.changeSeat(session,fcode,foac_num,scode,soac_num,type);
+	}
 
 	ModelAndView mav;
 
