@@ -55,7 +55,6 @@ public class EmpMemberMM {
 		mb.put("emp_code",session.getAttribute("emp_code").toString());
 		System.out.println(mb.toString());
 		boolean result = mDao2.insertAd_outTime(mb);
-		System.out.println(result);
 		if (result) {
 			json = new Gson().toJson("1");
 			System.out.println(json);

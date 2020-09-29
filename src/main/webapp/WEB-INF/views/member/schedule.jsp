@@ -460,6 +460,7 @@ button:focus {
 				url : "rest/getemplist",
 				dataType : "json",
 				success : function(data) {
+					console.log(data);
 					$("#emp_codeList").text("");
 					$("#emp_codeList").append(
 							$("<select name='emp_list' id='emp_list' onchange='getTime("+ day + ")'>"));
