@@ -61,10 +61,10 @@ public interface ICompanyMemberDao1 {
 	ArrayList<HashMap<String, String>> getEmpList(HashMap<String, String> empinfo);
 
 	@Select("SELECT PST_NAME, PST_POSITION FROM POSITION WHERE C_CODE = ${value}")
-	ArrayList<HashMap<String, String>> getPositionList(Object c_code);
+	ArrayList<HashMap<String, String>> getPositionList(Object c_code); // 사업체의 직금과 직급 코드 출력
 	
 	@Update("UPDATE EMP SET PST_POSITION = #{pst_position}, EMP_NAME = #{emp_name}, EMP_PW = #{emp_pw} WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code}")
-	boolean updateEmpInfo(HashMap<String, String> empInfo);
+	boolean updateEmpInfo(HashMap<String, String> empInfo); // emp 정보 업데이트
 
 	@Select("SELECT LPAD(COUNT(*),5,0) FROM EMP WHERE C_CODE = #{value}") // 새로운 emp code 발급
 	String createEmpSetting(Object c_code);
@@ -81,8 +81,8 @@ public interface ICompanyMemberDao1 {
 	@Select("SELECT GPC_CODE FROM GRANT_POSITION WHERE C_CODE = #{C_CODE} AND PST_POSITION = #{PST_POSITION}")
 	ArrayList<String> getGrantKind(HashMap<String, Object> hashMap);
 	
-	@Select("SELECT COUNT(*) FROM GRANT_POSITION_CODE")
-	int numberOfGrant();
+	@Select("SELECT COUNT(*) FROM GRANT_POSITION_CODE") 
+	int numberOfGrant();	// 플렛폼의 모든 권한 코드 갯수 출력
 	
 	@Delete("DELETE FROM GRANT_POSITION WHERE C_CODE = #{c_code}")
 	void PositionGrantDataDelect(String c_code);
@@ -113,6 +113,14 @@ public interface ICompanyMemberDao1 {
 
 	@Update("UPDATE COMPANY SET C_SECURITYCODE = #{securityCode} WHERE C_CODE = #{c_code}")
 	void ChangeSecurityCode(HashMap<String, String> securityCodeInfo);
+
+	@Select("SELECT PST_POSITION FROM EMP WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code}")
+	String getempPosition(HashMap<String, String> empAcountInfo);
+	
+	@Select("SELECT COUNT(*) FROM GRANT_POSITION WHERE C_CODE = #{c_code} AND PST_POSITION = #{pst_position} AND GPC_CODE = LPAD(#{gpc_code},2,0)")
+	Boolean getGrantActivestatus(HashMap<String, String> hm);
+
+
 
 	
 

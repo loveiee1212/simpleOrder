@@ -22,49 +22,17 @@ public class PosMM1 {
 	@Autowired
 	private IPosDao1 pDao1;
 
-	ModelAndView mav;
 
 	// productcontrol 왼쪽 상품 정보 출력
-	public HashMap<String, String> getsellproductlist1(String c_code) {
-		List<StoreManagement> pList = pDao1.getSellProductList1(c_code);
-		HashMap<String, String> hMap = makehtmlpList(pList);
+	public HashMap<String, String> getsproductlist(String c_code) {
+		posHtmlMaker phm = new posHtmlMaker();
+		List<StoreManagement> pList = pDao1.getsproductlist(c_code);
+		HashMap<String, String> hMap = phm.makehtmlpList(pList);
 		return hMap;
 	}
 
 	// productcontrol 왼쪽 상품 정보 출력 html 변환
-	private HashMap<String, String> makehtmlpList(List<StoreManagement> pList) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("<tr>");
-		sb.append("<th>" + "번호" + "</th>");
-		sb.append("<th>" + "상품이름" + "</th>");
-		sb.append("<th>" + "상품가격" + "</th>");
-		sb.append("<th>" + "재고" + "</th>");
-		sb.append("<th>" + "등록여부" + "</th>");
-		sb.append("<th>" + "삭제" + "</th>");
-		sb.append("</tr>");
-		for (int i = 0; i < pList.size(); i++) {
-			StoreManagement pd = pList.get(i);
-			sb.append("<tr>");
-			sb.append("<td>" + (i + 1) + "</td>");
-			sb.append("<td>" + pd.getPd_name() + "</td>");
-			sb.append("<td>" + pd.getPd_price() + "</td>");
-			if (pd.getStk_stock() == null) {
-				sb.append("<td>사용안함</td>");
-			} else {
-				sb.append("<td>" + pd.getStk_stock() + "</td>");
-			}
-			if (pd.getPd_status() == 1) {
-				sb.append("<td>등록</td>");
-			} else {
-				sb.append("<td>미등록</td>");
-			}
-			sb.append("<td><input type='button' onclick='deleteProduct()' value='삭제'></td>");
-			sb.append("</tr>");
-		}
-		HashMap<String, String> hMap = new HashMap<>();
-		hMap.put("pList", sb.toString());
-		return hMap;
-	}
+	
 
 	// stockcontrol 오른쪽 재고상품리스트 출력
 	public HashMap<String, String> getStockList(StoreManagement sm) {

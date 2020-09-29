@@ -34,40 +34,74 @@ public class OrderMM1 {
 	ModelAndView mav;
 
 	// 리스트 정보 가져오기
-	public List<Order> getTablelist() {
+	public HashMap<String, Object> getTablelist() {
 		String c_code = "123123123123";
-		System.out.println("c_code:" + c_code);
 		// 카테고리 가져오기
 		List<Order> cList = oDao.getTcList(c_code);
-		System.out.println(cList);
 		// 테이블 정보 가져오기
 		List<Order> tList = oDao.getTList(c_code);
-		System.out.println("tList" + tList);
 		// 새 리스트 만들기
 		List<Order> ctgList = new ArrayList<Order>();
+		HashMap<String, Object> hMap = new HashMap<String, Object>();
 		for (int i = 0; i < cList.size(); i++) {
 			Order odr = new Order();
 			List<Integer> tNumList = new ArrayList<Integer>();
 			for (int j = 0; j < tList.size(); j++) {
 				if ((cList.get(i).getSc_code()).equals(tList.get(j).getSc_code())) {
-					System.out
-							.println("카테고리 이름 :" + cList.get(i).getSc_name() + "/ 테이블 번호 :" + tList.get(j).getSt_num());
-					System.out.println("=============================");
 					tNumList.add(tList.get(j).getSt_num());
 				}
 				odr.setTList(tNumList);
 			}
-			odr.setSc_name("<button class='category' id='ctg"+(i+1)+"'onclick='opentable(event,\"table" + i + "\")'>"
-					+ cList.get(i).getSc_name() + "</button>");
+			odr.setSc_name("<button class='category' id='ctg" + (i + 1) + "'onclick='opentable(event,\"table" + i
+					+ "\")'>" + cList.get(i).getSc_name() + "</button>");
 			odr.setSc_x(cList.get(i).getSc_x());
 			odr.setSc_y(cList.get(i).getSc_y());
 			ctgList.add(odr);
-			System.out.println("-------------------------");
 		}
-		System.out.println(ctgList);
-		return ctgList;
+		hMap.put("ctginfo", makeHtmlctgList(cList));
+		hMap.put("tableinfo", makeHtmltableList(cList, ctgList));
+		hMap.put("list", ctgList);
+		return hMap;
 	}
 
+	private String makeHtmltableList(List<Order> cList, List<Order> ctgList) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < cList.size(); i++) {
+			sb.append("<div id='table" + i + "' class='tList'>");
+			sb.append("<table>");
+			int x = cList.get(i).getSc_x();
+			int y = cList.get(i).getSc_y();
+			for (int a = 0; a < x * y; a += x) {
+				sb.append("<tr>");
+				for (int b = a; b < a + x; b++) {
+					sb.append("<td>");
+					if (i < 10) {
+						sb.append("<div class='tables' id='tnum" + "0" + (i + 1) + (b + 1) + "' data-code=" + "0"
+								+ (b + 1) + "-" + (b + 1) + " style = 'visibility: hidden;'>" + (b + 1) + "</div>");
+					} else {
+						sb.append("<div class='tables' id='tnum" + (i + 1) + (b + 1) + "' data-code=" + (i + 1) + "-"
+								+ (b + 1) + " style = 'visibility: hidden;'>" + (b + 1) + "</div>");
+					}
+					sb.append("</td>");
+				}
+				sb.append("</tr>");
+			}
+			sb.append("</table>");
+			sb.append("</div>");
+		}
+		return sb.toString();
+	}
+
+	// 카테고리 html 로 만들기
+	private String makeHtmlctgList(List<Order> cList) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < cList.size(); i++) {
+			Order odr = cList.get(i);
+			sb.append("<button class='category' id='ctg" + (i + 1) + "'onclick='opentable(event,\"table" + i + "\")'>"
+					+ cList.get(i).getSc_name() + "</button>");
+		}
+		return sb.toString();
+	}
 
 	// 예약정보 가져오기
 	public HashMap<String, String> getReservList(Order odr) {
@@ -104,7 +138,7 @@ public class OrderMM1 {
 				sb.append("</tr>");
 				sb.append("</form>");
 			}
-		} else if (rList.size()==0) {
+		} else if (rList.size() == 0) {
 			sb.append("<tr>");
 			sb.append("<td colspan='6'>예약 정보가 없습니다.</td>");
 			sb.append("</tr>");
@@ -141,17 +175,17 @@ public class OrderMM1 {
 				System.out.println("11");
 				result = oDao.insertFirstReserv(odr);
 				break;
-				
+
 			default:
 				System.out.println("22");
 				result = oDao.insertReserv(odr);
 			}
 			// 메모 데이터가 있다면 예약메모테이블에 등록
-			log.info("result:"+result);
+			log.info("result:" + result);
 			System.out.println(odr.getRsvm_memo());
-			if (odr.getRsvm_memo()!= null) {
+			if (odr.getRsvm_memo() != null) {
 				memoresult = oDao.insertReservmemo(odr);
-			}else if(odr.getRsvm_memo()== null) {
+			} else if (odr.getRsvm_memo() == null) {
 				System.out.println("0000000000000000000000000");
 				hMap.put("result", "등록이 완료되었습니다.");
 				return hMap;
@@ -185,11 +219,11 @@ public class OrderMM1 {
 	}
 
 	public HashMap<String, String> deleteReserv(HttpSession session, String rsv_code) {
-		//String c_code = session.getAttribute("c_code").toString();
+		// String c_code = session.getAttribute("c_code").toString();
 		String c_code = "123123123123";
 		HashMap<String, String> hMap = new HashMap<String, String>();
-		boolean result = oDao.deleteReserv(c_code,rsv_code);
-		if(result) {
+		boolean result = oDao.deleteReserv(c_code, rsv_code);
+		if (result) {
 			hMap.put("result", "삭제되었습니다.");
 		}
 		return hMap;
@@ -199,17 +233,17 @@ public class OrderMM1 {
 		String c_code = session.getAttribute("c_code").toString();
 		String bd_date = session.getAttribute("bd_date").toString();
 		Order odr = new Order();
-		List<Order> oList = oDao.getorderList(c_code,oac_status,bd_date);
-		log.info("oList :"+oList);
+		List<Order> oList = oDao.getorderList(c_code, oac_status, bd_date);
+		log.info("oList :" + oList);
 		List<Order> odrList = new ArrayList<Order>();
 		HashMap<String, List<String>> pdMap = new HashMap<String, List<String>>();
 		List<String> pdnList = new ArrayList<String>();
 		List<String> pdcList = new ArrayList<String>();
 		List<String> pdccList = new ArrayList<String>();
 		List<Integer> cntList = new ArrayList<Integer>();
-		for(int i = 0; i<oList.size();i++) {
-			odr=oList.get(i);
-			if(odr.getSc_code()==odr.getSc_code()&&odr.getSt_num()==odr.getSt_num()) {
+		for (int i = 0; i < oList.size(); i++) {
+			odr = oList.get(i);
+			if (odr.getSc_code() == odr.getSc_code() && odr.getSt_num() == odr.getSt_num()) {
 				odr.setSc_code(odr.getSc_code());
 				odr.setSt_num(odr.getSt_num());
 				odr.setOac_num(odr.getOac_num());
@@ -228,7 +262,7 @@ public class OrderMM1 {
 		odr.setPdc_code(null);
 		odr.setPd_code(null);
 		odrList.add(odr);
-		log.info("odrList:"+odrList);
+		log.info("odrList:" + odrList);
 		return odrList;
 	}
 

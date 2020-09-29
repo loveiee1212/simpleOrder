@@ -30,12 +30,36 @@
 		SELECT
 		PD.PDC_CODE,PD.PD_CODE,PD.PD_NAME,PD.PDC_DATE,PD.PD_DATE,PD.PD_PRICE,SUM(OH.OH_CNT)
 		AS OH_CNT
-		FROM ORDER_HISTORY AS OH JOIN ORDER_AND_CREDIT AS OAC JOIN PRODUCT AS PD
-		ON OAC.BD_DATE = OH.BD_DATE AND OH.PDC_CODE = PD.PDC_CODE AND
-		OH.PD_CODE = PD.PD_CODE  AND OAC.OAC_NUM = OH.OAC_NUM
-		WHERE OAC.C_CODE = #{c_code} AND PD.PD_STATUS = "1" AND OAC.OAC_STATUS = #{oac_status}
+		FROM ORDER_HISTORY AS OH JOIN ORDER_AND_CREDIT AS OAC JOIN
+		PRODUCT AS PD
+		ON OAC.BD_DATE = OH.BD_DATE AND OH.PDC_CODE = PD.PDC_CODE
+		AND
+		OH.PD_CODE = PD.PD_CODE AND OAC.OAC_NUM = OH.OAC_NUM
+		WHERE
+		OAC.C_CODE = #{c_code} AND PD.PD_STATUS = "1" AND OAC.OAC_STATUS =
+		#{oac_status}
 		AND OAC.OAC_NUM = #{oac_num}
 		AND OAC.BD_DATE =#{bd_date}
 		GROUP BY OH.C_CODE,PD.PDC_CODE,PD.PD_CODE
 	</select>
+
+	<select id="selectpay" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT SUM(PMT_CASH+PMT_CARD) AS TOTAL FROM PAYMENT_TYPE
+		WHERE C_CODE = #{c_code} AND BD_DATE =#{bd_date} AND
+		OAC_NUM=#{oac_num}
+	</select>
+	
+	<insert id="moneyPayment">
+	INSERT INTO PAYMENT_TYPE VALUES
+	<!--  현금결제일경우 -->
+	<if test="paytype==1">
+	(#{c_code},TIMESTAMP(#{bd_date}),#{oac_num},NOW(),#{get_cash},#{money},0)
+	</if>
+	<!-- 카드결제일경우 -->
+	<if test="paytype==2">
+	(#{c_code},TIMESTAMP(#{bd_date}),#{oac_num},NOW(),#{get_cash},0,#{money})
+	</if>
+	
+	</insert>
 </mapper>

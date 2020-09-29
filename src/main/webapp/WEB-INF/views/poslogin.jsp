@@ -171,6 +171,8 @@ error {
 	</div>
 </body>
 <script>
+
+
 //번호(num버튼) 입력시 사원번호 5자리 입력후 비밀번호로 넘어가는 함수
 var id = document.getElementById("emp_code");
 var pw = document.getElementById("emp_pw");

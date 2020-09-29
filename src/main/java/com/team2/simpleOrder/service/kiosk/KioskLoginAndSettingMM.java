@@ -1,7 +1,5 @@
 package com.team2.simpleOrder.service.kiosk;
 
-import java.awt.List;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -32,7 +30,7 @@ public class KioskLoginAndSettingMM {
 		session.setAttribute("c_code", c_code);
 		session.setAttribute("sc_code", sc_code);
 		session.setAttribute("st_num", st_num);
-		if (Integer.parseInt(vDao.checkStartVC(c_code)) != -1) {
+		if ((int)(vDao.checkVc_code(sc_code)) != -1) {
 			session.setAttribute("bd_date", vDao.getBd_date(c_code));
 		}else {
 			reat.addFlashAttribute("msg","영업 시작 전입니다.");
@@ -45,7 +43,6 @@ public class KioskLoginAndSettingMM {
 		KioskLoginHtmlMaker klhm = new KioskLoginHtmlMaker();
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("tableQrcodeList", klhm.getQrCodeListhtml(c_code, oDao.getTList(c_code)));
-		System.out.println(hm);
 		return hm;
 	}
 
@@ -94,6 +91,23 @@ public class KioskLoginAndSettingMM {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			return "redirect:/kioskSettingFrm";
 		}
+	}
+
+	public boolean getreveiwUsagestatus(String c_code) {
+		if(kDao.getreveiwUsagestatus(c_code)==1) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public String updatereveiwUsagestatus(String c_code, String c_reviewuse, RedirectAttributes reat) {
+		HashMap<String , String> hm = new HashMap<String, String>();
+		hm.put("c_code", c_code);
+		hm.put("c_reviewuse", c_reviewuse);
+		reat.addFlashAttribute("basicPath", "includeAjax('reveiwUsagestatusFrm')");
+		kDao.updatereveiwUsagestatus(hm);
+		return "redirect:/kioskSettingFrm";
 	}
 
 }

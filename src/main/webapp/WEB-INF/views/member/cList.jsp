@@ -292,6 +292,7 @@ function getClistInfo(){//사업자 정보 로드
 		},
 		dataType : "json",
 		success : data =>{
+			console.log(data);
 			$("#cListInfo").append(data.cListInfoHtml);
 		}
 	});

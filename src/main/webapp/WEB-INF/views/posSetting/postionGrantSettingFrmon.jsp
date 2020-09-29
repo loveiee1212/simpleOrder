@@ -131,7 +131,7 @@ input[type=checkbox] {
 					<th>상품 관리</th>
 					<th>판매키 관리</th>
 					<th>포스 설정</th>
-					<th>키오스크 설정</th>
+<!-- 				<th>키오스크 설정</th> -->
 				</tr>
 			</table>
 		</div>
