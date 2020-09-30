@@ -125,7 +125,7 @@ public class VaultCashMM {
 	public String insertChangeVC(HttpSession session, List<Map<String, String>> jArr) {
 		try {
 			String c_code = session.getAttribute("c_code").toString();
-			int vc_code = (int) vDao.checkVc_code(c_code);
+			int vc_code = Integer.parseInt(String.valueOf(vDao.checkVc_code(c_code)));
 			if (vc_code != -1) {
 				vc_code += 1;
 				System.out.println(vc_code);
@@ -160,6 +160,7 @@ public class VaultCashMM {
 		} catch (Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			System.out.println("시재입력 실패");
+			System.out.println(e);
 			return new Gson().toJson("error");
 		}
 	}
