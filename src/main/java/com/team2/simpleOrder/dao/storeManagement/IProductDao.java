@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.team2.simpleOrder.dto.StoreManagement;
 
@@ -29,6 +30,11 @@ public interface IProductDao {
 	String getProductofNumber(HashMap<String, String> productCategori);
 	@Select("SELECT LPAD(COUNT(*)+1,2,0) FROM PRODUCT_CT WHERE C_CODE = #{c_code}")
 	String numberOfproCategori(String c_code);
+	
+	@Update("UPDATE PRODUCT SET PD_STATUS = '0' WHERE C_CODE =#{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE = #{pd_code} AND PD_DATE = #{pd_date} ")	
+	boolean updateProductStatus(HashMap<String, String> proInfo);
+	@Select("SELECT PD_IMGNAME FROM PRODUCT WHERE C_CODE =#{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE =#{pd_code} AND PD_DATE = #{pd_date}")
+	String getProImgname(HashMap<String, String> proInfo);
 	
 	
 	
@@ -62,11 +68,33 @@ public interface IProductDao {
 
 	boolean updateSellKey(HashMap<String, String> sm);
 
+	
+	
+	
+	
+	
 	@Delete("DELETE FROM PRODUCT WHERE C_CODE = #{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE = #{pd_code} AND PD_DATE = #{pd_date}")
 	boolean deleteProduct(HashMap<String, String> proInfo);
 
 	@Insert("INSERT INTO PRODUCT_CT VALUES(#{c_code},#{pdc_code},#{pdc_name})")
 	boolean createProCategori(HashMap<String, String> categoriInfo);
+	@Update("UPDATE PRODUCT SET PDC_CODE = '01' WHERE C_CODE = #{c_code} AND PDC_CODE =#{pdc_code}")
+	void moveProinCategori(HashMap<String, String> categoriInfo);
+
+	@Delete("DELETE FROM PRODUCT_CT WHERE C_CODE =  #{c_code} AND PDC_CODE =#{pdc_code}")
+	void proCategoriDelete(HashMap<String, String> categoriInfo);
+
+	@Update("UPDATE PRODUCT_CT SET PDC_NAME =#{pdc_name} WHERE C_CODE = #{c_code} AND pdc_code = #{pdc_code}")
+	void proCategoriUpdate(HashMap<String, String> categoriInfo);
+
+	@Insert("INSERT INTO PRODUCT VALUES(#{c_code}, #{pdc_code}, #{pd_code}, #{pd_date}, #{pd_name}, #{pd_imgname}, #{pd_price}, 1)")
+	void createProduct(HashMap<String, String> proInfo);
+
+	@Insert("INSERT INTO STOCK VALUES(#{c_code},#{pdc_code},#{pd_code},#{pd_date},#{stk_stock})")
+	void createProStock(HashMap<String, String> proInfo);
+
+	
+
 
 	
 

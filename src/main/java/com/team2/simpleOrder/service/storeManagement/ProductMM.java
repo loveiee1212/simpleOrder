@@ -1,6 +1,10 @@
 package com.team2.simpleOrder.service.storeManagement;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,6 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.simpleOrder.dao.storeManagement.IProductDao;
@@ -19,24 +26,21 @@ public class ProductMM {
 	@Autowired
 	private IProductDao pDao;
 
-
-
 	public HashMap<String, String> getsproductlist(String c_code) { // 모든 상품 종류 노출
 		ProductHtmlMaker phm = new ProductHtmlMaker();
 		List<StoreManagement> pList = pDao.getsproductlist(c_code);
 		HashMap<String, String> hMap = phm.makehtmlpList(pList);
 		return hMap;
 	}
-	
-	public HashMap<String, String> getProCategoriList(@Param(value = "c_code") String c_code) { // 상품 모든 카테고리 
+
+	public HashMap<String, String> getProCategoriList(@Param(value = "c_code") String c_code) { // 상품 모든 카테고리
 		ProductHtmlMaker phm = new ProductHtmlMaker();
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("categoriList", phm.getProCategoriList(pDao.getProCategoriList(c_code)));
 		return hm;
 	}
-	
 
-	public String getProductofNumber(String c_code, HashMap<String, String> productCategori) { //상품 새로운 코드 번호 
+	public String getProductofNumber(String c_code, HashMap<String, String> productCategori) { // 상품 새로운 코드 번호
 		productCategori.put("c_code", c_code);
 		System.out.println(productCategori);
 		return pDao.getProductofNumber(productCategori);
@@ -44,20 +48,70 @@ public class ProductMM {
 
 	public String deleteProduct(HashMap<String, String> proInfo, HttpSession session, RedirectAttributes reat) { // 상품 삭제
 		proInfo.put("c_code", session.getAttribute("c_code").toString());
-		if(pDao.deleteProduct(proInfo)) {
-			return "redirect:/productcontrol";
-		};
+		System.out.println(proInfo);
+		pDao.updateProductStatus(proInfo);
 		return "redirect:/productcontrol";
 	}
 
-	public String createProCategori(HashMap<String, String> categoriInfo, HttpSession session, RedirectAttributes reat) { //상품 카테고리 추가
+	public String createProCategori(HashMap<String, String> categoriInfo, HttpSession session, RedirectAttributes reat) { // 상품 카테고리 추가
 		categoriInfo.put("pdc_code", pDao.numberOfproCategori(session.getAttribute("c_code").toString()));
 		categoriInfo.put("c_code", session.getAttribute("c_code").toString());
-		System.out.println(categoriInfo);
-		if(pDao.createProCategori(categoriInfo)) {
-			
-		};
+		if (pDao.createProCategori(categoriInfo)) {
+
+		}
+		;
 		return "redirect:/productcontrol";
+	}
+
+	@Transactional
+	public String proCategoriDelete(HashMap<String, String> categoriInfo, HttpSession session, RedirectAttributes reat) { // 상품 카테고리 제거
+		categoriInfo.put("c_code", session.getAttribute("c_code").toString());
+		pDao.moveProinCategori(categoriInfo); // 삭제전 삭제 카테고리의 상품 모두 기본 01로 이동
+		pDao.proCategoriDelete(categoriInfo); // 카테고리 삭제
+		return "redirect:/productcontrol";
+	}
+
+	public String proCategoriUpdate(HashMap<String, String> categoriInfo, HttpSession session,
+			RedirectAttributes reat) {
+		categoriInfo.put("c_code", session.getAttribute("c_code").toString());
+		pDao.proCategoriUpdate(categoriInfo);
+		return "redirect:/productcontrol";
+	}
+
+	@Transactional
+	public String createProduct(HashMap<String, String> proInfo, HttpSession session, MultipartFile pdfile,	RedirectAttributes reat) {
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+			proInfo.put("c_code", session.getAttribute("c_code").toString());
+			proInfo.put("pd_date", dateFormat.format(Calendar.getInstance().getTime()));
+		
+			if (pdfile.getSize() == 0) { // 이미지가 없다면.
+				if(proInfo.get("pd_imgname")==null) {
+					proInfo.put("pd_imgname", "ERRORIMG");
+				}
+				pDao.createProduct(proInfo);
+			} else { // 이미지가 있다면
+				FileUpAndDelete fileMM = new FileUpAndDelete();
+				proInfo = fileMM.uploadFileImg(pdfile,proInfo,session);
+				pDao.createProduct(proInfo);
+			}
+			if(Boolean.parseBoolean(proInfo.get("stockUse"))) {//업로드가 끝나고 재고가 있다면
+				pDao.createProStock(proInfo);
+			}
+			
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+			return "redirect:/productcontrol";
+	}
+	
+	public String updateProduct(HashMap<String, String> proInfo, HttpSession session, MultipartFile pdfile,	RedirectAttributes reat) { // 상품상태 0으로 변경 후 새로 등록
+		proInfo.put("c_code", session.getAttribute("c_code").toString());
+		proInfo.put("pd_imgname", pDao.getProImgname(proInfo));
+		proInfo.put("update", "true");
+		pDao.updateProductStatus(proInfo);
+		createProduct(proInfo, session, pdfile, reat);
+		return  "redirect:/productcontrol";
 	}
 
 	
@@ -70,7 +124,6 @@ public class ProductMM {
 	
 	
 	
-
 
 	// stockcontrol 오른쪽 재고상품리스트 출력
 	public HashMap<String, String> getStockList(StoreManagement sm) {
@@ -103,6 +156,13 @@ public class ProductMM {
 		hMap.put("sList", sb.toString());
 		return hMap;
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	// stockcontrol 왼쪽 재고상품리스트 출력
 	public HashMap<String, String> getPstockList(String c_code) {
@@ -217,13 +277,13 @@ public class ProductMM {
 			sList.add(sm);
 		}
 		HashMap<String, String> hMap = new HashMap<String, String>();
-			List<StoreManagement> sOriList = pDao.getStockList(sm);
-			for (int i = 0; i < sList.size(); i++) {
-				for (int j = 0; i < sOriList.size(); j++) {
-					if (sList.get(i).getStk_stock().equals(sOriList.get(j).getStk_stock())) {
-					}
+		List<StoreManagement> sOriList = pDao.getStockList(sm);
+		for (int i = 0; i < sList.size(); i++) {
+			for (int j = 0; i < sOriList.size(); j++) {
+				if (sList.get(i).getStk_stock().equals(sOriList.get(j).getStk_stock())) {
 				}
 			}
+		}
 		return hMap;
 	}
 
@@ -233,7 +293,7 @@ public class ProductMM {
 		ArrayList<HashMap<String, Object>> skl = pDao.getSellKeyProList(session.getAttribute("c_code").toString());
 		for (int i = 0; i < apl.size(); i++) {
 			for (int j = 0; j < skl.size(); j++) {
-				if (	   apl.get(i).get("PDC_CODE").equals(skl.get(j).get("PDC_CODE"))
+				if (apl.get(i).get("PDC_CODE").equals(skl.get(j).get("PDC_CODE"))
 						&& apl.get(i).get("PD_DATE").equals(skl.get(j).get("PD_DATE"))
 						&& apl.get(i).get("PD_CODE").equals(skl.get(j).get("PD_CODE"))) {
 					apl.get(i).put("sellkey", "sellkey");
@@ -266,24 +326,10 @@ public class ProductMM {
 		boolean result = pDao.updateSellKey(sm);
 		System.out.println(result);
 		if (result) {
-			
+
 		}
 		return null;
 	}
 
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

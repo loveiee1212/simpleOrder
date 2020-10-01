@@ -22,6 +22,7 @@ div.basic {
 	</div>
 
 	<div class="basic">
+	<form action="" method ='post' name='proCategoriUandD'>
 		<table>
 			<tr>
 				<th colspan="2">카테고리 수정</th>
@@ -30,22 +31,24 @@ div.basic {
 				<td>
 					<select class='categorilist' onchange="categoriUpdate(this)" id="select2">
 					</select>
-					<input type="text" id="updateCategoriCode">
+					<input hidden="hidden" type="text" id="updateCategoriCode"  name='pdc_code' value ='01'>
 				</td>
 				<td>
-					<input type="button" value="삭제">  
+					<input type="button" value="삭제" onclick ='deleteProCategori()'>  
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input type="text" id="updateCategoriCode">
+					<input type="text" id="updateCategoriNAME" name ='pdc_name'>
 				</td>
 				<td>
-					<input type="button" value="수정">
+					<input type="button" value="수정" onclick ='updateProCategori()'>
 				</td>
 			</tr>
 		</table>
+		</form>
 	</div>
+	
 	
 	<div class="basic">
 	<form action="createProCategori" method="post">
@@ -66,7 +69,7 @@ div.basic {
 	</div>
 	
 	<div class="basic">
-		<form name="createAndUpdateProduct" action="null" method="post">
+		<form name="productControllForm" action="null" method="post" enctype = multipart/form-data>
 			<table>
 				<tr>
 					<th colspan="2">상품 등록</th>
@@ -85,10 +88,10 @@ div.basic {
 				</tr>
 				<tr>
 					<th>
-					<select class="categorilist" id="select1"></select>
+					<select class="categorilist" id="select1" name='pdc_code'></select>
 					
 					</th>
-					<th><input type="text" id="pd_price"></th>
+					<th><input type="text" id="pd_price" name='pd_price'></th>
 				</tr>
 				<tr>
 					<th>재고 사용 여부</th>
@@ -97,18 +100,17 @@ div.basic {
 				<tr>
 					<th>
 						사용<input type="radio" name="stockUse" value=true>
-						미사용<input type="radio" name="stockUse" value=false>
+						미사용<input type="radio" name="stockUse" value=false checked="checked">
 					</th>
 					<th><input type="number" name="stk_stock" id="stk_stock"
 						readonly="readonly"></th>
 				</tr>
 				<tr>
 					<th>이미지</th>
-					<th><input type="file"></th>
+					<th><input type="file" name='pdfile'></th>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="button" value='추가'
-						id="createAndUpdateProduct"></td>
+					<td colspan="2"><input type="button" value='추가' onclick="createProduct()" id='productControllBtn'></td>
 				</tr>
 			</table>
 		</form>
@@ -165,7 +167,7 @@ div.basic {
 		})
 	}
 
-	function getProInfo(ele) { //상품의 정보 로드 
+	function getProInfo(ele) { //상품의 정보 로드 , 상품 업데이트 폼 제공
 		if ('null' == ele.dataset.stk_stock) {
 			$("input:radio").eq(1).prop("checked", true);
 			$("input:radio").eq(0).prop("checked", false);
@@ -182,11 +184,20 @@ div.basic {
 		$("#pd_date").val(ele.dataset.pd_date);
 		$("#pd_name").val(ele.dataset.pd_name);
 		$("#pd_price").val(ele.dataset.pd_price);
+		ele.dataset.pdc_code;
+		$("#select1").children().prop("selected",false);
+		console.log($("#select1").children("option[value='"+ele.dataset.pdc_code+"']").prop("selected",true));
+		$("#productControllBtn").val("수정").attr("onclick","updateProduct()");
+		
+		
 	}
 
 	function readyCreatProFrm() { // 새로운 상품 등록 폼 재공
-		createProduct.reset();
+		productControllForm.reset();
 		$("#pd_code").val(getNewPd_code('01'));
+		$("#productControllBtn").val('추가').attr("onclick","createProduct()");
+		
+		
 	}
 
 	function getNewPd_code(pdc_code) {
@@ -204,7 +215,7 @@ div.basic {
 		})
 		return result;
 	}
-	function deleteProduct(ele) {
+	function deleteProduct(ele) { // 상풍 삭제 메소드
 		if (confirm("상품을 삭제하시겠습니까?")) {
 			ele = $(ele).prev()[0];
 			$form = $("<form name ='deleteProductForm' action = 'deleteProduct' method='post' hidden = 'hidden'>");
@@ -214,6 +225,34 @@ div.basic {
 			$("body").append($form);
 			deleteProductForm.submit();
 		}
+	}
+	
+	function deleteProCategori(){ // 카테고리 삭제
+		if(confirm("카테고리를 삭제하시겠습니까?")){
+			let pdc_code = $("#updateCategoriCode").val();
+			if(pdc_code == '01'){
+				alert("기본 카테고리는 삭제할수없습니다.");
+				return ;
+			}
+			proCategoriUandD.action = 'proCategoriDelete';
+			proCategoriUandD.submit();
+		}
+	}
+	function updateProCategori(){ // 카테고리 이름 수정
+		let pdc_code = $("#updateCategoriCode").val();
+		productControllForm.action = 'proCategoriUpdate';
+		productControllForm.submit();
+	}
+	
+	function createProduct(){ // 상품 생성
+		productControllForm.action = 'createProduct';
+		productControllForm.submit();
+	}
+	
+	function updateProduct(){ // 상품 수정
+		console.log("aa");
+		productControllForm.action = 'updateProduct';
+		productControllForm.submit();
 	}
 </script>
 </html>
