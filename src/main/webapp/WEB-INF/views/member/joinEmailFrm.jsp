@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>사업자 계정 가입 생성</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script

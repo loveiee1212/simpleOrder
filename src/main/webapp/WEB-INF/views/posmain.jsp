@@ -9,6 +9,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/basicBox.css?after">
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 </head>
 <style>
 body {
@@ -48,7 +49,7 @@ h2 {
 	font-style: normal;
 }
 
-#btn {
+#btn, #sellpage, #endvc, #empLogOut, #schedule, #productragistration, #changevc, #productcontrol, #posSetting, #emailLogout {
 	width: 300px;
 	height: 150px;
 	border: 2px;
@@ -69,18 +70,18 @@ input:focus {
 			<a class="navbar-brand" href="main"><img
 				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 			<h2>PosMain</h2>
-			<input type="button" id="btn" class='grantList'	onclick="checkBd_date('sellpage')" value="판매">
-			<input type="button" id="btn" class='grantList'	onclick="location.href = 'endvc'" value="마감"> 
-			<input type="button" id="btn" class='' onclick="location.href = 'empLogOut'" value="사용자 전환"> 
-			<input type="button" id="btn" class='grantList'	onclick="checkBd_date('schedule')" value="근태">
+			<input type="button" id="sellpage" class='grantList' onclick="checkBd_date('sellpage')" value="판매">
+			<input type="button" id="endvc" class='grantList' onclick="location.href = 'endvc'" value="마감"> 
+			<input type="button" id="empLogOut" class='' onclick="location.href = 'empLogOut'" value="사용자 전환"> 
+			<input type="button" id="schedule" class='grantList' onclick="checkBd_date('schedule')" value="근태">
 			<input type="button" id="btn" class='grantList'	onclick="location.href = ''" value="재고 관리"> 
 			<input type="button" id="btn" class='grantList'	onclick="location.href = ''" value="매출 현황"> 
-			<input type="button" id="btn" class='grantList' onclick="checkBd_date('kimsangIron')" value="외상 처리">
-			<input type="button" id="btn" class='grantList'	onclick="checkBd_date('changevc')" value="시재 변경">
-			<input type="button" id="btn" class='grantList' onclick="location.href = 'productcontrol'" value="상품 관리">
-			<input type="button" id="btn" class='grantList'	onclick="location.href = ''" value="판매 상품 관리">
-			<input type="button" id="btn" class='grantList'	onclick="location.href = 'posSetting'" value="포스 설정">
-			<button id="btn" onclick="location.href ='emailLogout'">종료</button>
+			<input type="button" id="btn" class='grantList' onclick="location.href = 'creditcontrol'" value="외상 처리">
+			<input type="button" id="changevc" class='grantList' onclick="checkBd_date('changevc')" value="시재 변경">
+			<input type="button" id="productcontrol" class='grantList' onclick="location.href = 'productcontrol'" value="상품 관리">
+			<input type="button" id="productragistration" class='grantList'	onclick="location.href = 'productragistration'" value="판매 상품 관리">
+			<input type="button" id="posSetting" class='grantList' onclick="location.href = 'posSetting'" value="포스 설정">
+			<button id="emailLogout" onclick="location.href ='emailLogout'">종료</button>
 		</div>
 	</div>
 </body>

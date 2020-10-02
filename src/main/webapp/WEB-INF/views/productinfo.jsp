@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>상품 소개</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
