@@ -86,6 +86,7 @@ public class OrderMM2 {
 		try {
 			if (oac_num == "") {
 				oac_num = oDao.getNewOacCode(c_code, bd_date);
+				log.info("oac_num 찾기 :"+oac_num);
 				HashMap<String, String> hMap = new HashMap<String, String>();
 				hMap.put("c_code", c_code);
 				hMap.put("bd_date", bd_date);

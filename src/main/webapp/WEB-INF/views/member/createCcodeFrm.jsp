@@ -13,6 +13,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 </head>
 <style>
 body {

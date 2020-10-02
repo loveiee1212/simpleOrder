@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -12,7 +13,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<title>main</title>
+<title>SimpleOrder Main</title>
 </head>
 <style>
 body {

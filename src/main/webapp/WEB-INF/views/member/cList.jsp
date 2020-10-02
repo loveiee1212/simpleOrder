@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style type="text/css">
 body {
 	background-color: #e3f2fd;

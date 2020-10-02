@@ -7,79 +7,138 @@
 <title>creditControle-외상관리</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body {
-	padding: 0;
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
 }
 
-#baseBox {
-	border: 1px solid black;
-	float: left;
-	padding: 2%;
-	transform: translate(-50%, 0%);
-	margin: 0% 50%;
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
-#baseinnerBox {
-	float: left;
-	border: pink 1px solid;
-	width: 1500px;
-	height: 800px;
-	padding: 30px;
+#creditList th{
+width: 200px;
+height: 50px;
+font-size: 20px;
+background-color: #81d4fa;
+color: white;
+}
+
+#creditList td {
+width: 200px;
+height: 50px;
+font-size: 20px;
+text-align: center;
 }
 
 .innerdiv {
-	border: 1px solid black;
-	width: 745px;
+background-color: white;
+	border: 3px solid #81d4fa;
+	width: 740px;
 	height: 800px;
 	float: left;
+	text-align: center;
 }
-/* tr,td{
-border: 1px solid black;
-width:40px;
-height : 20px;
-padding : 30px;
-margin : 30px;
-text-align: center;
-} */
+
+.innerdiv2 {
+	border: 3px solid #81d4fa;
+	width: 740px;
+	height: 800px;
+	float: left;
+	text-align: center;
+}
+
 button {
 	color: red;
 	background-color: white;
 	border: none;
-	button: focus{ outline: none;
-	box-shadow: none;
+}		
+
+button: focus{ 
+outline: none;
+box-shadow: none;
 }
 
-}
+
 #listbox {
-	border: 1px solid black;
-	width: 700px;
-	height: 400px;
-	margin-left: 25px;
-	margin-top: 20px;
-	overflow: auto;
+	background-color: white;
+    border: 3px solid #81d4fa;
+    width: 700px;
+    height: 400px;
+    margin-top: 10px;
+    border-collapse: collapse;
+    overflow: auto;
 }
 
-div#listbox tr, td {
-	/* border: 1px solid black; */
-	width: 80px;
+#listbox::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: white;
+}
+
+#listbox::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: #81d4fa;
+}
+
+#listbox::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
+}
+
+#listbox tr, #listbox td {
+	border: none;
+	border-bottom: 3px solid #81d4fa;
+	width: 150px;
 	height: 20px;
 	padding: 20px;
 	margin: 30px;
 	text-align: center;
+	font-size: 20px;
+}
+
+#pdcnt0 {
+width: 100px;
+height: 30px;
+text-align: center;
+font-size: 20px;
+border: none;
+}
+
+input:focus {
+outline: none;
 }
 
 #moneylist {
-	border: 1px solid black;
+	border: 3px solid #81d4fa;
 	width: 700px;
 	height: 50px;
-	margin-left: 25px;
+	margin-left: 17px;
+	background-color: white;
+	font-size: 20px;
 }
 
 #moneylist ul li {
 	list-style: none;
 	float: left;
-	margin-left: 10px;
+	margin-left: -17px;
+}
+
+#totalmoney, #endpay, #takemoney, #uctmoney {
+    height: 25px;
+    margin: 0 20px 5px 3px;
+    font-size: 15px;
 }
 
 li input {
@@ -89,30 +148,47 @@ li input {
 .bottombox {
 	width: 300px;
 	height: 280px;
-	margin-top: 30px;
+	margin-top: 15px;
 	margin-left: 45px;
 	float: left;
 }
 
 #paymentkind ul li {
 	list-style: none;
-	border: 1px solid black;
-	width: 110px;
+	width: 200px;
 	height: 30px;
-	margin-left: 30px;
 	margin-top: 10px;
 	text-align: center;
 	padding: 20px;
+	font-size: 25px;
+}
+
+#btn1, #btn2 {
+border: 2px solid white;
+background-color: #81d4fa;
+color: white;
+font-weight: bold;
+}
+
+#Exit {
+border: 3px solid #81d4fa;
+background-color: white;
+color: #81d4fa;
+font-weight: bold;
 }
 
 #keypad ul li {
 	list-style: none;
-	border: 1px solid black;
+	border: 1px solid white;
+	background-color: #81d4fa;
+	color: white;
 	width: 30px;
 	height: 20px;
 	text-align: center;
 	padding: 20px;
 	float: left;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
@@ -121,9 +197,6 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	margin: 0;
 }
 
-#crdtableList tr, #crdtableList td {
-	width: 150px;
-}
 </style>
 </head>
 <body>
@@ -133,7 +206,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				<div class="innerdiv" id="creditList"></div>
 			</center>
 
-			<div class="innerdiv">
+			<div class="innerdiv2">
 				<center>
 					<div id="listbox"></div>
 				</center>
@@ -151,9 +224,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				</div>
 				<div class="bottombox" id="paymentkind">
 					<ul>
-						<li onclick="creditPayment(1)">현금결제</li>
-						<li onclick="creditPayment(2)">카드결제</li>
-						<li>메인으로</li>
+						<li id="btn1" onclick="creditPayment(1)">현금결제</li>
+						<li id="btn2" onclick="creditPayment(2)">카드결제</li>
+						<li id="Exit"onclick="location.href='./posmain'">메인으로</li>
 					</ul>
 				</div>
 				<div class="bottombox" id="keypad">
@@ -167,9 +240,11 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 						<li value="7">7</li>
 						<li value="8">8</li>
 						<li value="9">9</li>
-						<li onclick="reset()" value="11">CE</li>
+						<li onclick="backspace()" value="12"><i
+							class="fa fa-arrow-left" style="font-size: 25px"></i></li>
 						<li value="0">0</li>
-						<li onclick="backspace()" value="12">C</li>
+						<li onclick="reset()" value="11"><i class="fa fa-times"
+							style="font-size: 25px"></i></li>
 					</ul>
 				</div>
 			</div>
