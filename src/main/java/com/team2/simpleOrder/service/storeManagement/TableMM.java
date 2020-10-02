@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.team2.simpleOrder.dao.storeManagement.ITableDao2;
 
 @Service
-public class TableMM2 {
+public class TableMM {
 
 	@Autowired
 	private ITableDao2 tDao;

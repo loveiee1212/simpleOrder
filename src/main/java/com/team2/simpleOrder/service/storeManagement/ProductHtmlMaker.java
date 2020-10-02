@@ -110,9 +110,9 @@ public class ProductHtmlMaker {
 		// 판매키 선택 버튼
 		sb.append("<tr>");
 		for (int i = 0; i < skCatList.size(); i++) {
-			sb.append("<td data-skc_code = '" + skCatList.get(i).get("SKC_CODE") + "'>")
-					.append("<button onclick ='selectSKC(this)'>").append(skCatList.get(i).get("SKC_NAME"))
-					.append("</button>").append("</td>");
+			sb.append("<td data-skc_code = '" + skCatList.get(i).get("SKC_CODE") + "' onclick ='selectSKC(this)'>")
+					.append(skCatList.get(i).get("SKC_NAME"))
+					.append("</td>");
 		}
 		sb.append("</tr>");
 		hm.put("categoriList", sb.toString());
@@ -120,8 +120,7 @@ public class ProductHtmlMaker {
 		// 판매키
 		sb = new StringBuilder();
 		for (HashMap<String, Object> skc : skCatList) {
-			ArrayList<HashMap<String, String>> skc_code = ((ArrayList<HashMap<String, String>>) skc
-					.get("SKC_CODEList"));
+			ArrayList<HashMap<String, String>> skc_codes = ((ArrayList<HashMap<String, String>>) skc.get("SKC_CODEList"));
 			int x = Integer.parseInt(skc.get("SKC_X").toString());
 			int y = Integer.parseInt(skc.get("SKC_Y").toString());
 			boolean flag = true;
@@ -131,42 +130,72 @@ public class ProductHtmlMaker {
 				sb.append("<tr>");
 				for (int j = i; j < i + x; j++) { // sellkey의 갯수 만큼 반복
 					flag = true;
-					for (int f = 0; f < skc_code.size(); f++) {
-						if (j == Integer.parseInt(String.valueOf(skc_code.get(f).get("SK_NUM"))) - 1) {
-							sb.append("<td onmouseup = 'setProInfo(this)' " + "data-pdc_date ='"
-									+ String.valueOf(skc_code.get(f).get("PDC_DATE")) + "' " + "data-pdc_code ='"
-									+ String.valueOf(skc_code.get(f).get("PDC_CODE")) + "' " + "data-pd_date = '"
-									+ String.valueOf(skc_code.get(f).get("PD_DATE")) + "' " + "data-pd_code = '"
-									+ String.valueOf(skc_code.get(f).get("PD_CODE")) + "' " + ">");
-							sb.append("<div>").append(skc_code.get(f).get("PD_NAME")).append("</div>");
-							sb.append("<div>").append(String.valueOf(skc_code.get(f).get("PD_PRICE"))).append("원"+"</div>");
-							sb.append("<div>").append("<input type= 'button' value='삭제' onclcick='del()'").append("</div>");
+					for (int f = 0; f < skc_codes.size(); f++) {
+						if (j == Integer.parseInt(String.valueOf(skc_codes.get(f).get("SK_NUM"))) - 1) {
+							HashMap<String, String> skc_codeInfo = skc_codes.get(f);
+							String pdc_code = skc_codeInfo.get("PDC_CODE");
+							String pd_date = String.valueOf(skc_codeInfo.get("PD_DATE"));
+							String pd_code = skc_codeInfo.get("PD_CODE");
+							String pd_name = skc_codeInfo.get("PD_NAME");
+							String pd_price = String.valueOf(skc_codeInfo.get("PD_PRICE"));
+							String skc_code = skc_codeInfo.get("skc_code");
+							sb.append("<td onmouseup = 'setProInfo(this)' data-sk_num ="+(j+1)+">");
+							sb.append("<div>").append(pd_name).append("</div>");
+							sb.append("<div>").append(pd_price).append("원"+"</div>");
+							sb.append("<input type ='hidden' name ='pdc_code' value ='"+pdc_code+"'>");
+							sb.append("<input type ='hidden' name ='pd_code' value ='"+pd_code+"'>");
+							sb.append("<input type ='hidden' name ='pd_date' value ='"+pd_date+"'>");
+							sb.append("<input type ='hidden' name ='skc_code' value ='"+skc_codeInfo.get("SKC_CODE")+"'>");
+							sb.append("<input type ='hidden' name ='sk_num' value ='"+(j+1)+"'>");
+							sb.append("<input type= 'button' value='삭제' onclick='deleteSellKey(this)'");
 							sb.append("</td>");
 							flag = false;
 							break;
 						}
 					}
 					if (flag) {
-						sb.append("<td onmouseup = 'setProInfo(this)' " + "data-pdc_date ='' " + "data-pdc_code ='' "
-								+ "data-pd_date = '' " + "data-pd_code = '' " + ">");
+						sb.append("<td onmouseup = 'setProInfo(this)' data-skc_code = '"+skc.get("SKC_CODE")+"' data-sk_num ='"+(j+1)+"'>");
 						sb.append("<div>").append(j + 1).append("</div>");
-						sb.append("<div>").append(j + 1).append("</div>");
-						sb.append("<div>").append("<input type= 'button' value='삭제' onclick='del($(this))'")
-								.append("</div>");
 						sb.append("</td>");
 					}
 				}
 			}
 			sb.append("</tr>");
-			sb.append("<tr><td>").append("<input type = 'number' value = '" + skc.get("SKC_X") + "'>");
-			sb.append("<input type = 'number' value = '" + skc.get("SKC_Y") + "'>").append("</td></tr>");
+			sb.append("<tr><td data-skc_code ='"+skc.get("SKC_CODE")+"'>").append("<input type = 'number' value = '" + skc.get("SKC_X") + "'>");
+			sb.append("<input type = 'number' value = '" + skc.get("SKC_Y") + "'>");
+			sb.append("<input type ='button' value ='사이즈 변경' onclick ='ChangeSellkeySize(this)'>");
+			sb.append("</td></tr>");
 	
 			sb.append("</table>");
 		}
-		sb.append("<input type = 'button' value='저장'  oncilck='saveCategiriSellkey()'</input>");
-		sb.append("</form>");
+		sb.append("<input type ='submit' value ='저장'>");
 		hm.put("sellkeyList", sb.toString());
 		return hm;
+	}
+
+
+	public HashMap<String, String> makehtmlsList(List<StoreManagement> sList) {
+		if (sList.size() != 0) {
+			for (int i = 0; i < sList.size(); i++) {
+				StoreManagement sm = sList.get(i);
+				sb.append("<tr>");
+				sb.append("<td>" + (i + 1) + "</td>");
+				sb.append("<td>" + sm.getPd_name() + "</td>");
+				sb.append("<td>" + sm.getPd_date() + "</td>");
+				sb.append("<td>" + sm.getStk_stock() + "개</td>");
+				sb.append("<input type= 'hidden'" + sm.getStk_stock() + "개</input>");
+				sb.append("</tr>");
+			}
+		} else {
+			sb.append("<tr colspan='3'>");
+			sb.append("<td>등록된 재고가 없습니다.</td>");
+			sb.append("</tr>");
+			
+		}
+		HashMap<String, String> hMap = new HashMap<>();
+		hMap.put("sList", sb.toString());
+		return hMap;
+		
 	}
 
 

@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team2.simpleOrder.service.storeManagement.TableMM2;
+import com.team2.simpleOrder.service.storeManagement.TableMM;
 
 
 @Controller
 public class TableController2 {
 	@Autowired
-	TableMM2 tm;
+	TableMM tm;
 	
 	@PostMapping("/updateSeatXYInfo")
 	public String updateSeatXYInfo(@RequestParam HashMap<String, String> xyInfo, HttpSession session, RedirectAttributes reat){
