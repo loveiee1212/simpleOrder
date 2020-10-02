@@ -93,8 +93,8 @@ public class CreditMM {
 			sb.append("<tr>");
 			sb.append("<td><input type='hidden' name='pdcode' id='pdcode" + i + "' data-code='"
 					+ cList.get(i).get("PDC_CODE") + "' value='" + cList.get(i).get("PD_CODE") + "'/>"
-					+ "<input type='hidden' name='pddate' id='pddate" + i + "' data-code='"
-					+ cList.get(i).get("PDC_DATE") + "' value='" + cList.get(i).get("PD_DATE") + "'/>"
+					+ "<input type='hidden' name='pddate' id='pddate" + i + "'"
+					 + " value='" + cList.get(i).get("PD_DATE") + "'/>"
 					+ cList.get(i).get("PD_NAME") + "</td>");
 			sb.append("<td><p class ='price' id='totalprice" + i + "'></p>");
 			sb.append("<input type='hidden' id='hiddenprice" + i + "' value='" + cList.get(i).get("PD_PRICE")
@@ -102,8 +102,6 @@ public class CreditMM {
 			sb.append("<td><input type='hidden' id='hiddencnt" + i + "' value='" + cList.get(i).get("OH_CNT")
 					+ "'/><input type='Number' class= 'pdcnt' name ='pdcnt' readonly='readonly' id='pdcnt" + i
 					+ "' value='" + cList.get(i).get("OH_CNT") + "'/></td>");
-			sb.append("<td><button>취소</button></td>");
-
 		}
 		sb.append("</table>");
 
