@@ -274,7 +274,28 @@ li input {
 	</div>
 </body>
 <script>
+	getsellkeyList();
 	totalprice();
+	
+	function getsellkeyList(){
+		$.ajax({
+			type : 'get',
+			url : 'rest/getSellKeyCatList',
+			dataType : 'json',
+			success : function(data){
+				console.log(data);
+				$(".tab").html(data.categoriList);
+				$("#product").html(data.sellkeyList);
+				
+				$("#0 input").remove();
+				$("#product input").remove();
+				
+			}
+		})
+	}
+	
+
+	
 	if ($("#oac_num").val() == "null") {
 		$("#oac_num").val("");
 	}

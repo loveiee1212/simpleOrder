@@ -455,7 +455,7 @@ i {
 				<div class="clickdiv" onclick='changetable()'>
 					<p>이동</p>
 				</div>
-				<div class="clickdiv" onclick="location.href='bill'">
+				<div class="clickdiv" onclick="location.href='./billcontrol'">
 					<p>영수증 관리</p>
 				</div>
 				<div class="clickdiv" id="main" onclick="location.href='posmain'">

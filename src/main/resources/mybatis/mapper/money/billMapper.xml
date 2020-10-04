@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team2.simpleOrder.dao.money.IBillDao">
+<select id="getBillList" parameterType="string" resultType="hashMap">
+SELECT OAC.C_CODE,OAC.BD_DATE, OAC.OAC_NUM, PMT.GET_CASH, PMT.PMT_CASH, PMT.PMT_CARD,(PMT.PMT_CASH+PMT.PMT_CARD) AS TOTAL, OAC.oac_status, os.oac_name
+FROM PAYMENT_TYPE AS PMT right join ORDER_AND_CREDIT AS OAC  ON OAC.C_CODE = PMT.C_CODE AND OAC.BD_DATE = PMT.BD_DATE AND OAC.OAC_NUM = PMT.OAC_NUM 
+    INNER join oac_status as os on oac.oac_status = os.oac_status
+WHERE OAC.C_CODE = #{c_code} AND OAC.OAC_STATUS BETWEEN -2 AND 1;
+
+</select>
+
+<select id="getproductList" parameterType="string" resultType="hashMap">
+SELECT PD.PD_NAME,PD.PD_PRICE,OH_CNT,PD_PRICE*OH_CNT AS TOTALPRICE
+		FROM ORDER_AND_CREDIT AS OAC JOIN
+		PRODUCT AS PD JOIN ORDER_HISTORY AS OH
+		ON OH.OAC_NUM = OAC.OAC_NUM AND OH.BD_DATE = OAC.BD_DATE AND
+		PD.PD_CODE = OH.PD_CODE AND PD.PDC_CODE = OH.PDC_CODE
+		WHERE OAC.C_CODE = #{c_code} AND OAC.OAC_NUM = #{oac_num} AND OAC.BD_DATE = #{bd_date}
+		GROUP BY OH.C_CODE,OH.BD_DATE,OH.OAC_NUM,PD.PDC_CODE,PD.PD_CODE
+</select>
+</mapper>
