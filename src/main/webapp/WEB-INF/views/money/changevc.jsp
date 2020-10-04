@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
 <link rel="stylesheet" href="resources/css/clock.css?afte"
 	type="text/css">
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <title>SimpleOrder-시재변경</title>
 <style>
 body {
