@@ -11,6 +11,7 @@
 	href="resources/css/basicBox.css?after">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style>
 body {
 	background-color: #e3f2fd;
@@ -248,7 +249,7 @@ li input {
 						<li id="btn2" onclick ="creditPayment(2)">카드결제</li>
 						<li id="btn3" onclick ="creditPayment(3)">외상결제</li>
 						<li id="btn4" onclick='sendsaoList()'>주문하기</li>
-						<li id="btn5">메인으로</li>
+						<li id="btn5" onclick="location.href='./sellpage'">뒤로가기</li>
 					</ul>
 				</div>
 				<div class="bottombox" id="keypad">
