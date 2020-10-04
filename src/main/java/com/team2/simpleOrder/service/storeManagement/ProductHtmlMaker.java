@@ -51,7 +51,7 @@ public class ProductHtmlMaker {
 			sb.append("</td>");
 			sb.append("</tr>");
 		}
-		sb.append("<tr>").append("<td>").append("<input type ='button' value ='추가' onclick ='readyCreatProFrm()'>").append("</td>").append("</tr>");
+		sb.append("<tr>").append("<td>").append("<input id= 'readyCreatProFrm' type ='button' value ='추가' onclick ='readyCreatProFrm()'>").append("</td>").append("</tr>");
 		HashMap<String, String> hMap = new HashMap<>();
 		hMap.put("pList", sb.toString());
 		return hMap;
