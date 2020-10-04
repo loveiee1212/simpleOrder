@@ -3,6 +3,7 @@ package com.team2.simpleOrder.controller.storeManagement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,14 @@ public class ProductController {
 	@PostMapping("/updateSellKeySize")
 	public String updateSellKeySize(@RequestParam HashMap<String, String> sellKeySize, HttpSession session, RedirectAttributes reat) {
 		return pm.updateSellKeySize(sellKeySize,session,reat);
-		
+	}
+	@PostMapping("/createSkcCategori")
+	public String createSkcCategori(@RequestParam HashMap<String, String> skcInfo, HttpSession session, RedirectAttributes reat) {
+		return pm.createSkcCategori(skcInfo,session,reat);
+	}
+	@PostMapping("/deleteSkcCategori")
+	public String deleteSkcCategori(@RequestParam HashMap<String, String> skcInfo, HttpSession session, RedirectAttributes reat) {
+		return pm.deleteSkcCategori(skcInfo,session,reat);
 	}
 
 }

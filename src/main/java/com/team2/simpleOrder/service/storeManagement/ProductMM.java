@@ -158,13 +158,36 @@ public class ProductMM {
 			hm.put("sk_num", sk_num[i]);
 			pDao.createsellKey(hm);
 		}
-		return "redirect:/Producreagistraition";
+		return "redirect:/producreagistraition";
 	}
 
 	public String updateSellKeySize(HashMap<String, String> sellKeySize, HttpSession session, RedirectAttributes reat) {
 		sellKeySize.put("c_code", session.getAttribute("c_code").toString());
 		System.out.println(sellKeySize);
 		pDao.updateSellKeySize(sellKeySize);
-		return "redirect:/Producreagistraition";
+		return "redirect:/producreagistraition";
+	}
+
+	public HashMap<String, String> getSellKeyCategoriList(HttpSession session) {
+		ProductHtmlMaker phm = new ProductHtmlMaker();
+		HashMap<String, String> hm = phm.getSellKeyCategoriList(pDao.getSellKeyCategoriList(session.getAttribute("c_code").toString()));
+		hm.put("newSkc_code", pDao.getNewSckCode(session.getAttribute("c_code").toString()));
+		return hm;
+	}
+
+	public String createSkcCategori(HashMap<String, String> skcInfo, HttpSession session, RedirectAttributes reat) {
+		skcInfo.put("c_code", session.getAttribute("c_code").toString());
+		if(skcInfo.get("skc_code").equals("null")) {
+			skcInfo.put("skc_code", "0");
+		}
+		System.out.println(skcInfo);
+		pDao.createSkcCategori(skcInfo);
+		return "redirect:/producreagistraition";
+	}
+
+	public String deleteSkcCategori(HashMap<String, String> skcInfo, HttpSession session, RedirectAttributes reat) {
+		skcInfo.put("c_code", (String) session.getAttribute("c_code"));
+		pDao.deleteSkcCategori(skcInfo);
+		return "redirect:/producreagistraition";
 	}
 }

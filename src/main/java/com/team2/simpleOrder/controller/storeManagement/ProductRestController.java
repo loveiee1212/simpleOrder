@@ -34,13 +34,17 @@ public class ProductRestController {
 	public String getProductofNumber(@RequestParam HashMap<String, String> productCategori,HttpSession session) {
 		return pm.getProductofNumber(session.getAttribute("c_code").toString(),productCategori);
 	}
-	@GetMapping("getProList")
+	@GetMapping("/getProList")
 	public HashMap<String, String> getProList(HttpSession session) {
 		return pm.getProList(session);
 	}
-	@GetMapping("getSellKeyCatList")
+	@GetMapping("/getSellKeyCatList")
 	public HashMap<String, String> getProCatList(HttpSession session) {
 		return pm.getSellKeyCatList(session);
+	}
+	@GetMapping("/getSellKeyCategoriList")
+	public HashMap<String, String> getSellKeyCategoriList(HttpSession session) {
+		return pm.getSellKeyCategoriList(session);
 	}
 
 }

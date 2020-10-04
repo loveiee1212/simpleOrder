@@ -95,14 +95,14 @@ public class PageController1 {
 		return "kioskSetting/reveiwUsagestatusFrm";
 	}
 	
-	@RequestMapping(value = "/productcontrol", method = RequestMethod.GET)
+	@RequestMapping(value = "/productcontrol")
 	public String productcontrol() {
 		return "/storeManagement/productcontrol";
 	}
 	
-	@RequestMapping("/Producreagistraition")
-	public String Producreagistraition(HttpSession session) {
-		return "storeManagement/Producreagistraition";
+	@RequestMapping("/producreagistraition")
+	public String producreagistraition() {
+		return "storeManagement/producreagistraition";
 	}
 	
 	@RequestMapping("/test")

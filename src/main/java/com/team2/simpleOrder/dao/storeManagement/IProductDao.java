@@ -71,6 +71,14 @@ public interface IProductDao {
 	void createsellKey(HashMap<String, String> hm);
 	@Update("UPDATE SELLKEY_CT SET SKC_X = #{x}, SKC_Y =#{y} WHERE C_CODE = #{c_code} AND SKC_CODE = #{skc_code}")
 	void updateSellKeySize(HashMap<String, String> sellKeySize);
+	@Select("SELECT SKC_CODE,SKC_NAME FROM SELLKEY_CT WHERE C_CODE =#{c_code}")
+	ArrayList<HashMap<String, String>> getSellKeyCategoriList(String c_code);
+	@Insert("INSERT INTO SELLKEY_CT VALUES (#{c_code}, LPAD(#{skc_code},2,0), #{skc_name}, 4, 3)")
+	void createSkcCategori(HashMap<String, String> skcInfo);
+	@Delete("DELETE FROM SELLKEY_CT WHERE C_CODE = #{c_code} AND SKC_CODE = #{skc_code}")
+	void deleteSkcCategori(HashMap<String, String> skcInfo);
+	@Select("SELECT (MAX(SKC_CODE)+1) FROM SELLKEY_CT WHERE C_CODE = #{c_code}")
+	String getNewSckCode(String c_code);
 	
 
 	

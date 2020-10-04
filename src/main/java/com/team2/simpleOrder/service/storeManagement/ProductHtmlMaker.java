@@ -145,7 +145,7 @@ public class ProductHtmlMaker {
 							sb.append("<input type ='hidden' name ='pdc_code' value ='"+pdc_code+"'>");
 							sb.append("<input type ='hidden' name ='pd_code' value ='"+pd_code+"'>");
 							sb.append("<input type ='hidden' name ='pd_date' value ='"+pd_date+"'>");
-							sb.append("<input type ='hidden' name ='skc_code' value ='"+skc_codeInfo.get("SKC_CODE")+"'>");
+							sb.append("<input type ='hidden' name ='skc_code' value ='"+String.valueOf(skc_codeInfo.get("SKC_CODE"))+"'>");
 							sb.append("<input type ='hidden' name ='sk_num' value ='"+(j+1)+"'>");
 							sb.append("<input type= 'button' value='삭제' onclick='deleteSellKey(this)'");
 							sb.append("</td>");
@@ -196,6 +196,15 @@ public class ProductHtmlMaker {
 		hMap.put("sList", sb.toString());
 		return hMap;
 		
+	}
+
+
+	public HashMap<String, String> getSellKeyCategoriList(ArrayList<HashMap<String, String>> sellKeyCategoriList) {
+		for(HashMap<String, String >skcinfo : sellKeyCategoriList) {
+			sb.append("<option id ='"+String.valueOf(skcinfo.get("SKC_CODE"))+"'>").append(skcinfo.get("SKC_NAME")).append("</option>");
+		}
+		hm.put("sckList", sb.toString());
+		return hm;
 	}
 
 
