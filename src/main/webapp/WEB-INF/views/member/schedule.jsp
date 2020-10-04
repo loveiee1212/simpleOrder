@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
 <link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
 <link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style>
 body {
 	background-color: #e3f2fd;

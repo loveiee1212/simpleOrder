@@ -49,7 +49,7 @@ h2 {
 	font-style: normal;
 }
 
-#btn, #sellpage, #endvc, #empLogOut, #schedule, #productragistration, #changevc, #productcontrol, #posSetting, #emailLogout {
+#btn, #sellpage, #endvc, #empLogOut, #schedule, #Producreagistraition, #changevc, #productcontrol, #posSetting, #emailLogout {
 	width: 300px;
 	height: 150px;
 	border: 2px;
@@ -79,7 +79,7 @@ input:focus {
 			<input type="button" id="btn" class='grantList' onclick="location.href = 'creditcontrol'" value="외상 처리">
 			<input type="button" id="changevc" class='grantList' onclick="checkBd_date('changevc')" value="시재 변경">
 			<input type="button" id="productcontrol" class='grantList' onclick="location.href = 'productcontrol'" value="상품 관리">
-			<input type="button" id="productragistration" class='grantList'	onclick="location.href = 'productragistration'" value="판매 상품 관리">
+			<input type="button" id="Producreagistraition" class='grantList'	onclick="location.href = 'Producreagistraition'" value="판매 상품 관리">
 			<input type="button" id="posSetting" class='grantList' onclick="location.href = 'posSetting'" value="포스 설정">
 			<button id="emailLogout" onclick="location.href ='emailLogout'">종료</button>
 		</div>
