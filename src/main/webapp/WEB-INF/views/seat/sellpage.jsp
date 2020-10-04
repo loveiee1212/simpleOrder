@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>sellpage-판매</title>
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
