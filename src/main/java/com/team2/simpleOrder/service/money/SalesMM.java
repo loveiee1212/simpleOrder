@@ -18,10 +18,10 @@ public class SalesMM {
 	@Autowired
 	private ISalesDao sDao;
 	
-	public String getDaySales(HttpSession session, HashMap<String, String> sam) {
+	public String getMonthSales(HttpSession session, HashMap<String, String> sam) {
 		sam.put("c_code", session.getAttribute("c_code").toString());
 		
-		List<HashMap<String, String>> slist = sDao.getDaySales(sam);
+		List<HashMap<String, String>> slist = sDao.getMonthSales(sam);
 		System.out.println(slist);
 		return new Gson().toJson(slist);
 	}

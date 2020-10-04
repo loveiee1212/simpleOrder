@@ -23,9 +23,9 @@ public class SalesRestController {
 	@Autowired
 	SalesMM sm;
 	
-	@RequestMapping("/getdaysales")
+	@RequestMapping("/getmonthsales")
 	public String getDaySales(HttpSession session,@RequestParam HashMap<String, String> sam) {
 		
-		return sm.getDaySales(session,sam);
+		return sm.getMonthSales(session,sam);
 	}
 }
