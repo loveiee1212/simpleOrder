@@ -19,7 +19,7 @@ public interface IOrderDao2 {
 	boolean sendsaoList(List<Order> oList);
 
 	// 주문번호 만들기
-	@Select("SELECT LPAD(COUNT(OAC_NUM)+1,4,0) AS OAC_NUM FROM ORDER_AND_CREDIT WHERE C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND OAC_STATUS = '1'")
+	@Select("SELECT LPAD(COUNT(OAC_NUM)+1,4,0) AS OAC_NUM FROM ORDER_AND_CREDIT WHERE C_CODE = #{c_code} AND BD_DATE = #{bd_date}")
 	String getNewOacCode(@Param("c_code") String c_code, @Param("bd_date") String bd_date);
 
 	// order_history 인서트
