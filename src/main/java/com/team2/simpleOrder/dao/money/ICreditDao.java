@@ -22,4 +22,7 @@ public interface ICreditDao {
 	@Update("UPDATE ORDER_AND_CREDIT SET OAC_STATUSCHANGETIME = NOW(),OAC_STATUS = -1 WHERE C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND OAC_NUM = #{oac_num}")
 	boolean updateOac(HashMap<String, String> hMap);
 
+	@Update("UPDATE ORDER_AND_CREDIT SET OAC_STATUSCHANGETIME = NOW(),OAC_STATUS = 0 WHERE C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND OAC_NUM = #{oac_num}")
+	boolean addcreditList(HashMap<String, String> updateMap);
+
 }

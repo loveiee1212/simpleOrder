@@ -133,12 +133,14 @@ public class CreditMM {
 	}
 
 	public HashMap<String, String> updatOac(HttpSession session, String bd_date, String oac_num) {
+		System.out.println("bd_Date:"+bd_date);
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		hMap.put("c_code", session.getAttribute("c_code").toString());
 		if(bd_date==null||bd_date.equals("")) {			
 		hMap.put("bd_date", session.getAttribute("bd_date").toString());
+		}else {			
+			hMap.put("bd_date", bd_date);
 		}
-		hMap.put("bd_date", bd_date);
 		hMap.put("oac_num", oac_num);
 		log.info("hmap:"+hMap);
 		HashMap<String, String> resultMap = new HashMap<String, String>();
@@ -148,6 +150,28 @@ public class CreditMM {
 			resultMap.put("result", "업데이트 실패. 메인으로 이동합니다. 다시시도해주세요");
 		}
 		return resultMap;
+	}
+
+	public HashMap<String, String> addcreditList(HttpSession session, String oac_num) {
+		HashMap<String, String> updateMap = new HashMap<String, String>();
+		updateMap.put("c_code", session.getAttribute("c_code").toString());
+		updateMap.put("bd_date", session.getAttribute("bd_date").toString());
+		updateMap.put("oac_num", oac_num);
+		if(cDao.addcreditList(updateMap)) {
+			
+		}
+		return null;
+	}
+
+	public HashMap<String, Object> getpayAmount(HttpSession session, String oac_num) {
+		HashMap<String, Object> selectMap = new HashMap<String, Object>();
+		selectMap.put("c_code", session.getAttribute("c_code").toString());
+		selectMap.put("bd_date", session.getAttribute("bd_date").toString());
+		selectMap.put("oac_num", oac_num);
+		HashMap<String, Integer> endpay = cDao.selectpay(selectMap);
+		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("endpay", endpay.get("TOTAL"));
+		return hMap;
 	}
 
 	

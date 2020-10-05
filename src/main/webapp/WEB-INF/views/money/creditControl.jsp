@@ -321,13 +321,14 @@ getCreditList();
 	}
 	
 	function creditPayment(paytype){
+		var endpay = $("#endpay").val();
 		var oac_num = $("#sendoac_num").val();
 		var bd_date = $("#sendbd_date").val();
 		
 		var getmoney = $("#takemoney").val();
 		
-		if($("#takemoney").val()-$("#totalmoney").val()>0){
-		var paymoney = $("#totalmoney").val();
+		if($("#takemoney").val()-($("#totalmoney").val()-endpay)>0){
+		var paymoney = $("#totalmoney").val()-endpay;
 		}else{
 		var paymoney = $("#takemoney").val();
 		}//결제금액이 총금액보다 큰 경우 총금액이 결제금액으로 설정
@@ -359,7 +360,6 @@ getCreditList();
 	}
 		
 		function totalprice() {
-			console.log(endpay);
 			for (var i = 0; i < $("tr").length; i++) {
 				var $pdcnt = $("#pdcnt" + i).val();
 				var $hiddenprice = $("#hiddenprice" + i).val();
