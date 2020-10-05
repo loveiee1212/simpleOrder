@@ -50,7 +50,7 @@ public class BillMM {
 			} else {
 				sb.append("<td>" + "<input type='hidden' id='cashcard' data-code='" + bList.get(i).get("PMT_CASH")
 						+ "' value='" + bList.get(i).get("PMT_CARD") + "'>" + bList.get(i).get("TOTAL") + "</td>");
-				sb.append("<td>" + Integer.parseInt(bList.get(i).get("GET_CASH").toString()) + "</td>");
+				sb.append("<td id='getCashvalue'>" + Integer.parseInt(bList.get(i).get("GET_CASH").toString()) + "</td>");
 			}
 			sb.append("<td><input type='hidden' id ='oac_status' data-code='" + bList.get(i).get("oac_status") + "'>"
 					+ bList.get(i).get("oac_name") + "</td>");
@@ -65,33 +65,21 @@ public class BillMM {
 		String c_code = session.getAttribute("c_code").toString();
 		HashMap<String, Object> comList = new HashMap<String, Object>();
 		HashMap<String, String> hMap = new HashMap<String, String>();
+		List<HashMap<String, Object>> pList = new ArrayList<HashMap<String,Object>>();
 		comList = bDao.getcompanyList(c_code);
-		hMap.put("companyName", comList.get("C_NAME").toString());
+		pList = bDao.getproductList(c_code,bd_date,oac_num);
 		String companyList = makehtmlcList(comList);
+		String productList = makehtmlproductList(pList,oac_status);
+		hMap.put("productList",productList);
+		hMap.put("companyName", comList.get("C_NAME").toString());
 		hMap.put("companyList", companyList);
-		switch (oac_status) {
-		case -2:
-			
-			break;
-		case -1:
-			List<HashMap<String, Object>> pList = new ArrayList<HashMap<String,Object>>();
-			pList = bDao.getproductList(c_code,bd_date,oac_num);
-			String productList = makehtmlproductList(pList);
-			hMap.put("productList",productList);
-			break;
-		case 0:
-			
-			break;
-		case 1:
-			
-			break;
-		}
 		return hMap;
 	}
-
-	private String makehtmlproductList(List<HashMap<String, Object>> pList) {
+	//상품리스트
+	private String makehtmlproductList(List<HashMap<String, Object>> pList, int oac_status) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<table>");
+		sb.append("<hr/>");
+		sb.append("<table id='proTable'>");
 		sb.append("<tr>");
 		sb.append("<td colspan='2'>제품명</td>");
 		sb.append("<td>수량</td>");
@@ -101,20 +89,52 @@ public class BillMM {
 		for(int i = 0; i<pList.size();i++) {
 			totalprice+=Integer.parseInt(pList.get(i).get("TOTALPRICE").toString());
 			sb.append("<tr>");
-			sb.append("<td>"+i+"</td>");
+			sb.append("<td>"+(i+1)+"</td>");
 			sb.append("<td>"+pList.get(i).get("PD_NAME")+"</td>");
 			sb.append("<td>"+pList.get(i).get("OH_CNT")+"</td>");
 			sb.append("<td>"+pList.get(i).get("TOTALPRICE")+"</td>");
 			sb.append("</tr>");
 		}
-		sb.append("<tr>");
-		sb.append("<th class='leftT' colspan='2'>합계금액</th>");
-		sb.append("<td class='rightT' colspan='2'>"+totalprice+"</td>");
-		sb.append("</tr>");
-		sb.append("<tr>");
-		sb.append("<th class='leftT' colspan='2'>받은금액</th>");
-		sb.append("<td class='rightT' colspan='2' id='t_getcash'></td>");
-		sb.append("</tr>");
+		sb.append("</table>");
+		sb.append("<table id='payTable'>");
+		switch(oac_status) {
+		//반품
+		case -2 :
+			sb.append("<tr>");
+			sb.append("<th class='leftT' colspan='2'>반품 총금액</th>");
+			sb.append("<td class='rightT' colspan='2'>"+totalprice+"</td>");
+			sb.append("</tr>");
+			break;
+		//결제
+		case -1 :
+			sb.append("<tr>");
+			sb.append("<th class='leftT' colspan='2'>합계금액</th>"); 
+			sb.append("<td class='rightT' colspan='2'>"+totalprice+"</td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<th id='t_pay' class='leftT' colspan='2'>결제금액</th>");
+			sb.append("<td id ='tpayment' class='rightT' colspan='2'></td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<th class='leftT' colspan='2'>받은금액</th>");
+			sb.append("<td id ='tgetpay' class='rightT' colspan='2'></td>");
+			sb.append("</tr>");
+			break;
+		//외상
+		case 0 :
+			sb.append("<tr>");
+			sb.append("<th class='leftT' colspan='2'>합계금액</th>");
+			sb.append("<td class='rightT' colspan='2'>"+totalprice+"</td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<th class='leftT' colspan='2'>외상금액</th>");
+			sb.append("<td class='rightT' colspan='2'>"+totalprice+"</td>");
+			sb.append("</tr>");
+			break;
+		//주문중
+		case 1 : 
+			break;
+		}
 		sb.append("</table>");
 		return sb.toString();
 	}
@@ -122,10 +142,10 @@ public class BillMM {
 	//사업장정보
 	private String makehtmlcList(HashMap<String, Object> comList) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("상호명:"+comList.get("C_NAME")+"<br/>");
-		sb.append("사업자번호:"+comList.get("C_CODE")+"<br/>");
-		sb.append("전화번호:"+comList.get("C_PHONE")+"<br/>");
-		sb.append("주소:"+comList.get("C_ADDRESS")+"<br/>");
+		sb.append(comList.get("C_NAME")+"<br/>");
+		sb.append(comList.get("C_ADDRESS")+"<br/>");
+		sb.append("사업자번호 | "+comList.get("C_CODE")+"<br/>");
+		sb.append("tel."+comList.get("C_PHONE")+"<br/>");
 		return sb.toString();
 	}
 

@@ -132,13 +132,18 @@ body {
 			</div>
 
 			<div class="innerdiv">
-
 				<div id="bill_info" class="bottombox">
-					**********심플로고 타이틀 붙여주세요 *************
+				<!-- 상호이름 상단노출 -->
+					<center><h1 id='titlename'></h1></center>
 					<div id='top_info'>
-						<div id='middle_info'>
-							<div id='bottom_info'></div>
+					<div id='companyList'>
+					</div>
+					<div id='middle_info'>
+						<div id='proList'>
+							</div>
+							<div id='bottom_info'>
 						</div>
+					</div>
 					</div>
 				</div>
 				<div id="takeActionbox" class="bottombox">
@@ -175,26 +180,37 @@ body {
 		/* tr 행의 정보들을 Arr에 담음 */
 		$("tr").css('background-color', 'white');
 		tr.css('background-color', '#ddd');
-
 		var bd_date = td.children("#bd_date").val();
 		var oac_num = td.children("#oac_num").val();
-		var oac_status = td.children("#oac_status").val();
-		console.log(oac_num);
-		console.log(bd_date);
-
+		var oac_status = td.children("#oac_status").data('code');
 		var obj = {
 			"bd_date" : bd_date,
 			"oac_num" : oac_num,
 			"oac_status" : oac_status
 		}
-
 		$.ajax({
 			type : 'post',
 			url : 'rest/getdetailbill',
 			data : obj,
 			dataType : 'json',
 			success : function(data) {
-				console.log(data);
+				$("#titlename").text(data.companyName);
+				$("#companyList").html(data.companyList);
+				$("#proList").html(data.productList);
+				//받아왔던 금액 계산
+				if(oac_status=="-1"){			
+					//현금계산이 0 이라면 == 카드결제
+				if(td.children("#cashcard").data("code")==0){
+					$("#t_pay").text("카드결제금액");
+					$("#tpayment").text(td.children("#cashcard").val());
+				}
+				/* 카드계산이 0 이라면 == 현금결제 */
+				else{
+					$("#t_pay").text("현금결제금액");
+					$("#tpayment").text(td.children("#cashcard").data("code"));
+				}
+					$("#tgetpay").html(tr.children("#getCashvalue").text());
+				}
 			}
 		})
 
