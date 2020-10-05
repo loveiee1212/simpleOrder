@@ -6,6 +6,7 @@ package com.team2.simpleOrder.controller;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,6 +93,16 @@ public class PageController1 {
 	@RequestMapping("/reveiwUsagestatusFrm")
 	public String reveiwUsagestatusFrm() {
 		return "kioskSetting/reveiwUsagestatusFrm";
+	}
+	
+	@RequestMapping(value = "/productcontrol")
+	public String productcontrol() {
+		return "/storeManagement/productcontrol";
+	}
+	
+	@RequestMapping("/producreagistraition")
+	public String producreagistraition() {
+		return "storeManagement/producreagistraition";
 	}
 	
 	@RequestMapping("/test")

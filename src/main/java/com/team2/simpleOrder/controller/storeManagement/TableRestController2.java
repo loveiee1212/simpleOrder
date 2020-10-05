@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team2.simpleOrder.service.storeManagement.TableMM2;
+import com.team2.simpleOrder.service.storeManagement.TableMM;
 
 
 @RestController
@@ -18,7 +18,7 @@ import com.team2.simpleOrder.service.storeManagement.TableMM2;
 
 public class TableRestController2 {
 	@Autowired
-	TableMM2 tm;
+	TableMM tm;
 
 	@GetMapping("/getSeatList")
 	public HashMap<String, String> getSeatList(HttpSession session) {

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>sellpage-판매</title>
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
@@ -455,7 +456,7 @@ i {
 				<div class="clickdiv" onclick='changetable()'>
 					<p>이동</p>
 				</div>
-				<div class="clickdiv" onclick="location.href='bill'">
+				<div class="clickdiv" onclick="location.href='./billcontrol'">
 					<p>영수증 관리</p>
 				</div>
 				<div class="clickdiv" id="main" onclick="location.href='posmain'">

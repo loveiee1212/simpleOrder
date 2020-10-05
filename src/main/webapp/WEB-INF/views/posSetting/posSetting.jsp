@@ -7,6 +7,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/basicBox.css?after">
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style type="text/css">
 body {
 	background-color: #e3f2fd;

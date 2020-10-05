@@ -1,5 +1,6 @@
 package com.team2.simpleOrder.controller.storeManagement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,22 @@ public class ProductController {
 	@PostMapping("/updateProduct")
 	public String updateProduct(@RequestParam HashMap<String, String> proInfo, HttpSession session, MultipartFile pdfile, RedirectAttributes reat) {
 		return pm.updateProduct(proInfo,session,pdfile,reat);
+	}
+	@PostMapping("/updatesellkey")
+	public String updatesellkey(String[] pdc_code, String[] pd_code, String[] pd_date, String[] skc_code, String[] sk_num,HttpSession session , RedirectAttributes reat) {
+		return pm.updatesellkey(pdc_code,pd_code,pd_date,skc_code,sk_num,session,reat);
+	}
+	@PostMapping("/updateSellKeySize")
+	public String updateSellKeySize(@RequestParam HashMap<String, String> sellKeySize, HttpSession session, RedirectAttributes reat) {
+		return pm.updateSellKeySize(sellKeySize,session,reat);
+	}
+	@PostMapping("/createSkcCategori")
+	public String createSkcCategori(@RequestParam HashMap<String, String> skcInfo, HttpSession session, RedirectAttributes reat) {
+		return pm.createSkcCategori(skcInfo,session,reat);
+	}
+	@PostMapping("/deleteSkcCategori")
+	public String deleteSkcCategori(@RequestParam HashMap<String, String> skcInfo, HttpSession session, RedirectAttributes reat) {
+		return pm.deleteSkcCategori(skcInfo,session,reat);
 	}
 
 }
