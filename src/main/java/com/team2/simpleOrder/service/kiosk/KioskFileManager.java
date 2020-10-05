@@ -16,6 +16,7 @@ public class KioskFileManager {
 		try {
 			String root = session.getServletContext().getRealPath("/");
 			String path = "resources/reviewImg/";
+			System.out.println(root + path);
 			for (int i = 0; i < rv_file.size(); i++) {
 				String fileName = makeSysName(rv, i, rv_file.get(i).getOriginalFilename());
 				rv_file.get(i).transferTo(new File(root + path + fileName));

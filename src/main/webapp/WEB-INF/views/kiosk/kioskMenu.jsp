@@ -41,10 +41,12 @@
 #clickdiv ul li {
 	display: inline;
 }
-tr,td{
-border: 1px solid black;
+
+tr, td {
+	border: 1px solid black;
 }
-input[type="button"]{
+
+input[type="button"] {
 	padding: 24px 50px;
 	margin: 18px;
 }
@@ -66,7 +68,9 @@ input[type="button"]{
 				$('#rvBtn').remove();
 			}
 			//테이블 카테고리 적어주기
-			$('#seat').html(data.sc_name+"<br>"+"${sessionScope.st_num}번 테이블");
+			$('#seat').html(
+					data.sc_name + "<br>" + "${sessionScope.st_num}번 테이블");
+			clockOn(data.oac_time);
 		},
 		error : function(err) {
 			console.log(err);
@@ -88,7 +92,7 @@ input[type="button"]{
 		console.log(sum);
 		sum = sum.toLocaleString('en');
 		console.log(sum);
-		$('#billSum').html("합계<br>" + sum + "원");
+		$('#billSum').append(sum + "원");
 	}
 	function billPriceUpdate() {
 		var pd_price = $('.bill_pd_price');
@@ -123,11 +127,11 @@ input[type="button"]{
 		</div>
 		<div id="aside">
 			<div id="seat"></div>
-			<div id="billSum"></div>
+			<div id="billSum"><p>합계</p></div>
 			<div id="clickdiv">
+			<p>이용시간</p>
 				<ul>
-					<li id="date"></li>
-					<li id="hours"></li>
+					<li id="hour"></li>
 					<li id="point">:</li>
 					<li id="min"></li>
 					<li id="point">:</li>
@@ -142,37 +146,24 @@ input[type="button"]{
 			onclick="location.href='kioskreview'">
 	</div>
 	<script type="text/javascript">
-		clockOn();
 		/* 동적 시계 */
-		function clockOn() {
-			console.log("clock On");
-			var monthNames = [ "01", "02", "03", "04", "05", "06", "07", "08",
-					"09", "10", "11", "12" ];
-			var dayNames = [ "일", "월", "화", "수", "목", "금", "토" ]
+		function clockOn(oac_time) {
 			var newDate = new Date();
 			newDate.setDate(newDate.getDate());
-			console.log(newDate.getFullYear() + "-"
-					+ monthNames[newDate.getMonth()] + "-" + newDate.getDate()
-					+ " " + dayNames[newDate.getDay()]);
-			$('#date').html(
-					newDate.getFullYear() + "-"
-							+ monthNames[newDate.getMonth()] + "-"
-							+ newDate.getDate() + " "
-							+ dayNames[newDate.getDay()]);
-			console.log($('#date'));
+			var oac_hours = Number(60 * 60 * (oac_time.substring(11, 13)));
+			var oac_minutes = Number(60 * (oac_time.substring(14, 16)));
+			var oac_seconds = Number(oac_time.substring(17, 19));
 			setInterval(function() {
 				var seconds = new Date().getSeconds();
-				$("#sec").html((seconds < 10 ? "0" : "") + seconds);
-			});
-
-			setInterval(function() {
 				var minutes = new Date().getMinutes();
-				$("#min").html((minutes < 10 ? "0" : "") + minutes);
-			});
-
-			setInterval(function() {
 				var hours = new Date().getHours();
-				$("#hours").html((hours < 10 ? "0" : "") + hours);
+				var now_seconds = Number(seconds < 10 ? "0" : "") + seconds;
+				var now_minutes = 60 * (Number(minutes < 10 ? "0" : "") + minutes);
+				var now_hours = 60 * 60 * (Number(hours < 10 ? "0" : "") + hours);
+				var sum = (now_hours + now_minutes + now_seconds)-(oac_hours+oac_minutes+oac_seconds);
+				$("#hour").html(parseInt(sum/3600)+"시간");
+				$("#min").html(parseInt((sum%3600)/60)+"분")
+				$("#sec").html(sum%60+"초");
 			});
 		};
 	</script>

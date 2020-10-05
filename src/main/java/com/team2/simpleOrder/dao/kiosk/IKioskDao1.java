@@ -14,7 +14,7 @@ import com.team2.simpleOrder.dto.SellProduct;
 
 public interface IKioskDao1 {
 	// 리뷰리스트 가져오기
-	List<Review> getReviewList(String c_code);
+	List<Review> getReviewList(@Param("c_code") String c_code, @Param("rvNum") int rvNum);
 
 	// 리뷰이미지리스트 가져오기
 	List<ReviewImg> getReviewImgList(String c_code);
@@ -51,4 +51,10 @@ public interface IKioskDao1 {
 	// 리뷰 사용 여부 가져오기
 	@Select("SELECT C_REVIEWUSE FROM COMPANY WHERE C_CODE=#{c_code}")
 	String getReviewUse(@Param("c_code") String c_code);
+
+	// 최초 주문 시간 가져오기
+	@Select("SELECT OAC_STATUSCHANGETIME FROM ORDER_AND_CREDIT WHERE c_code=#{c_code} AND BD_DATE=#{bd_date} AND OAC_NUM = #{oac_num}")
+	String getOac_time(@Param("c_code") String c_code, @Param("bd_date") String bd_date,
+			@Param("oac_num") String oac_num);
+
 }
