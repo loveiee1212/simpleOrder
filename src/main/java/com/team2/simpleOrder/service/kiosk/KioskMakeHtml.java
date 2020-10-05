@@ -76,7 +76,8 @@ public class KioskMakeHtml {
 	}
 
 	// 리뷰 리스트 HTML 만드는 메소드
-	public HashMap<String, String> makeReviewListHtml(List<Review> rList/* , List<ReviewImg> rImgList */) {
+	public HashMap<String, String> makeReviewListHtml(List<Review> rList, List<HashMap<String, Object>> rImgList,
+			List<HashMap<String, Object>> orderList) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < rList.size(); i++) {
 			sb.append("<li>");
@@ -101,15 +102,22 @@ public class KioskMakeHtml {
 				}
 			}
 			sb.append("</div>");
-			/*
-			 * String rv = rList.get(i).getBd_date() + rList.get(i).getOac_num(); for (int j
-			 * = 0; j < rImgList.size(); j++) { String rvImg = rImgList.get(j).getBd_date()
-			 * + rImgList.get(j).getOac_num(); if (rv.equals(rvImg)) {
-			 * sb.append("<div class='rv_img'>");
-			 * sb.append("<img class='img' src='resources/reviewImg/" +
-			 * rImgList.get(j).getRvImg_sysName() + "' alt='" +
-			 * rImgList.get(j).getRvImg_sysName() + "'></div>"); } }
-			 */
+
+			
+			
+//			String rv = rList.get(i).getBd_date() + rList.get(i).getOac_num();
+//			for (int j = 0; j < rImgList.size(); j++) {
+//				String rvImg = rImgList.get(j).getBd_date() + rImgList.get(j).getOac_num();
+//				if (rv.equals(rvImg)) {
+//					sb.append("<div class='rv_img'>");
+//					sb.append("<img class='img' src='resources/reviewImg/" + rImgList.get(j).getRvImg_sysName()
+//							+ "' alt='" + rImgList.get(j).getRvImg_sysName() + "'></div>");
+//				}
+//			}
+
+			
+			
+			
 			sb.append("<div class='rv_text'>");
 			sb.append(rList.get(i).getRv_text());
 			sb.append("</div></div></li>");

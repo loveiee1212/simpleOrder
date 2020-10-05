@@ -21,7 +21,6 @@ public class KioskMainController {
 
 	@PostMapping(value = "/insertreview")
 	public ModelAndView insertreview(@RequestParam ArrayList<MultipartFile> rv_file, HttpSession session, Review rv) {
-		System.out.println("controller");
 		return km2.insertReview(rv_file, rv, session);
 	}
 

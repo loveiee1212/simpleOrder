@@ -25,11 +25,6 @@ public class KioskEntity {
 		List<HashMap<String, String>> orderList = new ArrayList<HashMap<String, String>>();
 		for (int i = 0; i < bArr.size(); i++) {
 			HashMap<String, String> orderInfo = new HashMap<>();
-			System.out.println(bArr.get(i).get("pdc_code"));
-			System.out.println(bArr.get(i).get("pdc_date"));
-			System.out.println(bArr.get(i).get("pd_code"));
-			System.out.println(bArr.get(i).get("pd_date"));
-			System.out.println(bArr.get(i).get("oh_cnt"));
 			orderInfo.put("c_code", c_code);
 			orderInfo.put("bd_date", bd_date);
 			orderInfo.put("oac_num", oac_num);

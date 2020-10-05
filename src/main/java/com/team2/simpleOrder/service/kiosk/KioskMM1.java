@@ -39,8 +39,13 @@ public class KioskMM1 {
 		List<Review> rList = kDao1.getReviewList(session.getAttribute("c_code").toString(), rvNum);
 		System.out.println(rList);
 		// 리뷰 이미지 리스트 가져오기
-//		List<ReviewImg> rImgList = kDao1.getReviewImgList(session.getAttribute("c_code").toString());
-		return new KioskMakeHtml().makeReviewListHtml(rList/* , rImgList */);
+		List<HashMap<String,Object>> rImgList=kDao1.getReviewImgList(session.getAttribute("c_code").toString(),rList.get(0).getOac_num(),rList.get(rList.size()-1).getOac_num());
+		System.out.println(rImgList);
+		// 리뷰 주문내역 가져오기
+		List<HashMap<String,Object>> orderList=kDao1.getOrderList(session.getAttribute("c_code").toString(),rList.get(0).getOac_num(),rList.get(rList.size()-1).getOac_num());
+		System.out.println(orderList);
+//		return new KioskMakeHtml().makeReviewListHtml(rList, rImgList,orderList);
+		return null;
 	}
 
 	// 요청사항 설정 해놓은 것 가져오는 메소드
@@ -87,12 +92,12 @@ public class KioskMM1 {
 				// order_history insert
 				// order_history안에 인서트 해줄 데이터들을 해쉬맵에 넣는다
 				List<HashMap<String, String>> ohList = kn.getOhList(c_code, bd_date, oac_num, bArr);
-				System.out.println(ohList);
 				for (int i = 0; i < ohList.size(); i++) {
-					System.out.println(ohList.get(i));
 					// insert결과가 false가 나오면 에러페이지
 					if (!oDao2.sendsaoList(ohList.get(i))) {
 						return "kioskorder";
+					} else {
+						oDao2.updatestkList(ohList.get(i));
 					}
 				}
 				// 세션에 oac_num저장
@@ -102,11 +107,11 @@ public class KioskMM1 {
 				// 주문번호가 있으므로 손님은 추가주문(oh 인서트)
 				// order_history안에 인서트 해줄 데이터들을 해쉬맵에 넣는다
 				List<HashMap<String, String>> ohList = kn.getOhList(c_code, bd_date, oac_num, bArr);
-				System.out.println(ohList);
 				for (int i = 0; i < ohList.size(); i++) {
-					System.out.println(ohList.get(i));
 					if (!oDao2.sendsaoList(ohList.get(i))) {
 						return "kioskorder";
+					} else {
+						oDao2.updatestkList(ohList.get(i));
 					}
 				}
 			}
@@ -118,10 +123,6 @@ public class KioskMM1 {
 	}
 
 	public HashMap<String, String> kioskMainReady(HttpSession session) {
-//		String c_code="123123123123";
-//		String bd_date="2020-08-29 14:19:00";
-//		String oac_num="0001";
-//		List<Bill> bill = kDao1.getBillList(c_code,oac_num,bd_date);
 		List<Bill> bill = kDao1.getBillList(session.getAttribute("c_code").toString(),
 				session.getAttribute("oac_num").toString(), session.getAttribute("bd_date").toString());
 		HashMap<String, String> mainInfo = new KioskMakeHtml().billListHtml(bill);

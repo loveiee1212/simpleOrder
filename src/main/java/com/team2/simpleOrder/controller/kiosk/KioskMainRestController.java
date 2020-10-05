@@ -30,9 +30,8 @@ public class KioskMainRestController {
 
 	// 리뷰리스트 출력
 	@PostMapping(value = "/getreviewlist")
-	public HashMap<String, String> getReviewList(HttpSession session ,int rvNum) {
-		System.out.println(rvNum);
-		return km1.getReviewList(session ,rvNum);
+	public HashMap<String, String> getReviewList(HttpSession session, int rvNum) {
+		return km1.getReviewList(session, rvNum);
 	}
 
 	// 요청사항 리스트 출력

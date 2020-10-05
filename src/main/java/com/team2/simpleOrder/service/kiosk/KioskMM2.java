@@ -32,10 +32,12 @@ public class KioskMM2 {
 					rv.setRvImg_sysName(kfm.makeSysName(rv, i, rv_file.get(i).getOriginalFilename()));
 					kDao1.insertRvImg(rv);
 				}
+			} else {
+				mav.addObject("resultMsg", "리뷰등록에 실패하였습니다");
 			}
-			mav.addObject("successMsg", "리뷰등록에 성공하였습니다");
+			mav.addObject("resultMsg", "리뷰등록에 성공하였습니다");
 		} else {
-			mav.addObject("errorMsg", "리뷰등록에 실패하였습니다");
+			mav.addObject("resultMsg", "리뷰등록에 실패하였습니다");
 		}
 		mav.setViewName("kiosk/kioskMenu");
 		return mav;
@@ -45,11 +47,6 @@ public class KioskMM2 {
 		mav = new ModelAndView();
 		String sc_name = kDao1.getSc_name(session.getAttribute("c_code").toString(),
 				session.getAttribute("sc_code").toString());
-		System.out.println(session.getAttribute("c_code").toString());
-		System.out.println(session.getAttribute("sc_code").toString());
-		System.out.println(sc_name);
-		System.out.println(session.getAttribute("st_num").toString());
-		System.out.println(text);
 		mav.addObject("sc_name", sc_name);
 		mav.addObject("st_num", session.getAttribute("st_num").toString());
 		mav.addObject("text", text);

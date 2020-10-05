@@ -14,13 +14,24 @@
 		LIMIT ${rvNum},5
 		]]>
 	</select>
-	<select id="getReviewImgList" parameterType="String"
-		resultType="reviewImg">
+	<select id="getReviewImgList" resultType="hashmap">
+		<![CDATA[
 		SELECT BD_DATE,OAC_NUM,RVIMG_SYSNAME
 		FROM REVIEW_IMG
 		WHERE
-		C_CODE=#{c_code}
+		C_CODE=#{c_code} AND OAC_NUM>=#{finNum} AND OAC_NUM<=#{firNum}
 		ORDER BY OAC_NUM DESC
+		]]>
+	</select>
+	<select id="getOrderList" resultType="hashmap">
+	<![CDATA[
+		SELECT DISTINCT PD.PD_NAME, OH.BD_DATE, OH.OAC_NUM
+		FROM ORDER_HISTORY OH JOIN PRODUCT PD
+		ON OH.C_CODE=PD.C_CODE AND OH.PDC_CODE=PD.PDC_CODE AND
+		OH.PD_CODE=PD.PD_CODE AND OH.PD_DATE=PD.PD_DATE
+		WHERE OH.C_CODE=#{c_code} AND OH.OAC_NUM>=#{finNum} AND OH.OAC_NUM<=#{firNum}
+		ORDER BY OAC_NUM DESC
+		]]>
 	</select>
 	<select id="getRequestList" parameterType="String"
 		resultType="String">

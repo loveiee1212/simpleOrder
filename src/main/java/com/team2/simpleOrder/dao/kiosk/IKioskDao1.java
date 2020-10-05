@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Select;
 
 import com.team2.simpleOrder.dto.Bill;
 import com.team2.simpleOrder.dto.Review;
-import com.team2.simpleOrder.dto.ReviewImg;
 import com.team2.simpleOrder.dto.SellProduct;
 
 public interface IKioskDao1 {
@@ -17,7 +16,12 @@ public interface IKioskDao1 {
 	List<Review> getReviewList(@Param("c_code") String c_code, @Param("rvNum") int rvNum);
 
 	// 리뷰이미지리스트 가져오기
-	List<ReviewImg> getReviewImgList(String c_code);
+	List<HashMap<String, Object>> getReviewImgList(@Param("c_code") String c_code, @Param("firNum") String firNum,
+			@Param("finNum") String finNum);
+
+	// 리뷰 주문 목록 리스트 가져오기
+	List<HashMap<String, Object>> getOrderList(@Param("c_code") String c_code, @Param("firNum") String firNum,
+			@Param("finNum") String finNum);
 
 	// 요청사항리스트 가져오기
 	List<String> getRequestList(String c_code);
