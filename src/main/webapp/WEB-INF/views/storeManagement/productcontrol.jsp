@@ -4,10 +4,255 @@
 <%@ page session="false"%>
 <html>
 <head>
+<link rel="stylesheet" type="text/css"
+	href="resources/css/basicBox.css?after">
+<link rel="icon" href="resources/image/smallLogo.png"
+	type="image/x-icon">
 <style type="text/css">
-div.basic {
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.innerdiv {
+	border: 3px solid #81d4fa;
+	width: 740px;
+	height: 800px;
 	float: left;
-	border: 1px black solid;
+	background-color: white;
+	overflow-x: scroll;
+	overflow-y: scroll;
+}
+
+#pListtable {
+	background-color: white;
+	border-collapse: collapse;
+	width: 1400px;
+}
+
+.innerdiv::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: white;
+}
+
+.innerdiv::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: white;
+}
+
+.innerdiv::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
+}
+
+#pListtable th {
+	border: none;
+	border-right: 3px solid white;
+	width: 250px;
+	height: 50px;
+	margin: 30px;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+	background-color: #81d4fa;
+	color: white;
+}
+
+#pListtable td {
+	border: none;
+	width: 150px;
+	height: 50px;
+	margin: 30px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#readyCreatProFrm {
+width: 150px;
+	height: 60px;
+	border: 3px solid white;
+	background-color: #e3f2fd;
+	font-weight : bold; 
+	color : #1565c0;
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+.innerdiv2 {
+	border: 3px solid #81d4fa;
+	width: 740px;
+	height: 800px;
+	float: left;
+	background-color: white;
+}
+
+.basic {
+	width: 364px;
+	height: 200px;
+	float: left;
+}
+
+#updatetable th {
+	width: 364px;
+	height: 50px;
+	font-size: 22px;
+	text-align: center;
+	background-color: #81d4fa;
+	color: white;
+}
+
+#select1, #select2 {
+	width: 150px;
+	height: 30px;
+	font-size: 15px;
+	border: 3px solid #81d4fa;
+}
+
+#updateCategoriNAME {
+	width: 250px;
+	height: 40px;
+	font-size: 18px;
+	margin-top: 20px;
+	border: 3px solid #81d4fa;
+}
+
+#delete {
+	width: 100px;
+	height: 40px;
+	border: 3px solid #81d4fa;
+	background-color: white;
+	color: red;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 30px;
+}
+
+#update {
+	width: 100px;
+	height: 50px;
+	border: 3px solid white;
+	background-color: #e3f2fd;
+	font-weight : bold; 
+	color : #1565c0;
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+#createtable th {
+	width: 364px;
+	height: 50px;
+	font-size: 22px;
+	text-align: center;
+	background-color: #81d4fa;
+	color: white;
+}
+
+#pdc_name {
+	width: 250px;
+	height: 40px;
+	font-size: 18px;
+	margin-top: 30px;
+	margin-left: 15px;
+	border: 3px solid #81d4fa;
+}
+
+#add {
+	width: 100px;
+	height: 50px;
+	border: 3px solid white;
+	background-color: #e3f2fd; font-weight : bold; color : #1565c0;
+	font-size: 20px;
+	font-weight: bold;
+	color: #1565c0;
+	font-size : 20px;
+	margin-top: 30px;
+}
+
+.basic2 {
+	width: 740px;
+	float: left;
+}
+
+#producttable {
+	border: none;
+	border-top: 3px solid #81d4fa;
+}
+
+#producttable th {
+	width: 730px;
+	height: 50px;
+	font-size: 22px;
+	text-align: center;
+	background-color: #81d4fa;
+	color: white;
+}
+
+#producttable td {
+	width: 740px;
+	height: 50px;
+	font-size: 22px;
+	text-align: center;
+	font-weight: bold;
+}
+
+#pd_code, #pd_name, #pd_price, #stk_stock {
+	width: 250px;
+	height: 40px;
+	font-size: 18px;
+	margin-bottom: 30px;
+	border: 3px solid #81d4fa;
+}
+
+.stockUse {
+	width: 25px;
+	height: 25px;
+}
+
+#pdfile {
+	width: 300px;
+	height: 50px;
+	border: 3px solid white;
+	font-size: 18px;
+	margin-left: 50px;
+}
+
+#productControllBtn {
+	text-align: center;
+	border: 2px solid white;
+	width: 730px;
+	height: 50px;
+	background-color: #e3f2fd;
+	font-weight: bold;
+	color: #1565c0;
+	font-size: 20px;
+}
+
+#Exit {
+	text-align: center;
+	border: 2px solid white;
+	width: 730px;
+	height: 50px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+input:focus, button:focus {
+	outline: none;
 }
 </style>
 <title>productControl-상품관리</title>
@@ -16,106 +261,110 @@ div.basic {
 </head>
 
 <body>
-	<div class="basic">
-		<table id="pListtable">
-		</table>
-	</div>
+	<div id="baseBox">
+		<div id="baseinnerBox">
+			<div class="innerdiv">
+				<table id="pListtable">
+				</table>
+			</div>
+			<div class="innerdiv2">
+				<div class="basic">
+					<form action="" method='post' name='proCategoriUandD'>
+						<table id="updatetable">
+							<tr>
+								<th colspan="2">카테고리 수정</th>
+							</tr>
+							<tr>
+								<td><select class='categorilist'
+									onchange="categoriUpdate(this)" id="select2">
+								</select> <input hidden="hidden" type="text" id="updateCategoriCode"
+									name='pdc_code' value='01'></td>
+								<td><input type="button" id="delete" value="삭제"
+									onclick='deleteProCategori()'></td>
+							</tr>
+							<tr>
+								<td><input type="text" id="updateCategoriNAME"
+									name='pdc_name'></td>
+								<td><input type="button" id="update" value="수정"
+									onclick='updateProCategori()'></td>
+							</tr>
+						</table>
+					</form>
+				</div>
 
-	<div class="basic">
-	<form action="" method ='post' name='proCategoriUandD'>
-		<table>
-			<tr>
-				<th colspan="2">카테고리 수정</th>
-			</tr>
-			<tr>
-				<td>
-					<select class='categorilist' onchange="categoriUpdate(this)" id="select2">
-					</select>
-					<input hidden="hidden" type="text" id="updateCategoriCode"  name='pdc_code' value ='01'>
-				</td>
-				<td>
-					<input type="button" value="삭제" onclick ='deleteProCategori()'>  
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" id="updateCategoriNAME" name ='pdc_name'>
-				</td>
-				<td>
-					<input type="button" value="수정" onclick ='updateProCategori()'>
-				</td>
-			</tr>
-		</table>
-		</form>
+
+				<div class="basic">
+					<form action="createProCategori" method="post">
+						<table id="createtable">
+							<tr>
+								<th colspan="2">카테고리 등록</th>
+							</tr>
+							<tr>
+								<td><input type="text" id="pdc_name" name='pdc_name'>
+								</td>
+								<td><input type="submit" id="add" value="추가"></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+
+				<div class="basic2">
+					<form name="productControllForm" action="null" method="post"
+						enctype=multipart/form-data>
+						<table id="producttable">
+							<tr>
+								<th colspan="2">상품 등록</th>
+							</tr>
+							<tr>
+								<td>상품 코드</td>
+								<td>상품 이름</td>
+							</tr>
+							<tr>
+								<td><input type="text" id="pd_code" name="pd_code"
+									readonly="readonly"> <input type="hidden" id="pd_date"
+									name="pd_date"></td>
+								<td><input type="text" id="pd_name" name="pd_name"></td>
+							</tr>
+							<tr>
+								<td>상품 카테고리</td>
+								<td>상품 가격</td>
+							</tr>
+							<tr>
+								<td><select class="categorilist" id="select1"
+									name='pdc_code'></select></td>
+								<td><input type="text" id="pd_price" name='pd_price'></td>
+							</tr>
+							<tr>
+								<td>재고 사용 여부</td>
+								<td>재고</td>
+							</tr>
+							<tr>
+								<td>사용<input type="radio" class="stockUse" name="stockUse"
+									value=true> 미사용<input type="radio" class="stockUse"
+									name="stockUse" value=false checked="checked">
+								</td>
+								<td><input type="number" name="stk_stock" id="stk_stock"
+									readonly="readonly"></td>
+							</tr>
+							<tr>
+								<td>이미지</td>
+								<td><input type="file" id="pdfile" name='pdfile'></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="button" value='추가'
+									onclick="createProduct()" id='productControllBtn'></td>
+							</tr>
+							<tr>
+								<td colspan="2"><button id="Exit" type="button"
+										onclick="location.href='./posmain'">메인으로</button></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div></div>
+			</div>
+		</div>
 	</div>
-	
-	
-	<div class="basic">
-	<form action="createProCategori" method="post">
-		<table>
-			<tr>
-				<th colspan="2">카테고리 등록</th>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" name ='pdc_name'>
-				</td>
-				<td>
-					<input type="submit" value="추가">
-				</td>
-			</tr>
-		</table>
-	</form>
-	</div>
-	
-	<div class="basic">
-		<form name="productControllForm" action="null" method="post" enctype = multipart/form-data>
-			<table>
-				<tr>
-					<th colspan="2">상품 등록</th>
-				</tr>
-				<tr>
-					<th>상품 코드</th>
-					<th>상품 이름</th>
-				</tr>
-				<tr>
-					<th><input type="text" id="pd_code" name="pd_code" readonly="readonly"> <input type="hidden" id="pd_date" name="pd_date"></th>
-					<th><input type="text" id="pd_name" name="pd_name"></th>
-				</tr>
-				<tr>
-					<th>상품 카테고리</th>
-					<th>상품 가격</th>
-				</tr>
-				<tr>
-					<th>
-					<select class="categorilist" id="select1" name='pdc_code'></select>
-					
-					</th>
-					<th><input type="text" id="pd_price" name='pd_price'></th>
-				</tr>
-				<tr>
-					<th>재고 사용 여부</th>
-					<th>재고</th>
-				</tr>
-				<tr>
-					<th>
-						사용<input type="radio" name="stockUse" value=true>
-						미사용<input type="radio" name="stockUse" value=false checked="checked">
-					</th>
-					<th><input type="number" name="stk_stock" id="stk_stock"
-						readonly="readonly"></th>
-				</tr>
-				<tr>
-					<th>이미지</th>
-					<th><input type="file" name='pdfile'></th>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="button" value='추가' onclick="createProduct()" id='productControllBtn'></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-	<div></div>
 
 </body>
 <script>
@@ -138,8 +387,8 @@ div.basic {
 		let pdc_code = $("#select1").children("option:checked").val();
 		$("#pd_code").val(getNewPd_code(pdc_code));
 	})
-	
-	function categoriUpdate(ele){
+
+	function categoriUpdate(ele) {
 		let pdc_code = $(ele).children("option:checked").val();
 		$("#updateCategoriCode").val(pdc_code);
 	}
@@ -185,19 +434,19 @@ div.basic {
 		$("#pd_name").val(ele.dataset.pd_name);
 		$("#pd_price").val(ele.dataset.pd_price);
 		ele.dataset.pdc_code;
-		$("#select1").children().prop("selected",false);
-		console.log($("#select1").children("option[value='"+ele.dataset.pdc_code+"']").prop("selected",true));
-		$("#productControllBtn").val("수정").attr("onclick","updateProduct()");
-		
-		
+		$("#select1").children().prop("selected", false);
+		console.log($("#select1").children(
+				"option[value='" + ele.dataset.pdc_code + "']").prop(
+				"selected", true));
+		$("#productControllBtn").val("수정").attr("onclick", "updateProduct()");
+
 	}
 
 	function readyCreatProFrm() { // 새로운 상품 등록 폼 재공
 		productControllForm.reset();
 		$("#pd_code").val(getNewPd_code('01'));
-		$("#productControllBtn").val('추가').attr("onclick","createProduct()");
-		
-		
+		$("#productControllBtn").val('추가').attr("onclick", "createProduct()");
+
 	}
 
 	function getNewPd_code(pdc_code) {
@@ -219,37 +468,40 @@ div.basic {
 		if (confirm("상품을 삭제하시겠습니까?")) {
 			ele = $(ele).prev()[0];
 			$form = $("<form name ='deleteProductForm' action = 'deleteProduct' method='post' hidden = 'hidden'>");
-			$form.append("<input name = 'pdc_code' value ='"+ele.dataset.pdc_code+"'>");
-			$form.append("<input name = 'pd_code' value ='"+ele.dataset.pd_code+"'>");
-			$form.append("<input name = 'pd_date' value ='"+ele.dataset.pd_date+"'>");
+			$form
+					.append("<input name = 'pdc_code' value ='"+ele.dataset.pdc_code+"'>");
+			$form
+					.append("<input name = 'pd_code' value ='"+ele.dataset.pd_code+"'>");
+			$form
+					.append("<input name = 'pd_date' value ='"+ele.dataset.pd_date+"'>");
 			$("body").append($form);
 			deleteProductForm.submit();
 		}
 	}
-	
-	function deleteProCategori(){ // 카테고리 삭제
-		if(confirm("카테고리를 삭제하시겠습니까?")){
+
+	function deleteProCategori() { // 카테고리 삭제
+		if (confirm("카테고리를 삭제하시겠습니까?")) {
 			let pdc_code = $("#updateCategoriCode").val();
-			if(pdc_code == '01'){
+			if (pdc_code == '01') {
 				alert("기본 카테고리는 삭제할수없습니다.");
-				return ;
+				return;
 			}
 			proCategoriUandD.action = 'proCategoriDelete';
 			proCategoriUandD.submit();
 		}
 	}
-	function updateProCategori(){ // 카테고리 이름 수정
+	function updateProCategori() { // 카테고리 이름 수정
 		let pdc_code = $("#updateCategoriCode").val();
 		productControllForm.action = 'proCategoriUpdate';
 		productControllForm.submit();
 	}
-	
-	function createProduct(){ // 상품 생성
+
+	function createProduct() { // 상품 생성
 		productControllForm.action = 'createProduct';
 		productControllForm.submit();
 	}
-	
-	function updateProduct(){ // 상품 수정
+
+	function updateProduct() { // 상품 수정
 		console.log("aa");
 		productControllForm.action = 'updateProduct';
 		productControllForm.submit();

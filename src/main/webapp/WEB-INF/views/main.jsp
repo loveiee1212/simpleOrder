@@ -106,6 +106,7 @@ input:focus {
 #id {
 	width: 540px;
 	height: 60px;
+	border: 3px solid #81d4fa;
 	font-size: 18px;
 	margin: 0px -20px;
 }
@@ -113,6 +114,7 @@ input:focus {
 #pw {
 	width: 540px;
 	height: 60px;
+	border: 3px solid #81d4fa;
 	font-size: 18px;
 	margin: 10px -20px 0px;
 }

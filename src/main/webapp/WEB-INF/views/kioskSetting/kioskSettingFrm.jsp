@@ -7,7 +7,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/basicBox.css?after">
-<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
+<link rel="icon" href="resources/image/smallLogo.png"
+	type="image/x-icon">
 <style type="text/css">
 body {
 	background-color: #e3f2fd;
@@ -42,6 +43,7 @@ h2 {
 	overflow: auto;
 	border: 3px solid #81d4fa;
 	margin-right: 38px;
+	background-color: white;
 }
 
 #divOne::-webkit-scrollbar {
@@ -67,6 +69,7 @@ h2 {
 	height: 800px;
 	float: left;
 	border: 3px solid #81d4fa;
+	background-color: white;
 }
 
 #kioskQrCodeListFrm, #requestListSettingFrm, #reveiwUsagestatusFrm,
@@ -86,6 +89,12 @@ h2 {
 input:focus {
 	outline: none;
 }
+
+#logo {
+	width: 500px;
+	opacity: 0.5;
+	margin: 100px 200px;
+}
 </style>
 <meta charset="UTF-8">
 <title>kioskSetting</title>
@@ -96,6 +105,8 @@ input:focus {
 			<div id="totalDiv">
 				<div id="divOne">
 					<h2>키오스크 설정</h2>
+					<img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"
+						id="logo">
 				</div>
 				<div id="divTwo">
 					<input type="button" id="kioskQrCodeListFrm" value="테이블별 QR코드 가져오기"

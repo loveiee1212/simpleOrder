@@ -131,9 +131,7 @@ public class OrderMM2 {
 	public HashMap<String, Object> getsellkeyList(HttpSession session) {
 		
 		List<HashMap<String, Object>> skcList = oDao.getsellkeyCtgList(session.getAttribute("c_code").toString());
-		System.out.println("skcList"+skcList);
 		List<HashMap<String, Object>> skList = oDao.getSellKeyList(session.getAttribute("c_code").toString());
-		System.out.println("skList"+skList);
 		HashMap<String,Object> hMap = new HashMap<String, Object>();
 		hMap.put("ctgList", makeHtmlskcList(skcList));
 		hMap.put("divList" ,makeHtmlskList(skcList));
@@ -146,8 +144,6 @@ public class OrderMM2 {
 		for(int i=0;i<skcList.size();i++) {
 			sb.append("<div id='table" + i + "' class='tList'>");
 			sb.append("<table>");
-			log.info("X"+skcList.get(i).get("SKC_X"));
-			log.info("Y"+skcList.get(i).get("SKC_Y"));
 			int x = Integer.parseInt(skcList.get(i).get("SKC_X").toString());
 			int y = Integer.parseInt(skcList.get(i).get("SKC_Y").toString());
 			for (int a = 0; a < x * y; a += x) {

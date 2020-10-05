@@ -56,10 +56,10 @@ table, tr, td, th {
 }
 
 #seatList {
-	width: 900px;
-	height: 300px;
-	overflow-x: scroll;
-	overflow-y: scroll;
+    width: 900px;
+    height: 400px;
+    overflow-x: scroll;
+    overflow-y: scroll;
 }
 
 #seatList table {
@@ -69,10 +69,11 @@ table, tr, td, th {
 }
 
 #seatList td {
-	width: 50px;
-	height: 80px;
-	background-color: #81d4fa;
-	font-size: 20px;
+    width: 50px;
+    height: 80px;
+    background-color: #81d4fa;
+    font-size: 20px;
+    text-align: center;
 }
 
 #x, #y {

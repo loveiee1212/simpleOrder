@@ -74,6 +74,24 @@ body {
     font-size: 25px;
 }
 
+h2 {
+	font-size: 35px;
+	color: #1565c0;
+	font-weight: bold;
+	text-align: center;
+	width: 300px;
+	height: 30px;
+	background-color: white;
+	margin-left: 250px;
+	padding: 40px;
+}
+
+#logo {
+    width: 500px;
+    opacity: 0.5;
+    margin: 100px 200px;
+}
+
 input:focus {
 	outline: none;
 }
@@ -85,7 +103,10 @@ input:focus {
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div id="totalDiv">
-				<div id="divOne"></div>
+				<div id="divOne">
+				<h2>포스 설정</h2>
+					<img src="resources/image/logo.png" alt="SimpleOrder 홈페이지" id="logo">
+				</div>
 				<div id="divTwo">
 					<input type="button" id="btn1" value="테이블 설정" onclick="includeAjax('seatSettinFrm')"><br />
 					<input type="button" id="btn2" value="직원 목록" onclick="includeAjax('empSettingFrm')"><br/> 

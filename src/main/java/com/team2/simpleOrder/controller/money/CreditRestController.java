@@ -23,27 +23,33 @@ public class CreditRestController {
 
 	@RequestMapping(value = "/getcreditlist", method = RequestMethod.POST)
 	public HashMap<String, String> getcreditList(HttpSession session, int oac_status) {
-		HashMap<String, String> hMap = new HashMap<String, String>();
 		return cm.getcreditList(session, oac_status);
 	}
 
 	@RequestMapping(value = "/showdetailcredit", method = RequestMethod.POST)
 	public HashMap<String, Object> getdetailCredit(HttpSession session, String bd_date, String oac_num,
 			int oac_status) {
-		HashMap<String, Object> hMap = new HashMap<String, Object>();
 		return cm.getdetailCredit(session, bd_date, oac_num, oac_status);
 	}
 
 	@RequestMapping(value = "/moneypayment", method = RequestMethod.POST)
 	public HashMap<String, String> moneyPayment(HttpSession session, String bd_date, String oac_num, int getmoney,
 			int paymoney, int paytype) {
-		HashMap<String, String> hMap = new HashMap<String, String>();
 		return cm.moneyPayment(session, bd_date, oac_num, getmoney, paymoney, paytype);
 	}
 
 	@RequestMapping(value = "/updateoac", method = RequestMethod.POST)
 	public HashMap<String, String> updateOac(HttpSession session, String bd_date, String oac_num) {
-		HashMap<String, String> hMap = new HashMap<String, String>();
 		return cm.updatOac(session, bd_date, oac_num);
+	}
+	
+	@RequestMapping(value = "/addcreditlist", method = RequestMethod.POST)
+	public HashMap<String, String> addcreditList(HttpSession session, String oac_num) {
+		return cm.addcreditList(session, oac_num);
+	}
+	
+	@RequestMapping(value = "/getpayamount", method = RequestMethod.POST)
+	public HashMap<String, Object> getpayAmount(HttpSession session, String oac_num) {
+		return cm.getpayAmount(session, oac_num);
 	}
 }
