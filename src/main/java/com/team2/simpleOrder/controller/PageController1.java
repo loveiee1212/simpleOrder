@@ -104,6 +104,10 @@ public class PageController1 {
 	public String producreagistraition() {
 		return "storeManagement/producreagistraition";
 	}
+	@RequestMapping("/stockController")
+	public String stockController() {
+		return "storeManagement/stockController";
+	}
 	
 	@RequestMapping("/test")
 	public String test(@RequestParam HashMap<String, String> test, RedirectAttributes reat) {

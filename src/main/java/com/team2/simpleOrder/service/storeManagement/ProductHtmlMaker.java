@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.omg.CORBA.INTERNAL;
+
 import com.team2.simpleOrder.dto.StoreManagement;
 
 public class ProductHtmlMaker {
@@ -43,11 +45,11 @@ public class ProductHtmlMaker {
 					+ "data-pd_price ='"+pd.getPd_price()+"' "
 					+ "data-stk_stock ='"+pd.getStk_stock()+"' "
 							+ "'>");
-			sb.append("<input type='button' value='수정'>");
+			sb.append("<input type='button' value='수정' class ='aPUpdate'>");
 			sb.append("</td>");
 			
 			sb.append("<td onclick='deleteProduct(this)'>");
-			sb.append("<input type='button' value='삭제'>");
+			sb.append("<input type='button' value='삭제' class ='aPdelete'>");
 			sb.append("</td>");
 			sb.append("</tr>");
 		}
@@ -125,7 +127,7 @@ public class ProductHtmlMaker {
 			int y = Integer.parseInt(skc.get("SKC_Y").toString());
 			boolean flag = true;
 			sb.append("<table id = '" + skc.get("SKC_CODE") + "' hidden = 'hidden' class ='sellKeyBasicTable'>");
-			sb.append("<tr><td>").append(skc.get("SKC_NAME")).append("</td></tr>");
+			sb.append("<tr><th id= 'aSCK_name'>").append(skc.get("SKC_NAME")).append("</th></tr>");
 			for (int i = 0; i < x * y; i += x) { // x값 마다 줄바꿈 <tr>
 				sb.append("<tr>");
 				for (int j = i; j < i + x; j++) { // sellkey의 갯수 만큼 반복
@@ -204,6 +206,49 @@ public class ProductHtmlMaker {
 			sb.append("<option id ='"+String.valueOf(skcinfo.get("SKC_CODE"))+"'>").append(skcinfo.get("SKC_NAME")).append("</option>");
 		}
 		hm.put("sckList", sb.toString());
+		return hm;
+	}
+
+
+	public HashMap<String, String> getStockList(ArrayList<HashMap<String, String>> stockList) {
+		for(HashMap<String, String> stock : stockList) {
+			sb.append("<tr data-pdc_code ='"+stock.get("PDC_CODE")+"' "
+					+"		data-pd_code ='"+stock.get("PD_CODE")+"' "
+					+ "		data-pd_date ='"+String.valueOf(stock.get("PD_DATE"))+"'>");
+			sb.append("<td onclick ='getStockRecord(this)'>").append(stock.get("PDC_NAME")).append("</td>");
+			sb.append("<td onclick ='getStockRecord(this)'>").append(stock.get("PD_NAME")).append("</td>");
+			sb.append("<td onclick ='getStockRecord(this)'>").append(String.valueOf(stock.get("STK_STOCK"))).append("</td>");
+			sb.append("<td>").append("<input type='number'> <input type ='button' value ='추가' onclick ='updateStock(this)'>").append("</td>");
+		}
+		hm.put("stockList", sb.toString());
+		return hm;
+	}
+
+
+	public HashMap<String, String> getStockRecord(ArrayList<HashMap<String, String>> stockRecord) {
+		int cnt = 0;
+		String plus;
+		sb.append("<tr>");
+		sb.append("<th>").append("상품명").append("</th>");
+		sb.append("<th>").append("변경 시간").append("</th>");
+		sb.append("<th>").append("변경 수량").append("</th>");
+		sb.append("</tr>");
+		for(HashMap<String, String> record : stockRecord) {
+			sb.append("<tr>");
+			sb.append("<td>").append(record.get("PD_NAME"));
+			sb.append("<td>").append(String.valueOf(record.get("OH_CHANGETIME")));
+			int stock = (Integer.parseInt(String.valueOf(record.get("OH_CNT")))*-1);
+			if(stock<0) {
+				plus = "-"+stock;
+			}else {
+				plus = "+"+stock;
+			}
+			sb.append("<td>").append(plus);
+			sb.append("</tr>");
+			cnt++;
+		}
+		hm.put("stockRecord", sb.toString());
+		hm.put("length", cnt+"");
 		return hm;
 	}
 

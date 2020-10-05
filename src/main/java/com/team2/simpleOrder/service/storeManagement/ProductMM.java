@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team2.simpleOrder.dao.order.IOrderDao2;
 import com.team2.simpleOrder.dao.storeManagement.IProductDao;
 import com.team2.simpleOrder.dto.StoreManagement;
 
@@ -23,6 +24,8 @@ import com.team2.simpleOrder.dto.StoreManagement;
 public class ProductMM {
 	@Autowired
 	private IProductDao pDao;
+	@Autowired
+	private IOrderDao2 ODao;
 
 	public HashMap<String, String> getsproductlist(String c_code) { // 모든 상품 종류 노출
 		ProductHtmlMaker phm = new ProductHtmlMaker();
@@ -46,7 +49,7 @@ public class ProductMM {
 
 	public String deleteProduct(HashMap<String, String> proInfo, HttpSession session, RedirectAttributes reat) { // 상품 삭제
 		proInfo.put("c_code", session.getAttribute("c_code").toString());
-		System.out.println(proInfo);
+		pDao.deleteStock(proInfo);
 		pDao.updateProductStatus(proInfo);
 		return "redirect:/productcontrol";
 	}
@@ -101,13 +104,14 @@ public class ProductMM {
 		}
 			return "redirect:/productcontrol";
 	}
-	
+	@Transactional
 	public String updateProduct(HashMap<String, String> proInfo, HttpSession session, MultipartFile pdfile,	RedirectAttributes reat) { // 상품상태 0으로 변경 후 새로 등록
 		proInfo.put("c_code", session.getAttribute("c_code").toString());
 		proInfo.put("pd_imgname", pDao.getProImgname(proInfo));
 		proInfo.put("update", "true");
-		pDao.updateProductStatus(proInfo);
-		createProduct(proInfo, session, pdfile, reat);
+		pDao.updateProductStatus(proInfo); // 상품 
+		pDao.deleteStock(proInfo); // 기존 재고 삭제
+		createProduct(proInfo, session, pdfile, reat); // 상품 새로 생성
 		return  "redirect:/productcontrol";
 	}
 	
@@ -189,5 +193,25 @@ public class ProductMM {
 		skcInfo.put("c_code", (String) session.getAttribute("c_code"));
 		pDao.deleteSkcCategori(skcInfo);
 		return "redirect:/producreagistraition";
+	}
+
+	public HashMap<String, String> getStockList(HttpSession session) {
+		ProductHtmlMaker phm = new ProductHtmlMaker();
+		return phm.getStockList(pDao.getStockList(session.getAttribute("c_code").toString()));
+	}
+
+	public HashMap<String, String> getStockRecord(HashMap<String, String> stockInfo, HttpSession session) {
+		ProductHtmlMaker phm = new ProductHtmlMaker();
+		stockInfo.put("c_code", session.getAttribute("c_code").toString());
+		return phm.getStockRecord(pDao.getStockRecord(stockInfo));
+	}
+	@Transactional
+	public HashMap<String, String> updateStock(HashMap<String, String> stockInfo, HttpSession session) {
+		stockInfo.put("c_code", session.getAttribute("c_code").toString());
+		stockInfo.put("bd_date", session.getAttribute("bd_date").toString());
+		stockInfo.put("oac_num", ODao.getNewOacCode(session.getAttribute("c_code").toString(), session.getAttribute("bd_date").toString()));
+		System.out.println(stockInfo);
+		pDao.updateStock(stockInfo);
+		return null;
 	}
 }

@@ -79,7 +79,30 @@ public interface IProductDao {
 	void deleteSkcCategori(HashMap<String, String> skcInfo);
 	@Select("SELECT (MAX(SKC_CODE)+1) FROM SELLKEY_CT WHERE C_CODE = #{c_code}")
 	String getNewSckCode(String c_code);
+	@Select("SELECT * " + 
+			"FROM STOCK S " + 
+			"join product P ON S.PDC_CODE = P.PDC_CODE AND S.PD_CODE = P.PD_CODE AND S.PD_DATE = P. PD_DATE " + 
+			"join product_ct pc on p.pdc_code = pc.PDC_CODE and p.c_code = pc.C_CODE " + 
+			"WHERE S.C_CODE = 123123123123 AND P.PD_STATUS = '1'")
+	ArrayList<HashMap<String, String>> getStockList(String c_code);
+	@Delete("DELETE FROM STOCK WHERE C_CODE = #{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE = #{pd_code} AND PD_DATE = #{pd_date}")
+	void deleteStock(HashMap<String, String> proInfo);
+	@Select("SELECT P.PD_NAME, OH.OH_CHANGETIME, OH.OH_CNT "
+			+ "FROM order_history OH " + 
+			"JOIN order_and_credit OAC ON OH.OAC_NUM = OAC.OAC_NUM "
+		  + "JOIN PRODUCT P ON OH.PDC_CODE = P.PDC_CODE AND OH.PD_CODE = P.PD_CODE AND OH.PD_DATE = P.PD_DATE " + 
+			"WHERE OAC.OAC_STATUS = '3' AND OH.C_CODE = #{c_code} AND OH.PDC_CODE = #{pdc_code} AND OH.PD_CODE = #{pd_code} ")
+	ArrayList<HashMap<String, String>> getStockRecord(HashMap<String, String> stockInfo);
 	
+	@Insert("INSERT INTO ORDER_AND_CREDIT VALUES(#{c_code}, #{bd_date}, #{oac_num}, '00' ,'0', default, 3)  ")
+	void updateStock(HashMap<String, String> stockInfo);
+	
+	/*
+	 * 
+	 * @Update("UPDATE STOCK SET PD_DATE = #{pd_date} WHERE C_CODE = #{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE = #{pd_code}"
+	 * ) void updateStockRecordDate(HashMap<String, String> proInfo); // 상품 수정시
+	 * 날짜변경으로 인하여 재고변경 내역들 모두 현재의 상품으로 변경
+	 */	
 
 	
 

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,5 +47,16 @@ public class ProductRestController {
 	public HashMap<String, String> getSellKeyCategoriList(HttpSession session) {
 		return pm.getSellKeyCategoriList(session);
 	}
-
+	@GetMapping("/getStockList")
+	public HashMap<String, String> getStockList(HttpSession session){
+		return pm.getStockList(session);
+	}
+	@GetMapping("/getStockRecord")
+	public HashMap<String, String> getStockRecord(@RequestParam HashMap<String, String> stockInfo, HttpSession session){
+		return pm.getStockRecord(stockInfo,session);
+	}
+	@PostMapping("/updateStock")
+	public HashMap<String, String> updateStock(@RequestParam HashMap<String, String> stockInfo,HttpSession session){
+		return pm.updateStock(stockInfo,session);
+	}
 }
