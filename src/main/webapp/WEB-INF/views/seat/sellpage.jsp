@@ -593,9 +593,13 @@ i {
 				for ( var a in result.list) {
 					for ( var b in result.list[a].tlist) {
 						//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
-						if (result.list[a].tlist[b] < 10) {
+						if (a < 10) {
 							$("#tnum" + "0" + (parseInt(a) + 1)+ result.list[a].tlist[b]).css({"background-color" : "white",'visibility' : 'visible'});
 							$("#tnum" + "0" + (parseInt(a) + 1)+ result.list[a].tlist[b]).css("opacity", "100");}
+						else{
+							$("#tnum" +(parseInt(a) + 1)+ result.list[a].tlist[b]).css({"background-color" : "white",'visibility' : 'visible'});
+							$("#tnum" +(parseInt(a) + 1)+ result.list[a].tlist[b]).css("opacity", "100");
+							}
 						$("#tnum" + result.list[a].tlist[b]).css({"background-color" : "white",'visibility' : 'visible'});
 						$("#tnum" + result.list[a].tlist[b]).css("opacity","100");
 					}

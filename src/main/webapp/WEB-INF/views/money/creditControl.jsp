@@ -293,14 +293,11 @@ getCreditList();
 				$("#listbox").html(data.data);
 				totalprice();
 				/* 수량변경시 값 수정 */
-				$("#uctmoney").val($("#totalmoney").val());
 				var a = Number(data.endpay);
 				$("#endpay").val(a);
 				$("#takemoney").val(0);
+				$("#uctmoney").val($("#totalmoney").val()-a);
 				var b = $("#totalmoney").val();
-				console.log(a);
-				console.log(b);
-				console.log(a==b);
 				if(a==b){
 					updateOac(bd_date,oac_num);
 				}
@@ -362,6 +359,7 @@ getCreditList();
 	}
 		
 		function totalprice() {
+			console.log(endpay);
 			for (var i = 0; i < $("tr").length; i++) {
 				var $pdcnt = $("#pdcnt" + i).val();
 				var $hiddenprice = $("#hiddenprice" + i).val();
@@ -385,50 +383,55 @@ getCreditList();
 	$("#uctmoney").val($("#totalmoney").val());
 
 	$("#keypad ul li").click(function() {
+	var endpay = $("#endpay").val();
+	console.log(endpay);
 	if ($(this).val() == 11 || $(this).val() == 12) {return;}
 	str += $(this).val();
 	$("#takemoney").val(Number(str));
 	$("#uctmoney").val(
-	$("#totalmoney").val() - $("#takemoney").val());
-	if (($("#totalmoney").val()  - $("#takemoney").val()) < 0) {
+	$("#totalmoney").val()- endpay - $("#takemoney").val());
+	if (($("#totalmoney").val() -endpay  - $("#takemoney").val()) < 0) {
 	$("#Remain_money").html(
 	"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-	$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())* (-1));} 
+	$("#uctmoney").val(($("#totalmoney").val()-endpay - $("#takemoney").val())* (-1));} 
 	else {$("#Remain_money").html(
 	"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-	$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val()));}
+	$("#uctmoney").val(($("#totalmoney").val()-endpay - $("#takemoney").val()));}
 	});
 
 	function reset() {
+		var endpay = $("#endpay").val();
 		str = str.substring(str.length, str.length);
 		$("#takemoney").val(Number(str));
 		$("#Remain_money").html(
 				"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-		$("#uctmoney").val($("#totalmoney").val());}
+		$("#uctmoney").val($("#totalmoney").val()-endpay);}
 
 	function backspace() {
+		var endpay = $("#endpay").val();
 		//	console.log("length" + str.substr(0, str.length - 1));
 		$("#takemoney").val(str.substr(0, str.length - 1));
-		$("#uctmoney").val($("#totalmoney").val()  - $("#takemoney").val());
+		$("#uctmoney").val($("#totalmoney").val()-endpay  - $("#takemoney").val());
 		str = $("#takemoney").val();
 
-		if (($("#totalmoney").val() - $("#takemoney").val()) < 0) {
+		if (($("#totalmoney").val()-endpay - $("#takemoney").val()) < 0) {
 			$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val()) * (-1));
+			$("#uctmoney").val(($("#totalmoney").val()-endpay - $("#takemoney").val()) * (-1));
 		} else {
 			$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(($("#totalmoney").val()- $("#takemoney").val()));
+			$("#uctmoney").val(($("#totalmoney").val()-endpay - $("#takemoney").val()));
 		}
 	}
 
 	/* 키패드 */
 	$("#takemoney").keyup(function(evt) {
-	$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());
+	var endpay = $("#endpay").val();
+	$("#uctmoney").val($("#totalmoney").val()-endpay - $("#takemoney").val());
 	if (($("#totalmoney").val() - $("#takemoney").val()) < 0) {
 	$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-	$("#uctmoney").val(($("#totalmoney").val() - $("#takemoney").val())*(-1));} 
+	$("#uctmoney").val(($("#totalmoney").val()-endpay - $("#takemoney").val())*(-1));} 
 	else {$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-	$("#uctmoney").val($("#totalmoney").val() - $("#takemoney").val());}
+	$("#uctmoney").val($("#totalmoney").val()-endpay - $("#takemoney").val());}
 	});
 	$("#takemoney").focus(function() {
 	$("#takemoney").val("");

@@ -1,6 +1,7 @@
 package com.team2.simpleOrder.controller.order;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,6 +33,11 @@ public class OrderRestController2 {
 			@RequestParam(value = "pd_code[]") ArrayList<String> pd_code,
 			@RequestParam(value = "oh_cnt[]") ArrayList<String> oh_cnt, RedirectAttributes reat) {
 		return om.sendsaoList(session,sc_code, oac_num,st_num,pdc_code, pd_date, pd_code, oh_cnt, reat);
+	}
+	
+	@PostMapping("/getsellkeylist")
+	public HashMap<String, Object> getsellkeyList(HttpSession session) {
+		return om.getsellkeyList(session);
 	}
 
 }

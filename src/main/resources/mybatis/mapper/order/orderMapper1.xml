@@ -62,7 +62,7 @@
 	</if>
 	<!-- 새로운 에약정보를 등록할 때 -->
 	<if test="rsv_code==null">	
-	SELECT #{c_code}, LPAD(MAX(RSV_CODE)+1,4,'0'),#{rsvm_memo} FROM RESERVATION WHERE C_CODE = #{c_code}
+	SELECT #{c_code}, LPAD(MAX(RSV_CODE),4,'0'),#{rsvm_memo} FROM RESERVATION WHERE C_CODE = #{c_code}
 	</if>
 	</insert>
 	

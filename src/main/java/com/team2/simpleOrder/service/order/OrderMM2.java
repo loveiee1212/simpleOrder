@@ -15,7 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.team2.simpleOrder.dao.order.IOrderDao1;
 import com.team2.simpleOrder.dao.order.IOrderDao2;
 import com.team2.simpleOrder.dao.order.IOrderDao3;
+import com.team2.simpleOrder.dao.storeManagement.IProductDao;
 import com.team2.simpleOrder.dto.Order;
+import com.team2.simpleOrder.dto.SellProduct;
 import com.team2.simpleOrder.dto.StoreManagement;
 
 import lombok.extern.log4j.Log4j;
@@ -28,7 +30,7 @@ public class OrderMM2 {
 	private IOrderDao2 oDao;
 
 	@Autowired
-	private IOrderDao3 oDao3;
+	private IProductDao pDao;
 
 	ModelAndView mav;
 
@@ -70,6 +72,7 @@ public class OrderMM2 {
 						+ "'/><input type='Number' name ='pdcnt' id='pdcnt" + i + "' value='"
 						+ stList.get(i).getOh_cnt() + "'/></td>");
 				sb.append("<td><button>취소</button></td>");
+				sb.append("</tr>");
 
 			}
 			sb.append("</table>");
@@ -112,6 +115,8 @@ public class OrderMM2 {
 				oacInfo.put("oac_num", oac_num);
 				if (!oDao.sendsaoList(oacInfo)) {
 					return "errorSellpage";
+				}else {
+					oDao.updatestkList(oacInfo);
 				}
 			}
 			return "sellpage";
@@ -120,6 +125,58 @@ public class OrderMM2 {
 			return "errorSellpage";
 		}
 	}
+
+	
+	
+	public HashMap<String, Object> getsellkeyList(HttpSession session) {
+		
+		List<HashMap<String, Object>> skcList = oDao.getsellkeyCtgList(session.getAttribute("c_code").toString());
+		System.out.println("skcList"+skcList);
+		List<HashMap<String, Object>> skList = oDao.getSellKeyList(session.getAttribute("c_code").toString());
+		System.out.println("skList"+skList);
+		HashMap<String,Object> hMap = new HashMap<String, Object>();
+		hMap.put("ctgList", makeHtmlskcList(skcList));
+		hMap.put("divList" ,makeHtmlskList(skcList));
+		hMap.put("sellkeyList" ,skList);
+		return hMap;
+	}
+
+	private String makeHtmlskList(List<HashMap<String, Object>> skcList) {
+		StringBuilder sb = new StringBuilder();
+		for(int i=0;i<skcList.size();i++) {
+			sb.append("<div id='table" + i + "' class='tList'>");
+			sb.append("<table>");
+			log.info("X"+skcList.get(i).get("SKC_X"));
+			log.info("Y"+skcList.get(i).get("SKC_Y"));
+			int x = Integer.parseInt(skcList.get(i).get("SKC_X").toString());
+			int y = Integer.parseInt(skcList.get(i).get("SKC_Y").toString());
+			for (int a = 0; a < x * y; a += x) {
+				sb.append("<tr>");
+				for (int b = a; b < a + x; b++) {
+					sb.append("<td class='protd'>");
+						sb.append("<div class='tables' id='tnum" + i  + (b + 1) + "' data-code="
+								+ i + "-" + (b + 1) + " style = 'visibility: hidden;'>" + (b + 1) + "</div>");
+					sb.append("</td>");
+				}
+				sb.append("</tr>");
+			}
+			sb.append("</table>");
+			sb.append("</div>");
+		}
+		return sb.toString();
+	}
+
+	//카테고리 리스트 만들기
+	private String makeHtmlskcList(List<HashMap<String, Object>> skcList) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < skcList.size(); i++) {
+			sb.append("<button class='category' id='ctg" + (i + 1) + "'onclick='opentable(event,\"table" + i + "\")'>"
+					+ skcList.get(i).get("SKC_NAME") + "</button>");
+		}
+		return sb.toString();
+	}
+
+	
 
 
 }
