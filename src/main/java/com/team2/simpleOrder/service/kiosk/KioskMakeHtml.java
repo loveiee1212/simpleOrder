@@ -5,13 +5,14 @@ import java.util.List;
 
 import com.team2.simpleOrder.dto.Bill;
 import com.team2.simpleOrder.dto.Review;
-import com.team2.simpleOrder.dto.ReviewImg;
 import com.team2.simpleOrder.dto.SellProduct;
 
 public class KioskMakeHtml {
 	// 판매키에 올라가 있는 상품리스트 Html만드는 메소드
 	public HashMap<String, Object> makeSellProListHtml(List<HashMap<String, Object>> skcList,
 			List<SellProduct> sellProList) {
+		String iskc_code;
+		String jskc_code;
 		// 해더 판매 카테고리 리스트
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("<ul>");
@@ -24,14 +25,24 @@ public class KioskMakeHtml {
 		// 상품 리스트
 		StringBuilder sb2 = new StringBuilder();
 		for (int i = 0; i < skcList.size(); i++) {
-			sb2.append("<div class='pList'>"+skcList.get(i).get("SKC_NAME"));
-			sb2.append("<i class='fas fa-angle-up tgBtn' id='"+skcList.get(i).get("SKC_CODE")+"' style='font-size:36px'></i></div>");
-			sb2.append("<div id='pro"+skcList.get(i).get("SKC_CODE")+"' class='pro'>");
+			sb2.append("<div class='pList'>" + skcList.get(i).get("SKC_NAME"));
+			sb2.append("<i class='fas fa-angle-up tgBtn' id='" + skcList.get(i).get("SKC_CODE")
+					+ "' style='font-size:36px'></i></div>");
+			sb2.append("<div id='pro" + skcList.get(i).get("SKC_CODE") + "' class='pro'>");
 			for (int j = 0; j < sellProList.size(); j++) {
 				// 판매키에 올라가 있는 상품리스트
 				// skc_code가 같다면 추가
-				if (skcList.get(i).get("SKC_CODE").equals(sellProList.get(j).getSkc_code())) {
-					if(sellProList.get(j).getStk_stock()==0) {
+//				System.out.println(sellProList.get(j).getPd_imgName());
+//				System.out.println(sellProList.get(j).getPdc_code());
+//				System.out.println(sellProList.get(j).getPd_code());
+//				System.out.println(sellProList.get(j).getPd_date());
+//				System.out.println(sellProList.get(j).getPd_name());
+//				System.out.println(sellProList.get(j).getPd_price());
+				iskc_code = skcList.get(i).get("SKC_CODE").toString();
+				jskc_code = sellProList.get(j).getSkc_code().toString();
+				if (iskc_code.equals(jskc_code)) {
+					if (sellProList.get(j).getStk_stock() == 0) {
+						System.out.println("0이다");
 						sb2.append("<div class='soldOut'><div class='pList_detail'><div class='pd_imgName'>");
 						sb2.append("<img src='resources/productImg/" + sellProList.get(j).getPd_imgName() + "' alt='"
 								+ sellProList.get(j).getPd_name() + "'></div>");
@@ -40,19 +51,18 @@ public class KioskMakeHtml {
 						sb2.append("<div class='pd_code'>" + sellProList.get(j).getPd_code() + "</div>");
 						sb2.append("<div class='pd_date'>" + sellProList.get(j).getPd_date() + "</div>");
 						sb2.append("<div class='pd_name'>" + sellProList.get(j).getPd_name() + "</div>");
-						sb2.append(
-								"<div class='pd_soldOut'>품절</div></div></div></div>");
-					}else {
-					sb2.append("<div class='detail_body'><div class='pList_detail'><div class='pd_imgName'>");
-					sb2.append("<img src='resources/productImg/" + sellProList.get(j).getPd_imgName() + "' alt='"
-							+ sellProList.get(j).getPd_name() + "'></div>");
-					sb2.append("<div class='text_detail'>");
-					sb2.append("<div class='pdc_code'>" + sellProList.get(j).getPdc_code() + "</div>");
-					sb2.append("<div class='pd_code'>" + sellProList.get(j).getPd_code() + "</div>");
-					sb2.append("<div class='pd_date'>" + sellProList.get(j).getPd_date() + "</div>");
-					sb2.append("<div class='pd_name'>" + sellProList.get(j).getPd_name() + "</div>");
-					sb2.append(
-							"<div class='pd_price'>" + sellProList.get(j).getPd_price() + "</div></div></div></div>");
+						sb2.append("<div class='pd_soldOut'>품절</div></div></div></div>");
+					} else {
+						sb2.append("<div class='detail_body'><div class='pList_detail'><div class='pd_imgName'>");
+						sb2.append("<img src='resources/productImg/" + sellProList.get(j).getPd_imgName() + "' alt='"
+								+ sellProList.get(j).getPd_name() + "'></div>");
+						sb2.append("<div class='text_detail'>");
+						sb2.append("<div class='pdc_code'>" + sellProList.get(j).getPdc_code() + "</div>");
+						sb2.append("<div class='pd_code'>" + sellProList.get(j).getPd_code() + "</div>");
+						sb2.append("<div class='pd_date'>" + sellProList.get(j).getPd_date() + "</div>");
+						sb2.append("<div class='pd_name'>" + sellProList.get(j).getPd_name() + "</div>");
+						sb2.append("<div class='pd_price'>" + sellProList.get(j).getPd_price()
+								+ "</div></div></div></div>");
 					}
 				}
 			}
@@ -66,13 +76,13 @@ public class KioskMakeHtml {
 	}
 
 	// 리뷰 리스트 HTML 만드는 메소드
-	public HashMap<String, String> makeReviewListHtml(List<Review> rList, List<ReviewImg> rImgList) {
+	public HashMap<String, String> makeReviewListHtml(List<Review> rList/* , List<ReviewImg> rImgList */) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < rList.size(); i++) {
 			sb.append("<li>");
 			sb.append("<div class='rv_detail'>");
 			sb.append("<div class='rv_code'><span class='rv_code_name'>");
-			sb.append(rList.get(i).getBd_date() + "날의 " + rList.get(i).getOac_num() + "번째 손님");
+			sb.append(rList.get(i).getBd_date().substring(0, 11) + " " + rList.get(i).getOac_num() + "번 손님");
 			sb.append("</span><span class='rv_code_time'>");
 			sb.append(rList.get(i).getRv_date());
 			sb.append("</span></div>");
@@ -91,23 +101,20 @@ public class KioskMakeHtml {
 				}
 			}
 			sb.append("</div>");
-			String rv = rList.get(i).getBd_date() + rList.get(i).getOac_num();
-			for (int j = 0; j < rImgList.size(); j++) {
-				String rvImg = rImgList.get(j).getBd_date() + rImgList.get(j).getOac_num();
-				if (rv.equals(rvImg)) {
-					sb.append("<div class='rv_img'>");
-					sb.append("<img class='img' src='resources/reviewImg/" + rImgList.get(j).getRvImg_sysName()
-							+ "' alt='" + rImgList.get(j).getRvImg_sysName() + "'></div>");
-				}
-			}
+			/*
+			 * String rv = rList.get(i).getBd_date() + rList.get(i).getOac_num(); for (int j
+			 * = 0; j < rImgList.size(); j++) { String rvImg = rImgList.get(j).getBd_date()
+			 * + rImgList.get(j).getOac_num(); if (rv.equals(rvImg)) {
+			 * sb.append("<div class='rv_img'>");
+			 * sb.append("<img class='img' src='resources/reviewImg/" +
+			 * rImgList.get(j).getRvImg_sysName() + "' alt='" +
+			 * rImgList.get(j).getRvImg_sysName() + "'></div>"); } }
+			 */
 			sb.append("<div class='rv_text'>");
 			sb.append(rList.get(i).getRv_text());
 			sb.append("</div></div></li>");
 		}
 		sb.append("</ul>");
-		sb.append("<div>");
-		sb.append("<button id='addBtn' onclick='moreList();'>더보기</button>");
-		sb.append("</div>");
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		hMap.put("rvList", sb.toString());
 		return hMap;

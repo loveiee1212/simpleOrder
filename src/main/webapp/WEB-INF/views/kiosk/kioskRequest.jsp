@@ -55,37 +55,44 @@
 	});
 </script>
 <body>
-<h2>${sessionScope.c_code}</h2>
-		<h2>${sessionScope.bd_date}</h2>
-		<h2>${sessionScope.sc_code}</h2>
-		<h2>${sessionScope.st_num}</h2>
-		<h2>${sessionScope.oac_num}</h2>
+	<h2>${sessionScope.c_code}</h2>
+	<h2>${sessionScope.bd_date}</h2>
+	<h2>${sessionScope.sc_code}</h2>
+	<h2>${sessionScope.st_num}</h2>
+	<h2>${sessionScope.oac_num}</h2>
 	<div id="frame">
 		<div id="header">광고&로고</div>
 		<div id="main">
-			<div id="requestList">
-			</div>
-			 <form action="requestcall" method="post" target="_blank">
-                <input type="text" id="text" name="text">
-                <button id="reqBtn">요청하기</button>
-            </form>
+			<div id="requestList"></div>
+			<form action="requestcall" method="post" target="_blank">
+				<input type="text" id="text" name="text" placeholder="요청사항을 입력해주세요">
+				<button id="reqBtn">요청하기</button>
+			</form>
 			<button onclick="empCall();">직원호출</button>
 			<button onclick="location.href='kioskreview'">나가기</button>
 		</div>
 	</div>
 	<script type="text/javascript">
+		$('#reqBtn').click(function () {
+			if (confirm($('#text').val() + "을(를) 요청하시겠습니까?")) {
+				$('#text').val("");
+				return true;
+			}
+			return false;
+		});
 		function reqClick(req) {
-			console.log();
-          var request=req.innerText;
-          $('#text').val(request+" 요청");
-          $('#reqBtn').trigger('click');
-          $('#text').val("");
+			var request = req.innerText;
+			$('#text').val(request + " 요청");
+				$('#reqBtn').trigger('click');
+			$('#text').val("");
 		}
-      function empCall(){
-          $('#text').val("직원호출");
-          $('#reqBtn').trigger('click');
-          $('#text').val("");
-      }
+		function empCall() {
+			$('#text').val("직원호출");
+			if (confirm(request + "직원을 호출하시겠습니까?")) {
+			$('#reqBtn').trigger('click');
+			}
+			$('#text').val("");
+		}
 	</script>
 </body>
 </html>

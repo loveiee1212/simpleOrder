@@ -18,5 +18,4 @@ public class Review {
 	private String rv_text;
 	private int rv_score;
 	private String rvImg_sysName;
-
 }

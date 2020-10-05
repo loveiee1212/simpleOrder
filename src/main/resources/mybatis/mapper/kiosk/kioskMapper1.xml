@@ -6,10 +6,13 @@
 <mapper namespace="com.team2.simpleOrder.dao.kiosk.IKioskDao1">
 	<select id="getReviewList" parameterType="String"
 		resultType="review">
+		<![CDATA[
 		SELECT BD_DATE,OAC_NUM,RV_DATE,RV_TEXT,RV_SCORE
 		FROM REVIEW
-		WHERE C_CODE=#{c_code}
+		WHERE C_CODE=#{c_code} AND (@rownum:=0)=0
 		ORDER BY RV_DATE DESC
+		LIMIT ${rvNum},5
+		]]>
 	</select>
 	<select id="getReviewImgList" parameterType="String"
 		resultType="reviewImg">
@@ -42,6 +45,7 @@
 		OH.PDC_CODE = PD.PDC_CODE AND OH.PD_CODE = PD.PD_CODE
 		GROUP BY
 		PD.PD_NAME,PD.PD_PRICE
+		ORDER BY PD.PDC_CODE ASC,PD.PD_CODE ASC
 	</select>
 	<select id="getSkcList" resultType="hashmap">
 		SELECT

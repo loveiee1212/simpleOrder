@@ -138,21 +138,7 @@ button:focus {
 }
 </style>
 </head>
-<script>
-	$.ajax({
-		url : 'rest/getreviewlist',
-		type : 'post',
-		dataType : 'json',
-		success : function(data) {
-			console.log(data);
-			$('#reviewList').html(data.rvList);
-			console.log($('.img').length);
-		},
-		error : function(err) {
-			console.log(err);
-		}
-	});
-</script>
+
 <body>
 	<h2>${sessionScope.c_code}</h2>
 	<h2>${sessionScope.bd_date}</h2>
@@ -165,6 +151,7 @@ button:focus {
 			<font>광고와 로고</font>
 		</div>
 		<div id="reviewList"></div>
+		<div id="btn"></div>
 		<div id="footer">
 			<button class="write" type="button"
 				onclick="location.href='./kioskreviewwrite'">리뷰작성</button>
@@ -172,6 +159,35 @@ button:focus {
 				onclick="location.href='./kioskmenu'">나가기</button>
 		</div>
 	</div>
+	<script type="text/javascript">
+		getReviewList();
 
+		function getReviewList() {
+			$
+					.ajax({
+						url : 'rest/getreviewlist',
+						type : 'post',
+						data : {
+							'rvNum' : $('.rv_detail').length
+						},
+						dataType : 'json',
+						success : function(data) {
+							console.log(data);
+							$('#reviewList').append(data.rvList);
+							if ($('.rv_detail').length % 5 == 0) {
+								$('#btn')
+										.html(
+												"<button id='addBtn' onclick='getReviewList();'>더보기</button>");
+							} else {
+								$('#btn').html("");
+							}
+						},
+						error : function(err) {
+							console.log(err);
+						}
+					});
+
+		}
+	</script>
 </body>
 </html>

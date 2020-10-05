@@ -212,7 +212,7 @@ textarea:focus {
 	<div id="frame">
 		<div id="header">광고&로고</div>
 		<div id="main">
-			<form action="rest/insertreview" id="frm" method="POST"
+			<form action="insertreview" id="frm" method="post"
 				enctype="multipart/form-data" onsubmit="return reviewWriteCheck()">
 				<div>
 					<div id="score">
@@ -234,7 +234,7 @@ textarea:focus {
 					<button class="btn" id="btn1" type="submit">리뷰작성</button>
 					<button class="btn" id="btn2" type="reset">취소</button>
 					<button class="btn" id="btn3" type="button"
-						onclick="location.href='kioskMenu.jsp'">나가기</button>
+						onclick="location.href='./kioskreview'">뒤로가기</button>
 				</div>
 			</form>
 		</div>
@@ -248,19 +248,6 @@ textarea:focus {
 			console.log($('#rv_score').val())
 			return false;
 		});
-		$('#rv_file').on('change', function() {
-			console.dir(this);
-			console.dir(this.value);
-			if ($(this).val() == '') {
-				console.log("empty");
-				$('#fileCheck').val(0); //첨부 안됨
-			} else {
-				console.log("not empty");
-				$('#fileCheck').val(1); //첨부됨
-			}
-			console.log("check" + $('#fileCheck').val()); //1
-		});
-
 		function reviewWriteCheck() {
 			var rv_file = $("#rv_file");
 			if(rv_file[0].files.length>4){

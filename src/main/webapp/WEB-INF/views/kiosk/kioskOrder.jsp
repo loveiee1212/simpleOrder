@@ -167,6 +167,7 @@ tr, td {
 		type : 'post',
 		dataType : 'json',
 		success : function(data) {
+			console.log(data.sellProList);
 			//판매키 카테고리 네비바 html삽입
 			$('#header_nav').html(data.sellCtList);
 			//판매키 카테고리 html삽입
@@ -194,6 +195,9 @@ tr, td {
 			$("#" + pro.eq(i).attr("id")).hide();
 		}
 		$("#" + pro.eq(0).attr("id")).show();
+		
+		$('#0').removeClass("fa-angle-up");
+		$('#0').addClass("fa-angle-down");
 	}
 </script>
 </head>
@@ -373,8 +377,18 @@ tr, td {
 			console.log("품절");
 			alert("죄송합니다 품절 상품입니다");
 		});
-
-		$('.tgBtn').on("click", function() {
+		$('.pList').on("click",function(){
+			var skc = $(this).children().attr("id");
+			$('#pro' + skc).toggle(600);
+			if ($(this).children().hasClass("fa-angle-up")) {
+				$(this).children().removeClass("fa-angle-up");
+				$(this).children().addClass("fa-angle-down");
+			} else {
+				$(this).children().removeClass("fa-angle-down");
+				$(this).children().addClass("fa-angle-up");
+			}
+		});
+		/* $('.tgBtn').on("click", function() {
 			var skc = $(this).attr("id");
 			$('#pro' + skc).toggle(600);
 			if ($(this).hasClass("fa-angle-up")) {
@@ -384,7 +398,7 @@ tr, td {
 				$(this).removeClass("fa-angle-down");
 				$(this).addClass("fa-angle-up");
 			}
-		});
+		}); */
 	}
 	//장바구니에 담기
 	function insertOrder(pdc_code, pd_code, pd_date, pd_name, pd_price) {

@@ -34,7 +34,6 @@ public class KioskEntity {
 			orderInfo.put("bd_date", bd_date);
 			orderInfo.put("oac_num", oac_num);
 			orderInfo.put("pdc_code", bArr.get(i).get("pdc_code"));
-			orderInfo.put("pdc_date", bArr.get(i).get("pdc_date"));
 			orderInfo.put("pd_code", bArr.get(i).get("pd_code"));
 			orderInfo.put("pd_date", bArr.get(i).get("pd_date"));
 			orderInfo.put("oh_cnt", bArr.get(i).get("oh_cnt"));
