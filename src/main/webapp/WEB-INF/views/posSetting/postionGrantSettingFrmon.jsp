@@ -68,8 +68,7 @@ input[type=checkbox] {
 #tadiv {
     width: 100%;
     height: 400px;
-    overflow-x: scroll;
-    overflow-y: scroll;
+    overflow: auto;
 }
 
 #tadiv::-webkit-scrollbar {

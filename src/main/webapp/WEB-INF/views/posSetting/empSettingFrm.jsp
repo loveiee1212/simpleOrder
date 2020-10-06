@@ -35,44 +35,48 @@ body {
 	font-size: 25px;
 }
 
-#empList {
-    width: 800px;
-    height: 400px;
-    border: 3px solid #81d4fa;
-    overflow-x: scroll;
-	overflow-y: scroll;
-    background-color: white;
-    text-align: center;
-    font-size: 19px;
-    margin: 20px 50px;
-    font-weight: bold;
+#empListdiv {
+	width: 900px;
+	height: 400px;
+	overflow: auto;
 }
 
-#empList::-webkit-scrollbar {
+#empList {
+	width: 800px;
+	height: 400px;
+	border: 3px solid #81d4fa;
+	background-color: white;
+	text-align: center;
+	font-size: 19px;
+	margin: 20px 50px;
+	font-weight: bold;
+}
+
+#empListdiv::-webkit-scrollbar {
 	width: 10px;
 	height: 10px;
 	background-color: #81d4fa;
 }
 
-#empList::-webkit-scrollbar-thumb {
+#empListdiv::-webkit-scrollbar-thumb {
 	background-color: #81d4fa;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
 }
 
-#empList::-webkit-scrollbar-track {
+#empListdiv::-webkit-scrollbar-track {
 	background-color: white;
 	border-radius: 10px;
 	box-shadow: inset 0px 0px 5px grey;
 }
 
 #empList th {
-    font-size: 25px;
-    background-color: #81d4fa;
-    color: white;
-    height: 60px;
-    width: 100px;
+	font-size: 25px;
+	background-color: #81d4fa;
+	color: white;
+	height: 60px;
+	width: 100px;
 }
 
 #frm table {
@@ -98,57 +102,59 @@ input[type="text" i] {
 }
 
 select {
-    width: 310px;
-    height: 40px;
-    font-size: 20px;
-    text-align: center;
-    margin: 10px 30px;
-    border: 3px solid #81d4fa;
+	width: 310px;
+	height: 40px;
+	font-size: 20px;
+	text-align: center;
+	margin: 10px 30px;
+	border: 3px solid #81d4fa;
 }
 
 #addORupdate {
-    text-align: center;
-    border: 2px solid white;
-    width: 310px;
-    height: 70px;
-    margin-left: 30px;
-    margin-top: -2px;
-    background-color: #81d4fa;
-    font-weight: bold;
-    color: white;
-    font-size: 25px;
+	text-align: center;
+	border: 2px solid white;
+	width: 310px;
+	height: 70px;
+	margin-left: 30px;
+	margin-top: -2px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 25px;
 }
 
 #delect {
 	text-align: center;
 	border: 3px solid #81d4fa;
 	width: 310px;
-    height: 70px;
+	height: 70px;
 	margin-left: 30px;
-    margin-top: -2px;
+	margin-top: -2px;
 	background-color: white;
 	font-weight: bold;
-	color: #81d4fa;
+	color: red;
 	font-size: 25px;
 }
 
 #addbtn {
-    text-align: center;
-    border: 3px solid #81d4fa;
-    width: 100px;
-    height: 50px;
-    background-color: white;
-    font-weight: bold;
-    color: #81d4fa;
-    font-size: 20px;
+	text-align: center;
+	border: 3px solid #81d4fa;
+	width: 100px;
+	height: 50px;
+	background-color: white;
+	font-weight: bold;
+	color: #81d4fa;
+	font-size: 20px;
 }
 </style>
 </head>
 <body>
 	<input type="button" onclick="fireEmpList(this)" value="퇴사자 목록"
 		id="cListOption">
-	<table id="empList">
-	</table>
+	<div id="empListdiv">
+		<table id="empList">
+		</table>
+	</div>
 	<form name="empSettingForm" action=null id="frm" method="post">
 		<input id="method" type="hidden" name="_method" value="null">
 		<table>
