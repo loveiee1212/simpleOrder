@@ -64,19 +64,22 @@ body {
 }
 
 table {
+	width: 300px;
 	border-collapse: collapse;
 }
 
 td {
-	width: 100px;
 	height: 50px;
 	font-size: 22px;
-	border-top: 2px solid #81d4fa;
 }
 
-strong {
+#b {
 	font-size: 30px;
-	margin-left: 55px;
+	margin: 20px 0 20px 55px;
+}
+
+.bill_pd_name {
+	margin-left: 20px;
 }
 
 #aside {
@@ -234,11 +237,11 @@ input:focus {
 			<font>광고와 로고</font>
 		</div>
 		<div id="bill">
-			<strong>현재 주문 내역</strong><i id="bill_close_btn" class='fa fa-close'
-				style='font-size: 36px'></i>
+			<div id="b">
+				<b>현재 주문 내역</b>
+			</div>
 			<table>
 				<tbody id="billBody">
-
 				</tbody>
 			</table>
 		</div>
