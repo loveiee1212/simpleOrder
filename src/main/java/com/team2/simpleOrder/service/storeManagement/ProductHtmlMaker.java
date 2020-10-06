@@ -16,20 +16,17 @@ public class ProductHtmlMaker {
 	public HashMap<String, String> makehtmlpList(List<StoreManagement> pList) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<tr>");
-//		sb.append("<th>" + "카테고리 코드" + "</th>");
 		sb.append("<th>" + "카테고리" + "</th>");
-//		sb.append("<th>" + "상품 코드" + "</th>");
 		sb.append("<th>" + "상품" + "</th>");
 		sb.append("<th>" + "상품가격" + "</th>");
 		sb.append("<th>" + "재고" + "</th>");
 		sb.append("<th colspan = '2'>" + "비고" + "</th>");
 		sb.append("</tr>");
+		System.out.println(pList.size());
 		for (int i = 0; i < pList.size(); i++) {
 			StoreManagement pd = pList.get(i);
 			sb.append("<tr>");
-//			sb.append("<td>" + pd.getPdc_code() + "</td>");
 			sb.append("<td>" + pd.getPdc_name() + "</td>");
-//			sb.append("<td>" + pd.getPd_code() + "</td>");
 			sb.append("<td>" + pd.getPd_name() + "</td>");
 			sb.append("<td>" + pd.getPd_price() + "</td>");
 			if (pd.getStk_stock() == null) {
@@ -141,7 +138,7 @@ public class ProductHtmlMaker {
 							String pd_name = skc_codeInfo.get("PD_NAME");
 							String pd_price = String.valueOf(skc_codeInfo.get("PD_PRICE"));
 							String skc_code = skc_codeInfo.get("skc_code");
-							sb.append("<td onmouseup = 'setProInfo(this)' data-sk_num ="+(j+1)+">");
+							sb.append("<td onmouseup = 'setProInfo(this)' data-sk_num ='"+(j+1)+"' data-skc_code ='"+skc.get("SKC_CODE")+"'>");
 							sb.append("<div>").append(pd_name).append("</div>");
 							sb.append("<div>").append(pd_price).append("원"+"</div>");
 							sb.append("<input type ='hidden' name ='pdc_code' value ='"+pdc_code+"'>");
@@ -239,7 +236,7 @@ public class ProductHtmlMaker {
 			sb.append("<td>").append(String.valueOf(record.get("OH_CHANGETIME")));
 			int stock = (Integer.parseInt(String.valueOf(record.get("OH_CNT")))*-1);
 			if(stock<0) {
-				plus = "-"+stock;
+				plus = ""+stock;
 			}else {
 				plus = "+"+stock;
 			}

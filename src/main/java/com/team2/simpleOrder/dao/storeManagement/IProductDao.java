@@ -17,7 +17,7 @@ public interface IProductDao {
 	@Select("SELECT * "
 			  + "FROM PRODUCT P "
 			  + "JOIN PRODUCT_CT PC "
-			  + "ON P.PDC_CODE = PC.PDC_CODE "
+			  + "ON P.PDC_CODE = PC.PDC_CODE AND P.C_CODE = PC.C_CODE "
 			  + "LEFT OUTER JOIN STOCK S "
 			  + "ON P.PD_CODE = S.PD_CODE AND P.PDC_CODE = S.PDC_CODE "
 			  + "WHERE P.C_CODE = #{value} AND P.PD_STATUS = '1'")
@@ -91,11 +91,13 @@ public interface IProductDao {
 			+ "FROM order_history OH " + 
 			"JOIN order_and_credit OAC ON OH.OAC_NUM = OAC.OAC_NUM "
 		  + "JOIN PRODUCT P ON OH.PDC_CODE = P.PDC_CODE AND OH.PD_CODE = P.PD_CODE AND OH.PD_DATE = P.PD_DATE " + 
-			"WHERE OAC.OAC_STATUS = '3' AND OH.C_CODE = #{c_code} AND OH.PDC_CODE = #{pdc_code} AND OH.PD_CODE = #{pd_code} ")
+			"WHERE OH.C_CODE = #{c_code} AND OH.PDC_CODE = #{pdc_code} AND OH.PD_CODE = #{pd_code} ")
 	ArrayList<HashMap<String, String>> getStockRecord(HashMap<String, String> stockInfo);
 	
 	@Insert("INSERT INTO ORDER_AND_CREDIT VALUES(#{c_code}, #{bd_date}, #{oac_num}, '00' ,'0', default, 3)  ")
-	void updateStock(HashMap<String, String> stockInfo);
+	void setNewOacCode(HashMap<String, String> stockInfo); // 재고 변경을 위한 oac_num 생성
+	@Insert("INSERT INTO ORDER_HISTORY VALUES(#{c_code},#{bd_date},#{oac_num},#{pdc_code},#{pd_code},#{pd_date},default,#{oh_cnt})")
+	void createStockPlusRecord(HashMap<String, String> stockInfo);
 	
 	/*
 	 * 

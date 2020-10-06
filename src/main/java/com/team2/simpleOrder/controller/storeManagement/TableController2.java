@@ -27,5 +27,18 @@ public class TableController2 {
 	public String updateSeatList(@RequestParam HashMap<String, String>seatlist , HttpSession session, RedirectAttributes reat) {
 		return tm.updateSeatList(seatlist,session,reat);
 	}
+	@PostMapping("/deleteSeatCT")
+	public String deleteSeatCT(@RequestParam HashMap<String, String>seatCTInfo, HttpSession session, RedirectAttributes reat) {
+		return tm.deleteSeatCT(seatCTInfo,session, reat);
+	}
+	@PostMapping("/updateSeatCT")
+	public String updateSeatCT(@RequestParam HashMap<String, String>seatCTInfo, HttpSession session, RedirectAttributes reat) {
+		return tm.updateSeatCT(seatCTInfo,session,reat);
+	}
+	@PostMapping("/createSeatCT")
+	public String createSeatCT(@RequestParam HashMap<String, String>seatCTInfo, HttpSession session, RedirectAttributes reat) {
+		return tm.createSeatCT(seatCTInfo,session,reat);
+	}
+	
 
 }

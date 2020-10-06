@@ -70,28 +70,7 @@ public class KioskLoginAndSettingMM {
 		return klhm.requestList(kDao.getRequsetList(c_code));
 	}
 
-	@Transactional
-	public String updateRequestList(HashMap<String, String> reqList, HttpSession session, RedirectAttributes reat) {
-		try{
-			HashMap<String, String>	hm = new HashMap<String, String>();
-			Set<String> rq_numset = reqList.keySet();
-			Iterator<String> rq_numlist = rq_numset.iterator();
-			kDao.deleteAllRequsetList(session.getAttribute("c_code").toString());
-			while(rq_numlist.hasNext()) {
-				String rq_num= rq_numlist.next();
-				hm.put("c_code", session.getAttribute("c_code").toString());
-				hm.put("rq_num", rq_num);
-				hm.put("rq_kind", reqList.get(rq_num));
-				kDao.insertRequset(hm);
-			}
-			reat.addFlashAttribute("basicPath","includeAjax('requestListSettingFrm')");
-			return "redirect:/kioskSettingFrm";
-		}catch (Exception e) {
-			System.err.println(e);
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			return "redirect:/kioskSettingFrm";
-		}
-	}
+	
 
 	public boolean getreveiwUsagestatus(String c_code) {
 		if(kDao.getreveiwUsagestatus(c_code)==1) {
@@ -107,6 +86,47 @@ public class KioskLoginAndSettingMM {
 		hm.put("c_reviewuse", c_reviewuse);
 		reat.addFlashAttribute("basicPath", "includeAjax('reveiwUsagestatusFrm')");
 		kDao.updatereveiwUsagestatus(hm);
+		return "redirect:/kioskSettingFrm";
+	}
+	
+	@Transactional
+	public String updateRequestList(HashMap<String, String> reqList, HttpSession session, RedirectAttributes reat) {
+//		try{
+			System.out.println(reqList);
+			HashMap<String, String>	hm = new HashMap<String, String>();
+			Set<String> rq_numset = reqList.keySet();
+			Iterator<String> rq_numlist = rq_numset.iterator();
+			kDao.deleteAllRequsetList(session.getAttribute("c_code").toString());
+			while(rq_numlist.hasNext()) {
+				String rq_num= rq_numlist.next();
+				hm.put("c_code", session.getAttribute("c_code").toString());
+				hm.put("rq_num", rq_num);
+				hm.put("rq_kind", reqList.get(rq_num));
+				System.out.println(hm);
+				kDao.insertRequset(hm);
+			}
+			reat.addFlashAttribute("basicPath","includeAjax('requestListSettingFrm')");
+			return "redirect:/kioskSettingFrm";
+//		}catch (Exception e) {
+//			System.err.println(e);
+//			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//			return "redirect:/kioskSettingFrm";
+//		}
+	}
+
+	public String addRequest(HashMap<String, String> requestInfo, HttpSession session, RedirectAttributes reat) {
+		requestInfo.put("c_code", session.getAttribute("c_code").toString());
+		kDao.insertRequset(requestInfo);
+		reat.addFlashAttribute("basicPath","includeAjax('requestListSettingFrm')");
+		return "redirect:/kioskSettingFrm";
+	}
+
+	public String removeRequest(HashMap<String, String> requestInfo, HttpSession session, RedirectAttributes reat) {
+		requestInfo.put("c_code", session.getAttribute("c_code").toString());
+		requestInfo.put("rq_num", (Integer.parseInt(requestInfo.get("rq_num"))-1)+"");
+		System.out.println(requestInfo);
+		kDao.removeRequest(requestInfo);
+		reat.addFlashAttribute("basicPath","includeAjax('requestListSettingFrm')");
 		return "redirect:/kioskSettingFrm";
 	}
 

@@ -53,6 +53,15 @@ public class TableHtmlMaker {
 			sb.append("</div>");
 		}
 		hm.put("seatList", sb.toString());
+		
+		sb = new StringBuilder();
+		for (HashMap<String, Object> categori : seatCategoriList) {
+			sb.append("<option value = '"+categori.get("SC_CODE")+"'>").append(categori.get("SC_NAME")).append("</option>");
+		}
+		hm.put("seatCTselect", sb.toString());
+		
+		
+		
 		return hm;
 	}
 }

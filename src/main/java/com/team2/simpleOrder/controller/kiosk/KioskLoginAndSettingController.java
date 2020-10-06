@@ -29,13 +29,21 @@ public class KioskLoginAndSettingController {
 	public String accessSecurityCode(@RequestParam HashMap<String, String> securityCode, HttpSession session, RedirectAttributes reat ) {
 		return km.accessSecurityCode(securityCode, session, reat);
 	}
-	@PostMapping("/updateRequestList")
-	public String updateRequestList(@RequestParam HashMap<String, String>reqList, HttpSession session, RedirectAttributes reat) {
-		return km.updateRequestList(reqList,session, reat);
-	}
+	
 	@PostMapping("/updatereveiwUsagestatus")
 	public String updatereveiwUsagestatus(String c_reviewuse,HttpSession session, RedirectAttributes reat) {
 		return km.updatereveiwUsagestatus(session.getAttribute("c_code").toString(),c_reviewuse, reat);
-		
+	}
+	@PostMapping("/addRequest")
+	public String addRequest(@RequestParam HashMap<String, String> requestInfo, HttpSession session, RedirectAttributes reat) {
+		return km.addRequest(requestInfo,session,reat);
+	}
+	@PostMapping("/removeRequest")
+	public String removeRequest(@RequestParam HashMap<String, String> requestInfo, HttpSession session, RedirectAttributes reat) {
+		return km.removeRequest(requestInfo,session,reat);
+	}
+	@PostMapping("/updateRequest")
+	public String updateRequest(@RequestParam HashMap<String, String> requestInfo, HttpSession session, RedirectAttributes reat) {
+		return km.updateRequestList(requestInfo,session,reat);
 	}
 }

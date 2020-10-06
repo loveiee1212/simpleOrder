@@ -22,6 +22,7 @@ public interface KioskLoginAndSettingDao {
 
 	@Insert("INSERT INTO REQUEST VALUES (#{c_code}, #{rq_num}, #{rq_kind})")
 	boolean insertRequset(HashMap<String, String> hm);
+	
 	@Select("SELECT OAC_NUM FROM ORDER_AND_CREDIT WHERE C_CODE=#{c_code} AND BD_DATE=#{bd_date} AND SC_CODE=#{sc_code} AND ST_NUM=#{st_num} AND OAC_STATUS='1'")
 	String checkOac_num(@Param("c_code") String c_code,@Param("bd_date") String bd_date,@Param("sc_code") String sc_code,@Param("st_num") String st_num);
 
@@ -30,5 +31,9 @@ public interface KioskLoginAndSettingDao {
 
 	@Update("UPDATE COMPANY SET C_REVIEWUSE = #{c_reviewuse} WHERE C_CODE = #{c_code}")
 	void updatereveiwUsagestatus(HashMap<String, String> hm);
+	
+	@Delete("DELETE FROM REQUEST WHERE C_CODE = #{c_code} AND RQ_NUM = #{rq_num} ")
+	void removeRequest(HashMap<String, String> requestInfo);
+	
 
 }

@@ -134,6 +134,7 @@ div#two td {
 	}
 	function deleteSellKey(ele){
 		ele = ele.parentNode;
+		console.log(ele);
 		ele.innerHTML = "";
 		$(ele).append($("<div>"+ele.dataset.sk_num+"</div>"));
 	}

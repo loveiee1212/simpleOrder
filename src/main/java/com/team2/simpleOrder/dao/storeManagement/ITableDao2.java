@@ -25,4 +25,15 @@ public interface ITableDao2 {
 	@Insert("INSERT INTO SEAT VALUES (#{c_code}, #{sc_code}, #{st_num})")
 	boolean insertSeatList(HashMap<String, String> hm);
 
+	@Delete("DELETE FROM SEAT_CT WHERE C_CODE = #{c_code} AND SC_CODE =#{sc_code}")
+	void deleteSeatCT(HashMap<String, String> seatCTInfo);
+	
+	@Update("UPDATE SEAT_CT SET SC_NAME = #{sc_name} WHERE C_CODE = #{c_code} AND SC_CODE = #{sc_code}")
+	void updateSeatCT(HashMap<String, String> seatCTInfo);
+	
+	@Select("SELECT MAX(SC_CODE)+1 FROM SEAT_CT WHERE C_CODE = #{c_code}")
+	int getNewSc_code(HashMap<String, String> seatCTInfo);
+	
+	@Insert("INSERT INTO SEAT_CT VALUES (#{c_code}, #{sc_code}, #{sc_name}, '4', '3')")
+	void createSeatCT(HashMap<String, String> seatCTInfo);
 }

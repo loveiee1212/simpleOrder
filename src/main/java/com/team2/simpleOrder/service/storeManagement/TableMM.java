@@ -44,7 +44,6 @@ public class TableMM {
 
 	@Transactional
 	public String updateSeatList(HashMap<String, String> seatlist, HttpSession session, RedirectAttributes reat) {
-		System.out.println(seatlist);
 		tDao.deleteSeatList(session.getAttribute("c_code").toString()); // 모든 테이블 데이터를 삭제
 			Iterator<String> seatListInfo = seatlist.keySet().iterator();
 			HashMap<String, String> hm = new HashMap<String, String>();
@@ -56,8 +55,37 @@ public class TableMM {
 				if(!tDao.insertSeatList(hm)){
 					//TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				};
-			
 		}
+			reat.addFlashAttribute("basicPath","includeAjax('seatSettinFrm')");
+			return "redirect:/posSetting";
+	}
+
+	public String deleteSeatCT(HashMap<String, String> seatCTInfo, HttpSession session, RedirectAttributes reat) {
+		seatCTInfo.put("c_code", session.getAttribute("c_code").toString());
+		tDao.deleteSeatCT(seatCTInfo);
+		reat.addFlashAttribute("basicPath","includeAjax('seatSettinFrm')");
+		return "redirect:/posSetting";
+	}
+
+	public String updateSeatCT(HashMap<String, String> seatCTInfo, HttpSession session, RedirectAttributes reat) {
+		seatCTInfo.put("c_code", session.getAttribute("c_code").toString());
+		tDao.updateSeatCT(seatCTInfo);
+		reat.addFlashAttribute("basicPath","includeAjax('seatSettinFrm')");
+		return "redirect:/posSetting";
+	}
+
+	public String createSeatCT(HashMap<String, String> seatCTInfo, HttpSession session, RedirectAttributes reat) {
+		String sc_code;
+		seatCTInfo.put("c_code", session.getAttribute("c_code").toString());
+		int num = tDao.getNewSc_code(seatCTInfo);
+		if(num < 10) {
+			sc_code = "0"+num;
+		}else {
+			sc_code = num+"";
+		}
+		seatCTInfo.put("sc_code", sc_code);
+		System.out.println(seatCTInfo);
+		tDao.createSeatCT(seatCTInfo);
 		reat.addFlashAttribute("basicPath","includeAjax('seatSettinFrm')");
 		return "redirect:/posSetting";
 	}
