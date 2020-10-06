@@ -61,4 +61,8 @@ public interface IKioskDao1 {
 	String getOac_time(@Param("c_code") String c_code, @Param("bd_date") String bd_date,
 			@Param("oac_num") String oac_num);
 
+	@Select("SELECT OAC_STATUS FROM ORDER_AND_CREDIT WHERE C_CODE=#{c_code} AND BD_DATE=#{bd_date} AND OAC_NUM=#{oac_num}")
+	int getOac_status(@Param("c_code") String c_code, @Param("bd_date") String bd_date,
+			@Param("oac_num") String oac_num);
+
 }

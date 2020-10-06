@@ -58,13 +58,11 @@ table, tr, td, th {
 #seatList {
     width: 900px;
     height: 400px;
-    overflow-x: scroll;
-    overflow-y: scroll;
+    overflow: auto;
 }
 
 #seatList table {
-    width: 100%;
-    height: 100%;
+    width: 850px;
     margin-top: 5px;
 }
 
@@ -74,6 +72,7 @@ table, tr, td, th {
     background-color: #81d4fa;
     font-size: 20px;
     text-align: center;
+    font-weight: bold;
 }
 
 #x, #y {

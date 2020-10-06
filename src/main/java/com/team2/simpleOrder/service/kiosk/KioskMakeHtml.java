@@ -32,12 +32,6 @@ public class KioskMakeHtml {
 			for (int j = 0; j < sellProList.size(); j++) {
 				// 판매키에 올라가 있는 상품리스트
 				// skc_code가 같다면 추가
-//				System.out.println(sellProList.get(j).getPd_imgName());
-//				System.out.println(sellProList.get(j).getPdc_code());
-//				System.out.println(sellProList.get(j).getPd_code());
-//				System.out.println(sellProList.get(j).getPd_date());
-//				System.out.println(sellProList.get(j).getPd_name());
-//				System.out.println(sellProList.get(j).getPd_price());
 				iskc_code = skcList.get(i).get("SKC_CODE").toString();
 				jskc_code = sellProList.get(j).getSkc_code().toString();
 				if (iskc_code.equals(jskc_code)) {
@@ -80,10 +74,9 @@ public class KioskMakeHtml {
 			List<HashMap<String, Object>> orderList) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < rList.size(); i++) {
-			sb.append("<li>");
 			sb.append("<div class='rv_detail'>");
 			sb.append("<div class='rv_code'><span class='rv_code_name'>");
-			sb.append(rList.get(i).getBd_date().substring(0, 11) + " " + rList.get(i).getOac_num() + "번 손님");
+			sb.append(rList.get(i).getBd_date().substring(0, 11) + " " + Integer.parseInt(rList.get(i).getOac_num()) + "번 손님");
 			sb.append("</span><span class='rv_code_time'>");
 			sb.append(rList.get(i).getRv_date());
 			sb.append("</span></div>");
@@ -103,26 +96,31 @@ public class KioskMakeHtml {
 			}
 			sb.append("</div>");
 
-			
-			
-//			String rv = rList.get(i).getBd_date() + rList.get(i).getOac_num();
-//			for (int j = 0; j < rImgList.size(); j++) {
-//				String rvImg = rImgList.get(j).getBd_date() + rImgList.get(j).getOac_num();
-//				if (rv.equals(rvImg)) {
-//					sb.append("<div class='rv_img'>");
-//					sb.append("<img class='img' src='resources/reviewImg/" + rImgList.get(j).getRvImg_sysName()
-//							+ "' alt='" + rImgList.get(j).getRvImg_sysName() + "'></div>");
-//				}
-//			}
-
-			
-			
-			
+			String rv = rList.get(i).getBd_date()+".0" + rList.get(i).getOac_num();
+			String rvImg;
+			String oh;
+			sb.append("<div class='rv_img'>");
+			for (int j = 0; j < rImgList.size(); j++) {
+				rvImg = rImgList.get(j).get("BD_DATE").toString() + rImgList.get(j).get("OAC_NUM").toString();
+				if (rv.equals(rvImg)) {
+					sb.append("<img class='img' src='resources/reviewImg/"
+							+ rImgList.get(j).get("RVIMG_SYSNAME").toString() + "' alt='"
+							+ rImgList.get(j).get("RVIMG_SYSNAME").toString() + "'>");
+				}
+			}
+			sb.append("</div>");
+			for (int z = 0; z < orderList.size(); z++) {
+				oh = orderList.get(z).get("BD_DATE").toString() + orderList.get(z).get("OAC_NUM").toString();
+				if (rv.equals(oh)) {
+					sb.append("<div><ui>");
+					sb.append("<li>" + orderList.get(z).get("PD_NAME").toString() + "</li>");
+					sb.append("</ui></div>");
+				}
+			}
 			sb.append("<div class='rv_text'>");
 			sb.append(rList.get(i).getRv_text());
-			sb.append("</div></div></li>");
+			sb.append("</div></div>");
 		}
-		sb.append("</ul>");
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		hMap.put("rvList", sb.toString());
 		return hMap;
