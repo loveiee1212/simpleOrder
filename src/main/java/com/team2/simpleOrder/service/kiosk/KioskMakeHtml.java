@@ -25,7 +25,7 @@ public class KioskMakeHtml {
 		// 상품 리스트
 		StringBuilder sb2 = new StringBuilder();
 		for (int i = 0; i < skcList.size(); i++) {
-			sb2.append("<div class='pList'>" + skcList.get(i).get("SKC_NAME"));
+			sb2.append("<div class='pList' id='skc"+skcList.get(i).get("SKC_CODE")+"'>" + skcList.get(i).get("SKC_NAME"));
 			sb2.append("<i class='fas fa-angle-up tgBtn' id='" + skcList.get(i).get("SKC_CODE")
 					+ "' style='font-size:36px'></i></div>");
 			sb2.append("<div id='pro" + skcList.get(i).get("SKC_CODE") + "' class='pro'>");

@@ -10,12 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dao.kiosk.IKioskDao1;
-import com.team2.simpleOrder.dao.kiosk.KioskLoginAndSettingDao;
 import com.team2.simpleOrder.dao.order.IDetailOrderDao;
-
 import com.team2.simpleOrder.dto.Bill;
 import com.team2.simpleOrder.dto.Review;
 import com.team2.simpleOrder.dto.SellProduct;
@@ -62,10 +59,6 @@ public class KioskMM1 {
 	// 계산서리스트 가져오는 메소드
 	public HashMap<String, String> getBillList(HttpSession session) {
 		// 계산서리스트 가져오기
-//		String c_code="123123123123";
-//		String bd_date="2020-09-29 11:27:00";
-//		String oac_num="0001";
-//		List<Bill> bill = kDao1.getBillList(c_code,oac_num,bd_date);
 		List<Bill> bill = kDao1.getBillList(session.getAttribute("c_code").toString(),
 				session.getAttribute("oac_num").toString(), session.getAttribute("bd_date").toString());
 		return new KioskMakeHtml().billListHtml(bill);
@@ -127,17 +120,33 @@ public class KioskMM1 {
 	}
 
 	public HashMap<String, String> kioskMainReady(HttpSession session) {
-		List<Bill> bill = kDao1.getBillList(session.getAttribute("c_code").toString(),
-				session.getAttribute("oac_num").toString(), session.getAttribute("bd_date").toString());
-		HashMap<String, String> mainInfo = new KioskMakeHtml().billListHtml(bill);
+		HashMap<String, String> mainInfo = new HashMap<String, String>();
+		System.out.println(session.getAttribute("oac_num") == null);
+
+		if (session.getAttribute("oac_num") == null) {// 만약 주문번호가 없다면 메시지 저장
+			mainInfo.put("bill",
+					"<br><br><br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+					+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주문내역이 없습니다");
+			mainInfo.put("oac_time","null");
+		} else {// 있다면 주문내역 전송
+			//주문내역
+			List<Bill> bill = kDao1.getBillList(session.getAttribute("c_code").toString(),
+					session.getAttribute("oac_num").toString(), session.getAttribute("bd_date").toString());
+			mainInfo.put("bill", new KioskMakeHtml().billListHtml(bill).get("bill"));
+			// 주문 시작 시간
+			String oac_time = kDao1.getOac_time(session.getAttribute("c_code").toString(),
+					session.getAttribute("bd_date").toString(), session.getAttribute("oac_num").toString());
+			mainInfo.put("oac_time", oac_time);
+		}
+		
+		// 사업자 리뷰사용 여부
 		String rvUseCode = kDao1.getReviewUse(session.getAttribute("c_code").toString());
 		mainInfo.put("rvUseCode", rvUseCode);
+		// 테이블 카테고리 명
 		String sc_name = kDao1.getSc_name(session.getAttribute("c_code").toString(),
 				session.getAttribute("sc_code").toString());
 		mainInfo.put("sc_name", sc_name);
-		String oac_time = kDao1.getOac_time(session.getAttribute("c_code").toString(),
-				session.getAttribute("bd_date").toString(), session.getAttribute("oac_num").toString());
-		mainInfo.put("oac_time", oac_time);
+
 		return mainInfo;
 	}
 

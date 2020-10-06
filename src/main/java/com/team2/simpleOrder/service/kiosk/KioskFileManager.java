@@ -14,17 +14,14 @@ import com.team2.simpleOrder.dto.Review;
 public class KioskFileManager {
 	public void fileUp(Review rv, ArrayList<MultipartFile> rv_file, HttpSession session) {
 		try {
-			String root = session.getServletContext().getRealPath("/");
-			String path = "resources/reviewImg/";
-			System.out.println(root + path);
-			File dir = new File(root+path);
+			String root = session.getServletContext().getRealPath("/resources/reviewImg/"+session.getAttribute("c_code").toString()+"/");
+			File dir = new File(root);
 			if(!dir.isDirectory()) {
 				dir.mkdir();
 			}
 			for (int i = 0; i < rv_file.size(); i++) {
 				String fileName = makeSysName(rv, i, rv_file.get(i).getOriginalFilename());
-					
-				rv_file.get(i).transferTo(new File(root + path + fileName));
+				rv_file.get(i).transferTo(new File(root + fileName));
 			}
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();

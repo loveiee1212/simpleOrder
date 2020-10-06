@@ -21,23 +21,30 @@ public class KioskMM2 {
 
 	@Transactional
 	public ModelAndView insertReview(ArrayList<MultipartFile> rv_file, Review rv, HttpSession session) {
-		rv.setC_code(session.getAttribute("c_code").toString()).setBd_date(session.getAttribute("bd_date").toString())
-				.setOac_num(session.getAttribute("oac_num").toString());
-		ModelAndView mav = new ModelAndView();
-		if (kDao1.insertReview(rv)) { // 등록이 됐다면
-			if (rv_file.size() != 0) {
-				KioskFileManager kfm = new KioskFileManager();
-				kfm.fileUp(rv, rv_file, session);
-				for (int i = 0; i < rv_file.size(); i++) {
-					rv.setRvImg_sysName(kfm.makeSysName(rv, i, rv_file.get(i).getOriginalFilename()));
-					kDao1.insertRvImg(rv);
+		try {
+
+			mav = new ModelAndView();
+			rv.setC_code(session.getAttribute("c_code").toString())
+					.setBd_date(session.getAttribute("bd_date").toString())
+					.setOac_num(session.getAttribute("oac_num").toString());
+			if (kDao1.insertReview(rv)) { // 등록이 됐다면
+				if (rv_file.size() != 0) {
+					KioskFileManager kfm = new KioskFileManager();
+					kfm.fileUp(rv, rv_file, session);
+					for (int i = 0; i < rv_file.size(); i++) {
+						rv.setRvImg_sysName(kfm.makeSysName(rv, i, rv_file.get(i).getOriginalFilename()));
+						kDao1.insertRvImg(rv);
+					}
+					mav.addObject("resultMsg", "리뷰등록에 성공하였습니다");
+				} else {
+					mav.addObject("resultMsg", "리뷰등록에 실패하였습니다");
 				}
-			} else {
-				mav.addObject("resultMsg", "리뷰등록에 실패하였습니다");
 			}
-			mav.addObject("resultMsg", "리뷰등록에 성공하였습니다");
-		} else {
-			mav.addObject("resultMsg", "리뷰등록에 실패하였습니다");
+		} catch (Exception e) {
+			System.out.println(e);
+			mav.addObject("resultMsg", "리뷰등록은 한개만 가능합니다");
+			mav.setViewName("kiosk/kioskMenu");
+			return mav;
 		}
 		mav.setViewName("kiosk/kioskMenu");
 		return mav;

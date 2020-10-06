@@ -168,57 +168,6 @@ input:focus {
 	outline: none;
 }
 </style>
-<script type="text/javascript">
-	$.ajax({
-		url : 'rest/kioskmainready',
-		type : 'post',
-		dataType : 'json',
-		success : function(data) {
-			//계산서 html 삽입
-			$('#billBody').html(data.bill);
-			billSum();
-			billPriceUpdate();
-			//리뷰 사용여부 확인
-			if (data.rvUseCode == '-1') {
-				$('#rvBtn').attr("onclick", "");
-				$('#rvBtn').remove();
-			}
-			//테이블 카테고리 적어주기
-			$('#seat').html(
-					data.sc_name + "<br>" + "${sessionScope.st_num}번 테이블");
-			clockOn(data.oac_time);
-		},
-		error : function(err) {
-			console.log(err);
-			$('#billBody').html("주문내역이 없습니다");
-		}
-	});
-	//계산서 안에 있는 상품 가격이랑 개수 합치기
-	function billSum() {
-		var bill_pd_price = $('.bill_pd_price');
-		var bill_oh_cnt = $('.bill_oh_cnt');
-		var sum = 0;
-		for (var i = 0; i < bill_pd_price.length; i++) {
-			var price = Number(bill_pd_price[i].innerText);
-			var cnt = Number(bill_oh_cnt[i].innerText);
-
-			sum += (price * cnt);
-		}
-		sum = sum.toLocaleString('en');
-		$('#billSum').append(sum + "원");
-	}
-	function billPriceUpdate() {
-		var pd_price = $('.bill_pd_price');
-		var oh_cnt = $('.bill_oh_cnt');
-		for (var i = 0; i < pd_price.length; i++) {
-			var price = pd_price[i].innerText;
-			var cnt = oh_cnt[i].innerText;
-			price = Number(price).toLocaleString('en');
-			pd_price[i].innerText = price + "원";
-			oh_cnt[i].innerText = cnt + "개";
-		}
-	}
-</script>
 </head>
 <body>
 	<h2>kioskMenu.jsp</h2>
@@ -229,7 +178,7 @@ input:focus {
 	<h2>${sessionScope.oac_num}</h2>
 	<div id="frame">
 		<div id="header">
-			<font>광고와 로고</font>
+			<font>광고와 로고</font> ${resultMsg}
 		</div>
 		<div id="bill">
 			<div id="b">
@@ -241,7 +190,10 @@ input:focus {
 			</table>
 		</div>
 		<div id="aside">
-			<div id="seat"></div>
+			<div id="seat">
+				<p>테이블 번호</p>
+			</div>
+
 			<div id="billSum">
 				<p>합계</p>
 			</div>
@@ -261,7 +213,59 @@ input:focus {
 			onclick="location.href='kioskreview'">
 	</div>
 	<script type="text/javascript">
-		
+		$.ajax({
+			url : 'rest/kioskmainready',
+			type : 'post',
+			dataType : 'json',
+			success : function(data) {
+				//계산서 html 삽입
+				$('#billBody').html(data.bill);
+				billSum();
+				billPriceUpdate();
+				//리뷰 사용여부 확인
+				if (data.rvUseCode == '-1') {
+					$('#rvBtn').attr("onclick", "");
+					$('#rvBtn').remove();
+				}
+				//테이블 카테고리 적어주기
+				$('#seat').append(data.sc_name+" ");
+				$('#seat').append("${sessionScope.st_num}"+"번 테이블");
+				if(data.oac_time=="null"){
+					$("#min").html("주문을 추가해주세요");
+				}else{
+				clockOn(data.oac_time);
+				}
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
+		//계산서 안에 있는 상품 가격이랑 개수 합치기
+		function billSum() {
+			var bill_pd_price = $('.bill_pd_price');
+			var bill_oh_cnt = $('.bill_oh_cnt');
+			var sum = 0;
+			for (var i = 0; i < bill_pd_price.length; i++) {
+				var price = Number(bill_pd_price[i].innerText);
+				var cnt = Number(bill_oh_cnt[i].innerText);
+
+				sum += (price * cnt);
+			}
+			sum = sum.toLocaleString('en');
+			$('#billSum').append(sum + "원");
+		}
+		function billPriceUpdate() {
+			var pd_price = $('.bill_pd_price');
+			var oh_cnt = $('.bill_oh_cnt');
+			for (var i = 0; i < pd_price.length; i++) {
+				var price = pd_price[i].innerText;
+				var cnt = oh_cnt[i].innerText;
+				price = Number(price).toLocaleString('en');
+				pd_price[i].innerText = price + "원";
+				oh_cnt[i].innerText = cnt + "개";
+			}
+		}
+
 		/* 동적 시계 */
 		function clockOn(oac_time) {
 			var newDate = new Date();
@@ -281,17 +285,18 @@ input:focus {
 						var sum = (now_hours + now_minutes + now_seconds)
 								- (oac_hours + oac_minutes + oac_seconds);
 						$("#hour").html(parseInt(sum / 3600) + "시간  ");
-						$("#min").html(parseInt((sum % 3600) / 60) + "분  ")
+						$("#min").html(parseInt((sum % 3600) / 60) + "분  ");
 						$("#sec").html(sum % 60 + "초");
-						
+
 						$.ajax({
-							url: 'rest/getoacstatus',
-							type:'post',
-							dataType: 'json',
-							success: function (data) {
+							url : 'rest/getoacstatus',
+							type : 'post',
+							dataType : 'json',
+							success : function(data) {
 								console.log(data.view);
-								location.href=data.view;
-							},error: function (err) {
+								location.href = data.view;
+							},
+							error : function(err) {
 								console.log(err);
 							}
 						});
