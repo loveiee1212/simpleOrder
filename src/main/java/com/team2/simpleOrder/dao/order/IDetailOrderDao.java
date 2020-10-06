@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.team2.simpleOrder.dto.Order;
 
-public interface IOrderDao2 {
+public interface IDetailOrderDao {
 
 	List<Order> getsaoList(Order odr);
 

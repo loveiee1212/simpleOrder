@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dto.Order;
-import com.team2.simpleOrder.service.order.OrderMM1;
-import com.team2.simpleOrder.service.order.OrderMM2;
+import com.team2.simpleOrder.service.order.OrderMM;
+import com.team2.simpleOrder.service.order.DetailOrderMM;
 import com.team2.simpleOrder.service.order.OrderMM3;
 
 import lombok.extern.log4j.Log4j;
@@ -21,11 +21,11 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RestController
 @RequestMapping("/rest")
-public class OrderRestController1 {
+public class OrderRestController {
 	// Only Order Rest Controller Number1
 
 	@Autowired
-	OrderMM1 om;
+	OrderMM om;
 
 	// 테이블정보가져오기
 	@RequestMapping(value = "/gettablelist", method = RequestMethod.POST)

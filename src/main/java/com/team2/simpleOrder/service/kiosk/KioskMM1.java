@@ -14,7 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dao.kiosk.IKioskDao1;
 import com.team2.simpleOrder.dao.kiosk.KioskLoginAndSettingDao;
-import com.team2.simpleOrder.dao.order.IOrderDao2;
+import com.team2.simpleOrder.dao.order.IDetailOrderDao;
+
 import com.team2.simpleOrder.dto.Bill;
 import com.team2.simpleOrder.dto.Review;
 import com.team2.simpleOrder.dto.SellProduct;
@@ -24,7 +25,7 @@ public class KioskMM1 {
 	@Autowired
 	private IKioskDao1 kDao1;
 	@Autowired
-	private IOrderDao2 oDao2;
+	private IDetailOrderDao oDao2;
 
 	// 판매 카테고리 리스트 및 판매키에 올라가 있는 상품 리스트 가져오는 메소드
 	public HashMap<String, Object> getSellProductList(HttpSession session) {

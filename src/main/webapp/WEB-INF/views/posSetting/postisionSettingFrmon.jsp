@@ -34,32 +34,36 @@ h2 {
 	padding: 40px;
 }
 
+#Listdiv {
+	width: 900px;
+	height: 400px;
+	overflow: auto;
+}
+
 #postionList {
 	width: 800px;
 	height: 400px;
 	text-align: center;
 	font-size: 25px;
 	margin-left: 50px;
-	overflow-x: scroll;
-	overflow-y: scroll;
 	border-collapse: collapse;
 	background-color: white;
 }
 
-#postionList::-webkit-scrollbar {
+#Listdiv::-webkit-scrollbar {
 	width: 10px;
 	height: 10px;
 	background-color: #81d4fa;
 }
 
-#postionList::-webkit-scrollbar-thumb {
+#Listdiv::-webkit-scrollbar-thumb {
 	background-color: #81d4fa;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
 }
 
-#postionList::-webkit-scrollbar-track {
+#Listdiv::-webkit-scrollbar-track {
 	background-color: white;
 	border-radius: 10px;
 	box-shadow: inset 0px 0px 5px grey;
@@ -118,13 +122,15 @@ h2 {
 </head>
 <body>
 	<h2>직급 설정</h2>
-	<table id="postionList">
-		<tr>
-			<th>직급명</th>
-			<th>삭제</th>
-			<th>수정</th>
-		</tr>
-	</table>
+	<div id="Listdiv">
+		<table id="postionList">
+			<tr>
+				<th>직급명</th>
+				<th>삭제</th>
+				<th>수정</th>
+			</tr>
+		</table>
+	</div>
 	<form action="" name="updateordelete" method="post">
 		<input id="pst_position" name="pst_position" hidden="hidden">
 		<input id="pst_name" name="pst_name" hidden="hidden">

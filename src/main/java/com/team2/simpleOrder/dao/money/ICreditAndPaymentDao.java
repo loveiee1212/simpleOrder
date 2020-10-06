@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Update;
 
-public interface ICreditDao {
+public interface ICreditAndPaymentDao {
 	// 외상 리스트 조회
 	List<HashMap<String, Object>> getcreditList(HashMap<String, Object> selectMap);
 

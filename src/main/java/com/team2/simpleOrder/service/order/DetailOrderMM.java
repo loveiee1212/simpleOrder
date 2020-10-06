@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team2.simpleOrder.dao.order.IOrderDao1;
-import com.team2.simpleOrder.dao.order.IOrderDao2;
+import com.team2.simpleOrder.dao.order.IOrderDao;
+import com.team2.simpleOrder.dao.order.IDetailOrderDao;
 import com.team2.simpleOrder.dao.order.IOrderDao3;
 import com.team2.simpleOrder.dao.storeManagement.IProductDao;
 import com.team2.simpleOrder.dto.Order;
@@ -24,10 +24,10 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
-public class OrderMM2 {
+public class DetailOrderMM {
 
 	@Autowired
-	private IOrderDao2 oDao;
+	private IDetailOrderDao oDao;
 
 	@Autowired
 	private IProductDao pDao;

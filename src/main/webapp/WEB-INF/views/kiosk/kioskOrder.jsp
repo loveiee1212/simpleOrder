@@ -10,8 +10,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" href="resources/image/smallLogo.png"
+	type="image/x-icon">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
 <style>
 #frame {
 	width: 568px;
@@ -24,7 +25,17 @@ ul {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: #333;
+	background-color: #81d4fa;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 li {
@@ -35,8 +46,10 @@ li a {
 	display: block;
 	color: white;
 	text-align: center;
-	padding: 30px 43px;
+	padding: 30px 35px;
 	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 #footer_nav {
@@ -50,30 +63,65 @@ li a {
 #basket {
 	display: none;
 	width: 460px;
-	height: 600px;
-	overflow: auto;
+	height: 100%;
 	margin: auto;
 	padding: 20px 60px;
 	background-color: #fefefe;
 	border: 1px solid #888;
 	border-radius: 3px;
+}
+
+#baskettable, #billtable {
+	width: 510px;
+	height: 600px;
+	overflow: auto;
+	margin-left: -20px;
+}
+
+#baskettable::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: white;
+}
+
+#baskettable::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: #81d4fa;
+}
+
+#baskettable::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
+}
+
+#billtable::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: white;
+}
+
+#billtable::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: #81d4fa;
+}
+
+#billtable::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
 }
 
 #bill {
 	display: none;
 	width: 460px;
-	height: 600px;
+	height: 100%;
 	overflow: auto;
 	margin: auto;
 	padding: 20px 60px;
 	background-color: #fefefe;
 	border: 1px solid #888;
 	border-radius: 3px;
-}
-
-strong {
-	font-size: 30px;
-	margin-left: 170px;
 }
 
 i {
@@ -91,14 +139,15 @@ i {
 	display
 	:
 	none
-	!important;
+   !important; 
 	/* 윈도우 크롬 등 */
 }
 
 }
 #header_nav img {
-	width: 80px;
-	margin: 0 20px;
+	width: 140px;
+	margin-top: 5px;
+	margin-right: 30px;
 }
 
 .detail_body, .soldOut {
@@ -106,7 +155,7 @@ i {
 	height: 300px;
 	border: solid rgb(133, 133, 133) 1px;
 	border-radius: 5px;
-	margin: 15px 20px;
+	margin: 15px 20px 30px;
 	float: left;
 }
 
@@ -119,6 +168,7 @@ i {
 .pd_name {
 	font-size: 20px;
 	font-weight: bolder;
+	width: 200px;
 }
 
 .pList_detail {
@@ -137,10 +187,6 @@ i {
 	border-radius: 5px;
 }
 
-.pList {
-	clear: both;
-}
-
 .pdc_code, .pd_code, .pd_date, .bsk_pdc_code, .bsk_pd_code, .bsk_pd_date
 	{
 	display: none;
@@ -150,14 +196,148 @@ i {
 	color: red;
 }
 
-tr, td {
-	border: 1px solid black;
+#orderbtn {
+	margin-left: 15px;
+}
+
+#pro01, #pro02 {
+	height: 50px;
+	font-size: 25px;
+	margin-left: 20px;
+	padding-top: 10px;
+}
+
+#skc01, #skc02 {
+	height: 60px;
+	background-color: #e3f2fd;
+}
+
+p {
+	font-size: 35px;
+	text-align: center;
+}
+
+table {
+	width: 500px;
+}
+
+td {
+	height: 80px;
+	font-size: 20px;
+	border-bottom: 2px solid #81d4fa;
+}
+
+.bsk_pd_price {
+	width: 90px;
+}
+
+.bsk_oh_cnt {
+	width: 50px;
+	text-align: center;
+}
+
+.bsk_pd_cnt {
+	width: 50px;
+}
+
+#delete {
+	width: 80px;
+	height: 50px;
+	font-size: 20px;
+	border: 3px solid #81d4fa;
+	color: red;
+	background-color: white;
+}
+
+#cntUp, #cntDown {
+	border: 3px solid #81d4fa;
+	background-color: white;
+	width: 50px;
+	height: 50px;
+	margin-left: 20px;
+	font-size: 20px;
+}
+
+#cntUp, #cntDown:focus {
+	outline: none;
+}
+
+#bskText {
+	margin-top: -300px;
+	text-align: center;
+}
+
+#bskSum, #billSum {
+	float: right;
+	margin-right: 20px;
 }
 
 .pList {
 	height: 80px;
-	border: 1px solid black;
+	color: #1565c0;
+	background-color: #e3f2fd;
 	margin: 5px 0 10px 0;
+	clear: both;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#order {
+	border: 2px solid white;
+	width: 580px;
+	height: 80px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+#basket_close_btn, #bill_close_btn {
+	border: 2px solid white;
+	width: 580px;
+	height: 80px;
+	background-color: #e3f2fd;
+	font-weight: bold;
+	color: #1565c0;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+#bskFooter, #billFooter {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 568px;
+	margin: auto;
+	height: auto;
+}
+
+#hline {
+	width: 568px;
+	height: 1px;
+	background-color: #81d4fa;
+	margin-bottom: 30px;
+}
+
+b {
+	font-size: 20px;
+}
+
+#hline_p {
+	font-size: 15px;
+	text-align: center;
+	flex-wrap: wrap;
+	align-content: center;
+}
+
+#innerdiv {
+	clear: left;
+	margin-bottom: 100px;
+}
+
+input:focus, button:focus {
+	outline: none;
 }
 </style>
 <script type="text/javascript">
@@ -195,7 +375,7 @@ tr, td {
 			$("#" + pro.eq(i).attr("id")).hide();
 		}
 		$("#" + pro.eq(0).attr("id")).show();
-		
+
 		$('#0').removeClass("fa-angle-up");
 		$('#0').addClass("fa-angle-down");
 	}
@@ -203,49 +383,72 @@ tr, td {
 </head>
 <!-- <h2>kioskOrder.jsp</h2> -->
 <body>
-	<h2>${sessionScope.c_code}</h2>
+	<%-- <h2>${sessionScope.c_code}</h2>
 	<h2>${sessionScope.bd_date}</h2>
 	<h2>${sessionScope.sc_code}</h2>
 	<h2>${sessionScope.st_num}</h2>
-	<h2>${sessionScope.oac_num}</h2>
+	<h2>${sessionScope.oac_num}</h2> --%>
 	<div id="frame">
+
 		<nav id="header_nav"></nav>
 		<div id="sellProList"></div>
-		<br>
-	</div>
-	<nav id="footer_nav">
-		<div>
-			<ul>
-				<li><a href="javascript:void(0);" onclick="order();">주문하기</a></li>
-				<li><a id="basket_open_btn" href="javascript:void(0);">장바구니</a></li>
-				<li><a id="bill_open_btn" href="javascript:void(0);">계산서</a></li>
-				<li><a href="kioskmenu">나가기</a></li>
-			</ul>
+		<div id="innerdiv">
+			<div id="hline"></div>
+			<p id="hline_b">
+				<b>회사정보</b>
+			</p>
+			<p id="hline_p">
+				SimpleOrder(주) | 대표: HD6 | 인천광역시 미추홀구 학익동 <br> 365고객센터 |
+				전자금융거래분쟁처리담당 1234-1234 <br> 사업자 등록번호 : 123-45-00678 | email:
+				simple@order.com <br> &copy; Untitled. All rights reserved. |
+				Photos by <a href="#">choi ay</a> | Design by <a href="#"
+					rel="nofollow">choi ay</a>
+			</p>
 		</div>
-	</nav>
+		<nav id="footer_nav">
+			<div>
+				<ul>
+					<li><a href="javascript:void(0);" onclick="order();">주문하기</a></li>
+					<li><a id="basket_open_btn" href="javascript:void(0);">장바구니</a></li>
+					<li><a id="bill_open_btn" href="javascript:void(0);">계산서</a></li>
+					<li><a href="kioskmenu">나가기</a></li>
+				</ul>
+			</div>
+		</nav>
 
-	<div id="basket">
-		<div>
-			<strong>장바구니</strong><i id="basket_close_btn" class="fa fa-close"
-				style="font-size: 36px"></i>
-			<table>
-				<tbody id="bskBody">
+		<div id="basket">
+			<div>
+				<br>
+				<p>장바구니</p>
+				<div id="baskettable">
+					<table>
+						<tbody id="bskBody">
 
-				</tbody>
-			</table>
-			<h2 id="bskText">장바구니가 비어있습니다</h2>
-			<h2 id="bskSum"></h2>
+						</tbody>
+					</table>
+				</div>
+				<h2 id="bskText">장바구니가 비어있습니다</h2>
+			</div>
+			<div id="bskFooter">
+				<h2 id="bskSum"></h2>
+				<button id="order" onclick="order();">주문하기</button>
+				<button id="basket_close_btn">나가기</button>
+			</div>
 		</div>
-	</div>
-	<div id="bill">
-		<strong>계산서</strong><i id="bill_close_btn" class='fa fa-close'
-			style='font-size: 36px'></i>
-		<table>
-			<tbody id="billBody">
+		<div id="bill">
+			<p>계산서</p>
+			<div id="billtable">
+				<table>
+					<tbody id="billBody">
 
-			</tbody>
-		</table>
-		<h2 id="billSum"></h2>
+					</tbody>
+				</table>
+			</div>
+			<div id="billFooter">
+				<h2 id="billSum"></h2>
+				<button id="bill_close_btn">나가기</button>
+			</div>
+		</div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -377,7 +580,7 @@ tr, td {
 			console.log("품절");
 			alert("죄송합니다 품절 상품입니다");
 		});
-		$('.pList').on("click",function(){
+		$('.pList').on("click", function() {
 			var skc = $(this).children().attr("id");
 			$('#pro' + skc).toggle(600);
 			if ($(this).children().hasClass("fa-angle-up")) {
@@ -413,10 +616,11 @@ tr, td {
 			str += "<td class='bsk_pd_date'>" + pd_date + "</td>";
 			str += "<td>" + pd_name + "</td>";
 			str += "<td class='bsk_pd_price'>" + pd_price + "</td>";
-			str += "<td><input type='button' value='▲' onclick='cntUp($(this));'>";
-			str += "<input type='button' value='▼' onclick='cntDown($(this));'></td>"
+			str += "<td class='bsk_pd_cnt'><input type='button' value='▲' id='cntUp' onclick='cntUp($(this));'>";
+			str += "<input type='button' value='▼' id='cntDown' onclick='cntDown($(this));'></td>"
 			str += "<td class='bsk_oh_cnt'>1</td>";
-			str += "<td><input type='button' value='삭제' onclick='deleteCol($(this));'></td>";
+			str += "<td>개</td>";
+			str += "<td><input type='button' value='삭제' id='delete' onclick='deleteCol($(this));'></td>";
 			str += "</tr>";
 			$('#bskBody').append(str);
 			$('#bskText').hide();

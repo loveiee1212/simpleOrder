@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team2.simpleOrder.service.order.OrderMM2;
+import com.team2.simpleOrder.service.order.DetailOrderMM;
 
 import lombok.extern.log4j.Log4j;
 
 @RestController
 @RequestMapping("/rest")
 @Log4j
-public class OrderRestController2 {
+public class DetailOrderRestController {
 	@Autowired
-	OrderMM2 om;
+	DetailOrderMM om;
 	
 	@PostMapping("/sendsaolist")
 	public String sendsaolist(String oac_num,String sc_code,String st_num, HttpSession session,

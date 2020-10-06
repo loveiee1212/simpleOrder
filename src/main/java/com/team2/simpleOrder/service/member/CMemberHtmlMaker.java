@@ -84,7 +84,7 @@ public class CMemberHtmlMaker {
 			sb.append("<td>").append("<input type = 'button' value ='저장' onclick = 'updatePosition(this)' class = 'positionUpdateClass'>").append("</td>");
 			sb.append("</tr>");
 		}
-		sb.append("<tr><td>").append("<input type = 'text' id='newPst_name' name='pst_name'>").append("</td>");
+		sb.append("<tr><td>").append("<input type = 'text' id='newPst_name' name='pst_name' placeholder='직급명 입력'>").append("</td>");
 		sb.append("<td colspan = '2'>").append("<input type ='button' value ='추가' onclick='createPosition()' class = 'positionAddClass'>");
 		sb.append("</tr>");
 		

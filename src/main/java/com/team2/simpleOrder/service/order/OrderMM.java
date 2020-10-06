@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team2.simpleOrder.dao.order.IOrderDao1;
-import com.team2.simpleOrder.dao.order.IOrderDao2;
+import com.team2.simpleOrder.dao.order.IOrderDao;
+import com.team2.simpleOrder.dao.order.IDetailOrderDao;
 import com.team2.simpleOrder.dao.order.IOrderDao3;
 import com.team2.simpleOrder.dto.Order;
 
@@ -20,13 +20,13 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
-public class OrderMM1 {
+public class OrderMM {
 
 	@Autowired
-	private IOrderDao1 oDao;
+	private IOrderDao oDao;
 
 	@Autowired
-	private IOrderDao2 oDao2;
+	private IDetailOrderDao oDao2;
 
 	@Autowired
 	private IOrderDao3 oDao3;

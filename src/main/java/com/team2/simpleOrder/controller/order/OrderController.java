@@ -11,19 +11,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.simpleOrder.dto.Order;
-import com.team2.simpleOrder.service.order.OrderMM1;
-import com.team2.simpleOrder.service.order.OrderMM2;
+import com.team2.simpleOrder.service.order.OrderMM;
+import com.team2.simpleOrder.service.order.DetailOrderMM;
 import com.team2.simpleOrder.service.order.OrderMM3;
 
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
-public class OrderController2 {
+public class OrderController {
 	//Only Order Controller Number2
 	
 	@Autowired
-	OrderMM2 om;
+	DetailOrderMM om;
 	
 	@RequestMapping(value = "/sellandorder")
 	public ModelAndView sellAndorder(HttpSession session,String sc_code ,String st_num,String oac_num) {

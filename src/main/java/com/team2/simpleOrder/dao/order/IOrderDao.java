@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.team2.simpleOrder.dto.Order;
 
-public interface IOrderDao1 {
+public interface IOrderDao {
 	//좌석 카테고리 리스트
 	List<Order> getTcList(String c_code);
 	//좌석 리스트
