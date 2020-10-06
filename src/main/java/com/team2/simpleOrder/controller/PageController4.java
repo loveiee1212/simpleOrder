@@ -7,15 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-//KioskMovingController
 @Controller
 public class PageController4 {
 	private static final Logger logger = LoggerFactory.getLogger(PageController4.class);
-//	@Autowired
-//	KioskMM1 km1;
-//	
-//	@Autowired
-//	KioskMM2 km2;
 
 	ModelAndView mav;
 

@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dao.kiosk.IKioskDao1;
+import com.team2.simpleOrder.dao.kiosk.KioskLoginAndSettingDao;
 import com.team2.simpleOrder.dao.order.IOrderDao2;
 import com.team2.simpleOrder.dto.Bill;
 import com.team2.simpleOrder.dto.Review;
@@ -39,13 +41,14 @@ public class KioskMM1 {
 		List<Review> rList = kDao1.getReviewList(session.getAttribute("c_code").toString(), rvNum);
 		System.out.println(rList);
 		// 리뷰 이미지 리스트 가져오기
-		List<HashMap<String,Object>> rImgList=kDao1.getReviewImgList(session.getAttribute("c_code").toString(),rList.get(0).getOac_num(),rList.get(rList.size()-1).getOac_num());
+		List<HashMap<String, Object>> rImgList = kDao1.getReviewImgList(session.getAttribute("c_code").toString(),
+				rList.get(0).getOac_num(), rList.get(rList.size() - 1).getOac_num());
 		System.out.println(rImgList);
 		// 리뷰 주문내역 가져오기
-		List<HashMap<String,Object>> orderList=kDao1.getOrderList(session.getAttribute("c_code").toString(),rList.get(0).getOac_num(),rList.get(rList.size()-1).getOac_num());
+		List<HashMap<String, Object>> orderList = kDao1.getOrderList(session.getAttribute("c_code").toString(),
+				rList.get(0).getOac_num(), rList.get(rList.size() - 1).getOac_num());
 		System.out.println(orderList);
-//		return new KioskMakeHtml().makeReviewListHtml(rList, rImgList,orderList);
-		return null;
+		return new KioskMakeHtml().makeReviewListHtml(rList, rImgList, orderList);
 	}
 
 	// 요청사항 설정 해놓은 것 가져오는 메소드
@@ -136,4 +139,18 @@ public class KioskMM1 {
 		mainInfo.put("oac_time", oac_time);
 		return mainInfo;
 	}
+
+	public HashMap<String, String> getOac_status(HttpSession session) {
+		int oac_status = kDao1.getOac_status(session.getAttribute("c_code").toString(),
+				session.getAttribute("bd_date").toString(), session.getAttribute("oac_num").toString());
+		if (oac_status == -1) {
+			session.removeAttribute("sc_code");
+			session.removeAttribute("st_num");
+			HashMap<String, String> hMap = new HashMap<String, String>();
+			hMap.put("view", "kioskreview");
+			return hMap;
+		}
+		return null;
+	}
+
 }

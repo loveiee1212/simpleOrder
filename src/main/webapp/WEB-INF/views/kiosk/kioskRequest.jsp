@@ -73,9 +73,8 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		$('#reqBtn').click(function () {
-			if (confirm($('#text').val() + "을(를) 요청하시겠습니까?")) {
-				$('#text').val("");
+		$('#reqBtn').click(function() {
+			if (confirm($('#text').val() + "을(를) 하시겠습니까?")) {
 				return true;
 			}
 			return false;
@@ -83,14 +82,12 @@
 		function reqClick(req) {
 			var request = req.innerText;
 			$('#text').val(request + " 요청");
-				$('#reqBtn').trigger('click');
+			$('#reqBtn').trigger('click');
 			$('#text').val("");
 		}
 		function empCall() {
 			$('#text').val("직원호출");
-			if (confirm(request + "직원을 호출하시겠습니까?")) {
 			$('#reqBtn').trigger('click');
-			}
 			$('#text').val("");
 		}
 	</script>

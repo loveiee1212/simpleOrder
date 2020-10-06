@@ -4,13 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.team2.simpleOrder.service.kiosk.KioskMM1;
@@ -56,4 +59,8 @@ public class KioskMainRestController {
 		return km1.kioskMainReady(session);
 	}
 
+	@PostMapping(value = "/getoacstatus")
+	public HashMap<String, String> getOac_status(HttpSession session) {
+		return km1.getOac_status(session);
+	}
 }

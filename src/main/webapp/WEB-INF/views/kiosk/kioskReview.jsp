@@ -153,8 +153,7 @@ button:focus {
 		<div id="reviewList"></div>
 		<div id="btn"></div>
 		<div id="footer">
-			<button class="write" type="button"
-				onclick="location.href='./kioskreviewwrite'">리뷰작성</button>
+			<button class="write" type="button" onclick="location.href='./kioskreviewwrite'">리뷰작성</button>
 			<button class="Exit" type="button"
 				onclick="location.href='./kioskmenu'">나가기</button>
 		</div>

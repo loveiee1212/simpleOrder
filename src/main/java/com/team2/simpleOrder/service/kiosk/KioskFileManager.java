@@ -17,8 +17,13 @@ public class KioskFileManager {
 			String root = session.getServletContext().getRealPath("/");
 			String path = "resources/reviewImg/";
 			System.out.println(root + path);
+			File dir = new File(root+path);
+			if(!dir.isDirectory()) {
+				dir.mkdir();
+			}
 			for (int i = 0; i < rv_file.size(); i++) {
 				String fileName = makeSysName(rv, i, rv_file.get(i).getOriginalFilename());
+					
 				rv_file.get(i).transferTo(new File(root + path + fileName));
 			}
 		} catch (IllegalStateException | IOException e) {

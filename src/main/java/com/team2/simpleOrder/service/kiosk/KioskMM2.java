@@ -54,5 +54,4 @@ public class KioskMM2 {
 
 		return mav;
 	}
-
 }

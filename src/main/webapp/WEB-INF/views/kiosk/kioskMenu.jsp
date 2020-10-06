@@ -171,7 +171,6 @@ input:focus {
 		type : 'post',
 		dataType : 'json',
 		success : function(data) {
-			console.log(data);
 			//계산서 html 삽입
 			$('#billBody').html(data.bill);
 			billSum();
@@ -200,12 +199,9 @@ input:focus {
 			var price = Number(bill_pd_price[i].innerText);
 			var cnt = Number(bill_oh_cnt[i].innerText);
 
-			console.log(price);
 			sum += (price * cnt);
 		}
-		console.log(sum);
 		sum = sum.toLocaleString('en');
-		console.log(sum);
 		$('#billSum').append(sum + "원");
 	}
 	function billPriceUpdate() {
@@ -215,7 +211,6 @@ input:focus {
 			var price = pd_price[i].innerText;
 			var cnt = oh_cnt[i].innerText;
 			price = Number(price).toLocaleString('en');
-			console.log(price);
 			pd_price[i].innerText = price + "원";
 			oh_cnt[i].innerText = cnt + "개";
 		}
@@ -263,6 +258,7 @@ input:focus {
 			onclick="location.href='kioskreview'">
 	</div>
 	<script type="text/javascript">
+		
 		/* 동적 시계 */
 		function clockOn(oac_time) {
 			var newDate = new Date();
@@ -270,19 +266,34 @@ input:focus {
 			var oac_hours = Number(60 * 60 * (oac_time.substring(11, 13)));
 			var oac_minutes = Number(60 * (oac_time.substring(14, 16)));
 			var oac_seconds = Number(oac_time.substring(17, 19));
-			setInterval(function() {
-				var seconds = new Date().getSeconds();
-				var minutes = new Date().getMinutes();
-				var hours = new Date().getHours();
-				var now_seconds = Number(seconds < 10 ? "0" : "") + seconds;
-				var now_minutes = 60 * (Number(minutes < 10 ? "0" : "") + minutes);
-				var now_hours = 60 * 60 * (Number(hours < 10 ? "0" : "") + hours);
-				var sum = (now_hours + now_minutes + now_seconds)
-						- (oac_hours + oac_minutes + oac_seconds);
-				$("#hour").html(parseInt(sum / 3600) + "시간  ");
-				$("#min").html(parseInt((sum % 3600) / 60) + "분  ")
-				$("#sec").html(sum % 60 + "초");
-			});
+			setInterval(
+					function() {
+						var seconds = new Date().getSeconds();
+						var minutes = new Date().getMinutes();
+						var hours = new Date().getHours();
+						var now_seconds = Number(seconds < 10 ? "0" : "")
+								+ seconds;
+						var now_minutes = 60 * (Number(minutes < 10 ? "0" : "") + minutes);
+						var now_hours = 60 * 60 * (Number(hours < 10 ? "0" : "") + hours);
+						var sum = (now_hours + now_minutes + now_seconds)
+								- (oac_hours + oac_minutes + oac_seconds);
+						$("#hour").html(parseInt(sum / 3600) + "시간  ");
+						$("#min").html(parseInt((sum % 3600) / 60) + "분  ")
+						$("#sec").html(sum % 60 + "초");
+						
+						$.ajax({
+							url: 'rest/getoacstatus',
+							type:'post',
+							dataType: 'json',
+							success: function (data) {
+								console.log(data.view);
+								location.href=data.view;
+							},error: function (err) {
+								console.log(err);
+							}
+						});
+
+					}, 1000);
 		};
 	</script>
 </body>
