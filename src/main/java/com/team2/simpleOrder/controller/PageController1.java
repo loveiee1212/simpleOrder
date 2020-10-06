@@ -3,15 +3,22 @@ package com.team2.simpleOrder.controller;
 
 
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -110,10 +117,19 @@ public class PageController1 {
 	}
 	
 	@RequestMapping("/test")
-	public String test(@RequestParam HashMap<String, String> test, RedirectAttributes reat) {
-		System.out.println(test);
-		reat.addFlashAttribute("basicPath", "includeAjax('reveiwUsagestatusFrm')");
-		return "redirect:/kioskSettingFrm";
+	public String test() {
+		return "test";
+	}
+	@PostMapping("/test2")
+	public String test(MultipartFile file, HttpSession session) throws IllegalStateException, IOException {
+		System.out.println(session.getServletContext().getRealPath("/resources/productImg/"+session.getAttribute("c_code")+"/"));
+		File dir = new File(session.getServletContext().getRealPath("/resources/productImg/"+session.getAttribute("c_code")+"/"));
+		if(!dir.isDirectory()) {
+			System.out.println("존재안함");
+			dir.mkdir();
+		}
+		file.transferTo(new File(session.getServletContext().getRealPath("/resources/productImg/"+session.getAttribute("c_code")+"/"+file.getOriginalFilename())));
+		return "redirect:test";
 	}
 
 }

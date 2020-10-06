@@ -396,8 +396,7 @@ input:focus, button:focus {
 	function getproList() {
 		$.ajax({
 			type : "get",
-			url : "rest/getspro
-			ductlist",
+			url : "rest/getsproductlist",
 			dataType : 'json',
 			success : function(listmap) {
 				$("#pListtable").html(listmap.pList);

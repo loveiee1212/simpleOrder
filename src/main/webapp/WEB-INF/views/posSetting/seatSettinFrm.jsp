@@ -158,7 +158,7 @@ ${msg}
 	</form>
 
 	<script type="text/javascript">
-	let selectedCTval = "01";	
+	var selectedCTval = "01";	
 	getScatlist();
 		
 		function deleteSeatCT(){
@@ -232,6 +232,7 @@ ${msg}
 					$("#01").removeAttr("hidden");
 					$(".categoriList").eq(0).attr("style","background : #90caf9;");
 					$("#seatCTselect").html(data.seatCTselect);
+					selectedCTval = "01";	
 				}
 			})
 		}

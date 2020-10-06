@@ -10,7 +10,7 @@ import com.team2.simpleOrder.dto.SellProduct;
 public class KioskMakeHtml {
 	// 판매키에 올라가 있는 상품리스트 Html만드는 메소드
 	public HashMap<String, Object> makeSellProListHtml(List<HashMap<String, Object>> skcList,
-			List<SellProduct> sellProList) {
+			List<SellProduct> sellProList, String c_code) {
 		String iskc_code;
 		String jskc_code;
 		// 해더 판매 카테고리 리스트
@@ -38,7 +38,7 @@ public class KioskMakeHtml {
 					if (sellProList.get(j).getStk_stock() == 0) {
 						System.out.println("0이다");
 						sb2.append("<div class='soldOut'><div class='pList_detail'><div class='pd_imgName'>");
-						sb2.append("<img src='resources/productImg/" + sellProList.get(j).getPd_imgName() + "' alt='"
+						sb2.append("<img src='resources/productImg/"+c_code+"/" + sellProList.get(j).getPd_imgName() + "' alt='"
 								+ sellProList.get(j).getPd_name() + "'></div>");
 						sb2.append("<div class='text_detail'>");
 						sb2.append("<div class='pdc_code'>" + sellProList.get(j).getPdc_code() + "</div>");
@@ -48,7 +48,7 @@ public class KioskMakeHtml {
 						sb2.append("<div class='pd_soldOut'>품절</div></div></div></div>");
 					} else {
 						sb2.append("<div class='detail_body'><div class='pList_detail'><div class='pd_imgName'>");
-						sb2.append("<img src='resources/productImg/" + sellProList.get(j).getPd_imgName() + "' alt='"
+						sb2.append("<img src='resources/productImg/" + c_code+"/" + sellProList.get(j).getPd_imgName() + "' alt='"
 								+ sellProList.get(j).getPd_name() + "'></div>");
 						sb2.append("<div class='text_detail'>");
 						sb2.append("<div class='pdc_code'>" + sellProList.get(j).getPdc_code() + "</div>");

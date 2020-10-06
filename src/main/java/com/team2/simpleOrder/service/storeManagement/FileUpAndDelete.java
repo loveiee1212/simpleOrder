@@ -14,11 +14,11 @@ public class FileUpAndDelete {
 		String oriFilename = pdfile.getOriginalFilename();
 		String extName = oriFilename.substring(oriFilename.lastIndexOf("."), oriFilename.length());
 		proInfo.put("pd_imgname", proInfo.get("pdc_code") + proInfo.get("pd_code") + extName);
-		File dir = new File(session.getServletContext().getRealPath("/resources/productImg/"));
+		File dir = new File(session.getServletContext().getRealPath("/resources/productImg/"+session.getAttribute("c_code")+"/"));
 		if(!dir.isDirectory()) {
 			dir.mkdir();
 		}
-		pdfile.transferTo(new File(session.getServletContext().getRealPath("/resources/productImg/")+proInfo.get("pd_imgname")));
+		pdfile.transferTo(new File(session.getServletContext().getRealPath("/resources/productImg/"+session.getAttribute("c_code")+"/")+proInfo.get("pd_imgname")));
 		return proInfo;
 	}
 
