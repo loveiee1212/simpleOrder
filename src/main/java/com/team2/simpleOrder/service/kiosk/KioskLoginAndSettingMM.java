@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.simpleOrder.dao.kiosk.KioskLoginAndSettingDao;
 import com.team2.simpleOrder.dao.money.IVaultCashDao;
-import com.team2.simpleOrder.dao.order.IOrderDao1;
+import com.team2.simpleOrder.dao.order.IOrderDao;
 
 @Service
 public class KioskLoginAndSettingMM {
@@ -24,7 +24,7 @@ public class KioskLoginAndSettingMM {
 	@Autowired
 	private IVaultCashDao vDao;
 	@Autowired
-	private IOrderDao1 oDao;
+	private IOrderDao oDao;
 
 	public String kioskLogin(String c_code, String sc_code, String st_num, HttpSession session, RedirectAttributes reat) {
 		session.setAttribute("c_code", c_code);

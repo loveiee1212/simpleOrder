@@ -284,7 +284,10 @@ li input {
 <script>
 	getsellkeyList();
 	totalprice();
+	console.log($("#oac_num").val());
+	if($("#oac_num").val()!="null"){		
 	getpayAmount();
+	}
 	
 	function getpayAmount(){
 		$.ajax({
@@ -363,6 +366,7 @@ li input {
 								}
 							}
 							
+							if($pdccode!=0){
 							var value = "";
 							value+="<tr>";
 							value+="<td><input type='hidden' name='pdcode' id='pdcode"+$pdccode + "' data-code='"
@@ -377,6 +381,24 @@ li input {
 							value+="<td><button>취소</button></td>";
 							value+="</tr>";
 							$("#listbox").children("center").children("table").append(value);
+							}else{
+								var value = "";
+								value+="<table>";
+								value+="<tr>";
+								value+="<td><input type='hidden' name='pdcode' id='pdcode"+$pdccode + "' data-code='"
+										+pdc_code + "' value='" + pd_code + "'/>"
+										+ "<input type='hidden' name='pddate' id='pddate"+$pdccode + "' value='" + pd_date + "'/>"
+										+ pd_name + "</td>";
+								value+="<td><p class ='price' id='totalprice'>"+pd_price+"</p>";
+								value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
+										+ "'/></td>";
+								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
+								+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' value='" + 1 + "'/></td>";
+								value+="<td><button>취소</button></td>";
+								value+="</tr>";
+								value+="</table>";
+								$("#listbox").children("center").append(value);
+							}
 						})
 					}
 				})

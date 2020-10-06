@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team2.simpleOrder.dao.order.IOrderDao2;
+import com.team2.simpleOrder.dao.order.IDetailOrderDao;
 import com.team2.simpleOrder.dao.storeManagement.IProductDao;
 import com.team2.simpleOrder.dto.StoreManagement;
 
@@ -25,7 +25,7 @@ public class ProductMM {
 	@Autowired
 	private IProductDao pDao;
 	@Autowired
-	private IOrderDao2 ODao;
+	private IDetailOrderDao ODao;
 
 	public HashMap<String, String> getsproductlist(String c_code) { // 모든 상품 종류 노출
 		ProductHtmlMaker phm = new ProductHtmlMaker();

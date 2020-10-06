@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team2.simpleOrder.service.order.OrderMM1;
-import com.team2.simpleOrder.service.order.OrderMM2;
+import com.team2.simpleOrder.service.order.OrderMM;
+import com.team2.simpleOrder.service.order.DetailOrderMM;
 import com.team2.simpleOrder.service.order.OrderMM3;
 
 
@@ -17,10 +17,10 @@ public class SellcontrolController {
 	//Only Order Controller Number1
 	
 	@Autowired
-	OrderMM1 om1;
+	OrderMM om1;
 	
 	@Autowired
-	OrderMM2 om2;
+	DetailOrderMM om2;
 	
 	@Autowired
 	OrderMM3 om3;

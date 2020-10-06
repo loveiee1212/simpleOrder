@@ -11,15 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team2.simpleOrder.dao.money.ICreditDao;
+import com.team2.simpleOrder.dao.money.ICreditAndPaymentDao;
 
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
-public class CreditMM {
+public class CreditAndPaymentMM {
 	@Autowired
-	ICreditDao cDao;
+	ICreditAndPaymentDao cDao;
 
 	// c_code와 주문상태코드가 0 인 데이터를 이용해 외상데이터를 받아옴
 	public HashMap<String, String> getcreditList(HttpSession session, int oac_status) {

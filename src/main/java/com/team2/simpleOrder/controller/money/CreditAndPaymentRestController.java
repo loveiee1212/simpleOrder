@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dto.Order;
-import com.team2.simpleOrder.service.money.CreditMM;
+import com.team2.simpleOrder.service.money.CreditAndPaymentMM;
 
 @RestController
 @RequestMapping("/rest")
-public class CreditRestController {
+public class CreditAndPaymentRestController {
 
 	@Autowired
-	CreditMM cm;
+	CreditAndPaymentMM cm;
 
 	@RequestMapping(value = "/getcreditlist", method = RequestMethod.POST)
 	public HashMap<String, String> getcreditList(HttpSession session, int oac_status) {
