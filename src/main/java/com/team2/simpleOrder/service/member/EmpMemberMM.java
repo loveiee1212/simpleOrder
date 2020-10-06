@@ -28,9 +28,10 @@ public class EmpMemberMM {
 	public String getTime(HashMap<String, String> mb, HttpSession session) {
 		mb.put("c_code",session.getAttribute("c_code").toString());
 		mb.put("bd_date",session.getAttribute("bd_date").toString());
-		if(mb.get("emp_code")==null) {
+		if(mb.get("emp_code")=="") {
 			mb.put("emp_code",session.getAttribute("emp_code").toString());
 		}
+
 		List<HashMap<String, String>> mlist= mDao2.getTime(mb);
 		String json = new Gson().toJson(mlist);
 		return json;

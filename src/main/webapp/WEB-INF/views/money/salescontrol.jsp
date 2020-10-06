@@ -24,9 +24,62 @@
 	.sales{
 	 background-color: gold;
 	}
+	#view_layer {
+	display: none;
+	position: fixed;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#view_layer.open {
+	display: block;
+	color: gold;
+}
+
+#bg_layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1600px;
+	height: 1000px;
+	background: white;
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+	z-index: 100;
+}
+
+#main_layer {
+	position: absolute;
+	top: 30%;
+	left: 40%;
+	width: 700px;
+	height: 670px;
+	margin: -150px 0 0 -194px;
+	padding: 28px 28px 0 28px;
+	border: 3px solid #81d4fa;
+	background: #fff;
+	font-size: 18px;
+	z-index: 200;
+	color: #767676;
+	line-height: normal;
+	white-space: normal;
+	overflow: scroll;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+#main_layer td {
+	font-size: 20px;
+	height: 40px;
+	padding-top: 10px;
+}
 </style>
 </head>
 <body>
+
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div id="calendar">
@@ -44,7 +97,18 @@
 				<!-- 모달박스 -->
 				<div id="view_layer">
 					<div id="bg_layer"></div>
-					<div id="main_layer"></div>
+					<div id="main_layer">
+					<table id="salesList">
+						<tr><th>구분</th><th>결제</th><th>외상</th><th>반품</th></tr>
+						<tr><th>현금</th><td id="pay_cash"></td><td id="credit_cash"></td><td id="refund_cash"></td></tr>
+						<tr><th>카드</th><td id="pay_card"></td><td id="credit_card"></td><td id="refund_card"></td></tr>
+						<tr><th>미수금</th><td id="pay"></td><td id="credit"></td><td id="refund"></td></tr>
+						<tr><th>총금액</th><td id="pay_total"></td><td id="credit_total"></td><td id="refund_total"></td></tr>
+					</table>
+					<table id="productList">
+						<tr><th>상품명</th><th>판매가</th><th>판매갯수</th><th>금액</th></tr>
+					</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -71,7 +135,7 @@
 				table += "<div class='day'></div>";
 				table += "<pre class='text' id='text"+i+"n"+j+"'></pre></td>";
 				if(j==6){
-					table += "<td class='sales' style='text-overflow:ellipsis; overflow:hidden; white-space:nowrap' onclick='select()'>";
+					table += "<td class='sales' style='text-overflow:ellipsis; overflow:hidden; white-space:nowrap'>";
 					table += "<pre width='100' class='salesText' id='weekText"+i+"'></pre></td>";
 				}
 			}
@@ -118,7 +182,7 @@
 			++dayCount;
 
 			$tdDay.eq(i).text(dayCount);
-			$(".dt").eq(i).attr("onclick", "showWorkTime(" + dayCount + ")");
+			$(".dt").eq(i).attr("onclick", "getDaySales(" + dayCount + ")");
 
 			if ($tdDay.eq(i).text() == today.getDate()) {
 				if (month == today.getMonth() + 1) {
@@ -166,6 +230,7 @@
 			$(".dt").eq(i).css("background-color", "white");
 		}
 		$(".salesText").text("");
+		
 		dayCount = 0;
 		firstDay = new Date(year, month - 1, 1);
 		lastDay = new Date(year, month, 0);
@@ -186,41 +251,47 @@
 			dataType : "json",
 			success : function(data) {
 				$tdText.text("");
-
+				
+				var cash = 0;
+				var card = 0;
+				var get_pay = 0;
+				var credit = 0;
+				var bd_date = null;
+				var bd_dateYM = null;
+				
 				for (var i in data) {
 
 					if (data[i].BD_DATE != null) {
-						var bd_date = moment(data[i].BD_DATE).format("DD");
-						var bd_dateYM = moment(data[i].BD_DATE).format("YYYY MM");
+						bd_date = moment(data[i].BD_DATE).format("DD");
+						bd_dateYM = moment(data[i].BD_DATE).format("YYYY MM");
 					}
-					if (data[i].OAC_NAME == "결제") {
-						var cash = data[i].CASH
-						var card = data[i].CARD
-						var get_pay = data[i].GET_PAY
-					}
+
+					cash += (data[i].CASH)*1;
+					card += (data[i].CARD)*1;
+					
 					if (data[i].OAC_NAME == "외상") {
-						var credit = data[i].TOTAL_PAY
+						credit = data[i].TOTAL_PAY
 					}
+				}
 
 					for (var j = firstDay.getDay(); j < firstDay.getDay()
 							+ lastDay.getDate(); j++) {
-						
+
 						if (bd_dateYM == $("#yearMonth").text()) {
 							if (bd_date == $tdDay.eq(j).text()) {
-								if (data[i].OAC_NAME == "결제") {
+								
 									$tdText.eq(j).append($("<span class='cash'>").html(
 											"현금 : " + cash)).append($("<span class='card'>").html( "\r\n카드 : " + card
-											)).append($("<span class='total'>").html( "\r\n총매출 : " + get_pay + "\r\n"));
-								}
+											)).append($("<span class='total'>").html( "\r\n총매출 : " + (card+cash)*1 + "\r\n"));
+								
 								if (data[i].OAC_NAME == "외상") {
 									$tdText.eq(j).append($("<span class='credit'>").html(
 													"외상 : " + credit + "\r\n"));
 								}
-								
 							}
 						}
 					}
-				}
+				
 				salesCalculator();
 			}
 		});
@@ -274,6 +345,82 @@
 				$("#dayText"+i).text("");
 			}
 		}
-		}
+	}
+</script>
+<script type="text/javascript">
+	//일별 매출 불러오기
+	function getDaySales(day){
+		$("#view_layer").addClass("open");
+		$.ajax({
+			type : "get",
+			url : "rest/getdaysales",
+			data : {
+				'bd_date' : moment($("#yearMonth").text() + "-" + day).format("YYYY-MM-DD")
+			},
+			dataType : "json",
+			success : function(data) {
+				$("#salesList").find("td").text("");
+				$(".pro").remove();
+				
+				for(var sales of data.salesList){
+					var cash = sales.CASH;
+					var card = sales.CARD;
+					if (sales.OAC_NAME == "결제"){
+						$("#pay_cash").text(cash);
+						$("#pay_card").text(card);
+					}
+					if (sales.OAC_NAME == "외상"){
+						$("#credit_cash").text(cash);
+						$("#credit_card").text(card);
+					}
+					if (sales.OAC_NAME == "반품"){
+						$("#refund_cash").text(cash*-1);
+						$("#refund_card").text(card*-1);
+					}
+				}
+				for (var total of data.totalSales){
+					var totalPay = total.TOTAL_PAY;
+					if (total.OAC_NAME == "결제"){
+						$("#pay_total").text(totalPay);
+						$("#pay").text($("#pay_total").text()*-1-($("#pay_cash").text()*-1+$("#pay_card").text()*-1));
+					}
+					if (total.OAC_NAME == "외상"){
+						$("#credit_total").text(totalPay);
+						$("#credit").text($("#credit_total").text()*-1-($("#credit_cash").text()*-1+$("#credit_card").text()*-1));
+					}
+					if (total.OAC_NAME == "반품"){
+						$("#refund_total").text(totalPay*-1);
+						$("#refund").text($("#refund_total").text()*1-($("#refund_cash").text()*1+$("#refund_card").text()*1));
+					}
+				}
+				
+				var tr = "";
+				tr += "<tr class='pro'><th colspan='4'>결제상품</th>";
+				for (var product of data.productList){
+					tr += "'<tr class='pro'><td>"+product.PD_NAME+"</td>'";
+					tr += "'<td>"+product.PD_PRICE+"</td>'"
+					tr += "'<td>"+product.OH_CNT+"</td>'"
+					tr += "'<td>"+(product.PD_PRICE*1)*(product.OH_CNT*1)+"</td>'"
+				}
+				$("#productList").append(tr);
+				tr="";
+				tr += "<tr class='pro'><th colspan='4'>반품상품</th>";
+				for (var refund of data.refundList){
+					tr += "'<tr class='pro'><td>"+refund.PD_NAME+"</td>'";
+					tr += "'<td>"+refund.PD_PRICE+"</td>'"
+					tr += "'<td>"+refund.OH_CNT+"</td>'"
+					tr += "'<td>"+(refund.PD_PRICE*1)*(refund.OH_CNT*1)+"</td>'"
+				}
+				$("#productList").append(tr);
+				
+			}
+		});
+	}
+
+	//모달박스 해제
+	var $layerWindow = $("#view_layer");
+	$layerWindow.find("#bg_layer").on("mousedown", function(evt) {
+		$layerWindow.removeClass("open");
+	});
 </script>
 </html>
