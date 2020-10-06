@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.omg.CORBA.INTERNAL;
 
 import com.team2.simpleOrder.dto.StoreManagement;
 
@@ -17,19 +16,20 @@ public class ProductHtmlMaker {
 	public HashMap<String, String> makehtmlpList(List<StoreManagement> pList) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<tr>");
-		sb.append("<th>" + "카테고리 코드" + "</th>");
-		sb.append("<th>" + "카테고리 이름" + "</th>");
-		sb.append("<th>" + "상품 코드" + "</th>");
-		sb.append("<th>" + "상품이름" + "</th>");
+//		sb.append("<th>" + "카테고리 코드" + "</th>");
+		sb.append("<th>" + "카테고리" + "</th>");
+//		sb.append("<th>" + "상품 코드" + "</th>");
+		sb.append("<th>" + "상품" + "</th>");
 		sb.append("<th>" + "상품가격" + "</th>");
 		sb.append("<th>" + "재고" + "</th>");
+		sb.append("<th colspan = '2'>" + "비고" + "</th>");
 		sb.append("</tr>");
 		for (int i = 0; i < pList.size(); i++) {
 			StoreManagement pd = pList.get(i);
 			sb.append("<tr>");
-			sb.append("<td>" + pd.getPdc_code() + "</td>");
+//			sb.append("<td>" + pd.getPdc_code() + "</td>");
 			sb.append("<td>" + pd.getPdc_name() + "</td>");
-			sb.append("<td>" + pd.getPd_code() + "</td>");
+//			sb.append("<td>" + pd.getPd_code() + "</td>");
 			sb.append("<td>" + pd.getPd_name() + "</td>");
 			sb.append("<td>" + pd.getPd_price() + "</td>");
 			if (pd.getStk_stock() == null) {
