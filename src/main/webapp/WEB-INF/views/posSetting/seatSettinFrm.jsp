@@ -137,19 +137,50 @@ input[type="button" i] {
 </head>
 <body>
 ${msg}
-	<form action="updateSeatList" method="post">
 		<h2>테이블 설정</h2>
+		<form id="scCRUD"  name= 'scCRUD' action="seatCTcrucd" method="post">
+		<div>
+		<select id="seatCTselect" onchange="selectedCT(this)" name ='sc_code'>
+		
+		</select>
+		<input type="text" name = 'sc_name'>
+		<button type="button" onclick = 'deleteSeatCT()'>삭제</button>
+		<button type="button" onclick = 'updateSeatCT()'>수정</button>
+		<button type="button" onclick = 'createSeatCT()'>추가</button>
+		</form>
+		</div>
+	<form action="updateSeatList" method="post">
 		<table id="CategoriList">
 		</table>
-		<div id="seatList"></div>
+		<div id="seatList">
+		</div>
 		<input type="submit" id="submit" value="테이블 변경 사항 저장">
 	</form>
 
 	<script type="text/javascript">
-		getScatlist();
+	var selectedCTval = "01";	
+	getScatlist();
 		
-		
-		
+		function deleteSeatCT(){
+			if(selectedCTVal =='01'){
+				alert('기본 테이블은 삭제할수없습니다.')
+				return;
+			}
+			scCRUD.action = 'deleteSeatCT';
+			scCRUD.submit();
+		}
+		function updateSeatCT(){
+			scCRUD.action = 'updateSeatCT'; 
+			scCRUD.submit();
+		}
+		function createSeatCT(){
+			scCRUD.action = 'createSeatCT'; 
+			scCRUD.submit();
+			
+		}
+		function selectedCT(ele){
+			selectedCTval = $(ele).children(":selected").val();
+		}
 		function changeOn(ele){ // 자리 활성화
 			let sc_code = ele.dataset.sc_code;
 			let st_num = ele.dataset.st_num;
@@ -200,6 +231,8 @@ ${msg}
 					$("#seatList").html(data.seatList);
 					$("#01").removeAttr("hidden");
 					$(".categoriList").eq(0).attr("style","background : #90caf9;");
+					$("#seatCTselect").html(data.seatCTselect);
+					selectedCTval = "01";	
 				}
 			})
 		}

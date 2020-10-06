@@ -30,7 +30,7 @@ public class KioskMM1 {
 		List<HashMap<String, Object>> skcList = kDao1.getSkcList(session.getAttribute("c_code").toString());
 		// 판매 등록 된 상품리스트 가져오기
 		List<SellProduct> sellProList = kDao1.getSellProList(session.getAttribute("c_code").toString());
-		return new KioskMakeHtml().makeSellProListHtml(skcList, sellProList);
+		return new KioskMakeHtml().makeSellProListHtml(skcList, sellProList,session.getAttribute("c_code").toString());
 	}
 
 	// 리뷰리스트 가져오는 메소드

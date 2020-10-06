@@ -87,34 +87,42 @@ text-align: center;
 </head>
 <body>
 	<h2>요청사항 수정</h2>
-	<form action="updateRequestList" method="post">
+	<form name ='requsetListCRUD' action="" method="post">
 	<div id="reqList"></div>
 	
-	<input type="button" id="addRequest" onclick="addRequest()" value ='요청사항 추가'> 
-	<input type="submit" id="submit" value ='요청사항 변경'>
-	<input type="button" id="removeRequest" onclick="removeRequest()" value ='요청사항 제거'>
+	<input type="hidden" id='rq_num' name='rq_num'>
+	<input type="text" id = 'rq_kind' name='rq_kind' placeholder="요청사항 입력">
+	<input type="button" id="addRequest" onclick="addRequests()" value ='요청사항 추가'> 
+	<input type="button" id="removeRequest" onclick="removeRequests()" value ='요청사항 제거'>
+	<input type="button" id="updateRequest" onclick="updateRequests()" value ='변경 내역 저장'>
 	</form>
 
 </body>
 <script type="text/javascript">
-function addRequest(){
-	let newReq_Num=$(".requestList").length+1;
-	if(newReq_Num <10){
-	$("<div>").appendTo($("#reqList")).append("<input class ='requestList' type = 'text' name = '"+newReq_Num+"'>").append("</div>")
+function updateRequests(){
+	rq_num.remove();
+	$("#rq_kind").remove();
+	requsetListCRUD.action = 'updateRequest';
+	requsetListCRUD.submit();
+};
+function addRequests(){
+	if(rq_num.value < 10){
+	requsetListCRUD.action = 'addRequest';
+	requsetListCRUD.submit();
 	}else{
-		alert("요청박스는 9개까지 생성 가능합니다.")
+		alert("요청사항은 9개까지 생성 가능합니다.")
 	}
-}
-function removeRequest(){
-	let divlength=$(".reqDivList").length-1;
-	console.log(divlength)
-	$(".reqDivList").eq(divlength).remove();
+};
+function removeRequests(){
+	requsetListCRUD.action = 'removeRequest';
+	requsetListCRUD.submit();
 }
 $.ajax({
 	url : "rest/getRequsetList",
 	dataType : "json",
 	success : function(data){
 		$("#reqList").append(data.reqList);
+		 $("#rq_num").val($(".requestList").length+1);
 	}
 });
 

@@ -152,6 +152,9 @@ public class ProductMM {
 	public String updatesellkey(String[] pdc_code, String[] pd_code, String[] pd_date, String[] skc_code, String[] sk_num, HttpSession session, RedirectAttributes reat) {
 		String c_code = session.getAttribute("c_code").toString();
 		pDao.deletesellKey(c_code);
+		if(pdc_code == null) { // 모두 제거 되었다면 아래의 메소드를 실행시킬 이유가 없다.
+			return "redirect:/producreagistraition";
+		}
 		for(int i = 0 ; i < pdc_code.length ; i++) {
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("c_code", c_code);
@@ -210,8 +213,8 @@ public class ProductMM {
 		stockInfo.put("c_code", session.getAttribute("c_code").toString());
 		stockInfo.put("bd_date", session.getAttribute("bd_date").toString());
 		stockInfo.put("oac_num", ODao.getNewOacCode(session.getAttribute("c_code").toString(), session.getAttribute("bd_date").toString()));
-		System.out.println(stockInfo);
-		pDao.updateStock(stockInfo);
+		pDao.setNewOacCode(stockInfo);
+		pDao.createStockPlusRecord(stockInfo);
 		return null;
 	}
 }

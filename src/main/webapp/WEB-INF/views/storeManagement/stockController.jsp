@@ -45,7 +45,7 @@ div#one, #two {
 	
 	function updateStock(ele){ // 재고 업데이트
 		element = ele.parentNode.parentNode;
-		console.log(element.parentNode.parentNode)
+		let oh_cnt = $(ele).siblings().val() // 
 		let pdc_code = element.dataset.pdc_code;
 		let pd_code = element.dataset.pd_code;
 		let pd_date = element.dataset.pd_date;
@@ -54,6 +54,7 @@ div#one, #two {
 			type : "post",
 			dataType : "json",
 			data : {
+				"oh_cnt" : -oh_cnt,
 				"pdc_code" : pdc_code,
 				"pd_code" : pd_code,
 				"pd_date" : pd_date
@@ -61,10 +62,7 @@ div#one, #two {
 			success : function(data){
 				console.log(data);
 			}
-			
-		})
-		getStockRecord(ele.parentNode);
-				
+		});
 	}
 	function getStockRecord(ele){ // 재고 기록 가져오기
 		ele = ele.parentNode;
@@ -81,8 +79,7 @@ div#one, #two {
 			dataType : "json",
 			success : function(data){
 				if(data.length =="0"){
-				$("#stockRecord").html(""
-						)
+				$("#stockRecord").html("")
 					return;
 				}
 				$("#stockRecord").html(data.stockRecord)

@@ -383,11 +383,11 @@ input:focus, button:focus {
 </head>
 <!-- <h2>kioskOrder.jsp</h2> -->
 <body>
-	<%-- <h2>${sessionScope.c_code}</h2>
-	<h2>${sessionScope.bd_date}</h2>
-	<h2>${sessionScope.sc_code}</h2>
-	<h2>${sessionScope.st_num}</h2>
-	<h2>${sessionScope.oac_num}</h2> --%>
+<%-- 	<h2>${sessionScope.c_code}</h2> --%>
+<%-- 	<h2>${sessionScope.bd_date}</h2> --%>
+<%-- 	<h2>${sessionScope.sc_code}</h2> --%>
+<%-- 	<h2>${sessionScope.st_num}</h2> --%>
+<%-- 	<h2>${sessionScope.oac_num}</h2> --%>
 	<div id="frame">
 
 		<nav id="header_nav"></nav>

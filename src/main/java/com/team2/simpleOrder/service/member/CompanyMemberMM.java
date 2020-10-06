@@ -47,6 +47,10 @@ public class CompanyMemberMM {
 
 			if (cDao.createEmailAcount(acountInfo) && cDao.createCcodeAcount(acountInfo)) { // 이메일과 사업체가 둘다 문제없이 등록되었다면
 				cDao.creatPosition(acountInfo); // 해당 사업체 번호로 대표 직급 생성
+				cDao.createBasicProCategori(acountInfo); // 기본 상품 카테고리 생성
+				cDao.createBasicSkct(acountInfo); // 기본 판매키 생성
+				cDao.createBasicSeatCt(acountInfo); //기본 테이블 카테고리 생성
+				cDao.createBasicRequest(acountInfo);
 				for (int i = 0; i < cDao.getGrantPositionCodeSize(); i++) {
 					acountInfo.put("gpc_code", "" + i);
 					cDao.creatGrantPosition(acountInfo);// 반복문돌며 모든 권한의 갯수만큼 해당 직급에 계급 부여
@@ -65,10 +69,16 @@ public class CompanyMemberMM {
 			}
 		} catch (Exception e) {
 			System.out.println("오류 발생");
-			System.err.println(e);
+//			System.err.println(e);
+			if(e.getCause().toString().contains("PRIMARY")) {
+				acountInfo.put("error", "이미 계정이 존재합니다. 확인후 다시 시도해주세요");
+				reat.addFlashAttribute("acountInfo", acountInfo);
+				return "redirect:joinEmailFrm";
+			}
+			System.out.println(e.getCause());
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			reat.addFlashAttribute("acountInfo", acountInfo);
 			acountInfo.put("error", "회원가입에 실패하였습니다 다시 시도해주세요.");
+			reat.addFlashAttribute("acountInfo", acountInfo);
 			return "redirect:joinEmailFrm";
 		}
 

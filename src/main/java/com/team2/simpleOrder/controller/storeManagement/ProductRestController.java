@@ -59,4 +59,5 @@ public class ProductRestController {
 	public HashMap<String, String> updateStock(@RequestParam HashMap<String, String> stockInfo,HttpSession session){
 		return pm.updateStock(stockInfo,session);
 	}
+
 }

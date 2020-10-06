@@ -310,8 +310,7 @@ button:focus {
 	function getDayVCLog(day) {
 		$("#view_layer").addClass("open");
 
-		$
-				.ajax({
+		$.ajax({
 					type : "get",
 					url : "rest/getdayvclog",
 					data : {

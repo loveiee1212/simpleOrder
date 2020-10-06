@@ -160,6 +160,7 @@ button:focus {
 </style>
 </head>
 <body>
+${empCode}
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div id="calendar">
@@ -335,7 +336,7 @@ button:focus {
 				},
 				dataType : 'json',
 				success : function(data) {
-					$tdText.text(" ");
+					$tdText.text("");
 
 					for ( var i in data) {
 						if (data[i].BD_DATE != null) {

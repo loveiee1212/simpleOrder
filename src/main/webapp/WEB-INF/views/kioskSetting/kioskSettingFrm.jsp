@@ -123,10 +123,7 @@ input:focus {
 	</div>
 </body>
 <script type="text/javascript" id="basicIncludeService">
-	$
-	{
-		basicPath
-	}
+	${basicPath}
 	function includeAjax(url) {
 		$.ajax({
 			url : url,

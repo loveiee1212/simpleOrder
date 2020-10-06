@@ -120,6 +120,15 @@ public interface ICompanyMemberDao1 {
 	@Select("SELECT COUNT(*) FROM GRANT_POSITION WHERE C_CODE = #{c_code} AND PST_POSITION = #{pst_position} AND GPC_CODE = LPAD(#{gpc_code},2,0)")
 	Boolean getGrantActivestatus(HashMap<String, String> hm);
 
+	@Insert("INSERT INTO PRODUCT_CT VALUES (#{c_code}, '01', '기본')")
+	void createBasicProCategori(HashMap<String, String> acountInfo);
+	@Insert("INSERT INTO SELLKEY_CT VALUES (#{c_code}, 0, '기본', 4, 3)")
+	void createBasicSkct(HashMap<String, String> acountInfo);
+	@Insert("INSERT INTO SEAT_CT VALUES (#{c_code}, '01', '기본', 4, 3)")
+	void createBasicSeatCt(HashMap<String, String> acountInfo);
+	@Insert("INSERT INTO REQUEST VALUES (#{c_code}, 1, '물')")
+	void createBasicRequest(HashMap<String, String> acountInfo);
+
 
 
 	
