@@ -44,8 +44,8 @@ public class CreditAndPaymentRestController {
 	}
 	
 	@RequestMapping(value = "/addcreditlist", method = RequestMethod.POST)
-	public HashMap<String, String> addcreditList(HttpSession session, String oac_num) {
-		return cm.addcreditList(session, oac_num);
+	public HashMap<String, String> addcreditList(HttpSession session, String oac_num,String crd_name,String crd_phone){
+		return cm.addcreditList(session, oac_num,crd_name,crd_phone);
 	}
 	
 	@RequestMapping(value = "/getpayamount", method = RequestMethod.POST)

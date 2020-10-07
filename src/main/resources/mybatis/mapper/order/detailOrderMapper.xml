@@ -15,7 +15,7 @@
 		AND
 		OH.PD_CODE = PD.PD_CODE AND OAC.OAC_NUM = OH.OAC_NUM
 		WHERE
-		OAC.C_CODE = #{c_code} AND PD.PD_STATUS = "1" AND OAC.OAC_STATUS ="1"
+		OAC.C_CODE = #{c_code} AND PD.PD_STATUS = "1"
 		AND OAC.OAC_NUM = #{oac_num}
 		AND OAC.BD_DATE =#{bd_date}
 		GROUP BY

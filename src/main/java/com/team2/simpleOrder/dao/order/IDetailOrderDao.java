@@ -31,11 +31,11 @@ public interface IDetailOrderDao {
 	boolean createoacList(HashMap<String, String> hMap);
 
 	//상품 + sellkey가져오기
-	List<HashMap<String, Object>> getSellKeyList(String string);
+	List<HashMap<String, Object>> getSellKeyList(String c_code);
 
 	//sellkey카테고리 가져오기
-	@Select("SELECT * FROM SELLKEY_CT")
-	List<HashMap<String, Object>> getsellkeyCtgList(String string);
+	@Select("SELECT * FROM SELLKEY_CT WHERE C_CODE = #{c_code}")
+	List<HashMap<String, Object>> getsellkeyCtgList(String c_code);
 
 	void updatestkList(HashMap<String, String> oacInfo);
 

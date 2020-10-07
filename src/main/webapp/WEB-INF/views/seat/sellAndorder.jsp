@@ -223,6 +223,26 @@ li input {
 .blockCtg {
 	display: block;
 }
+
+#background{
+display :none;
+position : absolute;
+width: 92%;
+height: 86.7%;
+background-color: #ddd;
+opacity: 0.5;
+}
+
+#addcreditbox{
+	display : none;
+	position: absolute;
+	width : 450px;
+	height : 300px;
+	background-color: white;
+	border: 3px solid #81d4fa;
+	margin-left :32%;
+	margin-top: 17%;
+}
 </style>
 </head>
 <body>
@@ -278,16 +298,28 @@ li input {
 					</ul>
 				</div>
 			</div>
+			<div id='background'>
+			</div>
+			<div id = "addcreditbox">
+				<input type='text' id="crd_name"  placeholder="성함"/>
+				<input type='text' id="crd_phone" placeholder="연락처"/>
+				<input type='button' id='addcreditbutton' value='외상처리'/>
+			</div>
 		</div>
 	</div>
 </body>
 <script>
+$(document).ready(function(){	
 	getsellkeyList();
 	totalprice();
-	console.log($("#oac_num").val());
-	if($("#oac_num").val()!="null"){		
+	if($("#oac_num").val()!="null"){
+		if($("#totalmoney").val()!=0){			
 	getpayAmount();
+		}
 	}
+})
+		
+	
 	
 	function getpayAmount(){
 		$.ajax({
@@ -296,12 +328,13 @@ li input {
 			data : {"oac_num":$("#oac_num").val()},
 			dataType : 'json',
 			success : function(data){
-			console.log(data);
+			if(data!=""){				
 			var a = Number(data.endpay);
 			$("#endpay").val(a);
 			$("#uctmoney").val($("#totalmoney").val()-a);
 			if($("#totalmoney").val()==a){
 				updateOac();
+			}
 			}
 			}
 		})
@@ -314,7 +347,6 @@ li input {
 			data : {"bd_date":"","oac_num":$("#oac_num").val()},
 			dataType : 'json',
 			success : function(data){
-			console.log(data);
 			alert(data.result);
 			location.href = "./posmain";
 			
@@ -323,8 +355,7 @@ li input {
 	}
 	
 	function getsellkeyList() {
-		$.ajax({
-					type : 'post',
+		$.ajax({type : 'post',
 					url : 'rest/getsellkeylist',
 					dataType : 'json',
 					success : function(data) {
@@ -355,13 +386,14 @@ li input {
 							var pd_name = tdiv.children("#pd_info").val();
 							var $pdccode = $("input[name = 'pdcode']").length;
 							for(var i=0;i<$pdccode;i++){
-								console.log($("#pdcode"+i).data('code')==pdc_code&&$("#pdcode"+i).val()==pd_code);
-								console.log($("#pdcode"+i).data('code'));
-								console.log($("#pdcode"+i).val());
-								console.log(pdc_code);
-								console.log(pd_code);
 								if($("#pdcode"+i).data('code')==pdc_code&&$("#pdcode"+i).val()==pd_code){
 									$("#pdcnt"+i).val(Number($("#pdcnt"+i).val())+1);
+									$("#pdcnt"+i).val(Number($("#pdcnt"+i).val())+1);
+									console.log(i);
+									console.log(Number($("#hiddenprice"+i).val()));
+									console.log(Number($("#pdcnt"+i).val()));
+									$("#totalprice"+i).text(Number($("#hiddenprice"+i).val())*Number($("#pdcnt"+i).val()));
+									totalprice();
 									return;
 								}
 							}
@@ -373,7 +405,7 @@ li input {
 									+pdc_code + "' value='" + pd_code + "'/>"
 									+ "<input type='hidden' name='pddate' id='pddate"+$pdccode + "' value='" + pd_date + "'/>"
 									+ pd_name + "</td>";
-							value+="<td><p class ='price' id='totalprice'>"+pd_price+"</p>";
+							value+="<td><p class ='price' id='totalprice"+$pdccode+"'>"+pd_price+"</p>";
 							value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 									+ "'/></td>";
 							value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
@@ -381,6 +413,7 @@ li input {
 							value+="<td><button>취소</button></td>";
 							value+="</tr>";
 							$("#listbox").children("center").children("table").append(value);
+							totalprice();
 							}else{
 								var value = "";
 								value+="<table>";
@@ -398,8 +431,14 @@ li input {
 								value+="</tr>";
 								value+="</table>";
 								$("#listbox").children("center").append(value);
+								totalprice();
 							}
+							$("tr").children($("input")).keyup(function(evt) {
+								totalprice();
+							});
 						})
+					
+						
 					}
 				})
 
@@ -417,10 +456,11 @@ li input {
 		}
 	};
 
-	if ($("#oac_num").val() == "null") {
+	if ($("#oac_num").val() == "null" && $("#totalmoney").val()!=0) {
 		$("#oac_num").val("");
 	}
 
+	//수량변경 
 	$("tr").children($("input")).keyup(function(evt) {
 		totalprice();
 	});
@@ -445,6 +485,7 @@ li input {
 
 		//console.log(sum);
 		$("#totalmoney").val(sum);
+		$("#uctmoney").val($("#totalmoney").val());
 	}
 
 	function sendsaoList() {
@@ -489,7 +530,6 @@ li input {
 			"pd_code" : codeArray,
 			"oh_cnt" : cntArray
 		}
-		console.log(objparam);
 		$.ajax({
 			type : "post",
 			url : 'rest/sendsaolist',
@@ -497,8 +537,6 @@ li input {
 			dataType : 'html',
 			success : function(result) {
 
-				console.log("aaa");
-				console.log(result);
 				location.href = result;
 			}
 		});
@@ -542,17 +580,39 @@ li input {
 	}
 	
 	function addcreditList(){
-		$.ajax({
-			type : 'post',
-			url : 'rest/addcreditlist',
-			data : {"oac_num" : $("#oac_num").val()},
-			dataType : 'json',
-			success : function (result){
-				console.log(result);
-				alert(result.result);
-			}
-		});
+		$("#background").css("display","block");
+		$("#addcreditbox").css("display","block");
+		
+		$("#addcreditbutton").click(function(){
+			 var crd_name = $("#crd_name").val();
+			 var crd_phone = $("#crd_phone").val();
+			 var oac_num = $("#oac_num").val();
+			 var obj = {
+					 "crd_name" : crd_name,
+					 "crd_phone" : crd_phone,
+					 "oac_num" : oac_num
+			 }
+			 	$.ajax({
+				type : 'post',
+				url : 'rest/addcreditlist',
+				data : obj,
+				dataType : 'json',
+				success : function (result){
+					alert(result.result);
+					location.href = "./posmain";
+				}
+			});
+		 });
+		
 	}
+	
+	$("#background").click(function(){
+		$("#background").css("display","none");
+		$("#addcreditbox").css("display","none");
+	});
+	
+	 
+	
 
 	/* 키패드 */
 	var str = "";
@@ -612,7 +672,7 @@ li input {
 	$("#takemoney").focus(function() {
 	$("#takemoney").val("");
 	});
-
+	
 	
 </script>
 

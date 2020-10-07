@@ -295,10 +295,10 @@ input:focus, button:focus {
 					<div class="takeAction2">
 						<p>직원 재출력</p>
 					</div>
-					<div class="takeAction3">
+					<div class="takeAction3" id='cancelpay'>
 						<p>결제 취소</p>
 					</div>
-					<div class="takeAction2">
+					<div class="takeAction2" id='repay'>
 						<p>재매출</p>
 					</div>
 					<button id="Exit" type="button"
@@ -309,10 +309,7 @@ input:focus, button:focus {
 	</div>
 </body>
 <script>
-	//searchbills();
-
-	$(".bList_tr").click(
-			function() {
+	$(".bList_tr").click(function() {
 				var tr = $(this);
 				var td = tr.children();
 				/* tr 행의 정보들을 Arr에 담음 */
@@ -326,50 +323,83 @@ input:focus, button:focus {
 					"oac_num" : oac_num,
 					"oac_status" : oac_status
 				}
-				$.ajax({
+				 $.ajax({
 					type : 'post',
 					url : 'rest/getdetailbill',
 					data : obj,
 					dataType : 'json',
 					success : function(data) {
-						$("#titlename").text(data.companyName);
+						console.log(data);
+						$("#titlename").html(data.companyName);
 						$("#companyList").html(data.companyList);
 						$("#proList").html(data.productList);
-						//받아왔던 금액 계산
-						if (oac_status == "-1") {
-							//현금계산이 0 이라면 == 카드결제
-							if (td.children("#cashcard").data("code") == 0) {
-								$("#t_pay").text("카드결제금액");
-								$("#tpayment").text(
-										td.children("#cashcard").val());
-							}
-							/* 카드계산이 0 이라면 == 현금결제 */
-							else {
-								$("#t_pay").text("현금결제금액");
-								$("#tpayment").text(
-										td.children("#cashcard").data("code"));
-							}
-							$("#tgetpay").html(
-									tr.children("#getCashvalue").text());
+						$("#bottom_info").html(data.paymentList);
+						$("#uctcredit").html(Number($("#all_total").text())-$("#total").val());
+						
+						//선택한 주문번호가 결제이거나 외상일 떄
+						if(oac_status==-1||oac_status==0){
+						$("#cancelpay").css("color","red");
+						$("#repay").css("color","#81d4fa");
+						
+						}else{
+							$("#cancelpay").css("color","#ddd");
+							$("#repay").css("color","#ddd");	
 						}
+						
+						$("#cancelpay").click(function(){
+							if(oac_status==1||oac_status==-2){
+							return false;
+							}else{
+								cancelpay(obj);
+							}
+							
+					});
+						
+						$("#repay").click(function(){
+							if(oac_status==1||oac_status==-2){
+							return false;
+							}else{
+								repay(obj);
+							}
+						});
 					}
-				})
 
-			});
-
-	/* function searchbills(){
+		});
+		});
+	
+	 function cancelpay(obj){
+		console.log(obj);
+		if(confirm("결제 취소 시 해당하는 모든 상품이 반품 처리 됩니다. 취소하시겠습니까 ?")){
 		$.ajax({
-			type : "post",
-			url : "",
-			data : {"b_date":b_date,"b_code":b_code},
-			dataType : "json",
+			type : 'post',
+			url : 'rest/cancelpay',
+			data : obj,
+			dataType : 'json',
 			success : function(result){
 				console.log(result);
-			},
-			error : function(err){
-				console.log(err);
+				alert(result.result);
+				location.reload();
 			}
 		});
-	} --> 조회 시 ajax를 이용하여 조회하기*/
+		}else{
+			alert("실행이 취소되었습니다.");
+		}
+	} 
+	 function repay(obj){
+		 if(confirm("재매출 시 해당하는 모든 상품이 반품 처리 됩니다. 재매출 처리 하시겠습니까 ?")){
+				$.ajax({
+					type : 'post',
+					url : 'rest/cancelpay',
+					data : obj,
+					dataType : 'json',
+					success : function(result){
+						location.href = "./resell?oac_num=" + obj.oac_num+ "&bd_date=" + obj.bd_date + "&oac_num="+ obj.oac_num+ "&oac_status="+ obj.oac_status;
+					}
+				});
+				}else{
+					alert("실행이 취소되었습니다.");
+				}
+	 
+	 }
 </script>
 </html>

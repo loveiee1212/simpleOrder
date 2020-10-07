@@ -68,7 +68,7 @@ public class OrderMM {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < cList.size(); i++) {
 			sb.append("<div id='table" + i + "' class='tList'>");
-			sb.append("<table>");
+			sb.append("<table id='ordertable'>");
 			int x = cList.get(i).getSc_x();
 			int y = cList.get(i).getSc_y();
 			for (int a = 0; a < x * y; a += x) {
