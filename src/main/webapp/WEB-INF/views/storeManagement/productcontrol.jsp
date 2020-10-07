@@ -533,8 +533,8 @@ input:focus, button:focus, select:focus {
 	}
 	function updateProCategori() { // 카테고리 이름 수정
 		let pdc_code = $("#updateCategoriCode").val();
-		productControllForm.action = 'proCategoriUpdate';
-		productControllForm.submit();
+		proCategoriUandD.action = 'proCategoriUpdate';
+		proCategoriUandD.submit();
 	}
 
 	function createProduct() { // 상품 생성
