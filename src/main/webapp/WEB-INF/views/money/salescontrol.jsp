@@ -57,7 +57,7 @@ td.dt {
 }
 
 .sales{
-	background-color: gold;
+	background-color: #b3e5fc;
 }
 
 #view_layer {
