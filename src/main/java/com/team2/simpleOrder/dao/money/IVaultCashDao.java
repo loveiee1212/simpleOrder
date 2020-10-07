@@ -19,11 +19,14 @@ public interface IVaultCashDao {
 
 	String getStartVC(String c_code);
 	
-	String getEndVC(String string);
+	String getEndVC(String c_code);
+	
+	int getCountOac_status(HashMap<String, Object> jMap);
 	
 	List<HashMap<String, String>> getMonthVC(HashMap<String, String> vcm);
 
 	List<HashMap<String, String>> getDayVCLog(HashMap<String, String> vcm);
+
 
 
 

@@ -328,8 +328,7 @@ button:focus {
 		} else {
 			var emp_code = null;
 		}
-		console.log(emp_code);
-
+		
 		$.ajax({
 				type : 'get',
 				url : 'rest/getTime',
@@ -340,7 +339,6 @@ button:focus {
 				},
 				dataType : 'json',
 				success : function(data) {
-					console.log(data);
 					$tdText.text("");
 
 					for ( var i in data) {
@@ -468,7 +466,6 @@ button:focus {
 				url : "rest/getemplist",
 				dataType : "json",
 				success : function(data) {
-					console.log(data);
 					$("#emp_codeList").text("");
 					$("#emp_codeList").append(
 							$("<select name='emp_list' id='emp_list' onchange='getTime("+ day + ")'>"));

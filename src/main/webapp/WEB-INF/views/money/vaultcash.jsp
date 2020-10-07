@@ -380,6 +380,9 @@ button:focus {
 						alert("마감이 완료되었습니다");
 					} else if (data == "error") {
 						alert("마감이 실패했습니다.");
+					} else if (data == "notYet"){
+						alert("아직 주문중인 테이블이 있습니다");
+						location.href="endvc";
 					}
 				}
 			});

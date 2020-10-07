@@ -394,9 +394,13 @@ input:focus, button:focus, select:focus {
 						bd_date = moment(data[i].BD_DATE).format("DD");
 						bd_dateYM = moment(data[i].BD_DATE).format("YYYY MM");
 					}
-
+					
+					if(data[i].CASH != null){
 					cash += (data[i].CASH)*1;
+					}
+					if(data[i].CARD != null){
 					card += (data[i].CARD)*1;
+					}
 					
 					if (data[i].OAC_NAME == "외상") {
 						credit = data[i].TOTAL_PAY
