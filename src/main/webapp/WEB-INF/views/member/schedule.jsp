@@ -103,13 +103,14 @@ body {
 	color: #767676;
 	line-height: normal;
 	white-space: normal;
-	overflow: scroll;
+	overflow: auto;
 	border-collapse: collapse;
 	text-align: center;
 }
 
 #main_layer::-webkit-scrollbar {
 	width: 10px;
+	height: 10px;
 	background-color: #81d4fa;
 }
 

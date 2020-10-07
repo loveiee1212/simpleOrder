@@ -44,41 +44,35 @@ body {
 	float: right;
 }
 
-/* #empInfo div {
-	border: 1px solid #81d4fa;
-	width: 150px;
-	height: 50px;
-	margin: 15px;
-	font-size: 20px;
-	text-align: center;
-} */
-
 #empCode {
     border: 1px solid #81d4fa;
 	width: 150px;
-	height: 50px;
+	height: 40px;
     margin: 15px;
     font-size: 20px;
 	text-align: center;
+	padding-top: 20px;
 }
 
 #empName {
     border: 1px solid #81d4fa;
 	width: 150px;
-	height: 50px;
+	height: 40px;
     margin: 30px 15px 15px;
     font-size: 20px;
 	text-align: center;
+	padding-top: 20px;
 }
 
 #change div {
 	display: inline-block;
 	border: 1px solid #81d4fa;
 	width: 150px;
-	height: 50px;
+	height: 40px;
 	margin: 20px 15px 10px;
 	font-size: 20px;
 	text-align: center;
+	padding-top: 20px;
 }
 
 #change input {
@@ -91,31 +85,15 @@ body {
 }
 
 #btn1 {
-	width: 140px;
-	height: 50px;
-	border: 1px solid white;
-	outline: 0;
-	background-color: #81d4fa;
-	font-size: 20px;
-	font-weight: bold;
-	color: white;
-	margin-right: 40px;
-	margin-left: 130px;
-	margin-top: 30px;
-}
-
-#btn2 {
-	width: 150px;
-	height: 50px;
-	border: 1px solid #81d4fa;
-	outline: 0;
-	background-color: white;
-	color: #81d4fa;
-	font-size: 20px;
-	font-weight: bold;
-	margin-right: 40px;
-	margin-left: 15px;
-	margin-top: 30px;
+    width: 340px;
+    height: 60px;
+    border: 1px solid white;
+    outline: 0;
+    background-color: #81d4fa;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin: 100px 40px 0 130px;
 }
 
 #onoff {
@@ -147,7 +125,7 @@ body {
 	width: 500px;
 	height: 150px;
 	margin: 15px;
-	margin-top: 40px;
+	margin: 20px 50px;
 }
 
 #originalTime span {

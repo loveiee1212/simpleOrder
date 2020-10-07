@@ -43,8 +43,28 @@ div {
 }
 
 div #seat {
-	clear: both;
-	margin-top: 30px;
+    width: 1200px;
+    height: 700px;
+    clear: both;
+    margin-top: 20px;
+    overflow: auto;
+}
+
+#seat::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: white;
+}
+
+#seat::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: white;
+}
+
+#seat::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
 }
 
 #outerdiv {
@@ -77,7 +97,7 @@ div #seat {
 	padding: 14px 16px;
 	transition: 0.3s;
 	height: 80px;
-	width: 100px;
+	width: auto;
 }
 
 .tab button:hover {
@@ -85,15 +105,15 @@ div #seat {
 }
 
 .tables {
-	border: 3px solid #81d4fa;
-	width: 120px;
-	height: 100px;
-	float: left;
-	margin: 15px;
-	opacity: 0.5;
-	background-color: silver;
-	font-size: 25px;
-	float: left;
+    border: 3px solid #81d4fa;
+    width: 200px;
+    height: 180px;
+    float: left;
+    margin: 15px;
+    opacity: 0.5;
+    background-color: silver;
+    font-size: 20px;
+    float: left;
 }
 
 #rightdiv {
@@ -414,6 +434,11 @@ i {
 	float : left;
 }
 
+#ordertable {
+    width: 1000px;
+    height: 700px;
+    margin-left: 100px;
+}
 </style>
 </head>
 <body>

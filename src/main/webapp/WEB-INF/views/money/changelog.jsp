@@ -121,8 +121,6 @@ button:focus {
 </head>
 
 <body>
-	<div id="baseBox">
-		<div id="baseinnerBox">
 			<div id="calendar">
 				<div id="calendar_top">
 					<div id="emp_codeList"></div>
@@ -142,8 +140,6 @@ button:focus {
 				</div>
 				<button id="Exit" onclick="location.href='changevc'">나가기</button>
 			</div>
-		</div>
-	</div>
 </body>
 <script type="text/javascript">
 	$(document).ready(function() {

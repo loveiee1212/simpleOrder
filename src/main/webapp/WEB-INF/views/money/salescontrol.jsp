@@ -56,8 +56,12 @@ td.dt {
 	height: 80px;
 }
 
-.sales{
+.sales {
 	background-color: #b3e5fc;
+}
+
+.salesName {
+    margin-top: -50px;
 }
 
 #view_layer {
