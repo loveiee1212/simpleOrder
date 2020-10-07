@@ -15,4 +15,12 @@ public interface ISalesDao {
 
 	List<HashMap<String, String>> getDayRefundProduct(HashMap<String, String> smap);
 
+	List<HashMap<String, String>> getMonthDetail(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getMonthDetailTotalSales(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getMonthDetailProduct(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getMonthDetailRefundProduct(HashMap<String, String> smap);
+
 }

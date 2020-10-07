@@ -98,6 +98,7 @@
 				<div id="view_layer">
 					<div id="bg_layer"></div>
 					<div id="main_layer">
+					<div id="month"></div>
 					<table id="salesList">
 						<tr><th>구분</th><th>결제</th><th>외상</th><th>반품</th></tr>
 						<tr><th>현금</th><td id="pay_cash"></td><td id="credit_cash"></td><td id="refund_cash"></td></tr>
@@ -110,6 +111,9 @@
 					</table>
 					</div>
 				</div>
+
+				<button onclick="inputMonth()">월별매출보기</button>
+				<button id="Exit" onclick="location.href='changevc'">나가기</button>
 			</div>
 		</div>
 	</div>
@@ -348,9 +352,91 @@
 	}
 </script>
 <script type="text/javascript">
-	//일별 매출 불러오기
+	//한달 매출 상세 불러오기
+	function inputMonth(){
+		$("#view_layer").addClass("open");
+		$("#month").find("input").remove();
+		var date = moment($("#yearMonth").text()).format("YYYY-MM");
+		$("#month").append($("<input id='monthSelect' type='month' onchange='getMonthDetail()' value='"+date+"'>"));
+		getMonthDetail();
+	}
+	
+	function getMonthDetail() {
+
+		 $.ajax({
+			type : "get",
+			url : "rest/getmonthdetail",
+			data : {
+				'bd_date' : moment($("#monthSelect").val() + "-" + 01).format("YYYY-MM-DD")
+			},
+			dataType : "json",
+			success : function(data) {
+				$("#salesList").find("td").text("");
+				$(".pro").remove();
+				
+				for(var sales of data.salesList){
+					var cash = sales.CASH;
+					var card = sales.CARD;
+					if (sales.OAC_NAME == "결제"){
+						$("#pay_cash").text(cash);
+						$("#pay_card").text(card);
+					}
+					if (sales.OAC_NAME == "외상"){
+						$("#credit_cash").text(cash);
+						$("#credit_card").text(card);
+					}
+					if (sales.OAC_NAME == "반품"){
+						$("#refund_cash").text(cash*-1);
+						$("#refund_card").text(card*-1);
+					}
+				}
+				for (var total of data.totalSales){
+					var totalPay = total.TOTAL_PAY;
+					if (total.OAC_NAME == "결제"){
+						$("#pay_total").text(totalPay);
+						$("#pay").text($("#pay_total").text()*-1-($("#pay_cash").text()*-1+$("#pay_card").text()*-1));
+					}
+					if (total.OAC_NAME == "외상"){
+						$("#credit_total").text(totalPay);
+						$("#credit").text($("#credit_total").text()*-1-($("#credit_cash").text()*-1+$("#credit_card").text()*-1));
+					}
+					if (total.OAC_NAME == "반품"){
+						$("#refund_total").text(totalPay*-1);
+						$("#refund").text($("#refund_total").text()*1-($("#refund_cash").text()*1+$("#refund_card").text()*1));
+					}
+				}
+				
+				var tr = "";
+				tr += "<tr class='pro'><th colspan='4'>결제상품</th>";
+				for (var product of data.productList){
+					tr += "'<tr class='pro'><td>"+product.PD_NAME+"</td>'";
+					tr += "'<td>"+product.PD_PRICE+"</td>'";
+					tr += "'<td>"+product.OH_CNT+"</td>'";
+					tr += "'<td>"+(product.PD_PRICE*1)*(product.OH_CNT*1)+"</td>'";
+				}
+				$("#productList").append(tr);
+				tr="";
+				tr += "<tr class='pro'><th colspan='4'>반품상품</th>";
+				for (var refund of data.refundList){
+					tr += "'<tr class='pro'><td>"+refund.PD_NAME+"</td>'";
+					tr += "'<td>"+refund.PD_PRICE+"</td>'";
+					tr += "'<td>"+refund.OH_CNT+"</td>'";
+					tr += "'<td>"+(refund.PD_PRICE*1)*(refund.OH_CNT*1)+"</td>'";
+				}
+				$("#productList").append(tr);
+				
+			}
+		}); 
+	}
+		
+</script>
+
+<script type="text/javascript">
+	//일별 매출 상세 불러오기
 	function getDaySales(day){
 		$("#view_layer").addClass("open");
+		$("#month").find("input").remove();
+		
 		$.ajax({
 			type : "get",
 			url : "rest/getdaysales",
@@ -398,18 +484,18 @@
 				tr += "<tr class='pro'><th colspan='4'>결제상품</th>";
 				for (var product of data.productList){
 					tr += "'<tr class='pro'><td>"+product.PD_NAME+"</td>'";
-					tr += "'<td>"+product.PD_PRICE+"</td>'"
-					tr += "'<td>"+product.OH_CNT+"</td>'"
-					tr += "'<td>"+(product.PD_PRICE*1)*(product.OH_CNT*1)+"</td>'"
+					tr += "'<td>"+product.PD_PRICE+"</td>'";
+					tr += "'<td>"+product.OH_CNT+"</td>'";
+					tr += "'<td>"+(product.PD_PRICE*1)*(product.OH_CNT*1)+"</td>'";
 				}
 				$("#productList").append(tr);
 				tr="";
 				tr += "<tr class='pro'><th colspan='4'>반품상품</th>";
 				for (var refund of data.refundList){
 					tr += "'<tr class='pro'><td>"+refund.PD_NAME+"</td>'";
-					tr += "'<td>"+refund.PD_PRICE+"</td>'"
-					tr += "'<td>"+refund.OH_CNT+"</td>'"
-					tr += "'<td>"+(refund.PD_PRICE*1)*(refund.OH_CNT*1)+"</td>'"
+					tr += "'<td>"+refund.PD_PRICE+"</td>'";
+					tr += "'<td>"+refund.OH_CNT+"</td>'";
+					tr += "'<td>"+(refund.PD_PRICE*1)*(refund.OH_CNT*1)+"</td>'";
 				}
 				$("#productList").append(tr);
 				

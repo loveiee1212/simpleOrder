@@ -29,6 +29,13 @@ public class SalesRestController {
 		return sm.getMonthSales(session,smap);
 	}
 	
+	@RequestMapping("/getmonthdetail")
+	public String getMonthDetail(HttpSession session, @RequestParam HashMap<String,String> smap) {
+		System.out.println(smap.toString());
+		
+		return sm.getMonthDetail(session,smap);
+	}
+	
 	@RequestMapping("/getdaysales")
 	public String getDaySales(HttpSession session, @RequestParam HashMap<String,String> smap) throws Exception {
 		
