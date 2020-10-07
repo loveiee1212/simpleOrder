@@ -143,7 +143,7 @@ input[type=checkbox] {
 		dataType : "json",
 		success : function(hashmap) {
 			$("#grantList").append(hashmap.positionGrantCheckBoxHtml);
-			$(".00").attr('onclick', 'return false');
+			$(".0").attr('onclick', 'return false');
 		}
 	})
 </script>

@@ -48,11 +48,11 @@ public class CMemberHtmlMaker {
 	public String positionList(ArrayList<HashMap<String, String>> positionList, String empPosition) {
 		for (HashMap<String, String> hm : positionList) {
 			if (hm.get("PST_NAME").equals(empPosition)) {
-				sb.append("<option value = " + hm.get("PST_POSITION") + " selected = 'selected'>");
+				sb.append("<option value = " + Integer.parseInt(String.valueOf(hm.get("PST_POSITION"))) + " selected = 'selected'>");
 				sb.append(hm.get("PST_NAME"));
 				sb.append("</option>");
 			} else {
-				sb.append("<option value = " + hm.get("PST_POSITION") + ">");
+				sb.append("<option value = " + Integer.valueOf(String.valueOf(hm.get("PST_POSITION"))) + ">");
 				sb.append(hm.get("PST_NAME"));
 				sb.append("</option>");
 			}
@@ -78,9 +78,14 @@ public class CMemberHtmlMaker {
 
 	public String getPositionHtml(ArrayList<HashMap<String, String>> position) {
 		for (int i = 0 ; i < position.size(); i++) {
-			sb.append("<tr id = '"+position.get(i).get("PST_POSITION")+"'>");
+			int pst_position = Integer.parseInt(String.valueOf(position.get(i).get("PST_POSITION")));
+			sb.append("<tr id = '"+pst_position+"'>");
 			sb.append("<td>").append("<input class ='pst_name' type = 'text' value ='"+position.get(i).get("PST_NAME")+"'>").append("</td>");
-			sb.append("<td>").append("<input type = 'button' value ='삭제' onclick = 'deletePosition(this)' class = 'positionDeleteClass'>").append("</td>");
+			if(pst_position == 0 ) {
+				sb.append("<td>").append("<input type = 'button' value ='삭제 불가' class = 'positionDeleteClass'>").append("</td>");
+			}else {
+				sb.append("<td>").append("<input type = 'button' value ='삭제' onclick = 'deletePosition(this)' class = 'positionDeleteClass'>").append("</td>");
+			}
 			sb.append("<td>").append("<input type = 'button' value ='저장' onclick = 'updatePosition(this)' class = 'positionUpdateClass'>").append("</td>");
 			sb.append("</tr>");
 		}

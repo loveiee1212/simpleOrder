@@ -98,7 +98,7 @@ public class ProductMM {
 			if(Boolean.parseBoolean(proInfo.get("stockUse"))) {//업로드가 끝나고 재고가 있다면
 				pDao.createProStock(proInfo);
 			}
-			if(Boolean.parseBoolean(proInfo.get("update").toString())) {
+			if(proInfo.get("update") != null) {
 				System.out.println(proInfo);
 				System.out.println(pDao.updateSellKeyDate(proInfo));
 			}
