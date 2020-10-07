@@ -262,7 +262,10 @@ select {
 	function empInfosetting(index) { // 아래 버튼을 수정 기능추가 및 명명, 수정하기 위해 정보 긁어오기, 삭제 버튼 활성
 		addORupdate.attributes[4].value = 'updateEmpInfo()'
 		addORupdate.value = '수정';
-		if ($("#cListOption").val() != '직원 목록') {
+	console.log($("#cListOption").val() == '직원 목록');
+	console.log($("#"+index).children().eq(1).html() == '00000');
+	console.log($("#"+index).children().eq(1).html());
+		if ($("#cListOption").val() != '직원 목록' && $("#"+index).children().eq(1).html() != '00000') {
 			$("#delect").removeAttr("hidden")
 		}
 		$("#method").val("patch");

@@ -59,7 +59,7 @@ body {
 #securityCode {
 	width: 568px;
 	height: 50px;
-	border: 3px solid #81d4fa;
+	border: 2px solid #81d4fa;
 	font-size: 20px;
 	text-align: center;
 	font-weight: bold;

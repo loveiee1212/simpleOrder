@@ -61,7 +61,7 @@ body {
 	background-color: white;
 	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 400px;
+	height: 350px;
 	margin-left: 17px;
 	margin-top: 10px;
 	border-collapse: collapse;
@@ -99,7 +99,7 @@ div #listbox tr, td {
 	border-top: none;
 	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 70px;
+	height: 120px;
 	margin-left: 17px;
 	background-color: white;
 	font-size: 20px;
@@ -112,8 +112,10 @@ div #listbox tr, td {
 }
 
 li input {
-	width: 80px;
-	font-size: 20px;
+    width: 80px;
+    font-size: 20px;
+    border: none;
+    text-align: center;
 }
 
 .bottombox {
@@ -204,6 +206,10 @@ li input {
 	text-align: center;
 }
 
+#endpay {
+    margin-top: 5px;
+}
+
 #btn1, #btn2, #btn3 {
 	border: 3px solid white;
 	background-color: #81d4fa;
@@ -225,12 +231,12 @@ li input {
 }
 
 #background{
-display :none;
-position : absolute;
-width: 92%;
-height: 86.7%;
-background-color: #ddd;
-opacity: 0.5;
+    display :none;
+    position : absolute;
+    width: 92%;
+    height: 86.7%;
+    background-color: #ddd;
+    opacity: 0.5;
 }
 
 #addcreditbox{

@@ -41,8 +41,8 @@
 
 #requestList {
 	margin: 20px;
-	border: 3px solid #81d4fa;
-	height: 380px;
+	border: 2px solid #81d4fa;
+	height: 375px;
 }
 
 #text {

@@ -27,22 +27,22 @@ body {
 }
 
 #creditList th{
-width: 200px;
-height: 50px;
-font-size: 20px;
-background-color: #81d4fa;
-color: white;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    background-color: #81d4fa;
+    color: white;
 }
 
 #creditList td {
-width: 200px;
-height: 50px;
-font-size: 20px;
-text-align: center;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
 }
 
 .innerdiv {
-background-color: white;
+    background-color: white;
 	border: 3px solid #81d4fa;
 	width: 740px;
 	height: 800px;
@@ -65,8 +65,8 @@ button {
 }		
 
 button: focus{ 
-outline: none;
-box-shadow: none;
+    outline: none;
+    box-shadow: none;
 }
 
 
@@ -109,21 +109,21 @@ box-shadow: none;
 }
 
 #pdcnt0 {
-width: 100px;
-height: 30px;
-text-align: center;
-font-size: 20px;
-border: none;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    font-size: 20px;
+    border: none;
 }
 
 input:focus {
-outline: none;
+    outline: none;
 }
 
 #moneylist {
 	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 50px;
+	height: 70px;
 	margin-left: 17px;
 	background-color: white;
 	font-size: 20px;
@@ -136,9 +136,10 @@ outline: none;
 }
 
 #totalmoney, #endpay, #takemoney, #uctmoney {
-    height: 25px;
-    margin: 0 20px 5px 3px;
-    font-size: 15px;
+    margin: -20px 20px 5px 3px;
+    font-size: 20px;
+    border: none;
+    text-align: center;
 }
 
 li input {
@@ -164,17 +165,17 @@ li input {
 }
 
 #btn1, #btn2 {
-border: 2px solid white;
-background-color: #81d4fa;
-color: white;
-font-weight: bold;
+    border: 2px solid white;
+    background-color: #81d4fa;
+    color: white;
+    font-weight: bold;
 }
 
 #Exit {
-border: 3px solid #81d4fa;
-background-color: white;
-color: #81d4fa;
-font-weight: bold;
+    border: 3px solid #81d4fa;
+    background-color: white;
+    color: #81d4fa;
+    font-weight: bold;
 }
 
 #keypad ul li {
@@ -196,7 +197,6 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	-webkit-appearance: none;
 	margin: 0;
 }
-
 </style>
 </head>
 <body>

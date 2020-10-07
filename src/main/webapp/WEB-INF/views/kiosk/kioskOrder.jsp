@@ -246,9 +246,17 @@ i {
 }
 
 p {
-	font-size: 35px;
-	text-align: center;
-	margin-top: -5px;
+    /* font-size: 35px; */
+    text-align: center;
+    margin-top: -5px;
+    color: rgb(133, 133, 133);
+}
+
+#basket p, #bill p {
+    font-size: 35px;
+    text-align: center;
+    margin-top: 5px;
+    color: black;
 }
 
 table {
@@ -298,17 +306,18 @@ table {
 #bskSum, #billSum {
 	float: right;
 	margin-right: 20px;
+	padding-bottom: 20px;
 	font-size: 25px;
 }
 
 .pList {
     height: 60px;
-    color: #1565c0;
+    color: rgb(133, 133, 133);
     background-color: #e3f2fd;
     clear: both;
     font-size: 25px;
     font-weight: bold;
-    padding-top: 10px;
+    padding-top: 20px;
     padding-left: 10px;
 }
 
@@ -320,7 +329,6 @@ table {
 	font-weight: bold;
 	color: white;
 	font-size: 20px;
-	margin-bottom: 20px;
 }
 
 #basket_close_btn, #bill_close_btn {
@@ -344,10 +352,7 @@ table {
 }
 
 #hline {
-	width: 568px;
-	height: 1px;
-	background-color: #81d4fa;
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 b {
@@ -461,7 +466,7 @@ input:focus, button:focus {
 				<h2 id="bskText">장바구니가 비어있습니다</h2>
 			</div>
 			<div id="bskFooter">
-				<p id="bskSum"></p>
+				<div id="bskSum"></div>
 				<button id="order" onclick="order();">주문하기</button>
 				<button id="basket_close_btn">나가기</button>
 			</div>
@@ -476,7 +481,7 @@ input:focus, button:focus {
 				</table>
 			</div>
 			<div id="billFooter">
-				<p id="billSum"></p>
+				<div id="billSum"></div>
 				<button id="bill_close_btn">나가기</button>
 			</div>
 		</div>
