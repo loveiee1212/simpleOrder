@@ -34,8 +34,8 @@ public class OrderMM {
 	ModelAndView mav;
 
 	// 리스트 정보 가져오기
-	public HashMap<String, Object> getTablelist() {
-		String c_code = "123123123123";
+	public HashMap<String, Object> getTablelist(HttpSession session) {
+		String c_code = session.getAttribute("c_code").toString();
 		// 카테고리 가져오기
 		List<Order> cList = oDao.getTcList(c_code);
 		// 테이블 정보 가져오기
@@ -104,11 +104,12 @@ public class OrderMM {
 	}
 
 	// 예약정보 가져오기
-	public HashMap<String, String> getReservList(Order odr) {
+	public HashMap<String, String> getReservList(HttpSession session, String rsv_date) {
+		Order odr = new Order();
+		odr.setRsv_date(rsv_date);
+		odr.setC_code(session.getAttribute("c_code").toString());
 		List<Order> rList = oDao.getReservList(odr);
-		System.out.println("rList" + rList);
-		HashMap<String, String> hMap = makehtmlrList(rList);
-		return hMap;
+		return makehtmlrList(rList);
 	}
 
 	// 가져온 예약정보를 html 태그를 추가해 hMap로 반환하기
@@ -149,11 +150,14 @@ public class OrderMM {
 	}
 
 	@Transactional
-	public HashMap<String, String> updateReserv(HttpSession session, Order odr) {
-		// String c_code=session.getAttribute("c_code").toString();
-		String c_code = "123123123123";
-		odr.setC_code(c_code);
-		// 수정인지 예약인지 구분하기
+	public HashMap<String, String> updateReserv(HttpSession session, String rsv_code, String rsv_name, String rsv_date, String rsv_phone, String rsvm_memo) {
+		Order odr = new Order();
+		odr.setRsv_code(rsv_code);
+		odr.setRsv_name(rsv_name);
+		odr.setRsv_date(rsv_date);
+		odr.setRsv_phone(rsv_phone);
+		odr.setRsvm_memo(rsvm_memo);
+		odr.setC_code(session.getAttribute("c_code").toString());
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		if (odr.getRsv_code() == "") {
 			odr.setRsv_code(null);
@@ -161,11 +165,10 @@ public class OrderMM {
 		if (odr.getRsvm_memo() == "") {
 			odr.setRsvm_memo(null);
 		}
-
 		// 코드가 null 일 경우 ==> 새로운 예약정보 등록
 		if (odr.getRsv_code() == null) {
 			// 회사 코드에 대해 예약이 하나라도 있는지 검색
-			int cnt = oDao.selectReservcnt(c_code);
+			int cnt = oDao.selectReservcnt(odr.getC_code());
 			boolean result = false;
 			boolean memoresult = false;
 			// 하나도 없다면 예약코드가 1인 데이터 insert / 하나라도 있다면 제일 숫자가 큰 예약코드에 1을 더한 예약코드 생성 뒤 insert
@@ -278,5 +281,7 @@ public class OrderMM {
 		}
 		return hMap;
 	}
+
+
 
 }
