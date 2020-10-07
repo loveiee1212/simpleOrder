@@ -27,7 +27,7 @@ public interface IDetailOrderDao {
 	boolean sendsaoList(HashMap<String, String> oacInfo);
 
 	// order_and_credit 인서트
-	@Insert("INSERT INTO ORDER_AND_CREDIT VALUES(#{c_code}, #{bd_date},#{oac_num},#{sc_code},#{st_num},DEFAULT,DEFAULT)")
+	@Insert("INSERT INTO ORDER_AND_CREDIT VALUES(#{c_code}, #{bd_date},#{oac_num},#{sc_code},#{st_num},DEFAULT,'1')")
 	boolean createoacList(HashMap<String, String> hMap);
 
 	//상품 + sellkey가져오기

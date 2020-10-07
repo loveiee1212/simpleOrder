@@ -86,8 +86,10 @@ public class DetailOrderMM {
 			ArrayList<String> pd_code, ArrayList<String> oh_cnt, RedirectAttributes reat) {
 		String c_code = session.getAttribute("c_code").toString();
 		String bd_date = session.getAttribute("bd_date").toString();
+		System.out.println(oac_num);
+		System.out.println(oac_num.equals("null"));
 		try {
-			if (oac_num == "") {
+			if (oac_num.equals("null")) {
 				oac_num = oDao.getNewOacCode(c_code, bd_date);
 				log.info("oac_num 찾기 :"+oac_num);
 				HashMap<String, String> hMap = new HashMap<String, String>();
@@ -113,6 +115,7 @@ public class DetailOrderMM {
 				oacInfo.put("pd_date", pd_date.get(i));
 				oacInfo.put("oh_cnt", oh_cnt.get(i));
 				oacInfo.put("oac_num", oac_num);
+				System.out.println("oac_info:"+oacInfo);
 				if (!oDao.sendsaoList(oacInfo)) {
 					return "errorSellpage";
 				}else {
