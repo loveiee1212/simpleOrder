@@ -163,13 +163,17 @@ h2 {
 			updateordelete.submit();
 		}
 	}
-
+	console.log("aa");
 	$.ajax({
 		url : "rest/getPosition",
 		type : "get",
 		dataType : "json",
 		success : function(data) {
+			console.log(data);
 			$("#postionList").append(data.positionList);
+		},
+		error : function (data){
+			console.log(data);
 		}
 
 	})

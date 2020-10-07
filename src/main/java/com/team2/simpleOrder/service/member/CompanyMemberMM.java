@@ -332,15 +332,15 @@ public class CompanyMemberMM {
 	}
 
 	public HashMap<String, String> getPosition(HttpSession session) {// 직급 리스트 가져오기
-		try {
+//		try {
 			HashMap<String, String> hm = new HashMap<String, String>();
 			CMemberHtmlMaker cmh = new CMemberHtmlMaker();
 			hm.put("positionList", cmh.getPositionHtml(cDao.getPosition((String) session.getAttribute("c_code"))));
 			return hm;
-		} catch (Exception e) {
-			System.out.println(e);
-			return null;
-		}
+//		} catch (Exception e) {
+//			System.out.println(e);
+//			return null;
+//		}
 
 	}
 

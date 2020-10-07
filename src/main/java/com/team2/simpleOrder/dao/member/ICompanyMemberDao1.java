@@ -52,7 +52,7 @@ public interface ICompanyMemberDao1 {
 	@Select("SELECT C_EMAIL FROM COMPANY WHERE C_CODE = #{value}") // 사업체 번호로 소속된 Email 가져오기
 	String getcCodeEmailInfo(String cCode);
 
-	@Select("SELECT COUNT(*) FROM EMP WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code} AND EMP_PW = #{emp_pw}") // 직원 로그인
+	@Select("SELECT COUNT(*) FROM EMP WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code} AND EMP_PW = #{emp_pw} AND EMP_STATUS = '1'") // 직원 로그인
 	boolean empAcountlogin(HashMap<String, String> empAcountInfo);
 	
 	@Select("SELECT EMP.EMP_NAME,EMP.EMP_CODE, EMP.EMP_PW,POSITION.PST_NAME "
