@@ -18,11 +18,14 @@ public interface IProductDao {
 	@Select("SELECT * "
 			  + "FROM PRODUCT P "
 			  + "JOIN PRODUCT_CT PC "
-			  + "ON P.PDC_CODE = PC.PDC_CODE AND P.C_CODE = PC.C_CODE "
+			  + "ON P.PDC_CODE = PC.PDC_CODE "
+			  + "AND P.C_CODE = PC.C_CODE "
 			  + "LEFT OUTER JOIN STOCK S "
-			  + "ON P.PD_CODE = S.PD_CODE AND P.PDC_CODE = S.PDC_CODE "
-			  + "WHERE P.C_CODE = #{value} AND P.PD_STATUS = '1'")
-		List<StoreManagement> getsproductlist(String c_code);
+			  + "ON P.PD_CODE = S.PD_CODE "
+			  + "AND P.PDC_CODE = S.PDC_CODE "
+			  + "AND P.C_CODE = S.C_CODE "
+			  + "WHERE P.C_CODE = #{c_code} AND P.PD_STATUS = '1'")
+		List<StoreManagement> getsproductlist(@Param("c_code")String c_code);
 	@Select("SELECT PDC_CODE,PDC_NAME FROM PRODUCT_CT WHERE C_CODE = #{c_code}")
 	ArrayList<HashMap<String, Object>> getProCategoriList(String c_code);
 	@Select("SELECT LPAD(COUNT(*)+1,5,0) FROM PRODUCT WHERE C_CODE = #{c_code} AND PDC_CODE =${pdc_code}")
