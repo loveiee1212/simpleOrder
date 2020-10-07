@@ -99,6 +99,8 @@ public interface IProductDao {
 	void setNewOacCode(HashMap<String, String> stockInfo); // 재고 변경을 위한 oac_num 생성
 	@Insert("INSERT INTO ORDER_HISTORY VALUES(#{c_code},#{bd_date},#{oac_num},#{pdc_code},#{pd_code},#{pd_date},default,#{oh_cnt})")
 	void createStockPlusRecord(HashMap<String, String> stockInfo);
+	@Update("UPDATE SELLKEY SET PD_DATE = #{pd_date} WHERE C_CODE = #{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE =#{pd_code}")
+	int updateSellKeyDate(HashMap<String, String> proInfo);
 	
 	/*
 	 * 

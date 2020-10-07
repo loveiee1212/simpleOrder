@@ -46,19 +46,7 @@ public class CompanyMemberMM {
 			acountInfo.put("pst_name", "대표");
 
 			if (cDao.createEmailAcount(acountInfo) && cDao.createCcodeAcount(acountInfo)) { // 이메일과 사업체가 둘다 문제없이 등록되었다면
-				cDao.creatPosition(acountInfo); // 해당 사업체 번호로 대표 직급 생성
-				cDao.createBasicProCategori(acountInfo); // 기본 상품 카테고리 생성
-				cDao.createBasicSkct(acountInfo); // 기본 판매키 생성
-				cDao.createBasicSeatCt(acountInfo); //기본 테이블 카테고리 생성
-				cDao.createBasicRequest(acountInfo);
-				for (int i = 0; i < cDao.getGrantPositionCodeSize(); i++) {
-					acountInfo.put("gpc_code", "" + i);
-					cDao.creatGrantPosition(acountInfo);// 반복문돌며 모든 권한의 갯수만큼 해당 직급에 계급 부여
-				}
-				cDao.creatEmp(acountInfo);// 해당 직급을 가진 대표 계정 생성
-
 				mailM.acountApprovalMailSend(acountInfo); // 회원가입 승인 메일을 가입한 메일로 발송함
-
 				session.setAttribute("ce_email", acountInfo.get("ce_email"));
 				return "redirect:cList";
 			} else {
@@ -122,62 +110,53 @@ public class CompanyMemberMM {
 	public String emailAcountStatusChange(Long cCodes) {// 이메일 계정 상태 승인
 		long cCode = cCodes / 7;
 		if (cDao.emailAcountStatusChange(cCode)) { // 계정에서 email Acount Status 변경
-			return "Congratulations, your subscription is complete.\r\n";
+			return "redirect:main";
 		}
 		;
-		return "sorry";
+		return "redirect:main";
 
 	}
 
 	@Transactional
-	public String createCcodeAcount(HashMap<String, String> cCodeInfo, HttpSession session, RedirectAttributes reat) { // 사업체
-																														// 계정
-																														// 생성,
-																														// emp0000
-																														// 까지
-																														// 같이
-																														// 생성
+	public String createCcodeAcount(HashMap<String, String> cCodeInfo, HttpSession session, RedirectAttributes reat) { // 사업체계정 생성
 		try {
-			session.setAttribute("ce_email", cCodeInfo.get("ce_email"));
-			cCodeInfo.put("ce_email", session.getAttribute("ce_email") + "");
-			cCodeInfo.put("pst_position", "00");
-			cCodeInfo.put("emp_pw", "0000");
-			cCodeInfo.put("emp_code", "0");
-			cCodeInfo.put("pst_name", "대표");
-
-			if (cDao.createCcodeAcount(cCodeInfo)) {
-				cDao.creatPosition(cCodeInfo);
+		cCodeInfo.put("emp_code", "0");
+		cCodeInfo.put("pst_position", "00");
+		cCodeInfo.put("emp_pw", "0000");
+		cCodeInfo.put("emp_name", "대표");
+		cCodeInfo.put("pst_name", "대표");
+		System.out.println(cCodeInfo);
+		if (cDao.createCcodeAcount(cCodeInfo)) {
+				cDao.creatPosition(cCodeInfo); // 해당 사업체 번호로 대표 직급 생성
+				cDao.createBasicProCategori(cCodeInfo); // 기본 상품 카테고리 생성
+				cDao.createBasicSkct(cCodeInfo); // 기본 판매키 생성
+				cDao.createBasicSeatCt(cCodeInfo); //기본 테이블 카테고리 생성
+				cDao.createBasicRequest(cCodeInfo);
 				for (int i = 0; i < cDao.getGrantPositionCodeSize(); i++) {
 					cCodeInfo.put("gpc_code", "" + i);
-					cDao.creatGrantPosition(cCodeInfo);
+					cDao.creatGrantPosition(cCodeInfo);// 반복문돌며 모든 권한의 갯수만큼 해당 직급에 계급 부여
 				}
-				cDao.creatEmp(cCodeInfo);
+				cDao.creatEmp(cCodeInfo);// 해당 직급을 가진 대표 계정 생성
 				return "redirect:/cList";
-			} else {
+			}else {
 				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				cCodeInfo.put("error", "가입에 실패하였습니다. 다시 시도해주세요");
 				reat.addFlashAttribute("cCodeInfo", cCodeInfo);
 				return "redirect:/createccodefrm";
 			}
 		} catch (Exception e) {
-			System.out.println("에러");
 			System.err.println(e);
+			System.out.println(e.getStackTrace());
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			cCodeInfo.put("error", "가입에 실패하였습니다. 다시 시도해주세요");
 			reat.addFlashAttribute("cCodeInfo", cCodeInfo);
 			return "redirect:/createccodefrm";
 		}
-
 	}
 
 	public String emailLogout(HttpSession session) {
-		try {
 			session.invalidate();
 			return "redirect:/main";
-		} catch (Exception e) {
-			return "redirect:/main";
-
-		}
 	}
 
 	public String backClist(HttpSession session) {
