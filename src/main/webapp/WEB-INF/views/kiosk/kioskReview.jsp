@@ -145,6 +145,7 @@ button:focus {
 	<h2>${sessionScope.sc_code}</h2>
 	<h2>${sessionScope.st_num}</h2>
 	<h2>${sessionScope.oac_num}</h2>
+	<h2>${sessionScope.creditOk}</h2>
 	<!-- <h2>kioskReview.jsp</h2> -->
 	<div id="frame">
 		<div id="header">
@@ -153,14 +154,17 @@ button:focus {
 		<div id="reviewList"></div>
 		<div id="btn"></div>
 		<div id="footer">
-			<button class="write" type="button" onclick="location.href='./kioskreviewwrite'">리뷰작성</button>
+			<button class="write" onclick="location.href='./kioskmenu'">리뷰작성</button>
 			<button class="Exit" type="button"
 				onclick="location.href='./kioskmenu'">나가기</button>
 		</div>
 	</div>
 	<script type="text/javascript">
+	if('${creditOk}'==""){
+		alert("리뷰등록은 결제 후에 가능합니다");
+		$('.write').css('display','none')
+	}
 		getReviewList();
-
 		function getReviewList() {
 			$
 					.ajax({
