@@ -109,10 +109,10 @@ public class CompanyMemberMM {
 	public String emailAcountStatusChange(Long cCodes) {// 이메일 계정 상태 승인
 		long cCode = cCodes / 7;
 		if (cDao.emailAcountStatusChange(cCode)) { // 계정에서 email Acount Status 변경
-			return "redirect:main";
+			return "redirect:/main";
 		}
 		;
-		return "redirect:fail";
+		return "redirect:/fail";
 
 	}
 
