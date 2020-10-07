@@ -172,6 +172,12 @@ public class DetailOrderMM {
 		return sb.toString();
 	}
 
+
+	public ModelAndView reSell(HttpSession session, String bd_date, String oac_num, int oac_status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 

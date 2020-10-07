@@ -7,7 +7,7 @@
 
 	<!-- 좌석 카테고리 정보 select -->
 	<select id="getTcList" parameterType="string" resultType="Order">
-	SELECT * FROM SEAT_CT ORDER BY SC_CODE ASC
+	SELECT * FROM SEAT_CT WHERE C_CODE = #{c_code} ORDER BY SC_CODE ASC
 	</select>
 	
 	<!-- 좌석 정보 select -->

@@ -3,6 +3,7 @@ package com.team2.simpleOrder.dao.money;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Update;
 
 public interface ICreditAndPaymentDao {
@@ -24,5 +25,8 @@ public interface ICreditAndPaymentDao {
 
 	@Update("UPDATE ORDER_AND_CREDIT SET OAC_STATUSCHANGETIME = NOW(),OAC_STATUS = 0 WHERE C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND OAC_NUM = #{oac_num}")
 	boolean addcreditList(HashMap<String, String> updateMap);
+
+	@Insert("INSERT INTO CREDIT (C_CODE,BD_DATE,OAC_NUM,CRD_CODE,CRD_NAME,CRD_PHONE,CRD_DATE) SELECT #{c_code},#{bd_date},#{oac_num},LPAD(COUNT(CRD_CODE)+1,4,'0'),#{crd_name},#{crd_phone},NOW() FROM CREDIT WHERE C_CODE =#{c_code}")
+	boolean addcreditInfo(HashMap<String, String> updateMap);
 
 }

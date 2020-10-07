@@ -206,6 +206,7 @@ public class ProductMM {
 	public HashMap<String, String> getStockRecord(HashMap<String, String> stockInfo, HttpSession session) {
 		ProductHtmlMaker phm = new ProductHtmlMaker();
 		stockInfo.put("c_code", session.getAttribute("c_code").toString());
+		System.out.println(pDao.getStockRecord(stockInfo));
 		return phm.getStockRecord(pDao.getStockRecord(stockInfo));
 	}
 	@Transactional

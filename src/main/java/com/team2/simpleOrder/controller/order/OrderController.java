@@ -32,6 +32,13 @@ public class OrderController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/resell")
+	public ModelAndView reSell(HttpSession session,String bd_date,String oac_num,int oac_status) {
+		ModelAndView mav = new ModelAndView();
+		mav = om.reSell(session,bd_date,oac_num,oac_status);
+		return mav;
+	}
+	
 	@RequestMapping(value = "/sellpage",method = RequestMethod.GET)
 	public String sellpage() {
 		return "./seat/sellpage";

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -83,15 +84,15 @@ public interface IProductDao {
 			"FROM STOCK S " + 
 			"join product P ON S.PDC_CODE = P.PDC_CODE AND S.PD_CODE = P.PD_CODE AND S.PD_DATE = P. PD_DATE " + 
 			"join product_ct pc on p.pdc_code = pc.PDC_CODE and p.c_code = pc.C_CODE " + 
-			"WHERE S.C_CODE = 123123123123 AND P.PD_STATUS = '1'")
-	ArrayList<HashMap<String, String>> getStockList(String c_code);
+			"WHERE S.C_CODE = #{c_code} AND P.PD_STATUS = '1'")
+	ArrayList<HashMap<String, String>> getStockList(@Param("c_code")String c_code);
 	@Delete("DELETE FROM STOCK WHERE C_CODE = #{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE = #{pd_code} AND PD_DATE = #{pd_date}")
 	void deleteStock(HashMap<String, String> proInfo);
+	
 	@Select("SELECT P.PD_NAME, OH.OH_CHANGETIME, OH.OH_CNT "
-			+ "FROM order_history OH " + 
-			"JOIN order_and_credit OAC ON OH.OAC_NUM = OAC.OAC_NUM "
-		  + "JOIN PRODUCT P ON OH.PDC_CODE = P.PDC_CODE AND OH.PD_CODE = P.PD_CODE AND OH.PD_DATE = P.PD_DATE " + 
-			"WHERE OH.C_CODE = #{c_code} AND OH.PDC_CODE = #{pdc_code} AND OH.PD_CODE = #{pd_code} ")
+			+ "FROM ORDER_HISTORY OH "
+			+ "JOIN PRODUCT P ON OH.PDC_CODE = P.PDC_CODE AND OH.PD_CODE = P.PD_CODE AND OH.PD_DATE = P.PD_DATE "
+			+ "WHERE OH.C_CODE = #{c_code} AND OH.PDC_CODE = #{pdc_code} AND OH.PD_CODE = #{pd_code}")
 	ArrayList<HashMap<String, String>> getStockRecord(HashMap<String, String> stockInfo);
 	
 	@Insert("INSERT INTO ORDER_AND_CREDIT VALUES(#{c_code}, #{bd_date}, #{oac_num}, '00' ,'0', default, 3)  ")

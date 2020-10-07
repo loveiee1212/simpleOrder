@@ -120,31 +120,28 @@ public class KioskMM1 {
 	}
 
 	public HashMap<String, String> kioskMainReady(HttpSession session) {
+		String c_code = session.getAttribute("c_code").toString();
+		String oac_num = session.getAttribute("oac_num").toString();
+		String bd_date = session.getAttribute("bd_date").toString();
 		HashMap<String, String> mainInfo = new HashMap<String, String>();
-		System.out.println(session.getAttribute("oac_num") == null);
-
 		if (session.getAttribute("oac_num") == null) {// 만약 주문번호가 없다면 메시지 저장
 			mainInfo.put("bill",
-					"<br><br><br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-					+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주문내역이 없습니다");
+					"<br><br><br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주문내역이 없습니다");
 			mainInfo.put("oac_time","null");
 		} else {// 있다면 주문내역 전송
 			//주문내역
-			List<Bill> bill = kDao1.getBillList(session.getAttribute("c_code").toString(),
-					session.getAttribute("oac_num").toString(), session.getAttribute("bd_date").toString());
+			List<Bill> bill = kDao1.getBillList(c_code,oac_num,bd_date);
 			mainInfo.put("bill", new KioskMakeHtml().billListHtml(bill).get("bill"));
 			// 주문 시작 시간
-			String oac_time = kDao1.getOac_time(session.getAttribute("c_code").toString(),
-					session.getAttribute("bd_date").toString(), session.getAttribute("oac_num").toString());
+			String oac_time = kDao1.getOac_time(c_code,bd_date,oac_num);
 			mainInfo.put("oac_time", oac_time);
 		}
 		
 		// 사업자 리뷰사용 여부
-		String rvUseCode = kDao1.getReviewUse(session.getAttribute("c_code").toString());
+		String rvUseCode = kDao1.getReviewUse(c_code);
 		mainInfo.put("rvUseCode", rvUseCode);
 		// 테이블 카테고리 명
-		String sc_name = kDao1.getSc_name(session.getAttribute("c_code").toString(),
-				session.getAttribute("sc_code").toString());
+		String sc_name = kDao1.getSc_name(c_code,session.getAttribute("sc_code").toString());
 		mainInfo.put("sc_name", sc_name);
 
 		return mainInfo;
