@@ -8,7 +8,7 @@
 	
 	<!-- 직원 권한명 가져오기 -->
 	<select id="getPst_name" parameterType="hashmap" resultType="string">
-		SELECT PST_NAME
+		SELECT PST_POSITION
 		FROM EMP
 		WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code}
 	</select>

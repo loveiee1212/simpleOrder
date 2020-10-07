@@ -19,7 +19,9 @@
 	<!-- 예약정보 select null이 아닐경우 특정일 조회 예약정보 select -->
 	<select id="getReservList" parameterType="order" resultType="order">
 	<if test="rsv_date==null">
-	SELECT * FROM RESERVATION AS RSV LEFT OUTER JOIN RESERVATION_MEMO AS RSVM ON RSV.C_CODE = RSVM.C_CODE AND RSV.RSV_CODE=RSVM.RSV_CODE AND RSV.C_CODE = #{c_code}
+	SELECT * FROM RESERVATION AS RSV LEFT OUTER JOIN RESERVATION_MEMO AS RSVM 
+	ON RSV.C_CODE = RSVM.C_CODE AND RSV.RSV_CODE=RSVM.RSV_CODE
+	WHERE RSV.C_CODE = #{c_code}
 	ORDER BY RSV.RSV_DATE ASC
 	</if>
 	<if test="rsv_date!=null">
