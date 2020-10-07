@@ -43,6 +43,14 @@ body {
 	float: left;
 }
 
+#listbox input {
+    width: 150px;
+    height: 30px;
+    border: 2px solid #81d4fa;
+    font-size: 20px;
+    text-align: center;
+}
+    
 #listbox button {
 	width: 70px;
 	height: 50px;
@@ -51,10 +59,6 @@ body {
 	border: none;
 	font-size: 20px;
 	box-shadow: none;
-}
-
-#listbox button:focus {
-	outline: none;
 }
 
 #listbox {
@@ -214,12 +218,14 @@ li input {
 	border: 3px solid white;
 	background-color: #81d4fa;
 	color: white;
+	font-weight: bold;
 }
 
 #btn4, #btn5 {
-	border: 3px solid #81d4fa;
-	background-color: white;
-	color: #81d4fa;
+    border: 3px solid #81d4fa;
+    background-color: white;
+    color: #1565c0;
+    font-weight: bold;
 }
 
 .tList {
@@ -248,6 +254,31 @@ li input {
 	border: 3px solid #81d4fa;
 	margin-left :32%;
 	margin-top: 17%;
+}
+
+#crd_name, #crd_phone {
+    width: 400px;
+    height: 50px;
+    border: 3px solid #81d4fa;
+    text-align: center;
+    font-size: 20px;
+    margin: 30px 25px 5px;
+}
+
+#addcreditbutton {
+    width: 400px;
+    height: 80px;
+    border: 2px solid white;
+    background-color: #e3f2fd;
+    font-weight : bold; 
+	color : #1565c0;
+    margin: 20px 25px 5px;
+    text-align: center;
+    font-size: 20px;
+}
+
+input:focus, button:focus {
+	outline: none; 
 }
 </style>
 </head>
