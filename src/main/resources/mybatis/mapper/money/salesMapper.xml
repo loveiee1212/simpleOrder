@@ -99,4 +99,13 @@
 	WHERE OAC.C_CODE= #{c_code} AND DATE(OAC.BD_DATE) = #{bd_date} AND OAC.OAC_STATUS = '-2'
 	GROUP BY PD.PD_NAME, PD.PD_PRICE
 </select>
+
+<!-- 현금매출 불러오기 -->
+<select id="getCashSales" parameterType="hashmap" resultType="string">
+	SELECT SUM(PMT.PMT_CASH) AS CASH
+	FROM PAYMENT_TYPE AS PMT 
+		INNER JOIN ORDER_AND_CREDIT AS OAC ON OAC.C_CODE = PMT.C_CODE AND OAC.BD_DATE = PMT.BD_DATE AND OAC.OAC_NUM = PMT.OAC_NUM
+    	INNER JOIN OAC_STATUS AS OS ON OAC.OAC_STATUS = OS.OAC_STATUS
+	WHERE PMT.C_CODE = #{c_code} AND OAC.BD_DATE = #{bd_date} AND OAC.OAC_STATUS NOT IN (1,2,3,-2);
+</select>
 </mapper>

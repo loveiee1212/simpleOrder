@@ -14,16 +14,6 @@ public class PageController2 {
 	
 	ModelAndView mav;
 	
-	@RequestMapping("/schedule")
-	public ModelAndView schedule(HttpSession session) {
-		ModelAndView mav = new ModelAndView("member/schedule","empCode", session.getAttribute("emp_code").toString());
-		return mav;
-	}
-	
-	@RequestMapping("/changeworktime")
-	public String changeworktime() {
-		return "member/changeworktime";
-	}
 	
 	@RequestMapping(value = "/sellpage")
 	public String sellpage() {

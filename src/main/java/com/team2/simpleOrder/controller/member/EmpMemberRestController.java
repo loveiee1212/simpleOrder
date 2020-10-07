@@ -32,7 +32,7 @@ public class EmpMemberRestController {
 
 	@RequestMapping("/getTime")
 	public String getTime(@RequestParam HashMap<String, String> mb, HttpSession session) {
-		System.out.println("rmp_code : "+mb.get("emp_code"));
+
 		return emm.getTime(mb,session);
 	}
 
