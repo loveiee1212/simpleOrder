@@ -321,6 +321,7 @@ body {
 			success : function(data) {
 				if (data == "1") {
 					alert("시간이 변경되었습니다.");
+					
 				}
 			},
 			error : function(err) {

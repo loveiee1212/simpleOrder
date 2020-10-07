@@ -99,6 +99,13 @@ public class EmpMemberMM {
 	public String updateWorkTime(HashMap<String, String> mb, HttpSession session) {
 		mb.put("c_code",session.getAttribute("c_code").toString());
 		String json = null;
+		mb.put("bd_date",mDao2.checkBd_date(mb));
+		System.out.println(mDao2.checkWorkTime(mb));
+		if(mDao2.checkWorkTime(mb)!=0) {
+			System.out.println("aaaa");
+			mDao2.deleteWorkTime(mb);
+		}
+		
 		boolean result = mDao2.updateWorkTime(mb);
 		if (result) {
 			json = new Gson().toJson("1");

@@ -27,7 +27,7 @@ public class DetailOrderRestController {
 	DetailOrderMM om;
 	
 	@PostMapping("/sendsaolist")
-	public String sendsaolist(String oac_num,String sc_code,String st_num, HttpSession session,
+	public HashMap<String, String> sendsaolist(String oac_num,String sc_code,String st_num, HttpSession session,
 			@RequestParam(value = "pdc_code[]") ArrayList<String> pdc_code,
 			@RequestParam(value = "pd_date[]") ArrayList<String> pd_date,
 			@RequestParam(value = "pd_code[]") ArrayList<String> pd_code,

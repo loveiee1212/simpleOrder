@@ -238,7 +238,7 @@ ${msg}
 	getScatlist();
 		
 		function deleteSeatCT(){
-			if(selectedCTVal =='01'){
+			if(selectedCTval =='01'){
 				alert('기본 테이블은 삭제할수없습니다.')
 				return;
 			}
