@@ -27,11 +27,7 @@ public class CompanyMemberRestController1 {
 		return mm.getClist(ce_email);
 	}
 
-	@GetMapping("/emailAcountStatusChange/{cCode}") // 이메일 계정 상태 변경
-	public String emailAcountStatusChange(@PathVariable Long cCode) {
-		return mm.emailAcountStatusChange(cCode);
-	}
-
+	
 	@GetMapping("/getEmpList") //직원들의 직급 html 태그 가져오기
 	public HashMap<String, String> getEmpPostionList(HttpSession session, @RequestParam HashMap<String, String> empinfo) {
 		return mm.getEmpList(session,empinfo);

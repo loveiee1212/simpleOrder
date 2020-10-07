@@ -388,7 +388,6 @@ $(document).ready(function(){
 							for(var i=0;i<$pdccode;i++){
 								if($("#pdcode"+i).data('code')==pdc_code&&$("#pdcode"+i).val()==pd_code){
 									$("#pdcnt"+i).val(Number($("#pdcnt"+i).val())+1);
-									$("#pdcnt"+i).val(Number($("#pdcnt"+i).val())+1);
 									console.log(i);
 									console.log(Number($("#hiddenprice"+i).val()));
 									console.log(Number($("#pdcnt"+i).val()));

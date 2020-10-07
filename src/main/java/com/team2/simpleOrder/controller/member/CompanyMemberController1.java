@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +34,12 @@ public class CompanyMemberController1 {
 	public String createEmailAcount(@RequestParam HashMap<String, String> acountInfo,HttpSession session, RedirectAttributes reat) throws MessagingException {
 		return mm.createEmailAcount(acountInfo, session, reat);
 	}
+	
+	@GetMapping("/emailAcountStatusChange/{cCode}") // 이메일 계정 상태 변경
+	public String emailAcountStatusChange(@PathVariable Long cCode) {
+		return mm.emailAcountStatusChange(cCode);
+	}
+
 	
 	@PostMapping("/cLogin") //사업체 로그인 
 	public String cLogin( HttpSession session, RedirectAttributes reat, @RequestParam HashMap<String, String> cInfo) {
