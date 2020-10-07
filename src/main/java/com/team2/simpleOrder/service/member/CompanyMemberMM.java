@@ -39,13 +39,14 @@ public class CompanyMemberMM {
 			throws MessagingException { // 새로운 이메일 계정 생성
 		acountInfo.put("ce_pw", pse.encode(acountInfo.get("ce_pw"))); // 가져온 비밀번호를 인코딩 하여 다시 해쉬맵에 덮어 씌움
 		try {
-			acountInfo.put("emp_code", "0");
-			acountInfo.put("pst_position", "00");
-			acountInfo.put("emp_pw", "0000");
-			acountInfo.put("emp_name", "대표");
-			acountInfo.put("pst_name", "대표");
+//			acountInfo.put("emp_code", "0");
+//			acountInfo.put("pst_position", "00");
+//			acountInfo.put("emp_pw", "0000");
+//			acountInfo.put("emp_name", "대표");
+//			acountInfo.put("pst_name", "대표");
 
-			if (cDao.createEmailAcount(acountInfo) && cDao.createCcodeAcount(acountInfo)) { // 이메일과 사업체가 둘다 문제없이 등록되었다면
+			if (cDao.createEmailAcount(acountInfo)) { // 이메일과 사업체가 둘다 문제없이 등록되었다면
+				createCcodeAcount(acountInfo, session, reat);
 				mailM.acountApprovalMailSend(acountInfo); // 회원가입 승인 메일을 가입한 메일로 발송함
 				session.setAttribute("ce_email", acountInfo.get("ce_email"));
 				return "redirect:cList";
