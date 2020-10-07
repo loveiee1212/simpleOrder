@@ -194,7 +194,10 @@ button:focus {
 		for (var i = firstDay.getDay(); i < firstDay.getDay()
 				+ lastDay.getDate(); i++) {
 			++dayCount;
-
+			if(dayCount<10){
+				dayCount = "0"+dayCount;
+			}
+			
 			$tdDay.eq(i).text(dayCount);
 			$(".dt").eq(i).attr("onclick", "getDayVCLog(" + dayCount + ")");
 

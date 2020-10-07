@@ -33,7 +33,6 @@ public class VaultCashMM {
 		try {
 			// 마감 여부 확인
 			String vc_code = (String) vDao.checkVc_code(c_code);
-			System.out.println(vc_code);
 
 			if (vc_code == null || vc_code.equals("-1")) { // 마감이 완료되어있을 때
 				return new Gson().toJson("startVC");
@@ -56,7 +55,6 @@ public class VaultCashMM {
 		String c_code = session.getAttribute("c_code").toString();
 
 		String vc_code = (String) vDao.checkVc_code(c_code);
-		System.out.println(vc_code);
 
 		if (vc_code == null || vc_code.equals("-1")) { // 마감이 완료된 상태
 			mav = new ModelAndView("money/vaultcash", "vc_status", "theEnd");
@@ -128,7 +126,6 @@ public class VaultCashMM {
 			int vc_code = Integer.parseInt(String.valueOf(vDao.checkVc_code(c_code)));
 			if (vc_code != -1) {
 				vc_code += 1;
-				System.out.println(vc_code);
 				HashMap<String, Object> jMap = new HashMap<String, Object>();
 				jMap.put("c_code", c_code);
 				jMap.put("bd_date", session.getAttribute("bd_date").toString());

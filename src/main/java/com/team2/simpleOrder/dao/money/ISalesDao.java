@@ -3,6 +3,8 @@ package com.team2.simpleOrder.dao.money;
 import java.util.HashMap;
 import java.util.List;
 
+import com.google.gson.JsonElement;
+
 public interface ISalesDao {
 
 	List<HashMap<String, String>> getMonthSales(HashMap<String, String> smap);
@@ -22,5 +24,7 @@ public interface ISalesDao {
 	List<HashMap<String, String>> getMonthDetailProduct(HashMap<String, String> smap);
 
 	List<HashMap<String, String>> getMonthDetailRefundProduct(HashMap<String, String> smap);
+
+	String getCashSales(HashMap<String, String> smap);
 
 }

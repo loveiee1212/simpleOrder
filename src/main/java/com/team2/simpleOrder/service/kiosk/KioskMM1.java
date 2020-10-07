@@ -30,23 +30,26 @@ public class KioskMM1 {
 		List<HashMap<String, Object>> skcList = kDao1.getSkcList(session.getAttribute("c_code").toString());
 		// 판매 등록 된 상품리스트 가져오기
 		List<SellProduct> sellProList = kDao1.getSellProList(session.getAttribute("c_code").toString());
-		return new KioskMakeHtml().makeSellProListHtml(skcList, sellProList,session.getAttribute("c_code").toString());
+		return new KioskMakeHtml().makeSellProListHtml(skcList, sellProList, session.getAttribute("c_code").toString());
 	}
 
 	// 리뷰리스트 가져오는 메소드
 	public HashMap<String, String> getReviewList(HttpSession session, int rvNum) {
 		// 리뷰리스트 가져오기
 		List<Review> rList = kDao1.getReviewList(session.getAttribute("c_code").toString(), rvNum);
-		System.out.println(rList);
+		if(rList.size()==0) {
+			HashMap<String, String> hMap=new HashMap<String, String>();
+			hMap.put("msg", "등록 된 리뷰가 없습니다");
+			return hMap;
+		}
 		// 리뷰 이미지 리스트 가져오기
 		List<HashMap<String, Object>> rImgList = kDao1.getReviewImgList(session.getAttribute("c_code").toString(),
 				rList.get(0).getOac_num(), rList.get(rList.size() - 1).getOac_num());
-		System.out.println(rImgList);
 		// 리뷰 주문내역 가져오기
 		List<HashMap<String, Object>> orderList = kDao1.getOrderList(session.getAttribute("c_code").toString(),
 				rList.get(0).getOac_num(), rList.get(rList.size() - 1).getOac_num());
-		System.out.println(orderList);
-		return new KioskMakeHtml().makeReviewListHtml(rList, rImgList, orderList);
+		
+		return new KioskMakeHtml().makeReviewListHtml(rList, rImgList, orderList,session.getAttribute("c_code").toString());
 	}
 
 	// 요청사항 설정 해놓은 것 가져오는 메소드
@@ -121,43 +124,42 @@ public class KioskMM1 {
 
 	public HashMap<String, String> kioskMainReady(HttpSession session) {
 		String c_code = session.getAttribute("c_code").toString();
-		String oac_num = session.getAttribute("oac_num").toString();
 		String bd_date = session.getAttribute("bd_date").toString();
 		HashMap<String, String> mainInfo = new HashMap<String, String>();
 		if (session.getAttribute("oac_num") == null) {// 만약 주문번호가 없다면 메시지 저장
 			mainInfo.put("bill",
 					"<br><br><br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주문내역이 없습니다");
-			mainInfo.put("oac_time","null");
+			mainInfo.put("oac_time", "null");
 		} else {// 있다면 주문내역 전송
-			//주문내역
-			List<Bill> bill = kDao1.getBillList(c_code,oac_num,bd_date);
+			String oac_num = session.getAttribute("oac_num").toString();
+			// 주문내역
+			List<Bill> bill = kDao1.getBillList(c_code, oac_num, bd_date);
+			System.out.println(bill);
 			mainInfo.put("bill", new KioskMakeHtml().billListHtml(bill).get("bill"));
 			// 주문 시작 시간
-			String oac_time = kDao1.getOac_time(c_code,bd_date,oac_num);
+			String oac_time = kDao1.getOac_time(c_code, bd_date, oac_num);
 			mainInfo.put("oac_time", oac_time);
 		}
-		
+
 		// 사업자 리뷰사용 여부
 		String rvUseCode = kDao1.getReviewUse(c_code);
 		mainInfo.put("rvUseCode", rvUseCode);
 		// 테이블 카테고리 명
-		String sc_name = kDao1.getSc_name(c_code,session.getAttribute("sc_code").toString());
+		String sc_name = kDao1.getSc_name(c_code, session.getAttribute("sc_code").toString());
 		mainInfo.put("sc_name", sc_name);
-
 		return mainInfo;
 	}
 
 	public HashMap<String, String> getOac_status(HttpSession session) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
 		int oac_status = kDao1.getOac_status(session.getAttribute("c_code").toString(),
 				session.getAttribute("bd_date").toString(), session.getAttribute("oac_num").toString());
 		if (oac_status == -1) {
+			session.setAttribute("creditOk", "creditOk");
 			session.removeAttribute("sc_code");
 			session.removeAttribute("st_num");
-			HashMap<String, String> hMap = new HashMap<String, String>();
 			hMap.put("view", "kioskreview");
-			return hMap;
 		}
-		return null;
+		return hMap;
 	}
-
 }

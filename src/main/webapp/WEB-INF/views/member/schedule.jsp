@@ -160,7 +160,7 @@ button:focus {
 </style>
 </head>
 <body>
-${empCode}
+
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div id="calendar">
@@ -213,7 +213,7 @@ ${empCode}
 		resetDay();
 		showDay();
 		clockOn();
-		if ("${empCode}" == "00000") {
+		if ("${position}" == "00") {
 			$("#changeWorkTime").append($("<button id = 'changeWorkTimeButton' onclick='changeWorkTime()'>").html("근무시간변경"));
 			$("#showAllWorkTime").append($("<button id= 'showAllWorkTimeButton'>").html("전체근무시간"));
 		}
@@ -261,7 +261,9 @@ ${empCode}
 		for (var i = firstDay.getDay(); i < firstDay.getDay()
 				+ lastDay.getDate(); i++) {
 			++dayCount;
-
+			if(dayCount<10){
+				dayCount = "0"+dayCount;
+			}
 			$tdDay.eq(i).text(dayCount);
 			$(".dt").eq(i).attr("onclick", "showWorkTime(" + dayCount + ")");
 
@@ -320,11 +322,12 @@ ${empCode}
 	//출퇴근 시간 출력
 	function getTime(day) {
 
-		if ("${empCode}" == "00000") {
+		if ("${position}" == "00") {
 			var emp_code = $("#emp_codeList option:selected").val();
 		} else {
 			var emp_code = null;
 		}
+		console.log(emp_code);
 
 		$.ajax({
 				type : 'get',
@@ -336,6 +339,7 @@ ${empCode}
 				},
 				dataType : 'json',
 				success : function(data) {
+					console.log(data);
 					$tdText.text("");
 
 					for ( var i in data) {
@@ -437,6 +441,7 @@ ${empCode}
 <script type="text/javascript">
 	//출퇴근시간변경
 	function changeWorkTime() {
+		$("#showAllWorkTime").text("");
 		$.ajax({
 			type : "get",
 			url : "changeworktime",
@@ -456,7 +461,7 @@ ${empCode}
 
 	//직원 리스트 출력
 	function getEmpList(day) {
-		if ("${empCode}" == "00000") {
+		if ("${position}" == "00") {
 			$.ajax({
 				type : "get",
 				url : "rest/getemplist",
@@ -487,7 +492,7 @@ ${empCode}
 	//전체 직원의 일 근무시간 확인
 	function showWorkTime(day) {
 		//사장이 아닐경우 해당 이벤트 사용불가
-		if ("${empCode}" == "00000") {
+		if ("${position}" == "00") {
 			//모달박스 생성
 			$("#view_layer").addClass("open");
 			$.ajax({

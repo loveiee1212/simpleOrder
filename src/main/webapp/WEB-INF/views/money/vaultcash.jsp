@@ -304,17 +304,15 @@ button:focus {
 
 		if ("${vc_status}" == "end") {
 			getStartVC();
-			//getCashSales();
-			getDiff();
+			getCashSales();
 			$("#insertVC").text("마감시재입력");
 			$("#insertVC").attr("onclick", "insertEndVC()");
 		}
 
 		if ("${vc_status}" == "theEnd") {
 			getStartVC();
-			//getCashSales();
+			getCashSales();
 			getEndVC();
-			getDiff();
 			alert("영업이 종료되었습니다.");
 		}
 	})
@@ -402,7 +400,15 @@ button:focus {
 
 	//현금매출 불러오기
 	function getCashSales() {
-
+		$.ajax({
+			type : "get",
+			url : "rest/getcashsales",
+			dataType : "json",
+			success : function(data) {
+				$("#cash").text(data);
+				getDiff();
+			}
+		});
 	}
 
 	//마감시재 불러오기
@@ -413,14 +419,18 @@ button:focus {
 			dataType : "json",
 			success : function(data) {
 				$("#differenceEC").text(data);
+				getDiff();
 			}
 		});
 	}
 
 	function getDiff() {
-		$("#difference").text(
-				($("#differenceSC").text() + $("#cash").text())
-						- $("#differenceEC").text());
+		if($("#differenceEC").text() == ""){
+			var diff = ($("#differenceSC").text())*1+($("#cash").text())*1;
+		} else {
+			var diff = (($("#differenceSC").text())*1+($("#cash").text())*1)-($("#differenceEC").text())*1
+		}
+		$("#difference").text(diff);
 	}
 </script>
 
@@ -442,8 +452,8 @@ button:focus {
 			$("#differenceEC").text(sum);
 			//시제차 텍스트 찍기
 			$("#difference").text(
-					($("#differenceSC").text() + $("#cash").text())
-							- $("#differenceEC").text());
+					($("#differenceSC").text()*1 + $("#cash").text()*1)
+							- $("#differenceEC").text()*1);
 		}
 
 	}

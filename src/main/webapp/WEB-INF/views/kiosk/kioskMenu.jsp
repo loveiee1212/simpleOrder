@@ -293,8 +293,9 @@ input:focus {
 							type : 'post',
 							dataType : 'json',
 							success : function(data) {
-								console.log(data.view);
+								if(data.view!=null){
 								location.href = data.view;
+								}
 							},
 							error : function(err) {
 								console.log(err);

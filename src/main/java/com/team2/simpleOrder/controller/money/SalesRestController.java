@@ -30,9 +30,8 @@ public class SalesRestController {
 	}
 	
 	@RequestMapping("/getmonthdetail")
-	public String getMonthDetail(HttpSession session, @RequestParam HashMap<String,String> smap) {
-		System.out.println(smap.toString());
-		
+	public String getMonthDetail(HttpSession session, @RequestParam HashMap<String,String> smap) throws Exception {
+
 		return sm.getMonthDetail(session,smap);
 	}
 	
@@ -40,5 +39,11 @@ public class SalesRestController {
 	public String getDaySales(HttpSession session, @RequestParam HashMap<String,String> smap) throws Exception {
 		
 		return sm.getDaySales(session,smap);
+	}
+	
+	@RequestMapping("/getcashsales")
+	public String getCashSales(HttpSession session) {
+		
+		return sm.getCashSales(session);
 	}
 }

@@ -21,6 +21,15 @@ public class EmpMemberController {
 	@Autowired
 	EmpMemberMM emm;
 	
-	ModelAndView mav;
+	@RequestMapping("/schedule")
+	public ModelAndView schedule(HttpSession session) {
+		ModelAndView mav = new ModelAndView("member/schedule","position", emm.getPST_NAME(session));
+		return mav;
+	}
+	
+	@RequestMapping("/changeworktime")
+	public String changeworktime() {
+		return "member/changeworktime";
+	}
 
 }

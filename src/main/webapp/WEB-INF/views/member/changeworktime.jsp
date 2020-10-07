@@ -183,11 +183,8 @@ body {
 		</div>
 		<div id="button">
 			<label><button id="btn1" onclick="updateWorkTime()">변경</button></label>
-			<label><button id="btn2">취소</button></label>
 		</div>
-		<div id="originalTime">
-			<span>기존 출근 시간</span> <br /> <span>기존 퇴근 시간</span>
-		</div>
+
 	</div>
 </body>
 <script type="text/javascript">

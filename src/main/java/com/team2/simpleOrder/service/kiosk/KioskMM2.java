@@ -43,7 +43,7 @@ public class KioskMM2 {
 		} catch (Exception e) {
 			System.out.println(e);
 			mav.addObject("resultMsg", "리뷰등록은 한개만 가능합니다");
-			mav.setViewName("kiosk/kioskMenu");
+			mav.setViewName("kiosk/kioskError");
 			return mav;
 		}
 		mav.setViewName("kiosk/kioskMenu");
