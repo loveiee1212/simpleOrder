@@ -8,6 +8,20 @@
 <title>request</title>
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style type="text/css">
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 #frame {
 	width: 568px;
 	height: auto;
@@ -18,7 +32,7 @@
 	width: 568px;
 	height: 500px;
 	border: 3px solid #81d4fa;
-	margin-top: 250px;
+	margin-top: 550px;
 	background-color: #e3f2fd;
 	font-weight: bold;
 	color: #1565c0;
@@ -60,7 +74,7 @@
 		<div id="msg" onclick="location.href='./kioskrequest'">
 			<i class='fas fa-bell' style='font-size: 70px; color: black; margin-top: 50px;'></i>
 			<div id="msg2">${sc_name}</div>
-			${st_num} <br> ${text}하였습니다.
+			${st_num}번 테이블 <br> ${text}하였습니다.
 		</div>
 	</div>
 </body>

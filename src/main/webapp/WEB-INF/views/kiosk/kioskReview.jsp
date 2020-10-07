@@ -10,6 +10,19 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
+body {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 #frame {
 	width: 568px;
 	height: auto;
@@ -80,7 +93,8 @@ li {
 }
 
 .rv_code_name {
-	font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .rv_img {
@@ -90,8 +104,9 @@ li {
 }
 
 .rv_img::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	/* box-shadow: inset 0px 0px 5px grey; */
 }
 
 .rv_img::-webkit-scrollbar {
@@ -101,9 +116,10 @@ li {
 }
 
 .rv_img::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	background-color: white;
+	border-radius: 10px;
+	background-clip: padding-box;
+	/* border: 2px solid transparent; */
 }
 
 .img {
@@ -114,36 +130,61 @@ li {
 }
 
 .orderdiv {
-  border-radius: 25px;
-  border: 2px solid #81d4fa;
-  margin: 10px 5px 5px;
-  display: inline-block;
+    border-radius: 25px;
+    border: 1px solid rgb(133, 133, 133);
+    margin: 10px 5px 5px;
+    padding: 5px;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 0.1em;
+    width: 100px;
+    text-align: center;
 }
 
 .rv_code_time {
-	margin-left: 50px;
+    float: right;
+    font-weight: bold;
 }
 
 #addBtn {
-	text-align: center;
-	border: 2px solid white;
-	width: 568px;
-	height: 50px;
-	background-color: #e3f2fd;
-	font-weight: bold;
-	color: #1565c0;
-	font-size: 20px;
-	margin-bottom: 10px;
+    text-align: center;
+    border: 2px solid white;
+    width: 568px;
+    height: 70px;
+    background-color: #e3f2fd;
+    font-weight: bold;
+    color: #1565c0;
+    font-size: 20px;
+    margin-top: -5px;
+}
+
+.write {
+    width: 568px;
+    height: 60px;
+    border: 2px solid white;
+    background-color: #81d4fa;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
 }
 
 .Exit {
-    border: 3px solid #81d4fa;
+    width: 568px;
+    height: 60px;
+    border: 2px solid #81d4fa;
     background-color: white;
-    font-size: 19px;
+    font-size: 20px;
     font-weight: bold;
     color: #81d4fa;
-    height: 60px;
-    width: 568px;
+}
+
+#footer {
+    position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 568px;
+	margin: auto;
+	height: auto;
 }
 
 button:focus {
