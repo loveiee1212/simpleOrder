@@ -37,7 +37,7 @@ public class SalesRestController {
 	
 	@RequestMapping("/getdaysales")
 	public String getDaySales(HttpSession session, @RequestParam HashMap<String,String> smap) throws Exception {
-		
+
 		return sm.getDaySales(session,smap);
 	}
 	

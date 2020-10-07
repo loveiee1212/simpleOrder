@@ -7,6 +7,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
+<link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
 <link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <title>시재 - SimpleOrder</title>
@@ -133,6 +134,98 @@ td {
 
 button:focus {
 	outline: none;
+}
+
+#view_layer {
+	display: none;
+	position: fixed;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#view_layer.open {
+	display: block;
+	color: gold;
+}
+
+#bg_layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1600px;
+	height: 1000px;
+	background: white;
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+	z-index: 100;
+}
+
+#main_layer {
+	position: absolute;
+	top: 30%;
+	left: 40%;
+	width: 700px;
+	height: 670px;
+	margin: -150px 0 0 -194px;
+	padding: 28px 28px 0 28px;
+	border: 3px solid #81d4fa;
+	background: #fff;
+	font-size: 18px;
+	z-index: 200;
+	color: #767676;
+	line-height: normal;
+	white-space: normal;
+	overflow: auto;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+#main_layer::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: white;
+}
+
+#main_layer::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: white;
+}
+
+#main_layer::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
+}
+
+#salesList td {
+	font-size: 20px;
+	height: 40px;
+	border: none;
+	border-right: none;
+	border-bottom: 2px solid #81d4fa;
+}
+
+#salesList, #productList {
+    border-collapse: collapse;
+}
+
+#salesList th, #productList th {
+    border: 3px solid white;
+    padding: 10px;
+}
+
+#productList td {
+    height: 40px;
+    border: none;
+	border-right: none;
+	border-bottom: 2px solid #81d4fa;
+}
+
+#productList {
+    margin-bottom: 20px;
 }
 </style>
 </head>
@@ -287,6 +380,23 @@ button:focus {
 							<button id="btn" onclick="location.href='posmain'">나가기</button></td>
 					</tr>
 				</table>
+				<!-- 모달박스 -->
+				<div id="view_layer">
+					<div id="bg_layer"></div>
+					<div id="main_layer">
+					<div id="month"></div>
+					<table id="salesList">
+						<tr><th>구분</th><th>결제</th><th>외상</th><th>반품</th></tr>
+						<tr><th>현금</th><td id="pay_cash"></td><td id="credit_cash"></td><td id="refund_cash"></td></tr>
+						<tr><th>카드</th><td id="pay_card"></td><td id="credit_card"></td><td id="refund_card"></td></tr>
+						<tr><th>미수금</th><td id="pay"></td><td id="credit"></td><td id="refund"></td></tr>
+						<tr><th>총금액</th><td id="pay_total"></td><td id="credit_total"></td><td id="refund_total"></td></tr>
+					</table>
+					<table id="productList">
+						<tr><th>상품명</th><th>판매가</th><th>판매갯수</th><th>금액</th></tr>
+					</table>
+					</div>
+				</div>
 				<div></div>
 			</div>
 		</div>
@@ -378,6 +488,7 @@ button:focus {
 				success : function(data) {
 					if (data == "success") {
 						alert("마감이 완료되었습니다");
+						getDaySales();
 					} else if (data == "error") {
 						alert("마감이 실패했습니다.");
 					} else if (data == "notYet"){
@@ -460,6 +571,89 @@ button:focus {
 		}
 
 	}
+</script>
+
+<script type="text/javascript">
+	//일별 매출 상세 불러오기
+	function getDaySales(){
+		$("#view_layer").addClass("open");
+	
+		$.ajax({
+			type : "get",
+			url : "rest/getdaysales",
+			data : {
+				'bd_date' : null
+			},
+			dataType : "json",
+			success : function(data) {
+				$("#salesList").find("td").text("");
+				$(".pro").remove();
+				
+				for(var sales of data.salesList){
+					var cash = sales.CASH;
+					var card = sales.CARD;
+					if (sales.OAC_NAME == "결제"){
+						$("#pay_cash").text(cash);
+						$("#pay_card").text(card);
+					}
+					if (sales.OAC_NAME == "외상"){
+						$("#credit_cash").text(cash);
+						$("#credit_card").text(card);
+					}
+					if (sales.OAC_NAME == "반품"){
+						$("#refund_cash").text(cash*-1);
+						$("#refund_card").text(card*-1);
+					}
+				}
+				for (var total of data.totalSales){
+					var totalPay = total.TOTAL_PAY;
+					if (total.OAC_NAME == "결제"){
+						$("#pay_total").text(totalPay);
+						$("#pay").text($("#pay_total").text()*-1-($("#pay_cash").text()*-1+$("#pay_card").text()*-1));
+					}
+					if (total.OAC_NAME == "외상"){
+						$("#credit_total").text(totalPay);
+						$("#credit").text($("#credit_total").text()*-1-($("#credit_cash").text()*-1+$("#credit_card").text()*-1));
+					}
+					if (total.OAC_NAME == "반품"){
+						$("#refund_total").text(totalPay*-1);
+						$("#refund").text($("#refund_total").text()*1-($("#refund_cash").text()*1+$("#refund_card").text()*1));
+					}
+				}
+				
+				var tr = "";
+				tr += "<tr class='pro'><th colspan='4'>결제상품</th>";
+				for (var product of data.productList){
+					tr += "'<tr class='pro'><td>"+product.PD_NAME+"</td>'";
+					tr += "'<td>"+product.PD_PRICE+"</td>'";
+					tr += "'<td>"+product.OH_CNT+"</td>'";
+					tr += "'<td>"+(product.PD_PRICE*1)*(product.OH_CNT*1)+"</td>'";
+				}
+				$("#productList").append(tr);
+				tr="";
+				tr += "<tr class='pro'><th colspan='4'>반품상품</th>";
+				for (var refund of data.refundList){
+					tr += "'<tr class='pro'><td>"+refund.PD_NAME+"</td>'";
+					tr += "'<td>"+refund.PD_PRICE+"</td>'";
+					tr += "'<td>"+refund.OH_CNT+"</td>'";
+					tr += "'<td>"+(refund.PD_PRICE*1)*(refund.OH_CNT*1)+"</td>'";
+				}
+				$("#productList").append(tr);
+				
+				if(data == "noSales") {
+					alert("매출불러오기를 실패했습니다");
+				}
+			}
+		});
+	}
+
+	//모달박스 해제
+	var $layerWindow = $("#view_layer");
+	$layerWindow.find("#bg_layer").on("mousedown", function(evt) {
+		$layerWindow.removeClass("open");
+		alert("메인페이지로 이동합니다");
+		location.href="posmain";
+	});
 </script>
 
 <script type="text/javascript">

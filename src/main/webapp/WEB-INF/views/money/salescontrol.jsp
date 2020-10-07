@@ -554,6 +554,9 @@ input:focus, button:focus, select:focus {
 				}
 				$("#productList").append(tr);
 				
+				if(data == "noSales") {
+					alert("매출불러오기를 실패했습니다");
+				}
 			}
 		}); 
 	}
@@ -628,6 +631,9 @@ input:focus, button:focus, select:focus {
 				}
 				$("#productList").append(tr);
 				
+				if(data == "noSales") {
+					alert("매출불러오기를 실패했습니다");
+				}
 			}
 		});
 	}
