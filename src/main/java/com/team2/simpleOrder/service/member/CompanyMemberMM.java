@@ -56,6 +56,7 @@ public class CompanyMemberMM {
 				return "redirect:joinEmailFrm";
 			}
 		} catch (Exception e) {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			System.out.println("오류 발생");
 //			System.err.println(e);
 			if(e.getCause().toString().contains("PRIMARY")) {
@@ -63,8 +64,6 @@ public class CompanyMemberMM {
 				reat.addFlashAttribute("acountInfo", acountInfo);
 				return "redirect:joinEmailFrm";
 			}
-			System.out.println(e.getCause());
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			acountInfo.put("error", "회원가입에 실패하였습니다 다시 시도해주세요.");
 			reat.addFlashAttribute("acountInfo", acountInfo);
 			return "redirect:joinEmailFrm";
@@ -113,7 +112,7 @@ public class CompanyMemberMM {
 			return "redirect:main";
 		}
 		;
-		return "redirect:main";
+		return "redirect:fail";
 
 	}
 
