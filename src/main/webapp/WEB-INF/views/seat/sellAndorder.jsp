@@ -278,10 +278,10 @@ li input {
 				</div>
 				<div class="bottombox" id="paymentkind">
 					<ul>
-						<li id="btn1" onclick="creditPayment(1)">현금결제</li>
-						<li id="btn2" onclick="creditPayment(2)">카드결제</li>
+						<li id="btn1" onclick="creditPayment(0,1,0)">현금결제</li>
+						<li id="btn2" onclick="creditPayment(0,2,0)">카드결제</li>
 						<li id="btn3" onclick="addcreditList()">외상결제</li>
-						<li id="btn4" onclick='sendsaoList()'>주문하기</li>
+						<li id="btn4" onclick='sendsaoList(0)'>주문하기</li>
 						<li id="btn5" onclick="location.href='./sellpage'">뒤로가기</li>
 					</ul>
 				</div>
@@ -498,7 +498,8 @@ $(document).ready(function(){
 		$("#uctmoney").val($("#totalmoney").val());
 	}
 
-	function sendsaoList() {
+	function sendsaoList(paytype) {
+		console.log("paymentType:"+paytype);
 		var pdccodeArray = [];
 		var codeArray = [];
 		var cntArray = [];
@@ -544,17 +545,32 @@ $(document).ready(function(){
 			type : "post",
 			url : 'rest/sendsaolist',
 			data : objparam,
-			dataType : 'html',
+			dataType : 'json',
 			success : function(result) {
-
-				location.href = result;
+				if(paytype!=0){
+					console.log(paytype);
+					creditPayment(1,paytype,result.oac_num);
+				}else{					
+				location.href = result.result;
+				}
 			}
 		});
 	}
 
-	function creditPayment(paytype){
-		var endpay = $("#endpay").val();
+	function creditPayment(num,paytype,getoac_num){
 		var oac_num = $("#oac_num").val();
+		if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
+		if(num!=1){
+			console.log("oac_num 이 없음 주문번호 생성으로 이동");
+			sendsaoList(paytype);
+			return false;
+		}if(oac_num!=0){			
+		oac_num = getoac_num;
+		}
+		}
+			
+		console.log("false임에도 들어오면 출력");
+		var endpay = $("#endpay").val();
 		var bd_date = $("#sendbd_date").val();
 		var getmoney = $("#takemoney").val();
 		if($("#takemoney").val()-($("#totalmoney").val()-endpay)>0){
@@ -585,8 +601,10 @@ $(document).ready(function(){
 		success : function(result){
 			alert(result.result);
 			location.reload();
-		} 
-		})
+		} //result end
+		})//ajax end
+	
+		
 	}
 	
 	function addcreditList(){
