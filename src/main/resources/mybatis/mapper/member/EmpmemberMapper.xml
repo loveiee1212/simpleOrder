@@ -5,6 +5,13 @@
 
 <mapper
 	namespace="com.team2.simpleOrder.dao.member.IEmpMemberDao">
+	
+	<!-- 직원 권한명 가져오기 -->
+	<select id="getPst_name" parameterType="hashmap" resultType="string">
+		SELECT PST_NAME
+		FROM EMP
+		WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code}
+	</select>
 
 	<!-- 월별 출퇴근 불러오기 -->
 	<select id="getTime" parameterType="hashmap" resultType="hashmap">
@@ -62,10 +69,10 @@
 	<select id="getEmpList" parameterType="hashmap" resultType="hashmap">
 		SELECT E.EMP_CODE, E.EMP_NAME, E.EMP_STATUS, A.AD_OUTTIME, A.AD_INTIME
 		FROM EMP AS E LEFT JOIN ATTENDANCE AS A ON E.C_CODE = A.C_CODE AND E.EMP_CODE = A.EMP_CODE
-		WHERE (A.BD_DATE IN (SELECT MAX(BD_DATE) FROM ATTENDANCE WHERE C_CODE=#{c_code} GROUP BY EMP_CODE) OR ( E.C_CODE=#{c_code} AND A.BD_DATE IS NULL)
-			AND E.EMP_STATUS ="1") OR 
-			(A.BD_DATE IN (SELECT MAX(BD_DATE) FROM ATTENDANCE WHERE C_CODE=#{c_code} GROUP BY EMP_CODE) OR ( E.C_CODE=#{c_code} AND A.BD_DATE IS NULL)
-			AND E.EMP_STATUS ="-1")
+		WHERE ((A.BD_DATE IN (SELECT MAX(BD_DATE) FROM ATTENDANCE WHERE C_CODE=#{c_code} GROUP BY EMP_CODE) OR ( E.C_CODE=#{c_code} AND A.BD_DATE IS NULL)
+			AND E.EMP_STATUS ="1")) AND E.C_CODE = #{c_code} OR 
+			((A.BD_DATE IN (SELECT MAX(BD_DATE) FROM ATTENDANCE WHERE C_CODE=#{c_code} GROUP BY EMP_CODE) OR ( E.C_CODE=#{c_code} AND A.BD_DATE IS NULL)
+			AND E.EMP_STATUS ="-1")) AND E.C_CODE = #{c_code}
 		GROUP BY E.EMP_CODE
 	</select>
 	

@@ -351,6 +351,7 @@ input:focus, button:focus {
 				success : function(data) {
 					if (data == "success") {
 						alert("시제가 변경되었습니다.");
+						location.href = "changevc";
 					} else if (data == "error") {
 						alert("시제변경에 실패했습니다.");
 					} else if (data == "end"){

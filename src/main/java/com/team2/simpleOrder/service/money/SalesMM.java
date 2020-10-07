@@ -27,8 +27,8 @@ public class SalesMM {
 	}
 	
 	@Transactional
-	public String getMonthDetail(HttpSession session, HashMap<String, String> smap) {
-//		try {
+	public String getMonthDetail(HttpSession session, HashMap<String, String> smap) throws Exception {
+		try {
 			smap.put("c_code", session.getAttribute("c_code").toString());
 			
 			HashMap<String,List<HashMap<String,String>>> sNpMap = new HashMap<>();
@@ -37,12 +37,12 @@ public class SalesMM {
 			sNpMap.put("productList",sDao.getMonthDetailProduct(smap));
 			sNpMap.put("refundList",sDao.getMonthDetailRefundProduct(smap));
 			return new Gson().toJson(sNpMap);
-//		}
-//		catch(Exception e) {
-//			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-//			System.out.println(e);
-//			return new Gson().toJson("noSales");
-//		}
+		}
+		catch(Exception e) {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			System.out.println(e);
+			return new Gson().toJson("noSales");
+		}
 	}
 
 	@Transactional
@@ -62,6 +62,13 @@ public class SalesMM {
 			System.out.println(e);
 			return new Gson().toJson("noSales");
 		}
+	}
+
+	public String getCashSales(HttpSession session) {
+		HashMap <String,String> smap = new HashMap<String, String>();
+		smap.put("c_code", session.getAttribute("c_code").toString());
+		smap.put("bd_date", session.getAttribute("bd_date").toString());
+		return new Gson().toJson(sDao.getCashSales(smap));
 	}
 
 	

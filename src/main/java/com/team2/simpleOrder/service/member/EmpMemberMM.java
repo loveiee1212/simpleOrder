@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,11 +25,22 @@ public class EmpMemberMM {
 	
 
 	ModelAndView mav;
+	
+	public Object getPST_NAME(HttpSession session) {
+		HashMap<String,String> mb = new HashMap<String, String>();
+		mb.put("c_code",session.getAttribute("c_code").toString());
+		mb.put("emp_code", session.getAttribute("emp_code").toString());
+		
+		return mDao2.getPst_name(mb);
+	}
+
 
 	public String getTime(HashMap<String, String> mb, HttpSession session) {
 		mb.put("c_code",session.getAttribute("c_code").toString());
 		mb.put("bd_date",session.getAttribute("bd_date").toString());
 		if(mb.get("emp_code")=="") {
+			mb.put("emp_code",session.getAttribute("emp_code").toString());
+		} else if(mb.get("emp_code")==null) {
 			mb.put("emp_code",session.getAttribute("emp_code").toString());
 		}
 
@@ -107,5 +119,6 @@ public class EmpMemberMM {
 		String json = new Gson().toJson(elist);
 		return json;
 	}
+
 
 }

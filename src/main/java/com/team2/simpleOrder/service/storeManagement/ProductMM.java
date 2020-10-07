@@ -98,7 +98,10 @@ public class ProductMM {
 			if(Boolean.parseBoolean(proInfo.get("stockUse"))) {//업로드가 끝나고 재고가 있다면
 				pDao.createProStock(proInfo);
 			}
-			
+			if(Boolean.parseBoolean(proInfo.get("update").toString())) {
+				System.out.println(proInfo);
+				System.out.println(pDao.updateSellKeyDate(proInfo));
+			}
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
@@ -109,7 +112,7 @@ public class ProductMM {
 		proInfo.put("c_code", session.getAttribute("c_code").toString());
 		proInfo.put("pd_imgname", pDao.getProImgname(proInfo));
 		proInfo.put("update", "true");
-		pDao.updateProductStatus(proInfo); // 상품 
+		pDao.updateProductStatus(proInfo); // 기존 상품 상태 변경
 		pDao.deleteStock(proInfo); // 기존 재고 삭제
 		createProduct(proInfo, session, pdfile, reat); // 상품 새로 생성
 		return  "redirect:/productcontrol";

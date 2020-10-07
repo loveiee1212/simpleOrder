@@ -8,8 +8,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>kioskRequest</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 #frame {
 	width: 568px;
@@ -26,17 +26,72 @@
 }
 
 .req {
-	width: 150px;
-	height: 100px;
-	border: solid 1px black;
-	float: left;
-	margin: 10px;
+    width: 150px;
+    height: 70px;
+    float: left;
+    margin: 10px;
+    border: 2px solid white;
+    background-color: #e3f2fd;
+    font-weight: bold;
+    color: #1565c0;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 30px;
 }
 
 #requestList {
 	margin: 20px;
-	border: solid 1px black;
+	border: 3px solid #81d4fa;
 	height: 380px;
+}
+
+#text {
+	width: 300px;
+	height: 45px;
+	border: 3px solid #81d4fa;
+	text-align: center;
+	font-size: 20px;
+	margin-left: 20px;
+}
+
+#reqBtn {
+	text-align: center;
+	border: 2px solid white;
+	width: 180px;
+	height: 80px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 22px;
+	margin-left: 30px;
+}
+
+#empCallbtn {
+	text-align: center;
+	border: 2px solid white;
+	width: 250px;
+	height: 80px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 22px;
+	margin-top: 30px;
+	margin-left: 20px;
+}
+
+#Exit {
+	border: 2px solid white;
+	width: 250px;
+	height: 80px;
+	background-color: #e3f2fd;
+	font-weight: bold;
+	color: #1565c0;
+	font-size: 22px;
+	margin-left: 20px;
+}
+
+input:focus, button:focus {
+	outline: none;
 }
 </style>
 </head>
@@ -68,8 +123,8 @@
 				<input type="text" id="text" name="text" placeholder="요청사항을 입력해주세요">
 				<button id="reqBtn">요청하기</button>
 			</form>
-			<button onclick="empCall();">직원호출</button>
-			<button onclick="location.href='kioskreview'">나가기</button>
+			<button id="empCallbtn" onclick="empCall();">직원호출</button>
+			<button id="Exit" onclick="location.href='kioskreview'">나가기</button>
 		</div>
 	</div>
 	<script type="text/javascript">

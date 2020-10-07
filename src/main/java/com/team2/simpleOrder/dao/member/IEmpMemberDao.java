@@ -5,6 +5,7 @@ import java.util.List;
 
 
 public interface IEmpMemberDao {
+	Object getPst_name(HashMap<String, String> mb);
 
 	List<HashMap<String, String>> getTime(HashMap<String, String> mb);
 
@@ -23,5 +24,6 @@ public interface IEmpMemberDao {
 	List<HashMap<String, String>> showWorkTime(HashMap<String, String> mb);
 
 	List<HashMap<String, String>> showAllWorkTime(HashMap<String, String> mb);
+
 
 }
