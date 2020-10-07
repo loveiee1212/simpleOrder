@@ -124,7 +124,7 @@ input:focus, button:focus {
 				<button id="reqBtn">요청하기</button>
 			</form>
 			<button id="empCallbtn" onclick="empCall();">직원호출</button>
-			<button id="Exit" onclick="location.href='kioskreview'">나가기</button>
+			<button id="Exit" onclick="location.href='kioskmenu'">나가기</button>
 		</div>
 	</div>
 	<script type="text/javascript">

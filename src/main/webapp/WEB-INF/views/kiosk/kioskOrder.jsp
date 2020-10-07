@@ -113,9 +113,9 @@ li a {
 }
 
 #baskettable td {
-    border-bottom: 2px solid #81d4fa;
-    height: 120px;
-    font-size: 20px;
+	border-bottom: 2px solid #81d4fa;
+	height: 120px;
+	font-size: 20px;
 }
 
 #bill {
@@ -141,12 +141,12 @@ i {
 }
 
 #header_nav {
-    height: 80px;
+	height: 80px;
 }
 
 #header_div {
 	width: 570px;
-    height: 83px;
+	height: 83px;
 	overflow-x: auto;
 	overflow-y: hidden;
 }
@@ -171,10 +171,10 @@ i {
 }
 
 #header_div ul {
-    width: 1000px; 
-    height: 83px;
-    overflow-x: auto; 
-    overflow-y: hidden;
+	width: 1000px;
+	height: 83px;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 #header_nav img {
@@ -246,17 +246,17 @@ i {
 }
 
 p {
-    /* font-size: 35px; */
-    text-align: center;
-    margin-top: -5px;
-    color: rgb(133, 133, 133);
+	/* font-size: 35px; */
+	text-align: center;
+	margin-top: -5px;
+	color: rgb(133, 133, 133);
 }
 
 #basket p, #bill p {
-    font-size: 35px;
-    text-align: center;
-    margin-top: 5px;
-    color: black;
+	font-size: 35px;
+	text-align: center;
+	margin-top: 5px;
+	color: black;
 }
 
 table {
@@ -311,14 +311,14 @@ table {
 }
 
 .pList {
-    height: 60px;
-    color: rgb(133, 133, 133);
-    background-color: #e3f2fd;
-    clear: both;
-    font-size: 25px;
-    font-weight: bold;
-    padding-top: 20px;
-    padding-left: 10px;
+	height: 60px;
+	color: rgb(133, 133, 133);
+	background-color: #e3f2fd;
+	clear: both;
+	font-size: 25px;
+	font-weight: bold;
+	padding-top: 20px;
+	padding-left: 10px;
 }
 
 #order {
@@ -352,7 +352,7 @@ table {
 }
 
 #hline {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 b {
@@ -418,14 +418,14 @@ input:focus, button:focus {
 </head>
 <!-- <h2>kioskOrder.jsp</h2> -->
 <body>
-<%-- 	<h2>${sessionScope.c_code}</h2> --%>
-<%-- 	<h2>${sessionScope.bd_date}</h2> --%>
-<%-- 	<h2>${sessionScope.sc_code}</h2> --%>
-<%-- 	<h2>${sessionScope.st_num}</h2> --%>
-<%-- 	<h2>${sessionScope.oac_num}</h2> --%>
+	<%-- 	<h2>${sessionScope.c_code}</h2> --%>
+	<%-- 	<h2>${sessionScope.bd_date}</h2> --%>
+	<%-- 	<h2>${sessionScope.sc_code}</h2> --%>
+	<%-- 	<h2>${sessionScope.st_num}</h2> --%>
+	<%-- 	<h2>${sessionScope.oac_num}</h2> --%>
 	<div id="frame">
-        <div id="header_div">
-		<nav id="header_nav"></nav>
+		<div id="header_div">
+			<nav id="header_nav"></nav>
 		</div>
 		<div id="sellProList"></div>
 		<div id="innerdiv">
@@ -627,17 +627,6 @@ input:focus, button:focus {
 				$(this).children().addClass("fa-angle-up");
 			}
 		});
-		/* $('.tgBtn').on("click", function() {
-			var skc = $(this).attr("id");
-			$('#pro' + skc).toggle(600);
-			if ($(this).hasClass("fa-angle-up")) {
-				$(this).removeClass("fa-angle-up");
-				$(this).addClass("fa-angle-down");
-			} else {
-				$(this).removeClass("fa-angle-down");
-				$(this).addClass("fa-angle-up");
-			}
-		}); */
 	}
 	//장바구니에 담기
 	function insertOrder(pdc_code, pd_code, pd_date, pd_name, pd_price) {
