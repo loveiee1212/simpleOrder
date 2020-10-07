@@ -29,10 +29,10 @@ public class BillMM {
 	}
 	
 	// 영수증 상세정보 불러오기
-		public HashMap<String, String> getDetailBill(HttpSession session, String bd_date, String oac_num, int oac_status) {
+		public HashMap<String, Object> getDetailBill(HttpSession session, String bd_date, String oac_num, int oac_status) {
 			String c_code = session.getAttribute("c_code").toString();
 			HashMap<String, Object> comList = new HashMap<String, Object>();
-			HashMap<String, String> hMap = new HashMap<String, String>();
+			HashMap<String, Object> hMap = new HashMap<String, Object>();
 			List<HashMap<String, Object>> pList = new ArrayList<HashMap<String, Object>>();
 			List<HashMap<String, Object>> payList = new ArrayList<HashMap<String, Object>>();
 			// 사업장정보 담기
@@ -48,6 +48,7 @@ public class BillMM {
 			hMap.put("companyName", comList.get("C_NAME").toString());
 			hMap.put("companyList", companyList);
 			hMap.put("paymentList", paymentList);
+			hMap.put("oac_status",oac_status);
 			return hMap;
 		}
 	

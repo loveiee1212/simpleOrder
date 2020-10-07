@@ -69,7 +69,7 @@ public class DetailOrderMM {
 				sb.append("<input type='hidden' id='hiddenprice" + i + "' value='" + stList.get(i).getPd_price()
 						+ "'/></td>");
 				sb.append("<td><input type='hidden' id='hiddencnt" + i + "' value='" + stList.get(i).getOh_cnt()
-						+ "'/><input type='Number' name ='pdcnt' id='pdcnt" + i + "' value='"
+						+ "'/><input type='Number' name ='pdcnt' id='pdcnt" + i + "' onchange='totalprice()' value='"
 						+ stList.get(i).getOh_cnt() + "'/></td>");
 				sb.append("<td><button>취소</button></td>");
 				sb.append("</tr>");
@@ -145,6 +145,7 @@ public class DetailOrderMM {
 	private String makeHtmlskList(List<HashMap<String, Object>> skcList) {
 		StringBuilder sb = new StringBuilder();
 		for(int i=0;i<skcList.size();i++) {
+			System.out.println(skcList.get(i));
 			sb.append("<div id='table" + i + "' class='tList'>");
 			sb.append("<table>");
 			int x = Integer.parseInt(skcList.get(i).get("SKC_X").toString());
@@ -153,8 +154,8 @@ public class DetailOrderMM {
 				sb.append("<tr>");
 				for (int b = a; b < a + x; b++) {
 					sb.append("<td class='protd'>");
-						sb.append("<div class='tables' id='tnum" + i  + (b + 1) + "' data-code="
-								+ i + "-" + (b + 1) + " style = 'visibility: hidden;'>" + (b + 1) + "</div>");
+						sb.append("<div class='tables' id='tnum" + Integer.parseInt(skcList.get(i).get("SKC_CODE").toString()) + (b + 1) + "' data-code="
+								+  Integer.parseInt(skcList.get(i).get("SKC_CODE").toString()) + "-" + (b + 1) + " style = 'visibility: hidden;'>" + (b + 1) + "</div>");
 					sb.append("</td>");
 				}
 				sb.append("</tr>");

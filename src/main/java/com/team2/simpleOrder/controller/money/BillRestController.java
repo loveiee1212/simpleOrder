@@ -19,7 +19,7 @@ public class BillRestController {
 	BillMM bm;
 
 	@RequestMapping(value = "/getdetailbill", method = RequestMethod.POST)
-	public HashMap<String, String> getdetailbill(HttpSession session, String bd_date, String oac_num, int oac_status){
+	public HashMap<String, Object> getdetailbill(HttpSession session, String bd_date, String oac_num, int oac_status){
 		return bm.getDetailBill(session, bd_date, oac_num, oac_status);
 	}
 	

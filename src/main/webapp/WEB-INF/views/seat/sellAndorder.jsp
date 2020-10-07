@@ -348,7 +348,7 @@ $(document).ready(function(){
 			dataType : 'json',
 			success : function(data){
 			alert(data.result);
-			location.href = "./posmain";
+			location.href = "./sellpage";
 			
 			}
 		})
@@ -359,6 +359,7 @@ $(document).ready(function(){
 					url : 'rest/getsellkeylist',
 					dataType : 'json',
 					success : function(data) {
+						console.log(data);
 						$("#ctgtab").html(data.ctgList);
 						$("#product").html(data.divList);
 						for ( var i in data.sellkeyList) {
@@ -380,6 +381,10 @@ $(document).ready(function(){
 							var td = $(this);
 							var tdiv = td.children();
 							var pdc_code = tdiv.children("#pd_code").data('code');
+							console.log(pdc_code);
+							if(pdc_code==undefined){
+								return false;
+							}
 							var pd_code = tdiv.children("#pd_code").val();
 							var pd_date = tdiv.children("#pd_date").data('code')
 							var pd_price = tdiv.children("#pd_info").data('code');
@@ -408,7 +413,7 @@ $(document).ready(function(){
 							value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 									+ "'/></td>";
 							value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-							+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' value='" + 1 + "'/></td>";
+							+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
 							value+="<td><button>취소</button></td>";
 							value+="</tr>";
 							$("#listbox").children("center").children("table").append(value);
@@ -425,7 +430,7 @@ $(document).ready(function(){
 								value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 										+ "'/></td>";
 								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-								+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' value='" + 1 + "'/></td>";
+								+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
 								value+="<td><button>취소</button></td>";
 								value+="</tr>";
 								value+="</table>";

@@ -276,6 +276,7 @@ input:focus, button:focus {
 					</center>
 					<div id='top_info'>
 						<div id='companyList'></div>
+						<input type="hidden" id='hidden_status'/>
 						<div id='middle_info'>
 							<div id='proList'></div>
 							<div id='bottom_info'></div>
@@ -309,16 +310,21 @@ input:focus, button:focus {
 	</div>
 </body>
 <script>
+let bd_date = "";
+let oac_num = "";
+let oac_status = "";
+let obj = {};
+
 	$(".bList_tr").click(function() {
-				var tr = $(this);
-				var td = tr.children();
+				let tr = $(this);
+				let td = tr.children();
 				/* tr 행의 정보들을 Arr에 담음 */
 				$("tr").css('background-color', 'white');
 				tr.css('background-color', '#ddd');
-				var bd_date = td.children("#bd_date").val();
-				var oac_num = td.children("#oac_num").val();
-				var oac_status = td.children("#oac_status").data('code');
-				var obj = {
+				bd_date = td.children("#bd_date").val();
+				oac_num = td.children("#oac_num").val();
+				oac_status = td.children("#oac_status").data('code');
+				obj = {
 					"bd_date" : bd_date,
 					"oac_num" : oac_num,
 					"oac_status" : oac_status
@@ -332,12 +338,16 @@ input:focus, button:focus {
 						console.log(data);
 						$("#titlename").html(data.companyName);
 						$("#companyList").html(data.companyList);
+						$("#hidden_status").val(data.oac_status);
 						$("#proList").html(data.productList);
 						$("#bottom_info").html(data.paymentList);
 						$("#uctcredit").html(Number($("#all_total").text())-$("#total").val());
 						
+						
+						let status = $("#hidden_status").val();
+						
 						//선택한 주문번호가 결제이거나 외상일 떄
-						if(oac_status==-1||oac_status==0){
+						if(oac_status==-1){
 						$("#cancelpay").css("color","red");
 						$("#repay").css("color","#81d4fa");
 						
@@ -346,27 +356,28 @@ input:focus, button:focus {
 							$("#repay").css("color","#ddd");	
 						}
 						
-						$("#cancelpay").click(function(){
-							if(oac_status==1||oac_status==-2){
-							return false;
-							}else{
-								cancelpay(obj);
-							}
-							
-					});
-						
-						$("#repay").click(function(){
-							if(oac_status==1||oac_status==-2){
-							return false;
-							}else{
-								repay(obj);
-							}
-						});
 					}
 
-		});
-		});
+		
+				 })
+	})
 	
+	$("#cancelpay").click(function(){
+		if(oac_status!=1){
+		return false;
+		}else{
+			cancelpay(obj);
+		}
+		
+});
+	
+	$("#repay").click(function(){
+		if(oac_status!=1){
+		return false;
+		}else{
+			repay(obj);
+		}
+	});
 	 function cancelpay(obj){
 		console.log(obj);
 		if(confirm("결제 취소 시 해당하는 모든 상품이 반품 처리 됩니다. 취소하시겠습니까 ?")){

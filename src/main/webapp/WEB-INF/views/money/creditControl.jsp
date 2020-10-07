@@ -226,6 +226,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 					<ul>
 						<li id="btn1" onclick="creditPayment(1)">현금결제</li>
 						<li id="btn2" onclick="creditPayment(2)">카드결제</li>
+						<li id="btn3" onclick="cancelcredit()">외상 및 결제 취소</li>
 						<li id="Exit"onclick="location.href='./posmain'">메인으로</li>
 					</ul>
 				</div>
@@ -254,6 +255,17 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 <script>
 getCreditList();
 
+	//외상 및 결제 취소
+	function cancelcredit(){
+		if($("#sendoac_num").val()==""){
+			return;
+		}else{			
+		var totalmoney = $("#totalmoney").val();
+		var getpay = $("#endpay").val();
+		console.log(totalmoney);
+		console.log(endpay);
+		}
+	}
 
 
 	/* 외상 정보 가져오기 */
