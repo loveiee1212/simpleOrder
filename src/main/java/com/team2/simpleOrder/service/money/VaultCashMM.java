@@ -92,7 +92,14 @@ public class VaultCashMM {
 				// 마감 시재
 			} else if (jArr.get(0).get("vc_code").equals("-1")) {
 				jMap.put("bd_date", session.getAttribute("bd_date").toString());
+				if(vDao.getCountOac_status(jMap) == 0) {
+					System.out.println(vDao.getCountOac_status(jMap));
 				jMap.put("vc_code", jArr.get(0).get("vc_code"));
+				} else {
+					System.out.println(vDao.getCountOac_status(jMap));
+					System.out.println("주문중인 테이블이 있음");
+					return new Gson().toJson("notYet");
+				}
 			}
 
 			// 시재 입력

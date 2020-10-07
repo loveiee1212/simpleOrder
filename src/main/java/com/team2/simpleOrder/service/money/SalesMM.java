@@ -1,5 +1,7 @@
 package com.team2.simpleOrder.service.money;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,7 +51,11 @@ public class SalesMM {
 	public String getDaySales(HttpSession session, HashMap<String, String> smap) throws Exception{
 		try {
 		smap.put("c_code", session.getAttribute("c_code").toString());
-		
+		if(smap.get("bd_date")=="") {
+			String bd_date= session.getAttribute("bd_date").toString().substring(0,10);
+			System.out.println("bd_date is"+ bd_date);
+			smap.put("bd_date",bd_date);
+		}
 		HashMap<String,List<HashMap<String,String>>> sNpMap = new HashMap<>();
 		sNpMap.put("salesList", sDao.getDaySales(smap));
 		sNpMap.put("totalSales",sDao.getDayTotalSales(smap));

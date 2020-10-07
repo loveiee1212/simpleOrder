@@ -20,6 +20,13 @@
 		SELECT VC_CODE FROM VAULT_CASH WHERE VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE=#{c_code})
 	</select>
 	
+	<!-- 주문 여부 확인 -->
+	<select id="getCountOac_status" parameterType="hashmap" resultType="int">
+		SELECT COUNT(OAC_STATUS)
+		FROM ORDER_AND_CREDIT
+		WHERE C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND OAC_STATUS = "1"
+	</select>
+	
 	<!-- 시재 넣기 -->
 	<insert id="insertVC" parameterType="hashmap">
 		INSERT INTO VAULT_CASH (C_CODE, BD_DATE, VC_CODE, VC_CHANGETIME) VALUES (#{c_code}, #{bd_date}, #{vc_code}, DEFAULT)
@@ -28,6 +35,7 @@
 		INSERT INTO VC_DETAIL (C_CODE,BD_DATE,VC_CODE,CU_CODE,VCD_CNT)
 				VALUES (#{c_code},#{bd_date},#{vc_code},#{cu_code},#{vcd_cnt})
 	</insert>
+	
 	<!-- 환전 메모넣기 -->
 	<insert id="insertVCChangeMemo" parameterType="hashmap">
 		INSERT INTO VC_CHANGE (C_CODE, BD_DATE, VC_CODE, VCC_MEMO) 
