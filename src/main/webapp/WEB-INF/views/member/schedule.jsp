@@ -214,7 +214,7 @@ button:focus {
 		resetDay();
 		showDay();
 		clockOn();
-		if ("${position}" == "00") {
+		if ("${position}" == "0") {
 			$("#changeWorkTime").append($("<button id = 'changeWorkTimeButton' onclick='changeWorkTime()'>").html("근무시간변경"));
 			$("#showAllWorkTime").append($("<button id= 'showAllWorkTimeButton'>").html("전체근무시간"));
 		}
@@ -323,7 +323,7 @@ button:focus {
 	//출퇴근 시간 출력
 	function getTime(day) {
 
-		if ("${position}" == "00") {
+		if ("${position}" == "0") {
 			var emp_code = $("#emp_codeList option:selected").val();
 		} else {
 			var emp_code = null;
@@ -460,7 +460,7 @@ button:focus {
 
 	//직원 리스트 출력
 	function getEmpList(day) {
-		if ("${position}" == "00") {
+		if ("${position}" == "0") {
 			$.ajax({
 				type : "get",
 				url : "rest/getemplist",
@@ -490,7 +490,7 @@ button:focus {
 	//전체 직원의 일 근무시간 확인
 	function showWorkTime(day) {
 		//사장이 아닐경우 해당 이벤트 사용불가
-		if ("${position}" == "00") {
+		if ("${position}" == "0") {
 			//모달박스 생성
 			$("#view_layer").addClass("open");
 			$.ajax({
