@@ -81,9 +81,10 @@ public class DetailOrderMM {
 	}
 
 	@Transactional
-	public String sendsaoList(HttpSession session, String sc_code, String oac_num, String st_num,
+	public HashMap<String, String> sendsaoList(HttpSession session, String sc_code, String oac_num, String st_num,
 			ArrayList<String> pdc_code, ArrayList<String> pd_date,
 			ArrayList<String> pd_code, ArrayList<String> oh_cnt, RedirectAttributes reat) {
+		HashMap<String, String> resultMap = new HashMap<String, String>();
 		String c_code = session.getAttribute("c_code").toString();
 		String bd_date = session.getAttribute("bd_date").toString();
 		System.out.println(oac_num);
@@ -100,7 +101,8 @@ public class DetailOrderMM {
 				hMap.put("oac_num", oac_num);
 				log.info(hMap);
 				if (!oDao.createoacList(hMap)) {
-					return "errorSellpage";
+					resultMap.put("result", "errorSellpage");
+					return resultMap;
 				}
 			}
 
@@ -117,15 +119,19 @@ public class DetailOrderMM {
 				oacInfo.put("oac_num", oac_num);
 				System.out.println("oac_info:"+oacInfo);
 				if (!oDao.sendsaoList(oacInfo)) {
-					return "errorSellpage";
+					resultMap.put("result", "errorSellpage");
+					return resultMap;
 				}else {
 					oDao.updatestkList(oacInfo);
 				}
 			}
-			return "sellpage";
+			resultMap.put("oac_num",oac_num);
+			resultMap.put("result", "./sellpage");
+			return resultMap;
 		} catch (Exception e) {
 			System.out.println(e);
-			return "errorSellpage";
+			resultMap.put("result", "errorSellpage");
+			return resultMap;
 		}
 	}
 
