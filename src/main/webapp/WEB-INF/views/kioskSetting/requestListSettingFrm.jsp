@@ -26,24 +26,34 @@ input:focus {
 }
 
 #reqList {
-width: 900px;
-height: 350px;
+   width: 900px;
+   height: 350px;
 }
 
 .reqDivList {
-width: 300px;
-height: 40px;
-margin-top: 30px;
-margin-left: 100px;
-display: inline-block;
+   width: 300px;
+   height: 40px;
+   margin-top: 30px;
+   margin-left: 100px;
+   display: inline-block;
 }
 
 .requestList {
-width: 300px;
-height: 40px;
-margin-bottom: 20px;
-border: 3px solid #81d4fa;
-font-size: 20px;
+   width: 300px;
+   height: 40px;
+   margin-bottom: 20px;
+   border: 3px solid #81d4fa;
+   font-size: 20px;
+   text-align: center;
+}
+
+#rq_kind {
+   border: 3px solid #81d4fa;
+   width: 250px;
+   height: 40px;
+   font-size: 20px;
+   margin-left: 43px;
+   text-align: center;
 }
 
 #addRequest {
@@ -52,7 +62,7 @@ font-size: 20px;
     width: 250px;
     height: 60px;
     margin-top: 50px;
-    margin-left: 45px;
+    margin-left: 25px;
     background-color: #81d4fa;
     font-weight: bold;
     color: white;
@@ -60,7 +70,7 @@ font-size: 20px;
 }
 
 #submit {
-text-align: center;
+    text-align: center;
     border: 2px solid white;
     width: 250px;
     height: 60px;
@@ -72,15 +82,29 @@ text-align: center;
 }
 
 #removeRequest {
-text-align: center;
-    border: 2px solid #81d4fa;
+    text-align: center;
+    border: 3px solid #81d4fa;
     width: 250px;
     height: 60px;
     margin-left: 20px;
     background-color: white;
     font-weight: bold;
-    color: #81d4fa;
+    color: red;
     font-size: 20px;
+}
+
+#updateRequest {
+    width: 400px;
+    height: 60px;
+    border: none;
+    background-color: #e3f2fd;
+	color: #1565c0;
+	font-weight: bold;
+    font-size: 20px;
+    margin-top: 30px;
+    margin-right: 40px;
+    float: right;
+    text-align: center;
 }
 
 </style>

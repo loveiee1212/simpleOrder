@@ -112,6 +112,12 @@ li a {
 		.2)), color-stop(.5, transparent), to(transparent));
 }
 
+#baskettable td {
+    border-bottom: 2px solid #81d4fa;
+    height: 120px;
+    font-size: 20px;
+}
+
 #bill {
 	display: none;
 	width: 460px;
@@ -124,26 +130,53 @@ li a {
 	border-radius: 3px;
 }
 
+#bill td {
+	height: 80px;
+	font-size: 20px;
+}
+
 i {
-	margin-left: 140px;
+	margin-right: 20px;
+	float: right;
 }
 
 #header_nav {
-	/* overflow-x: scroll; */
-	-ms-overflow-style: none;
-
-	/* IE에서 스크롤바 감춤 */
-	&::
-	-webkit-scrollbar
-	{
-	display
-	:
-	none
-   !important; 
-	/* 윈도우 크롬 등 */
+    height: 80px;
 }
 
+#header_div {
+	width: 570px;
+    height: 83px;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
+
+#header_div::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: #81d4fa;
+}
+
+#header_div::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	border-radius: 10px;
+	background-clip: padding-box;
+	/* border: 2px solid transparent; */
+}
+
+#header_div::-webkit-scrollbar-track {
+	background-color: #81d4fa;
+	border-radius: 10px;
+	/* box-shadow: inset 0px 0px 5px grey; */
+}
+
+#header_div ul {
+    width: 1000px; 
+    height: 83px;
+    overflow-x: auto; 
+    overflow-y: hidden;
+}
+
 #header_nav img {
 	width: 140px;
 	margin-top: 5px;
@@ -155,7 +188,7 @@ i {
 	height: 300px;
 	border: solid rgb(133, 133, 133) 1px;
 	border-radius: 5px;
-	margin: 15px 20px 30px;
+	margin: 15px 20px;
 	float: left;
 }
 
@@ -215,16 +248,11 @@ i {
 p {
 	font-size: 35px;
 	text-align: center;
+	margin-top: -5px;
 }
 
 table {
 	width: 500px;
-}
-
-td {
-	height: 80px;
-	font-size: 20px;
-	border-bottom: 2px solid #81d4fa;
 }
 
 .bsk_pd_price {
@@ -270,16 +298,18 @@ td {
 #bskSum, #billSum {
 	float: right;
 	margin-right: 20px;
+	font-size: 25px;
 }
 
 .pList {
-	height: 80px;
-	color: #1565c0;
-	background-color: #e3f2fd;
-	margin: 5px 0 10px 0;
-	clear: both;
-	font-size: 20px;
-	font-weight: bold;
+    height: 60px;
+    color: #1565c0;
+    background-color: #e3f2fd;
+    clear: both;
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-left: 10px;
 }
 
 #order {
@@ -317,7 +347,7 @@ td {
 	width: 568px;
 	height: 1px;
 	background-color: #81d4fa;
-	margin-bottom: 30px;
+	margin-top: 20px;
 }
 
 b {
@@ -389,8 +419,9 @@ input:focus, button:focus {
 <%-- 	<h2>${sessionScope.st_num}</h2> --%>
 <%-- 	<h2>${sessionScope.oac_num}</h2> --%>
 	<div id="frame">
-
+        <div id="header_div">
 		<nav id="header_nav"></nav>
+		</div>
 		<div id="sellProList"></div>
 		<div id="innerdiv">
 			<div id="hline"></div>
@@ -430,7 +461,7 @@ input:focus, button:focus {
 				<h2 id="bskText">장바구니가 비어있습니다</h2>
 			</div>
 			<div id="bskFooter">
-				<h2 id="bskSum"></h2>
+				<p id="bskSum"></p>
 				<button id="order" onclick="order();">주문하기</button>
 				<button id="basket_close_btn">나가기</button>
 			</div>
@@ -445,7 +476,7 @@ input:focus, button:focus {
 				</table>
 			</div>
 			<div id="billFooter">
-				<h2 id="billSum"></h2>
+				<p id="billSum"></p>
 				<button id="bill_close_btn">나가기</button>
 			</div>
 		</div>

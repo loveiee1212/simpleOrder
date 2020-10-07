@@ -14,17 +14,53 @@
 <link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
 <link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
 <link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style>
-	#calendar {
-	 width: 1450px;
-	}
-	td.dt {
-	width: 110px;
-	}
-	.sales{
-	 background-color: gold;
-	}
-	#view_layer {
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+#calendar_main {
+    margin-top: -87px;
+}
+
+#calendar_main table {
+    margin-top: -83px;
+    margin-left: -20px;
+    width: 1100px;
+    height: 500px;
+}
+
+#calendar_main th {
+    padding-top: 8px;
+}
+
+#calendar {
+	width: 1450px;
+	border: 3px solid #81d4fa;
+	background-color: white;
+}
+
+td.dt {
+	width: 100px;
+	height: 80px;
+}
+
+.sales{
+	background-color: #b3e5fc;
+}
+
+#view_layer {
 	display: none;
 	position: fixed;
 	position: absolute;
@@ -66,15 +102,95 @@
 	color: #767676;
 	line-height: normal;
 	white-space: normal;
-	overflow: scroll;
+	overflow: auto;
 	border-collapse: collapse;
 	text-align: center;
 }
 
-#main_layer td {
+#main_layer::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: white;
+}
+
+#main_layer::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: white;
+}
+
+#main_layer::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
+}
+
+#salesList td {
 	font-size: 20px;
 	height: 40px;
-	padding-top: 10px;
+	border: none;
+	border-right: none;
+	border-bottom: 2px solid #81d4fa;
+}
+
+#inputbtn {
+    width: 300px;
+    height: 80px;
+    border: 3px solid white;
+    background-color: #81d4fa;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    float: right;
+    margin-top: -200px;
+}
+
+#Exit {
+    width: 300px;
+	height: 80px;
+	border: 3px solid white;
+	background-color: #e3f2fd;
+	font-weight : bold; 
+	color : #1565c0;
+	font-size: 20px;
+	float: right;
+	margin-top: -100px;
+}
+
+.salesText {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#monthSelect {
+    border: 3px solid #81d4fa;
+    width: 300px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#salesList, #productList {
+    border-collapse: collapse;
+}
+
+#salesList th, #productList th {
+    border: 3px solid white;
+    padding: 10px;
+}
+
+#productList td {
+    height: 40px;
+    border: none;
+	border-right: none;
+	border-bottom: 2px solid #81d4fa;
+}
+
+#productList {
+    margin-bottom: 20px;
+}
+
+input:focus, button:focus, select:focus {
+	outline: none;
 }
 </style>
 </head>
@@ -112,8 +228,8 @@
 					</div>
 				</div>
 
-				<button onclick="inputMonth()">월별매출보기</button>
-				<button id="Exit" onclick="location.href='changevc'">나가기</button>
+				<button id="inputbtn" onclick="inputMonth()">월별매출보기</button>
+				<button id="Exit" onclick="location.href='posmain'">나가기</button>
 			</div>
 		</div>
 	</div>
@@ -184,7 +300,9 @@
 		for (var i = firstDay.getDay(); i < firstDay.getDay()
 				+ lastDay.getDate(); i++) {
 			++dayCount;
-
+			if(dayCount<10){
+				dayCount = "0"+dayCount;
+			}
 			$tdDay.eq(i).text(dayCount);
 			$(".dt").eq(i).attr("onclick", "getDaySales(" + dayCount + ")");
 

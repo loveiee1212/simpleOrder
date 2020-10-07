@@ -25,18 +25,17 @@ body {
 
 .innerdiv {
 	border: 3px solid #81d4fa;
-	width: 740px;
+	width: 840px;
 	height: 800px;
 	float: left;
 	background-color: white;
-	overflow-x: scroll;
-	overflow-y: scroll;
+	overflow: auto;
 }
 
 #pListtable {
 	background-color: white;
 	border-collapse: collapse;
-	width: 1400px;
+	width: 840px;
 }
 
 .innerdiv::-webkit-scrollbar-track {
@@ -63,7 +62,7 @@ body {
 	height: 50px;
 	margin: 30px;
 	text-align: center;
-	font-size: 25px;
+	font-size: 20px;
 	font-weight: bold;
 	background-color: #81d4fa;
 	color: white;
@@ -80,7 +79,7 @@ body {
 }
 
 #readyCreatProFrm {
-width: 150px;
+    width: 150px;
 	height: 60px;
 	border: 3px solid white;
 	background-color: #e3f2fd;
@@ -90,22 +89,50 @@ width: 150px;
 	margin-top: 20px;
 }
 
+.aPUpdate {
+	width: 100px;
+	height: 50px;
+	border: 3px solid white;
+	background-color: #e3f2fd;
+	font-weight: bold;
+	color: #1565c0;
+	font-size: 20px;
+	margin-top: 10px;
+}
+
+.aPdelete {
+	width: 100px;
+	height: 50px;
+	border: 3px solid #81d4fa;
+	background-color: white;
+	color: red;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
 .innerdiv2 {
 	border: 3px solid #81d4fa;
-	width: 740px;
+	width: 640px;
 	height: 800px;
 	float: left;
 	background-color: white;
 }
 
 .basic {
-	width: 364px;
-	height: 200px;
+	width: 640px;
+	height: 180px;
+	float: left;
+}
+
+.basic2 {
+	width: 640px;
+	height: 125px;
 	float: left;
 }
 
 #updatetable th {
-	width: 364px;
+	width: 640px;
 	height: 50px;
 	font-size: 22px;
 	text-align: center;
@@ -113,47 +140,55 @@ width: 150px;
 	color: white;
 }
 
-#select1, #select2 {
+#select1 {
 	width: 150px;
-	height: 30px;
+	height: 38px;
 	font-size: 15px;
 	border: 3px solid #81d4fa;
+}
+
+#select2 {
+	width: 150px;
+	height: 38px;
+	font-size: 15px;
+	border: 3px solid #81d4fa;
+	margin-left: 70px;
 }
 
 #updateCategoriNAME {
 	width: 250px;
 	height: 40px;
 	font-size: 18px;
-	margin-top: 20px;
+	margin-left: 70px;
 	border: 3px solid #81d4fa;
 }
 
 #delete {
-	width: 100px;
-	height: 40px;
+	width: 150px;
+	height: 50px;
 	border: 3px solid #81d4fa;
 	background-color: white;
 	color: red;
 	font-size: 20px;
 	font-weight: bold;
-	margin-top: 30px;
+	margin: 10px 30px;
 }
 
 #update {
-	width: 100px;
+	width: 150px;
 	height: 50px;
 	border: 3px solid white;
 	background-color: #e3f2fd;
 	font-weight : bold; 
 	color : #1565c0;
 	font-size: 20px;
-	margin-top: 20px;
+	margin-left: 30px;
 }
 
 #createtable th {
-	width: 364px;
+	width: 640px;
 	height: 50px;
-	font-size: 22px;
+	font-size: 20px;
 	text-align: center;
 	background-color: #81d4fa;
 	color: white;
@@ -163,56 +198,60 @@ width: 150px;
 	width: 250px;
 	height: 40px;
 	font-size: 18px;
-	margin-top: 30px;
-	margin-left: 15px;
+	margin-top: 10px;
+	margin-left: 70px;
 	border: 3px solid #81d4fa;
 }
 
 #add {
-	width: 100px;
+	width: 150px;
 	height: 50px;
 	border: 3px solid white;
-	background-color: #e3f2fd; font-weight : bold; color : #1565c0;
+	background-color: #e3f2fd;
 	font-size: 20px;
 	font-weight: bold;
 	color: #1565c0;
-	font-size : 20px;
-	margin-top: 30px;
+	margin-top: 10px;
+	margin-right: 20px;
 }
 
-.basic2 {
-	width: 740px;
+.basic3 {
+	width: 640px;
+	height: 400px;
 	float: left;
 }
 
 #producttable {
+    width: 640px;
+	height: 500px;
 	border: none;
 	border-top: 3px solid #81d4fa;
 }
 
 #producttable th {
-	width: 730px;
+	width: 640px;
 	height: 50px;
-	font-size: 22px;
+	font-size: 20px;
 	text-align: center;
 	background-color: #81d4fa;
 	color: white;
 }
 
 #producttable td {
-	width: 740px;
-	height: 50px;
-	font-size: 22px;
+	width: 100px;
+	height: 40px;
+	font-size: 20px;
 	text-align: center;
 	font-weight: bold;
 }
 
 #pd_code, #pd_name, #pd_price, #stk_stock {
-	width: 250px;
+	width: 200px;
 	height: 40px;
 	font-size: 18px;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 	border: 3px solid #81d4fa;
+	text-align: center;
 }
 
 .stockUse {
@@ -221,37 +260,39 @@ width: 150px;
 }
 
 #pdfile {
-	width: 300px;
+	width: 250px;
 	height: 50px;
 	border: 3px solid white;
 	font-size: 18px;
-	margin-left: 50px;
 }
 
 #productControllBtn {
-	text-align: center;
-	border: 2px solid white;
-	width: 730px;
-	height: 50px;
-	background-color: #e3f2fd;
-	font-weight: bold;
-	color: #1565c0;
-	font-size: 20px;
+    text-align: center;
+    border: none;
+    width: 635px;
+    height: 38px;
+    background-color: #e3f2fd;
+    font-weight: bold;
+    color: #1565c0;
+    font-size: 20px;
+    margin-top: -10px;
+    margin-left: -5px;
 }
 
 #Exit {
-	text-align: center;
-	border: 2px solid white;
-	width: 730px;
-	height: 50px;
-	background-color: #81d4fa;
-	font-weight: bold;
-	color: white;
-	font-size: 20px;
-	margin-top: 20px;
+    text-align: center;
+    border: none;
+    width: 635px;
+    height: 38px;
+    background-color: #81d4fa;
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+    margin-top: -5px;
+    margin-left: -3px;
 }
 
-input:focus, button:focus {
+input:focus, button:focus, select:focus {
 	outline: none;
 }
 </style>
@@ -293,7 +334,7 @@ input:focus, button:focus {
 				</div>
 
 
-				<div class="basic">
+				<div class="basic2">
 					<form action="createProCategori" method="post">
 						<table id="createtable">
 							<tr>
@@ -308,7 +349,7 @@ input:focus, button:focus {
 					</form>
 				</div>
 
-				<div class="basic2">
+				<div class="basic3">
 					<form name="productControllForm" action="null" method="post"
 						enctype=multipart/form-data>
 						<table id="producttable">

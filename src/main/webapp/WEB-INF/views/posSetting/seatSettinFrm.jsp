@@ -45,14 +45,88 @@ table, tr, td, th {
 	border: 3px solid #81d4fa;
 }
 
+#seatCTselect {
+    width: 150px;
+	height: 38px;
+	font-size: 20px;
+	border: 3px solid #81d4fa;
+	margin-bottom: 10px;
+}
+
+#sc_name {
+    width: 200px;
+	height: 35px;
+	font-size: 20px;
+	border: 3px solid #81d4fa;
+	text-align: center;
+}
+
+#deletebtn {
+    width: 100px;
+	height: 38px;
+	font-size: 20px;
+	border: 3px solid #81d4fa;
+	background-color: white;
+	color: red;
+	font-weight: bold;	
+}
+
+#updatebtn {
+    width: 100px;
+	height: 43px;
+	font-size: 20px;
+	border: 3px solid white;
+	background-color: #81d4fa;
+	color: white;
+	font-weight: bold;
+}
+
+#createbtn {
+    width: 100px;
+	height: 45px;
+	font-size: 20px;
+	border: 3px solid white;
+	background-color: #e3f2fd;
+	color: #1565c0;
+	font-weight: bold;
+}
+
 #CategoriList {
-	width: 300px;
+	border-collapse: collapse;
+	height: 80px;
+}
+
+#Categoridiv {
+    width: 800px;
 	height: 80px;
 	text-align: center;
 	color: #1565c0;
 	font-size: 20px;
 	font-weight: bold;
-	border-collapse: collapse;
+	overflow: auto;
+}
+
+#Categoridiv::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: #81d4fa;
+}
+
+#Categoridiv::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#Categoridiv::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+.categoriList {
+    width: 100px; 
 }
 
 #seatList {
@@ -78,7 +152,7 @@ table, tr, td, th {
 #x, #y {
 	width: 300px;
 	height: 50px;
-	margin-top: 10px; font-size : 25px;
+	margin-top: 10px;
 	text-align: center;
 	border: 3px solid #81d4fa;
 	font-size: 25px;
@@ -117,18 +191,18 @@ input[type="button" i] {
 	float: right;
 }
 
-#submit {
-	text-align: center;
-	border: 2px solid white;
-	width: 250px;
-	height: 70px;
-	margin-right: 49px;
-	margin-top: 10px;
-	background-color: #81d4fa;
-	font-weight: bold;
-	color: white;
-	font-size: 20px;
-	float: right;
+#submitbtn {
+    text-align: center;
+    border: 2px solid white;
+    width: 250px;
+    height: 70px;
+    margin-right: 49px;
+    margin-top: 10px;
+    background-color: #e3f2fd;
+    font-weight: bold;
+    color: #1565c0;
+    font-size: 20px;
+    float: right;
 }
 </style>
 <title>seatSettinFrm</title>
@@ -143,18 +217,20 @@ ${msg}
 		<select id="seatCTselect" onchange="selectedCT(this)" name ='sc_code'>
 		
 		</select>
-		<input type="text" name = 'sc_name'>
-		<button type="button" onclick = 'deleteSeatCT()'>삭제</button>
-		<button type="button" onclick = 'updateSeatCT()'>수정</button>
-		<button type="button" onclick = 'createSeatCT()'>추가</button>
-		</form>
+		<input type="text" id="sc_name" name = 'sc_name'>
+		<button type="button" id="deletebtn" onclick = 'deleteSeatCT()'>삭제</button>
+		<button type="button" id="updatebtn" onclick = 'updateSeatCT()'>수정</button>
+		<button type="button" id="createbtn" onclick = 'createSeatCT()'>추가</button>
 		</div>
+		</form>
 	<form action="updateSeatList" method="post">
+		<div id="Categoridiv">
 		<table id="CategoriList">
 		</table>
+		</div>
 		<div id="seatList">
 		</div>
-		<input type="submit" id="submit" value="테이블 변경 사항 저장">
+		<input type="submit" id="submitbtn" value="테이블 변경 사항 저장">
 	</form>
 
 	<script type="text/javascript">
