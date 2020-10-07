@@ -256,6 +256,7 @@ input:focus, button:focus, select:focus {
 				table += "<pre class='text' id='text"+i+"n"+j+"'></pre></td>";
 				if(j==6){
 					table += "<td class='sales' style='text-overflow:ellipsis; overflow:hidden; white-space:nowrap'>";
+					table += "<div class='salesName'>주간매출</div>";
 					table += "<pre width='100' class='salesText' id='weekText"+i+"'></pre></td>";
 				}
 			}
@@ -263,9 +264,11 @@ input:focus, button:focus, select:focus {
 				table += "<tr height='109'>";
 				for (var j = 0; j < 7; j++) {
 					table += "<td class='sales' style='text-overflow:ellipsis; overflow:hidden; white-space:nowrap'>";
+					table += "<div class='salesName'>요일매출</div>";
 					table += "<pre width='100' class='salesText' id='dayText"+j+"'></pre></td>";
 					if(j==6){
 						table += "<td class='sales' style='text-overflow:ellipsis; overflow:hidden; white-space:nowrap'>";
+						table += "<div class='salesName'>총매출</div>";
 						table += "<pre width='100' class='salesText' id='allText'></pre></td>";
 					}
 				}
