@@ -198,4 +198,22 @@ public class CreditAndPaymentMM {
 		return hMap;
 	}
 
+	//외상 반품처리
+	public HashMap<String, String> cancelCredit(HttpSession session, String bd_date, String oac_num, int sendpay) {
+		HashMap<String, Object> insertMap = new HashMap<String, Object>();
+		insertMap.put("c_code", session.getAttribute("c_code").toString());
+		insertMap.put("bd_date", bd_date);
+		insertMap.put("oac_num", oac_num);
+		insertMap.put("sendpay", sendpay);
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		if(cDao.insertCancelCredit(insertMap)) {
+			cDao.updateOACtocredit(insertMap);
+			cDao.updatestockList(insertMap);
+			hMap.put("result", "반품처리 되었습니다.");
+		}else {
+			hMap.put("result", "반품이 정상처리 되지 않았습니다. 다시 시도하세요");
+		}
+		return hMap;
+	}
+
 }

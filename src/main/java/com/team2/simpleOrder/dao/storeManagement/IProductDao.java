@@ -33,7 +33,7 @@ public interface IProductDao {
 	@Select("SELECT LPAD(COUNT(*)+1,2,0) FROM PRODUCT_CT WHERE C_CODE = #{c_code}")
 	String numberOfproCategori(String c_code);
 	
-	@Update("UPDATE PRODUCT SET PD_STATUS = '0' WHERE C_CODE =#{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE = #{pd_code} AND PD_DATE = #{pd_date} ")	
+	@Update("UPDATE PRODUCT SET PD_STATUS = '0' WHERE C_CODE =#{c_code} AND PDC_CODE = #{before_pdc_code} AND PD_CODE = #{before_pd_code} AND PD_DATE = #{pd_date} ")	
 	boolean updateProductStatus(HashMap<String, String> proInfo);
 	@Select("SELECT PD_IMGNAME FROM PRODUCT WHERE C_CODE =#{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE =#{pd_code} AND PD_DATE = #{pd_date}")
 	String getProImgname(HashMap<String, String> proInfo);
@@ -48,7 +48,7 @@ public interface IProductDao {
 	@Select("SELECT P.PDC_CODE, P.PD_CODE, P.PD_DATE, S.SKC_CODE, S.SK_NUM, P.PD_NAME, P.PD_PRICE "
 			+ "FROM SELLKEY S " + "JOIN PRODUCT P "
 			+ "ON S.PDC_CODE = P.PDC_CODE AND S.PD_DATE = P.PD_DATE AND S.PD_CODE = P.PD_CODE "
-			+ "WHERE P.C_CODE =#{c_code} AND S.SKC_CODE = #{skc_code}")
+			+ "WHERE P.C_CODE =#{c_code} AND S.SKC_CODE = #{skc_code} AND P.PD_STATUS = '1'")
 	ArrayList<HashMap<String, String>> getsellKeyInfo(HashMap<String, String> hm);
 	@Delete("DELETE FROM PRODUCT WHERE C_CODE = #{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE = #{pd_code} AND PD_DATE = #{pd_date}")
 	boolean deleteProduct(HashMap<String, String> proInfo);
@@ -104,6 +104,10 @@ public interface IProductDao {
 	void createStockPlusRecord(HashMap<String, String> stockInfo);
 	@Update("UPDATE SELLKEY SET PD_DATE = #{pd_date} WHERE C_CODE = #{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE =#{pd_code}")
 	int updateSellKeyDate(HashMap<String, String> proInfo);
+	@Select("SELECT STK_STOCK FROM STOCK WHERE C_CODE = #{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE = #{pd_code} AND PD_DATE = #{pd_date}")
+	int getPdStock(HashMap<String, String> stockInfo);
+	@Update("UPDATE STOCK SET STK_STOCK = #{stk_stock} WHERE C_CODE = #{c_code} AND PDC_CODE = #{pdc_code} AND PD_CODE = #{pd_code}")
+	void updatePdStock(HashMap<String, String> stockInfo);
 	
 	/*
 	 * 

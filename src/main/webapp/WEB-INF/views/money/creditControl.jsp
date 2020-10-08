@@ -214,7 +214,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 						<li>총금액 <input type="number" readonly="readonly"
 							id="totalmoney"></li>
 						<li>결제금액 <input type="number" readonly="readonly"
-							id="endpay"></li>
+							id="endpay" value='0'></li>
 						<li>받은금액 <input type="number" id="takemoney"
 							placeholder="0"></li>
 						<li id="Remain_money">남은금액 <input type="number"
@@ -256,13 +256,29 @@ getCreditList();
 
 	//외상 및 결제 취소
 	function cancelcredit(){
-		if($("#sendoac_num").val()==""){
+		if($("#sendoac_num").val()==undefined){
 			return;
-		}else{			
-		var totalmoney = $("#totalmoney").val();
-		var getpay = $("#endpay").val();
-		console.log(totalmoney);
-		console.log(endpay);
+		}else{
+		var bd_date = $("#sendbd_date").val();
+		var oac_num = $("#sendoac_num").val();
+		var sendpay = $("#totalmoney").val()-$("#endpay").val();
+		var objparam = {
+				"bd_date":bd_date,
+				"oac_num":oac_num,
+				"sendpay":sendpay,
+		}
+		
+		$.ajax({
+			type : 'post',
+			url : 'rest/cancelcredit',
+			data : objparam,
+			dataType : 'json',
+			success : function(result){
+				console.log(result);
+				alert(result.result);
+				location.reload();
+			}
+		})
 		}
 	}
 
@@ -281,7 +297,7 @@ getCreditList();
 			var tr = $(this);
 			var td = tr.children();
 			/* tr 행의 정보들을 Arr에 담음 */
-			$("#crdtableList tr[class='.crdinfo']").css('background-color','white');
+			$("tr").css('background-color','white');
 			tr.css('background-color', '#ddd');
 			var bd_date = $(this).children("#bd_date").val();
 			var oac_num = $(this).children("#oac_num").val();

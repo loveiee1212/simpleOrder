@@ -32,7 +32,7 @@ h2 {
 
 #grantList {
     width: 2000px;
-    border: 1px solid #81d4fa;
+    border: 1px solid #2565a3;
     border-collapse: collapse;
 }
 
@@ -40,12 +40,12 @@ h2 {
 	width: 200px;
 	height: 70px;
 	text-align: center;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	scrollbar-width: none;
 	border-left-color: white;
 	border-right-color: white;
 	font-size: 25px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 }
 
@@ -83,7 +83,7 @@ input[type=checkbox] {
 }
 
 #tadiv::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -96,11 +96,15 @@ input[type=checkbox] {
 	height: 70px;
 	margin-right: 40px;
 	margin-top: 35px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
 	float: right;
+}
+
+input:focus, button:focus {
+	outline: none;
 }
 </style>
 <script

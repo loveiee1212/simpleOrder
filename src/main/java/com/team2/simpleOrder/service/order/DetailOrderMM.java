@@ -69,9 +69,9 @@ public class DetailOrderMM {
 				sb.append("<input type='hidden' id='hiddenprice" + i + "' value='" + stList.get(i).getPd_price()
 						+ "'/></td>");
 				sb.append("<td><input type='hidden' id='hiddencnt" + i + "' value='" + stList.get(i).getOh_cnt()
-						+ "'/><input type='Number' name ='pdcnt' id='pdcnt" + i + "' onchange='totalprice()' value='"
+						+ "'/><input type='Number' name ='pdcnt' min='0' id='pdcnt" + i + "' onchange='totalprice()' value='"
 						+ stList.get(i).getOh_cnt() + "'/></td>");
-				sb.append("<td><button>취소</button></td>");
+				sb.append("<td><input type='button' id='cancelbutton"+i+"' onclick='cancelorder("+i+")' value='취소'/></td>");
 				sb.append("</tr>");
 
 			}

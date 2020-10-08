@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?afte"
+<link rel="stylesheet" href="resources/css/clock.css?after"
 	type="text/css">
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <title>SimpleOrder-시재변경</title>
@@ -26,7 +26,7 @@ body {
 }
 
 #cashZone {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	height: 795px;
 	width: 800px;
 	float: left;
@@ -34,7 +34,7 @@ body {
 }
 
 table, tr, td, th {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 #cashZone table {
@@ -73,7 +73,7 @@ td {
 }
 
 #vcZone table {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	font-size: 25px;
 	width: 650px;
 	height: 800px;
@@ -117,7 +117,7 @@ td {
 	height: 50px;
 	text-align: center;
 	font-size: 20px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 input:focus, button:focus {
@@ -129,7 +129,7 @@ input:focus, button:focus {
 	border: 3px solid white;
 	width: 180px;
 	height: 70px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
@@ -141,7 +141,7 @@ input:focus, button:focus {
 	width: 180px;
 	height: 70px;
 	margin-left: 20px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
@@ -149,13 +149,13 @@ input:focus, button:focus {
 
 #Exit {
 	text-align: center;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 150px;
 	height: 70px;
 	margin-left: 20px;
 	background-color: white;
 	font-weight: bold;
-	color: #81d4fa;
+	color: #2565a3;
 	font-size: 25px;
 }
 </style>

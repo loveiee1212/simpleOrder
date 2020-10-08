@@ -32,43 +32,31 @@ public class KioskMakeHtml {
 			sb2.append("<div id='pro" + skcList.get(i).get("SKC_CODE") + "' class='pro'>");
 			for (int j = 0; j < sellProList.size(); j++) {
 				// 판매키에 올라가 있는 상품리스트
-				// skc_code가 같다면 추가
 				iskc_code = skcList.get(i).get("SKC_CODE").toString();
 				jskc_code = sellProList.get(j).getSkc_code().toString();
 				if (iskc_code.equals(jskc_code)) {
-					if (sellProList.get(j).getPd_imgName() == null) {//이미지가 없다면
+					SellProduct proInfo = sellProList.get(j);
+					if (proInfo.getStk_stock() != 0) {
 						sb2.append("<div class='detail_body'><div class='pList_detail'><div class='pd_imgName'>");
-						sb2.append("<img src='resources/productImg/productErrorImg' alt='에러이미지'></div>");
-						sb2.append("<div class='text_detail'>");
-						sb2.append("<div class='pdc_code'>" + sellProList.get(j).getPdc_code() + "</div>");
-						sb2.append("<div class='pd_code'>" + sellProList.get(j).getPd_code() + "</div>");
-						sb2.append("<div class='pd_date'>" + sellProList.get(j).getPd_date() + "</div>");
-						sb2.append("<div class='pd_name'>" + sellProList.get(j).getPd_name() + "</div>");
-						sb2.append("<div class='pd_price'>" + sellProList.get(j).getPd_price()
-								+ "</div></div></div></div>");
-					}
-
-					if (sellProList.get(j).getStk_stock() == 0) {
-						sb2.append("<div class='soldOut'><div class='pList_detail'><div class='pd_imgName'>");
-						sb2.append("<img src='resources/productImg/" + c_code + "/" + sellProList.get(j).getPd_imgName()
-								+ "' alt='" + sellProList.get(j).getPd_name() + "'></div>");
-						sb2.append("<div class='text_detail'>");
-						sb2.append("<div class='pdc_code'>" + sellProList.get(j).getPdc_code() + "</div>");
-						sb2.append("<div class='pd_code'>" + sellProList.get(j).getPd_code() + "</div>");
-						sb2.append("<div class='pd_date'>" + sellProList.get(j).getPd_date() + "</div>");
-						sb2.append("<div class='pd_name'>" + sellProList.get(j).getPd_name() + "</div>");
-						sb2.append("<div class='pd_soldOut'>품절</div></div></div></div>");
 					} else {
-						sb2.append("<div class='detail_body'><div class='pList_detail'><div class='pd_imgName'>");
+						sb2.append("<div class='soldOut'><div class='pList_detail'><div class='pd_imgName'>");
+					}
+					if (proInfo.getPd_imgName().equals("ERRORIMG")) {
+						sb2.append("<img src='resources/productImg/ERRORIMG.jpg' alt='에러이미지'></div>");
+					} else {
 						sb2.append("<img src='resources/productImg/" + c_code + "/" + sellProList.get(j).getPd_imgName()
 								+ "' alt='" + sellProList.get(j).getPd_name() + "'></div>");
-						sb2.append("<div class='text_detail'>");
-						sb2.append("<div class='pdc_code'>" + sellProList.get(j).getPdc_code() + "</div>");
-						sb2.append("<div class='pd_code'>" + sellProList.get(j).getPd_code() + "</div>");
-						sb2.append("<div class='pd_date'>" + sellProList.get(j).getPd_date() + "</div>");
-						sb2.append("<div class='pd_name'>" + sellProList.get(j).getPd_name() + "</div>");
+					}
+					sb2.append("<div class='text_detail'>");
+					sb2.append("<div class='pdc_code'>" + sellProList.get(j).getPdc_code() + "</div>");
+					sb2.append("<div class='pd_code'>" + sellProList.get(j).getPd_code() + "</div>");
+					sb2.append("<div class='pd_date'>" + sellProList.get(j).getPd_date() + "</div>");
+					sb2.append("<div class='pd_name'>" + sellProList.get(j).getPd_name() + "</div>");
+					if (proInfo.getStk_stock() != 0) {
 						sb2.append("<div class='pd_price'>" + sellProList.get(j).getPd_price()
 								+ "</div></div></div></div>");
+					} else {
+						sb2.append("<div class='pd_soldOut'>품절</div></div></div></div>");
 					}
 				}
 			}

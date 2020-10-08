@@ -28,4 +28,9 @@ public class BillRestController {
 		return bm.cancelPay(session, bd_date, oac_num, oac_status);
 	}
 	
+	@RequestMapping(value = "/searchbills", method = RequestMethod.POST)
+	public HashMap<String, String> searchBills(HttpSession session, String date, String code){
+		return bm.searchBills(session,date, code);
+	}
+	
 }

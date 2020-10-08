@@ -65,7 +65,7 @@ body {
 	background-color: white;
 	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 400px;
+	height: 350px;
 	margin-left: 17px;
 	margin-top: 10px;
 	border-collapse: collapse;
@@ -100,9 +100,10 @@ div #listbox tr, td {
 }
 
 #moneylist {
+	border-top: none;
 	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 70px;
+	height: 120px;
 	margin-left: 17px;
 	background-color: white;
 	font-size: 20px;
@@ -111,7 +112,7 @@ div #listbox tr, td {
 #moneylist ul li {
 	list-style: none;
 	float: left;
-	margin-left: -17px;
+	margin-left: 15px;
 }
 
 li input {
@@ -201,11 +202,16 @@ li input {
 	background-color: silver;
 }
 
-#totalmoney, #endpay, #takemoney, #uctmoney {
-    margin: -20px 20px 5px 3px;
-    font-size: 20px;
-    border: none;
-    text-align: center;
+#totalmoney, #takemoney, #uctmoney {
+	width: 100px;
+	height: 40px;
+	margin-left: 10px;
+	border: none;
+	text-align: center;
+}
+
+#endpay {
+    margin-top: 5px;
 }
 
 #btn1, #btn2, #btn3 {
@@ -274,6 +280,7 @@ li input {
 input:focus, button:focus {
 	outline: none; 
 }
+
 </style>
 </head>
 <body>
@@ -332,7 +339,7 @@ input:focus, button:focus {
 			<div id='background'>
 			</div>
 			<div id = "addcreditbox">
-				<input type='text' id="crd_name" maxlength="5" placeholder="성함(최대 5자)"/>
+				<input type='text' id="crd_name" maxlength="5"  placeholder="성함(최대 5자)"/>
 				<input type='text' id="crd_phone" maxlength="11" placeholder="연락처(최대 11자)"/>
 				<input type='button' id='addcreditbutton' value='외상처리'/>
 			</div>
@@ -349,6 +356,12 @@ $(document).ready(function(){
 		}
 	}
 })
+
+	function cancelorder(i){
+	$("#pdcnt"+i).val(0);
+	$("#pdcnt"+i).parents("tr").css("display","none");
+	totalprice();
+	}
 		
 	
 	
@@ -395,13 +408,21 @@ $(document).ready(function(){
 						$("#product").html(data.divList);
 						for ( var i in data.sellkeyList) {
 							var Arrvalue = data.sellkeyList[i];
+							if(Arrvalue.STK_STOCK!=-1&&Arrvalue.STK_STOCK==0){
+							$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM).css({"color" : "#a8a8a8",'visibility' : 'visible'});
+							}else{								
 							$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM).css({"background-color" : "white",'visibility' : 'visible'});
+							}
 							var str = "";
 							str += "<input type='hidden' id='pd_code' data-code='"+Arrvalue.PDC_CODE+"'value='"+Arrvalue.PD_CODE+"'/>";
 							str += "<input type='hidden' id='pd_date' data-code='"+Arrvalue.PD_DATE+"'/>";
 							str += "<input type='hidden' id='pd_info' data-code='"+Arrvalue.PD_PRICE+"'/ value='"+Arrvalue.PD_NAME+"'>";
+							str += "<input type='hidden' id='pd_stock' data-code='"+Arrvalue.STK_STOCK+"'/>";
 							str += Arrvalue.PD_NAME + "<br/>";
-							str += Arrvalue.PD_PRICE + "원";
+							str += Arrvalue.PD_PRICE + "원<br/>";
+							if(Arrvalue.STK_STOCK!=-1){								
+							str += "남은 재고 : "+Arrvalue.STK_STOCK;
+							}
 							$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM)
 									.html(str);
 						}
@@ -411,6 +432,11 @@ $(document).ready(function(){
 						$(".protd").click(function() {
 							var td = $(this);
 							var tdiv = td.children();
+							if(tdiv.children("#pd_stock").data('code')==0){
+								alert("남은 재고가 없습니다.");
+								return false;
+							}
+							
 							var pdc_code = tdiv.children("#pd_code").data('code');
 							console.log(pdc_code);
 							if(pdc_code==undefined){
@@ -423,6 +449,7 @@ $(document).ready(function(){
 							var $pdccode = $("input[name = 'pdcode']").length;
 							for(var i=0;i<$pdccode;i++){
 								if($("#pdcode"+i).data('code')==pdc_code&&$("#pdcode"+i).val()==pd_code){
+									$("#pdcode"+i).parents("tr").css("display",'');
 									$("#pdcnt"+i).val(Number($("#pdcnt"+i).val())+1);
 									console.log(i);
 									console.log(Number($("#hiddenprice"+i).val()));
@@ -444,8 +471,8 @@ $(document).ready(function(){
 							value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 									+ "'/></td>";
 							value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-							+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
-							value+="<td><button>취소</button></td>";
+							+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
+							value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 							value+="</tr>";
 							$("#listbox").children("center").children("table").append(value);
 							totalprice();
@@ -461,8 +488,8 @@ $(document).ready(function(){
 								value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 										+ "'/></td>";
 								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-								+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
-								value+="<td><button>취소</button></td>";
+								+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
+								value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 								value+="</tr>";
 								value+="</table>";
 								$("#listbox").children("center").append(value);
@@ -478,6 +505,7 @@ $(document).ready(function(){
 				})
 
 	}
+	
 	
 	/* 테이블 카테고리 클릭시 오픈 */
 	function opentable(evt, categoryname) {
@@ -577,7 +605,7 @@ $(document).ready(function(){
 					creditPayment(1,paytype,result.oac_num);
 				}else if(paytype==3){
 					console.log("in credit.");
-					addcreditList(1,result.oac_num);
+					addcreditList(result.oac_num);
 				}else{					
 				location.href = result.result;
 				}
@@ -645,11 +673,13 @@ $(document).ready(function(){
 			 if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
 						sendsaoList(3);
 						return false;
+					 }else{
+						 addcreditList(oac_num);
 					 };
 				})
 		}
 	
-	function addcreditList(num,getoac_num){
+	function addcreditList(getoac_num){
 			 var crd_name = $("#crd_name").val();
 			 var crd_phone = $("#crd_phone").val();
 			 var oac_num = $("#oac_num").val();

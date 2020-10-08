@@ -27,25 +27,50 @@ body {
 	font-style: normal;
 }
 
+#activation, #inactive {
+    width: 300px;
+    height: auto;
+}
+
 #empList {
 	margin: 15px;
 	height: 740px;
-	width: 300px;
-	border: 3px solid #81d4fa;
+	width: 310px;
+	border: 3px solid #2565a3;
 	float: left;
 	font-size: 18px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+#empList::-webkit-scrollbar {
+	width: 20px;
+	background-color: #81d4fa;
+}
+
+#empList::-webkit-scrollbar-thumb {
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#empList::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #changeBox {
 	margin: 15px;
 	height: 740px;
 	width: 600px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	float: right;
 }
 
 #empCode {
-    border: 1px solid #81d4fa;
+    border: 1px solid #2565a3;
 	width: 150px;
 	height: 40px;
     margin: 15px;
@@ -55,7 +80,7 @@ body {
 }
 
 #empName {
-    border: 1px solid #81d4fa;
+    border: 1px solid #2565a3;
 	width: 150px;
 	height: 40px;
     margin: 30px 15px 15px;
@@ -66,7 +91,7 @@ body {
 
 #change div {
 	display: inline-block;
-	border: 1px solid #81d4fa;
+	border: 1px solid #2565a3;
 	width: 150px;
 	height: 40px;
 	margin: 20px 15px 10px;
@@ -89,7 +114,7 @@ body {
     height: 60px;
     border: 1px solid white;
     outline: 0;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     font-size: 20px;
     font-weight: bold;
     color: white;
@@ -103,25 +128,25 @@ body {
 	margin-left: 2px;
 	margin-bottom: 30px;
 	outline: 0;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-size: 20px;
 	font-weight: bold;
 	color: white;
 }
 
 #on {
-	width: 150px;
+	width: 140px;
 	height: 50px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	outline: 0;
 	background-color: white;
-	color: #81d4fa;
+	color: #2565a3;
 	font-size: 20px;
 	font-weight: bold;
 }
 
 #originalTime {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 500px;
 	height: 150px;
 	margin: 15px;

@@ -43,7 +43,6 @@ public class ProductMM {
 
 	public String getProductofNumber(String c_code, HashMap<String, String> productCategori) { // 상품 새로운 코드 번호
 		productCategori.put("c_code", c_code);
-		System.out.println(productCategori);
 		return pDao.getProductofNumber(productCategori);
 	}
 
@@ -99,8 +98,7 @@ public class ProductMM {
 				pDao.createProStock(proInfo);
 			}
 			if(proInfo.get("update") != null) {
-				System.out.println(proInfo);
-				System.out.println(pDao.updateSellKeyDate(proInfo));
+				pDao.updateSellKeyDate(proInfo);
 			}
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
@@ -209,16 +207,17 @@ public class ProductMM {
 	public HashMap<String, String> getStockRecord(HashMap<String, String> stockInfo, HttpSession session) {
 		ProductHtmlMaker phm = new ProductHtmlMaker();
 		stockInfo.put("c_code", session.getAttribute("c_code").toString());
-		System.out.println(pDao.getStockRecord(stockInfo));
 		return phm.getStockRecord(pDao.getStockRecord(stockInfo));
 	}
 	@Transactional
-	public HashMap<String, String> updateStock(HashMap<String, String> stockInfo, HttpSession session) {
+	public String updateStock(HashMap<String, String> stockInfo, HttpSession session) {
 		stockInfo.put("c_code", session.getAttribute("c_code").toString());
 		stockInfo.put("bd_date", session.getAttribute("bd_date").toString());
 		stockInfo.put("oac_num", ODao.getNewOacCode(session.getAttribute("c_code").toString(), session.getAttribute("bd_date").toString()));
 		pDao.setNewOacCode(stockInfo);
 		pDao.createStockPlusRecord(stockInfo);
-		return null;
+		stockInfo.put("stk_stock",(pDao.getPdStock(stockInfo)-Integer.parseInt(stockInfo.get("oh_cnt")))+"" );		
+		pDao.updatePdStock(stockInfo);
+		return "true";
 	}
 }

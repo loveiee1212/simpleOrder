@@ -53,6 +53,13 @@
 	<if test="paytype==2">
 	(#{c_code},TIMESTAMP(#{bd_date}),#{oac_num},NOW(),#{get_cash},0,#{money})
 	</if>
-	
 	</insert>
+	
+	<select id="updatestockList">
+	UPDATE STOCK AS STK,(select OAC.C_CODE,OH.PDC_CODE,OH.PD_CODE,PD_DATE,sum(oh.oh_cnt) as OH_CNT from order_and_credit as oac join order_history as oh 
+        on oh.c_code = oac.c_code and oh.bd_date = oac.bd_date and oac.oac_num = oh.oac_num
+        where oac.c_code =#{c_code} and oac.oac_status = -2 and oac.oac_num = #{oac_num}
+        group by oac.oac_num,oac.bd_date,oac.c_code,oh.pdc_code,oh.pd_code,oh.pd_date) AS PD SET STK.STK_STOCK = STK.STK_STOCK+OH_CNT
+        WHERE STK.C_CODE = PD.C_CODE AND STK.PDC_CODE = PD.PDC_CODE AND STK.PD_CODE = PD.PD_CODE AND STK.PD_DATE = PD.PD_DATE
+	</select>
 </mapper>

@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Update;
 public interface IBillDao {
 
 	//영수증 /주문증 조회
-	List<HashMap<String, Object>> getBillList(String c_code);
+	List<HashMap<String, Object>> getBillList(HashMap<String, String> selectMap);
 
 	//회사 정보
 	@Select("SELECT * FROM COMPANY WHERE C_CODE = #{c_code}")

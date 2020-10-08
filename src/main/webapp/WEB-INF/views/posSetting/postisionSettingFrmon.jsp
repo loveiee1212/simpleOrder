@@ -24,7 +24,7 @@ body {
 
 h2 {
 	font-size: 35px;
-	color: #1565c0;
+	color: #2565a3;
 	font-weight: bold;
 	text-align: center;
 	width: 200px;
@@ -53,11 +53,11 @@ h2 {
 #Listdiv::-webkit-scrollbar {
 	width: 10px;
 	height: 10px;
-	background-color: #81d4fa;
+	background-color: white;
 }
 
 #Listdiv::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -70,13 +70,13 @@ h2 {
 }
 
 #postionList td {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 #postionList th {
 	border: 3px solid white;
-	border-top-color: #81d4fa;
-	background-color: #81d4fa;
+	border-top-color: #2565a3;
+	background-color: #2565a3;
 	color: white;
 	padding: 15px;
 }
@@ -94,9 +94,10 @@ h2 {
 	height: 50px;
 	text-align: center;
 	font-size: 20px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border: 3px solid white;
 	color: white;
+	font-weight: bold;
 }
 
 .positionAddClass {
@@ -104,9 +105,10 @@ h2 {
 	height: 70px;
 	text-align: center;
 	font-size: 30px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border: 3px solid white;
 	color: white;
+	font-weight: bold;
 }
 
 .positionUpdateClass {
@@ -115,8 +117,13 @@ h2 {
 	text-align: center;
 	font-size: 20px;
 	background-color: white;
-	border: 3px solid #81d4fa;
-	color: #81d4fa;
+	border: 3px solid #2565a3;
+	color: #2565a3;
+	font-weight: bold;
+}
+
+input:focus, button:focus {
+	outline: none;
 }
 </style>
 </head>

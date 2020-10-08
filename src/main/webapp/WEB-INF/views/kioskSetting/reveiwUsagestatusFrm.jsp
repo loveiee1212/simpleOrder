@@ -46,7 +46,7 @@ th {
     height: 80px;
     margin-right: 50px;
     margin-top: 100px;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     font-weight: bold;
     color: white;
     font-size: 25px;

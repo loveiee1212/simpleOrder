@@ -8,7 +8,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
 <!-- <link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css"> -->
-<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?after" type="text/css">
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <title>시재 - SimpleOrder</title>
 <style>
@@ -27,7 +27,7 @@ body {
 }
 
 #cashZone {
-    border: 3px solid #81d4fa;
+    border: 3px solid #2565a3;
     height: 795px;
     width: 900px;
     float: left;
@@ -35,7 +35,7 @@ body {
 }
 
 table, tr, td, th {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 #cashZone table {
@@ -43,7 +43,6 @@ table, tr, td, th {
 	height: 700px;
 	position: absolute;
 	margin-left: 98px;
-	position: absolute;
 	margin-top: 46px;
 	border-collapse: collapse;
 }
@@ -75,7 +74,7 @@ td {
 }
 
 #vcZone table {
-    border: 3px solid #81d4fa;
+    border: 3px solid #2565a3;
     font-size: 25px;
     width: 550px;
     height: 800px;
@@ -110,7 +109,7 @@ td {
 	border: 2px solid white;
 	width: 250px;
 	height: 95px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
@@ -118,13 +117,13 @@ td {
 
 #btn {
 	text-align: center;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 200px;
 	height: 95px;
 	margin-left: 20px;
 	background-color: white;
 	font-weight: bold;
-	color: #81d4fa;
+	color: #2565a3;
 	font-size: 25px;
 }
 
@@ -132,7 +131,7 @@ td {
 	width: 200px;
 }
 
-button:focus {
+input:focus, button:focus {
 	outline: none;
 }
 
@@ -171,7 +170,7 @@ button:focus {
 	height: 670px;
 	margin: -150px 0 0 -194px;
 	padding: 28px 28px 0 28px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background: #fff;
 	font-size: 18px;
 	z-index: 200;
@@ -195,7 +194,7 @@ button:focus {
 }
 
 #main_layer::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -212,7 +211,7 @@ button:focus {
 	height: 20px;
 	border: none;
 	border-right: none;
-	border-bottom: 2px solid #81d4fa;
+	border-bottom: 2px solid #2565a3;
 }
 
 #salesList, #productList {
@@ -226,14 +225,14 @@ button:focus {
     border: 3px solid white;
     width: 80px;
     height: 20px;
-    background-color: #81d4fa;
+    background-color: #2565a3;
 }
 
 #productList td {
     height: 20px;
     border: none;
 	border-right: none;
-	border-bottom: 2px solid #81d4fa;
+	border-bottom: 2px solid #2565a3;
 }
 
 #productList {
