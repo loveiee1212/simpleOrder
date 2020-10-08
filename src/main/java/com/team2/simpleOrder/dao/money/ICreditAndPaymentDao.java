@@ -37,4 +37,7 @@ public interface ICreditAndPaymentDao {
 	@Update("UPDATE ORDER_AND_CREDIT SET OAC_STATUSCHANGETIME = NOW(),OAC_STATUS = -2 WHERE C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND OAC_NUM = #{oac_num}")
 	void updateOACtocredit(HashMap<String, Object> insertMap);
 
+	//반품 내역의 상품들 재고 업데이트 하기
+	void updatestockList(HashMap<String, Object> insertMap);
+
 }

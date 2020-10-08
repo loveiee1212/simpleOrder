@@ -42,14 +42,14 @@ h2 {
 }
 
 table, tr, td, th {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 #seatCTselect {
     width: 150px;
 	height: 38px;
 	font-size: 20px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin-bottom: 10px;
 }
 
@@ -57,7 +57,7 @@ table, tr, td, th {
     width: 200px;
 	height: 35px;
 	font-size: 20px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	text-align: center;
 }
 
@@ -65,7 +65,7 @@ table, tr, td, th {
     width: 100px;
 	height: 38px;
 	font-size: 20px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
 	color: red;
 	font-weight: bold;	
@@ -76,7 +76,7 @@ table, tr, td, th {
 	height: 43px;
 	font-size: 20px;
 	border: 3px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 	font-weight: bold;
 }
@@ -118,7 +118,7 @@ table, tr, td, th {
 }
 
 #Categoridiv::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -142,10 +142,11 @@ table, tr, td, th {
 #seatList td {
     width: 50px;
     height: 80px;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     font-size: 20px;
     text-align: center;
     font-weight: bold;
+    color: white;
 }
 
 #x, #y {
@@ -153,7 +154,7 @@ table, tr, td, th {
 	height: 50px;
 	margin-top: 10px;
 	text-align: center;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	font-size: 25px;
 }
 
@@ -169,7 +170,7 @@ table, tr, td, th {
 }
 
 #seatList::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -182,7 +183,7 @@ input[type="button" i] {
 	height: 60px;
 	margin-right: 49px;
 	margin-top: 10px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
@@ -201,6 +202,10 @@ input[type="button" i] {
     color: #1565c0;
     font-size: 20px;
     float: right;
+}
+
+input:focus, button:focus, select:focus {
+	outline: none;
 }
 </style>
 <title>seatSettinFrm</title>

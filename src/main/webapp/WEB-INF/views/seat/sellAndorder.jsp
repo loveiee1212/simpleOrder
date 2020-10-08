@@ -339,7 +339,7 @@ input:focus, button:focus {
 			<div id='background'>
 			</div>
 			<div id = "addcreditbox">
-				<input type='text' id="crd_name" maxlength="5" placeholder="성함(최대 5자)"/>
+				<input type='text' id="crd_name" maxlength="5"  placeholder="성함(최대 5자)"/>
 				<input type='text' id="crd_phone" maxlength="11" placeholder="연락처(최대 11자)"/>
 				<input type='button' id='addcreditbutton' value='외상처리'/>
 			</div>
@@ -471,7 +471,7 @@ $(document).ready(function(){
 							value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 									+ "'/></td>";
 							value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-							+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
+							+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
 							value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 							value+="</tr>";
 							$("#listbox").children("center").children("table").append(value);
@@ -488,7 +488,7 @@ $(document).ready(function(){
 								value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 										+ "'/></td>";
 								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-								+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
+								+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
 								value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 								value+="</tr>";
 								value+="</table>";

@@ -36,25 +36,20 @@ img {
 #login {
 	width: 1400px;
 	height: 500px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	font-size: 20px;
 	margin: 20px 20px;
 	padding-left: 60px;
 }
 
 #poslogin {
-	/* border: 3px solid #81d4fa; */
 	float: left;
 	width: 700px;
 	height: 400px;
 	margin: 30px 70px;
 }
 
-input:focus {
-	outline: none;
-}
-
-button:focus {
+input:focus, button:focus {
 	outline: none;
 }
 
@@ -64,6 +59,7 @@ button:focus {
 	font-size: 25px;
 	text-align: center;
 	margin-top: 30px;
+	border: 3px solid #2565a3;
 }
 
 #emp_pw {
@@ -72,6 +68,7 @@ button:focus {
 	font-size: 25px;
 	text-align: center;
 	margin-top: 20px;
+	border: 3px solid #2565a3;
 }
 
 #btn1 {
@@ -80,7 +77,7 @@ button:focus {
 	border: 1px solid white;
 	font-size: 25px;
 	outline: 0;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 	font-weight: bold;
 }
@@ -88,19 +85,19 @@ button:focus {
 #btn2 {
 	width: 545px;
 	height: 60px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	font-size: 25px;
 	padding: 5px 10px;
 	outline: 0;
 	background-color: white;
-	color: #81d4fa;
+	color: #2565a3;
 	font-weight: bold;
 }
 
 #line {
 	width: 540px;
 	height: 1px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
@@ -119,15 +116,16 @@ button {
 	margin-left: 20px;
 	margin-bottom: 20px;
 	border: 1px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 }
 
 #msg1, #msg2 {
-	width: 500px; font-size : 20px;
+	width: 500px;
 	color: #ff3d00;
-	font-size: 20px; color : #ff3d00;
+	font-size: 20px;
 	margin-left: 10px;
+	font-weight: bold;
 }
 
 error {

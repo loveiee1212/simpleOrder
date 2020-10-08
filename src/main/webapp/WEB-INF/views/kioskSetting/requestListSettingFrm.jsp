@@ -21,7 +21,7 @@ body {
 	font-style: normal;
 }
 
-input:focus {
+input:focus, button:focus {
 	outline: none;
 }
 
@@ -42,13 +42,13 @@ input:focus {
    width: 300px;
    height: 40px;
    margin-bottom: 20px;
-   border: 3px solid #81d4fa;
+   border: 3px solid #2565a3;
    font-size: 20px;
    text-align: center;
 }
 
 #rq_kind {
-   border: 3px solid #81d4fa;
+   border: 3px solid #2565a3;
    width: 250px;
    height: 40px;
    font-size: 20px;
@@ -63,7 +63,7 @@ input:focus {
     height: 60px;
     margin-top: 50px;
     margin-left: 25px;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     font-weight: bold;
     color: white;
     font-size: 20px;
@@ -75,7 +75,7 @@ input:focus {
     width: 250px;
     height: 60px;
     margin-left: 20px;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     font-weight: bold;
     color: white;
     font-size: 20px;
@@ -83,7 +83,7 @@ input:focus {
 
 #removeRequest {
     text-align: center;
-    border: 3px solid #81d4fa;
+    border: 3px solid #2565a3;
     width: 250px;
     height: 60px;
     margin-left: 20px;

@@ -12,8 +12,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
-<link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
+<link rel="stylesheet" href="resources/css/calendar.css?after" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?after" type="text/css">
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style>
 body {
@@ -47,7 +47,7 @@ body {
 
 #calendar {
 	width: 1450px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
 }
 
@@ -76,7 +76,7 @@ td.dt {
 
 #view_layer.open {
 	display: block;
-	color: gold;
+	color: #b3e5fc;
 }
 
 #bg_layer {
@@ -99,7 +99,7 @@ td.dt {
 	height: 670px;
 	margin: -150px 0 0 -194px;
 	padding: 28px 28px 0 28px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background: #fff;
 	font-size: 18px;
 	z-index: 200;
@@ -107,25 +107,27 @@ td.dt {
 	line-height: normal;
 	white-space: normal;
 	overflow: auto;
+	overflow-x: hideen;
 	border-collapse: collapse;
 	text-align: center;
 }
 
 #main_layer::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #main_layer::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
+	width: 20px;
 	background-color: white;
 }
 
 #main_layer::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 #salesList td {
@@ -133,14 +135,14 @@ td.dt {
 	height: 40px;
 	border: none;
 	border-right: none;
-	border-bottom: 2px solid #81d4fa;
+	border-bottom: 2px solid #2565a3;
 }
 
 #inputbtn {
     width: 300px;
     height: 80px;
     border: 3px solid white;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -166,15 +168,17 @@ td.dt {
 }
 
 #monthSelect {
-    border: 3px solid #81d4fa;
+    border: 3px solid #2565a3;
     width: 300px;
     height: 50px;
     font-size: 20px;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 #salesList, #productList {
     border-collapse: collapse;
+    font-weight: bold;
 }
 
 #salesList th, #productList th {
@@ -186,7 +190,7 @@ td.dt {
     height: 40px;
     border: none;
 	border-right: none;
-	border-bottom: 2px solid #81d4fa;
+	border-bottom: 2px solid #2565a3;
 }
 
 #productList {

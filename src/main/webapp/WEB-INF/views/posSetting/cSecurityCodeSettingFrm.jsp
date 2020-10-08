@@ -56,10 +56,14 @@ h2 {
 	margin-top: 100px;
 	margin-left: 30px;
 }
+
+input:focus, button:focus {
+	outline: none;
+}
 </style>
 </head>
 <body>
-	<h2>마스터 계정 비밀번호 변경</h2>
+	<h2>키오스크 비밀번호 변경</h2>
 	<form action="ChangeSecurityCode" name='securityCode' method="post">
 		<table>
 			<tr>

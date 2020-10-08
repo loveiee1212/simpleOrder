@@ -208,6 +208,7 @@ public class CreditAndPaymentMM {
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		if(cDao.insertCancelCredit(insertMap)) {
 			cDao.updateOACtocredit(insertMap);
+			cDao.updatestockList(insertMap);
 			hMap.put("result", "반품처리 되었습니다.");
 		}else {
 			hMap.put("result", "반품이 정상처리 되지 않았습니다. 다시 시도하세요");

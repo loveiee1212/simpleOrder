@@ -9,14 +9,19 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dao.money.IBillDao;
+import com.team2.simpleOrder.dao.money.ICreditAndPaymentDao;
 
 @Service
 public class BillMM {
 	@Autowired
 	IBillDao bDao;
+	
+	@Autowired
+	ICreditAndPaymentDao cDao;
 
 	public ModelAndView getBillList(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -55,10 +60,16 @@ public class BillMM {
 		}
 	
 	//반품으로 변경
+	@Transactional
 	public HashMap<String, String> cancelPay(HttpSession session, String bd_date, String oac_num, int oac_status) {
 		String c_code = session.getAttribute("c_code").toString();
+		HashMap<String, Object> insertMap = new HashMap<String, Object>();
+		insertMap.put("c_code", c_code);
+		insertMap.put("bd_date", bd_date);
+		insertMap.put("oac_num", oac_num);
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		if(bDao.cancelPay(c_code, bd_date, oac_num)) {
+			cDao.updatestockList(insertMap);
 			hMap.put("result", "결제 취소가 완료되었습니다.");
 		}else {
 			hMap.put("result", "결제 취소 실패. 다시 시도해주세요");
