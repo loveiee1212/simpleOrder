@@ -341,7 +341,7 @@ div#two td {
 			$(ele).append($("<input type ='hidden' name ='sk_num' value='"+ele.dataset.sk_num+"'>"))
 			$(ele).append($("<div>"+pd_name+"</div>"))
 			$(ele).append($("<div>"+pd_price+"원"+"</div>"))
-			$(ele).append($("<input type ='button' value ='삭제' onclick='deleteSellKey(this)'>"))
+			$(ele).append($("<input type ='button' value ='삭제' class = 'adeletebtn' onclick='deleteSellKey(this)'>"))
 			ele.childNodes[0].innerHTML = pd_name;
 			ele.childNodes[1].innerHTML = pd_price;
 			flag = false;
