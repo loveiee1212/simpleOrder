@@ -4,11 +4,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team2.simpleOrder.dao.money.IBillDao">
-<select id="getBillList" parameterType="string" resultType="hashMap">
+<select id="getBillList" parameterType="hashMap" resultType="hashMap">
 SELECT OAC.C_CODE,OAC.BD_DATE, OAC.OAC_NUM, PMT.GET_CASH, SUM(PMT.PMT_CASH) AS TOTALCASH, SUM(PMT.PMT_CARD) AS TOTALCARD,(SUM(PMT.PMT_CASH)+SUM(PMT.PMT_CARD)) AS TOTAL, OAC.oac_status, os.oac_name
 FROM PAYMENT_TYPE AS PMT right join ORDER_AND_CREDIT AS OAC  ON OAC.C_CODE = PMT.C_CODE AND OAC.BD_DATE = PMT.BD_DATE AND OAC.OAC_NUM = PMT.OAC_NUM 
     INNER join oac_status as os on oac.oac_status = os.oac_status
-WHERE OAC.C_CODE =#{c_code} AND OAC.OAC_STATUS BETWEEN -2 AND 1
+WHERE OAC.C_CODE =#{c_code} AND DATE(OAC.BD_DATE) = #{bd_date} AND OAC.OAC_STATUS BETWEEN -2 AND 1
+<if test="oac_num!=null">
+AND OAC.OAC_NUM = #{oac_num}
+</if>
 group by OAC.C_CODE,OAC.BD_DATE,OAC_NUM
 order by oac_status desc
 

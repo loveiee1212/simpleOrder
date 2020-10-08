@@ -310,6 +310,28 @@ input:focus, button:focus {
 	</div>
 </body>
 <script>
+function searchbills(){
+	var date = $("#b_date").val();
+	var code = $("#b_code").val();
+	console.log(date+"/"+code);
+	var obj = {
+			"date":date,
+			"code":code
+	}
+	$.ajax({
+		type : 'post',
+		url : 'rest/searchbills',
+		data : obj,
+		dataType : 'json',
+		success : function(data){
+			console.log(data);
+			$("#b_middlebox").html(data.result);
+		}
+	});
+}
+
+
+
 let bd_date = "";
 let oac_num = "";
 let oac_status = "";
@@ -363,7 +385,8 @@ let obj = {};
 	})
 	
 	$("#cancelpay").click(function(){
-		if(oac_status!=1){
+		console.log(oac_status);
+		if(oac_status!=-1){
 		return false;
 		}else{
 			cancelpay(obj);
@@ -372,7 +395,7 @@ let obj = {};
 });
 	
 	$("#repay").click(function(){
-		if(oac_status!=1){
+		if(oac_status!=-1){
 		return false;
 		}else{
 			repay(obj);

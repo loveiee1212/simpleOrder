@@ -355,6 +355,11 @@ $(document).ready(function(){
 		}
 	}
 })
+
+	function cancelorder(i){
+	$("#pdcnt"+i).val(0);
+	$("#pdcnt"+i).parents("tr").css("display","none");
+	}
 		
 	
 	
@@ -401,13 +406,21 @@ $(document).ready(function(){
 						$("#product").html(data.divList);
 						for ( var i in data.sellkeyList) {
 							var Arrvalue = data.sellkeyList[i];
+							if(Arrvalue.STK_STOCK!=-1&&Arrvalue.STK_STOCK==0){
+							$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM).css({"color" : "#a8a8a8",'visibility' : 'visible'});
+							}else{								
 							$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM).css({"background-color" : "white",'visibility' : 'visible'});
+							}
 							var str = "";
 							str += "<input type='hidden' id='pd_code' data-code='"+Arrvalue.PDC_CODE+"'value='"+Arrvalue.PD_CODE+"'/>";
 							str += "<input type='hidden' id='pd_date' data-code='"+Arrvalue.PD_DATE+"'/>";
 							str += "<input type='hidden' id='pd_info' data-code='"+Arrvalue.PD_PRICE+"'/ value='"+Arrvalue.PD_NAME+"'>";
+							str += "<input type='hidden' id='pd_stock' data-code='"+Arrvalue.STK_STOCK+"'/>";
 							str += Arrvalue.PD_NAME + "<br/>";
-							str += Arrvalue.PD_PRICE + "원";
+							str += Arrvalue.PD_PRICE + "원<br/>";
+							if(Arrvalue.STK_STOCK!=-1){								
+							str += "남은 재고 : "+Arrvalue.STK_STOCK;
+							}
 							$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM)
 									.html(str);
 						}
@@ -417,6 +430,10 @@ $(document).ready(function(){
 						$(".protd").click(function() {
 							var td = $(this);
 							var tdiv = td.children();
+							if(tdiv.children("#pd_stock").data('code')==0){
+								alert("남은 재고가 없습니다.");
+								return false;
+							}
 							var pdc_code = tdiv.children("#pd_code").data('code');
 							console.log(pdc_code);
 							if(pdc_code==undefined){
@@ -451,7 +468,7 @@ $(document).ready(function(){
 									+ "'/></td>";
 							value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
 							+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
-							value+="<td><button>취소</button></td>";
+							value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 							value+="</tr>";
 							$("#listbox").children("center").children("table").append(value);
 							totalprice();
@@ -468,7 +485,7 @@ $(document).ready(function(){
 										+ "'/></td>";
 								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
 								+"<input type='Number' name ='pdcnt' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
-								value+="<td><button>취소</button></td>";
+								value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 								value+="</tr>";
 								value+="</table>";
 								$("#listbox").children("center").append(value);
@@ -484,6 +501,7 @@ $(document).ready(function(){
 				})
 
 	}
+	
 	
 	/* 테이블 카테고리 클릭시 오픈 */
 	function opentable(evt, categoryname) {
@@ -583,7 +601,7 @@ $(document).ready(function(){
 					creditPayment(1,paytype,result.oac_num);
 				}else if(paytype==3){
 					console.log("in credit.");
-					addcreditList(1,result.oac_num);
+					addcreditList(result.oac_num);
 				}else{					
 				location.href = result.result;
 				}
@@ -651,11 +669,13 @@ $(document).ready(function(){
 			 if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
 						sendsaoList(3);
 						return false;
+					 }else{
+						 addcreditList(oac_num);
 					 };
 				})
 		}
 	
-	function addcreditList(num,getoac_num){
+	function addcreditList(getoac_num){
 			 var crd_name = $("#crd_name").val();
 			 var crd_phone = $("#crd_phone").val();
 			 var oac_num = $("#oac_num").val();

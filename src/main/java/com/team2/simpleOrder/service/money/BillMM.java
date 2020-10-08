@@ -1,6 +1,5 @@
 package com.team2.simpleOrder.service.money;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +20,11 @@ public class BillMM {
 
 	public ModelAndView getBillList(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String c_code = session.getAttribute("c_code").toString();
-		List<HashMap<String, Object>> bList = bDao.getBillList(c_code);
+		HashMap<String, String> selectMap = new HashMap<String,String>();
+		selectMap.put("c_code", session.getAttribute("c_code").toString());
+		selectMap.put("bd_date",session.getAttribute("bd_date").toString().substring(0,10));
+		selectMap.put("oac_num", null);
+		List<HashMap<String, Object>> bList = bDao.getBillList(selectMap);
 		mav.addObject("bList", makeHtmlbList(bList));
 		mav.setViewName("money/billcontrol");
 		return mav;
@@ -178,8 +180,6 @@ public class BillMM {
 				for (int i = 0; i < payList.size(); i++) {
 					total += Integer.parseInt(payList.get(i).get("PMT_CASH").toString());
 					total += Integer.parseInt(payList.get(i).get("PMT_CARD").toString());
-					System.out.println("현금결제:"+Integer.parseInt(payList.get(i).get("PMT_CASH").toString()));
-					System.out.println("카드결제:"+Integer.parseInt(payList.get(i).get("PMT_CARD").toString()));
 					// 카드결제
 					if (Integer.parseInt(payList.get(i).get("PMT_CASH").toString()) == 0) {
 						sb.append("<tr>");
@@ -315,6 +315,27 @@ public class BillMM {
 		sb.append("사업자번호 | " + comList.get("C_CODE") + "<br/>");
 		sb.append("tel." + comList.get("C_PHONE") + "<br/>");
 		return sb.toString();
+	}
+
+	// 영수증 검색조회
+	public HashMap<String, String> searchBills(HttpSession session, String date, String code) {
+		HashMap<String, String> selectMap = new HashMap<String, String>();
+		System.out.println("주문번호 :"+code);
+		selectMap.put("c_code", session.getAttribute("c_code").toString());
+		if(date.equals("")||date==null) {
+			selectMap.put("bd_date", session.getAttribute("bd_date").toString().substring(0,10));
+		}else {			
+			selectMap.put("bd_date", date);
+		}
+		if(code==""||code==null) {
+			selectMap.put("oac_num", null);
+		}else {			
+			selectMap.put("oac_num", code);
+		}
+		List<HashMap<String, Object>> bList = bDao.getBillList(selectMap);
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("result", makeHtmlbList(bList));
+		return hMap;
 	}
 
 	
