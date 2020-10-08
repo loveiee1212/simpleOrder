@@ -152,13 +152,18 @@ public class OrderMM {
 	@Transactional
 	public HashMap<String, String> updateReserv(HttpSession session, String rsv_code, String rsv_name, String rsv_date, String rsv_phone, String rsvm_memo) {
 		Order odr = new Order();
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		if(rsv_name.equals("")||rsv_phone.equals("")||rsv_date.equals("")) {
+			hMap.put("result", "올바르게 입력되지 않았습니다. 올바르게 입력 후 등록 또는 수정하십시오");
+			return hMap;
+		}
 		odr.setRsv_code(rsv_code);
 		odr.setRsv_name(rsv_name);
 		odr.setRsv_date(rsv_date);
 		odr.setRsv_phone(rsv_phone);
 		odr.setRsvm_memo(rsvm_memo);
+		System.out.println(odr.getRsv_date());
 		odr.setC_code(session.getAttribute("c_code").toString());
-		HashMap<String, String> hMap = new HashMap<String, String>();
 		if (odr.getRsv_code() == "") {
 			odr.setRsv_code(null);
 		}
@@ -216,12 +221,13 @@ public class OrderMM {
 	}
 
 	public HashMap<String, String> deleteReserv(HttpSession session, String rsv_code) {
-		// String c_code = session.getAttribute("c_code").toString();
-		String c_code = "123123123123";
+		String c_code = session.getAttribute("c_code").toString();
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		boolean result = oDao.deleteReserv(c_code, rsv_code);
 		if (result) {
 			hMap.put("result", "삭제되었습니다.");
+		}else {
+			hMap.put("result", "삭제 실패. 다시 시도해주세요");
 		}
 		return hMap;
 	}
