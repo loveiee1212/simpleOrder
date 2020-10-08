@@ -71,10 +71,15 @@ input[type=checkbox] {
     overflow: auto;
 }
 
+#tadiv::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
 #tadiv::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #tadiv::-webkit-scrollbar-thumb {
@@ -82,12 +87,6 @@ input[type=checkbox] {
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
-}
-
-#tadiv::-webkit-scrollbar-track {
-	background-color: white;
-	border-radius: 10px;
-	box-shadow: inset 0px 0px 5px grey;
 }
 
 #submit {

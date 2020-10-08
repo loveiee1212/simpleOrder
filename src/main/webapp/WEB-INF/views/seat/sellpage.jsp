@@ -271,6 +271,7 @@ p {
 
 #r_infotable td {
 	height: 75px;
+	width: 300px;
 }
 
 #r_infotable {
@@ -287,6 +288,7 @@ p {
 
 textarea {
 	border: 3px solid #81d4fa;
+	resize: none;
 }
 
 #r_infotable button {
@@ -529,10 +531,10 @@ i {
 								</tr>
 								<tr>
 									<th>메모</th>
-									<td colspan="2"><textarea
-											style="width: 330px; height: 70px;" name="rsvm_memo"
+									<td><textarea
+											style="width: 250px; height: 70px;" name="rsvm_memo"
 											id="rsvm_memo"></textarea></td>
-									<td id="worktd"><input type="button" id="upbtn"
+									<td colspan="2" id="worktd"><input type="button" id="upbtn"
 										onclick="updateReserv()" value='등록' /> <input type="reset"
 										id="rebtn" value="새로고침" /></td>
 								</tr>

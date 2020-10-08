@@ -69,6 +69,13 @@ button: focus{
     box-shadow: none;
 }
 
+#listbox input {
+    width: 150px;
+    height: 30px;
+    border: none;
+    font-size: 20px;
+    text-align: center;
+}
 
 #listbox {
 	background-color: white;
@@ -106,14 +113,6 @@ button: focus{
 	margin: 30px;
 	text-align: center;
 	font-size: 20px;
-}
-
-#pdcnt0 {
-    width: 100px;
-    height: 30px;
-    text-align: center;
-    font-size: 20px;
-    border: none;
 }
 
 input:focus {

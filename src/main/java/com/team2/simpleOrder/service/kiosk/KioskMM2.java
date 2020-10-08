@@ -35,6 +35,9 @@ public class KioskMM2 {
 						rv.setRvImg_sysName(kfm.makeSysName(rv, i, rv_file.get(i).getOriginalFilename()));
 						kDao1.insertRvImg(rv);
 					}
+					session.removeAttribute("bd_date");
+					session.removeAttribute("oac_num");
+					session.removeAttribute("creditOk");
 					mav.addObject("resultMsg", "리뷰등록에 성공하였습니다");
 				} else {
 					mav.addObject("resultMsg", "리뷰등록에 실패하였습니다");
@@ -43,10 +46,10 @@ public class KioskMM2 {
 		} catch (Exception e) {
 			System.out.println(e);
 			mav.addObject("resultMsg", "리뷰등록은 한개만 가능합니다");
-			mav.setViewName("kiosk/kioskError");
+			mav.setViewName("kiosk/kioskReview");
 			return mav;
 		}
-		mav.setViewName("kiosk/kioskMenu");
+		mav.setViewName("kiosk/kioskReview");
 		return mav;
 	}
 

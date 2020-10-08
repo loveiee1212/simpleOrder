@@ -39,20 +39,21 @@ body {
 }
 
 .innerdiv::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 .innerdiv::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
+	width: 20px;
 	background-color: white;
 }
 
 .innerdiv::-webkit-scrollbar-thumb {
 	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 #pListtable th {

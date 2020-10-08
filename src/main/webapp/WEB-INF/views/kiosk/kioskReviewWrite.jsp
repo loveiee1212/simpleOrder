@@ -204,11 +204,11 @@ textarea:focus {
 </style>
 </head>
 <body>
-<h2>${sessionScope.c_code}</h2>
-		<h2>${sessionScope.bd_date}</h2>
-		<h2>${sessionScope.sc_code}</h2>
-		<h2>${sessionScope.st_num}</h2>
-		<h2>${sessionScope.oac_num}</h2>
+	<h2>${sessionScope.c_code}</h2>
+	<h2>${sessionScope.bd_date}</h2>
+	<h2>${sessionScope.sc_code}</h2>
+	<h2>${sessionScope.st_num}</h2>
+	<h2>${sessionScope.oac_num}</h2>
 	<div id="frame">
 		<div id="header">광고&로고</div>
 		<div id="main">
@@ -224,9 +224,8 @@ textarea:focus {
 							class="starR1">8</span> <span class="starR2">9</span>
 					</div>
 					<div class="image" id="image_container"></div>
-					<input
-						type="file" id="rv_file" name="rv_file" value="rv_file" multiple>
-					<br>
+					<input type="file" id="rv_file" name="rv_file" value="rv_file"
+						multiple> <br>
 					<textarea name="rv_text" id="rv_text" cols="80" rows="22"
 						placeholder="리뷰입력"></textarea>
 				</div>
@@ -249,10 +248,12 @@ textarea:focus {
 			return false;
 		});
 		function reviewWriteCheck() {
-			var rv_file = $("#rv_file");
-			if(rv_file[0].files.length>4){
-				alert("사진첨부는 세개까지만 가능합니다.");
-				return false;
+			if (confirm("리뷰를 작성 하시겠습니까?")) {
+				var rv_file = $("#rv_file");
+				if (rv_file[0].files.length > 4) {
+					alert("사진첨부는 세개까지만 가능합니다.");
+					return false;
+				}
 			}
 		}
 	</script>

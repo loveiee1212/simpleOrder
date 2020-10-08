@@ -49,7 +49,7 @@ h2 {
 	font-style: normal;
 }
 
-#btn, #sellpage, #endvc, #empLogOut, #schedule, #producreagistraition, #salescontrol, #changevc, #productcontrol, #posSetting, #emailLogout {
+#sellpagebtn, #endvcbtn, #schedulebtn, #stockbtn, #salesbtn, #creditbtn, #changevcbtn, #productbtn, #producreagistraitionbtn, #posSettingbtn, #empLogOutbtn, #emailLogoutbtn {
 	width: 300px;
 	height: 150px;
 	border: 2px;
@@ -60,7 +60,7 @@ h2 {
 	color: white;
 }
 
-input:focus {
+input:focus, button:focus {
 	outline: none;
 }
 </style>
@@ -70,18 +70,18 @@ input:focus {
 			<a class="navbar-brand" href="main"><img
 				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 			<h2>PosMain</h2>
-			<input type="button" id="sellpage" class='grantList' onclick="checkBd_date('sellpage')" value="판매">
-			<input type="button" id="endvc" class='grantList' onclick="checkBd_date('endvc')" value="마감"> 
-			<input type="button" id="schedule" class='grantList' onclick="checkBd_date('schedule')" value="근태">
-			<input type="button" id="btn" class='grantList'	onclick="checkBd_date('stockController')" value="재고 관리"> 
-			<input type="button" id="salescontrol" class='grantList'	onclick="location.href = 'salescontrol'" value="매출 현황"> 
-			<input type="button" id="btn" class='grantList' onclick="checkBd_date('creditcontrol')" value="외상 처리">
-			<input type="button" id="changevc" class='grantList' onclick="checkBd_date('changevc')" value="시재 변경">
-			<input type="button" id="productcontrol" class='grantList' onclick="location.href = 'productcontrol'" value="상품 관리">
-			<input type="button" id="producreagistraition" class='grantList' onclick="location.href = 'producreagistraition'" value="판매 상품 관리">
-			<input type="button" id="posSetting" class='grantList' onclick="location.href = 'posSetting'" value="포스 설정">
-			<input type="button" id="empLogOut" class='' onclick="location.href = 'empLogOut'" value="사용자 전환"> 
-			<button id="emailLogout" onclick="location.href ='emailLogout'">종료</button>
+			<input type="button" id="sellpagebtn" class='grantList' onclick="checkBd_date('sellpage')" value="판매">
+			<input type="button" id="endvcbtn" class='grantList' onclick="checkBd_date('endvc')" value="마감"> 
+			<input type="button" id="schedulebtn" class='grantList' onclick="checkBd_date('schedule')" value="근태">
+			<input type="button" id="stockbtn" class='grantList' onclick="checkBd_date('stockController')" value="재고 관리"> 
+			<input type="button" id="salesbtn" class='grantList' onclick="location.href = 'salescontrol'" value="매출 현황"> 
+			<input type="button" id="creditbtn" class='grantList' onclick="checkBd_date('creditcontrol')" value="외상 처리">
+			<input type="button" id="changevcbtn" class='grantList' onclick="checkBd_date('changevc')" value="시재 변경">
+			<input type="button" id="productbtn" class='grantList' onclick="location.href = 'productcontrol'" value="상품 관리">
+			<input type="button" id="producreagistraitionbtn" class='grantList' onclick="location.href = 'producreagistraition'" value="판매 상품 관리">
+			<input type="button" id="posSettingbtn" class='grantList' onclick="location.href = 'posSetting'" value="포스 설정">
+			<input type="button" id="empLogOutbtn" class='' onclick="location.href = 'empLogOut'" value="사용자 전환"> 
+			<button id="emailLogoutbtn" onclick="location.href ='emailLogout'">종료</button>
 		</div>
 	</div>
 </body>

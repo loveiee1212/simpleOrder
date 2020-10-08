@@ -25,5 +25,11 @@ public interface IEmpMemberDao {
 
 	List<HashMap<String, String>> showAllWorkTime(HashMap<String, String> mb);
 
+	int checkWorkTime(HashMap<String, String> mb);
+
+	String checkBd_date(HashMap<String, String> mb);
+
+	void deleteWorkTime(HashMap<String, String> mb);
+
 
 }

@@ -7,7 +7,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
-<link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
+<!-- <link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css"> -->
 <link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <title>시재 - SimpleOrder</title>
@@ -184,25 +184,32 @@ button:focus {
 }
 
 #main_layer::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #main_layer::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
+	width: 20px;
 	background-color: white;
 }
 
 #main_layer::-webkit-scrollbar-thumb {
 	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#salesListdiv, #productListdiv {
+    width: 680px;
+    height: auto;
 }
 
 #salesList td {
 	font-size: 20px;
-	height: 40px;
+	width: 150px;
+	height: 20px;
 	border: none;
 	border-right: none;
 	border-bottom: 2px solid #81d4fa;
@@ -210,15 +217,20 @@ button:focus {
 
 #salesList, #productList {
     border-collapse: collapse;
+    width: 700px;
+    height: 700px;
+    magin-bottom: 30px;
 }
 
 #salesList th, #productList th {
     border: 3px solid white;
-    padding: 10px;
+    width: 80px;
+    height: 20px;
+    background-color: #81d4fa;
 }
 
 #productList td {
-    height: 40px;
+    height: 20px;
     border: none;
 	border-right: none;
 	border-bottom: 2px solid #81d4fa;
@@ -226,6 +238,10 @@ button:focus {
 
 #productList {
     margin-bottom: 20px;
+}
+
+.pro th, .pro td {
+    height: 30px;
 }
 </style>
 </head>
@@ -380,25 +396,28 @@ button:focus {
 							<button id="btn" onclick="location.href='posmain'">나가기</button></td>
 					</tr>
 				</table>
+			</div>
 				<!-- 모달박스 -->
 				<div id="view_layer">
 					<div id="bg_layer"></div>
 					<div id="main_layer">
 					<div id="month"></div>
-					<table id="salesList">
+					<div id="salesListdiv"><table id="salesList">
 						<tr><th>구분</th><th>결제</th><th>외상</th><th>반품</th></tr>
 						<tr><th>현금</th><td id="pay_cash"></td><td id="credit_cash"></td><td id="refund_cash"></td></tr>
 						<tr><th>카드</th><td id="pay_card"></td><td id="credit_card"></td><td id="refund_card"></td></tr>
 						<tr><th>미수금</th><td id="pay"></td><td id="credit"></td><td id="refund"></td></tr>
 						<tr><th>총금액</th><td id="pay_total"></td><td id="credit_total"></td><td id="refund_total"></td></tr>
 					</table>
+					</div>
+					<div id="productListdiv">
 					<table id="productList">
 						<tr><th>상품명</th><th>판매가</th><th>판매갯수</th><th>금액</th></tr>
 					</table>
 					</div>
+					</div>
 				</div>
 				<div></div>
-			</div>
 		</div>
 	</div>
 </body>

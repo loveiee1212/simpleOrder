@@ -109,8 +109,7 @@ body {
 }
 
 #main_layer::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
+	width: 20px;
 	background-color: #81d4fa;
 }
 
@@ -128,7 +127,6 @@ body {
 }
 
 #main_layer th {
-	border: 3px solid white;
 	font-size: 20px;
 	height: 40px;
 	padding-top: 15px;

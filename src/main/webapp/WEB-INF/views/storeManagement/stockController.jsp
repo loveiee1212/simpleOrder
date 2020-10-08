@@ -44,23 +44,25 @@ table, th, td {
     height: 800px;
     overflow: auto;
     text-align: center;
+    overflow-x: hidden;
 }
 
 #stockRecorddiv::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #stockRecorddiv::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
+	width: 20px;
 	background-color: white;
 }
 
 #stockRecorddiv::-webkit-scrollbar-thumb {
 	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 #stockRecord {
@@ -82,6 +84,24 @@ table, th, td {
     border: none;
 }
 
+.anumber {
+    width: 100px;
+    height: 30px;
+    border: 2px solid #81d4fa;
+    font-size: 20px;
+    text-align: center;
+}
+
+.aupdatebtn {
+    width: 100px;
+	height: 50px;
+	border: 3px solid white;
+	background-color: #e3f2fd;
+	font-weight : bold; 
+	color : #1565c0;
+	font-size: 20px;
+}
+
 #stockListdiv {
     width: 700px;
     height: 650px;
@@ -90,20 +110,21 @@ table, th, td {
 }
 
 #stockListdiv::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #stockListdiv::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
+	width: 20px;
 	background-color: white;
 }
 
 #stockListdiv::-webkit-scrollbar-thumb {
 	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 #stockList {

@@ -10,7 +10,21 @@
 	<select id="getPst_name" parameterType="hashmap" resultType="string">
 		SELECT PST_POSITION
 		FROM EMP
-		WHERE C_CODE = #{c_code} AND EMP_CODE = #{emp_code}
+		WHERE C_CODE = #{c_code} AND EMP_CODE = LPAD(#{emp_code},5,0)
+	</select>
+	
+	<!-- 직원 출퇴근 확인 -->
+	<select id="checkWorkTime" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*)
+		FROM ATTENDANCE
+		WHERE C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND EMP_CODE = LPAD(#{emp_code},5,0)
+	</select>
+	
+	<!-- 영업일 가져오기 -->
+	<select id = "checkBd_date" parameterType="hashmap" resultType="string">
+		SELECT MAX(BD_DATE)
+		FROM BUSINESS_DAY
+		WHERE C_CODE = #{c_code} AND DATE(BD_DATE) = #{bd_date}
 	</select>
 
 	<!-- 월별 출퇴근 불러오기 -->
@@ -58,11 +72,16 @@
 		WHERE C_CODE=#{c_code} AND BD_DATE=#{bd_date} AND EMP_CODE=LPAD(#{emp_code},5,0)
 	</update>
 	
+	<!-- 출퇴근 시간 삭제 -->
+	<delete id="deleteWorkTime" parameterType="hashmap">
+		DELETE FROM ATTENDANCE WHERE C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND EMP_CODE = LPAD(#{emp_code},5,0)
+	</delete>
+	
 	<!-- 출퇴근 시간 변경 -->
 	<update id="updateWorkTime" parameterType="hashmap">
-		UPDATE ATTENDANCE
-		SET AD_INTIME = #{ad_inTime}, AD_OUTTIME = #{ad_outTime}
-		WHERE C_CODE =#{c_code} AND DATE(BD_DATE) = #{bd_date} AND EMP_CODE = LPAD(#{emp_code},5,0)
+		INSERT INTO
+		ATTENDANCE (C_CODE,BD_DATE,EMP_CODE,AD_INTIME,AD_OUTTIME)
+		VALUES (#{c_code},#{bd_date},LPAD(#{emp_code},5,0),#{ad_inTime},#{ad_outTime})
 	</update>
 
 	<!-- 직원 리스트 출력 -->

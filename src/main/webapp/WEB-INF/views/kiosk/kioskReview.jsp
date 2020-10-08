@@ -93,14 +93,14 @@ li {
 }
 
 .rv_code_name {
-    font-size: 20px;
-    font-weight: bold;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 .rv_img {
-    width: auto;
-    overflow: auto;
-    white-space: nowrap;
+	width: auto;
+	overflow: auto;
+	white-space: nowrap;
 }
 
 .rv_img::-webkit-scrollbar-track {
@@ -123,63 +123,63 @@ li {
 }
 
 .img {
-    width: 250px;
-    height: 250px;
-    max-height: initial;
-    display: inline-block;
+	width: 250px;
+	height: 250px;
+	max-height: initial;
+	display: inline-block;
 }
 
 .orderdiv {
-    border-radius: 25px;
+	border-radius: 25px;
     border: 1px solid rgb(133, 133, 133);
-    margin: 10px 5px 5px;
+    margin: 10px 15px 10px;
     padding: 5px;
     display: inline-block;
     font-size: 15px;
     line-height: 0.1em;
-    width: 100px;
+    width: 130px;
     text-align: center;
 }
 
 .rv_code_time {
-    float: right;
-    font-weight: bold;
+	float: right;
+	font-weight: bold;
 }
 
 #addBtn {
-    text-align: center;
-    border: 2px solid white;
-    width: 568px;
-    height: 70px;
-    background-color: #e3f2fd;
-    font-weight: bold;
-    color: #1565c0;
-    font-size: 20px;
-    margin-top: -5px;
+	text-align: center;
+	border: 2px solid white;
+	width: 568px;
+	height: 70px;
+	background-color: #e3f2fd;
+	font-weight: bold;
+	color: #1565c0;
+	font-size: 20px;
+	margin-top: -5px;
 }
 
 .write {
-    width: 568px;
-    height: 60px;
-    border: 2px solid white;
-    background-color: #81d4fa;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
+	width: 568px;
+	height: 60px;
+	border: 2px solid white;
+	background-color: #81d4fa;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
 }
 
 .Exit {
-    width: 568px;
-    height: 60px;
-    border: 2px solid #81d4fa;
-    background-color: white;
-    font-size: 20px;
-    font-weight: bold;
-    color: #81d4fa;
+	width: 568px;
+	height: 60px;
+	border: 2px solid #81d4fa;
+	background-color: white;
+	font-size: 20px;
+	font-weight: bold;
+	color: #81d4fa;
 }
 
 #footer {
-    position: fixed;
+	position: fixed;
 	left: 0;
 	bottom: 0;
 	width: 568px;
@@ -208,15 +208,19 @@ button:focus {
 		<div id="reviewList"></div>
 		<div id="btn"></div>
 		<div id="footer">
-			<button class="write" onclick="location.href='./kioskmenu'">리뷰작성</button>
+			<button class="write" onclick="location.href='./kioskreviewwrite'">리뷰작성</button>
 			<button class="Exit" type="button"
 				onclick="location.href='./kioskmenu'">나가기</button>
 		</div>
 	</div>
 	<script type="text/javascript">
-	if('${creditOk}'==""){
-		alert("리뷰등록은 결제 후에 가능합니다");
-		$('.write').css('display','none')
+	if('${resultMsg}'!=""){
+		alert('${resultMsg}');
+	}
+	if('${creditOk}'!=""){
+		$('.write').css('display','inline');
+	}else{
+		$('.write').css('display','none');
 	}
 		getReviewList();
 		function getReviewList() {

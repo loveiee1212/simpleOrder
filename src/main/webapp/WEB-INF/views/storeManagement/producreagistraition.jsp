@@ -5,67 +5,317 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
 <style type="text/css">
+body {
+	background-color: #e3f2fd;
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+}
+
+@font-face {
+	font-family: 'NEXON Lv1 Gothic OTF Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+h2 {
+    text-align: center;
+}
+
 div#one {
-	width: 800px;
-	height: 900px;
-	border: 1px solid black;
+	width: 740px;
+	height: 800px;
+	border: 3px solid #81d4fa;
 	float: left;
+	background-color: white;
 }
+
+#proCategoriListdiv {
+    width: 740px;
+    height: 60px;
+    overflow: auto;
+    overflow-y: hidden; 
+}
+
+#proCategoriListdiv::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#proCategoriListdiv::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+#proCategoriListdiv::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#proCategoriList {
+	border-collapse: collapse;
+	width: 500px;
+	height: 50px;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+	background-color: #e3f2fd;
+	color: #1565c0;
+	margin-bottom: 2px;
+}
+
+#proCategoriList td {
+	border: none;
+	border-right: 3px solid #81d4fa;
+	border-bottom: 3px solid #81d4fa;
+}
+
+#aSellCTDiv {
+    width: 730px;
+    height: 650px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+#aSellCTDiv::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#aSellCTDiv::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+#aSellCTDiv::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#aSCK_name {
+    border: 3px solid #81d4fa;
+    height: 60px;
+    background-color: #81d4fa;
+    font-size: 20px;
+}
+
+#savebtn {
+    width: 300px;
+    height: 60px;
+    border: 3px solid white;
+    background-color: #e3f2fd;
+    font-weight: bold;
+    color: #1565c0;
+    font-size: 20px;
+    float: right;
+    margin-right: 40px;
+}
+
+.sellKeyBasicTable {
+    width: 700px;
+    height: 400px;
+	border-collapse: collapse;
+	overflow: auto;
+}
+
+.sellKeyBasicTable::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+.sellKeyBasicTable::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+.sellKeyBasicTable::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+.sellKeyBasicTable td {
+    width: 150px;
+    height: 150px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    border: 3px solid #81d4fa;
+}
+
+.adeletebtn {
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+    border: 3px solid #81d4fa;
+    color: red;
+    background-color: white;
+}
+
+.anumber {
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    border: 3px solid #81d4fa;
+    margin-left: 20px;
+    text-align: center;
+}
+
+#Changebtn {
+    border: 2px solid white;
+    color: white;
+    background-color: #81d4fa;
+    width: 200px;
+    height: 70px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
 div#two {
-	width: 800px;
-	height: 500px;
-	border: 1px solid black;
+	width: 740px;
+	height: 598px;
+	border: 3px solid #81d4fa;
 	float: left;
+	background-color: white;
+	overflow: auto;
+	overflow-x: hidden;
 }
+
+#two::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#two::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+#two::-webkit-scrollbar-thumb {
+	background-color: #81d4fa;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#proList {
+    text-align: center;
+}
+
 div#three {
-	width: 800px;
-	height: 400px;
-	border: 1px solid black;
+	width: 740px;
+	height: 200px;
+	border: 3px solid #81d4fa;
+	border-top: none;
 	float: left;
+	background-color: white;
 }
 
-table, td, tr, th {
-	border: 1px solid black;
+div#two table {
+	border-collapse: collapse;
+	width: 700px;
 }
 
-td {
-	width: 100px;
-	height: 100px;
-}
 div#two td {
 	width: 100px;
+	height: 50px;
+	font-size: 20px;
+	border-top: 2px solid #81d4fa;
+}
+
+#sellKeyCategoriList {
+	width: 250px;
 	height: 40px;
+	font-size: 20px;
+	border: 3px solid #81d4fa;
+	margin: 20px;
+}
+
+#deleteSkcCategoribtn {
+	width: 100px;
+	height: 40px;
+	border: 3px solid #81d4fa;
+	background-color: white;
+	color: red;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#createSkcName {
+	width: 250px;
+	height: 40px;
+	font-size: 18px;
+	border: 3px solid #81d4fa;
+	margin-left: 20px;
+}
+
+#createSkcCategoribtn {
+	width: 150px;
+	height: 55px;
+	border: 3px solid white;
+	background-color: #e3f2fd;
+	font-weight: bold;
+	color: #1565c0;
+	font-size: 20px;
+}
+
+#Exit {
+	text-align: center;
+	border: 2px solid white;
+	width: 250px;
+	height: 50px;
+	background-color: #81d4fa;
+	font-weight: bold;
+	color: white;
+	font-size: 20px;
+	float: right;
+	margin-right: 20px;
 }
 </style>
 <meta charset="UTF-8">
 <title>storeManagement</title>
 </head>
 <body>
-	<h2>storeManagement</h2>
+	<div id="baseBox">
+		<div id="baseinnerBox">
 	<form action='updatesellkey' method='post'>
 	<div id="one">
-		
+		<div id="proCategoriListdiv">
 			<table id="proCategoriList">
 			</table>
-		
+		</div>
 	</div>
 	</form>
 	<div id="two">
+	<h2>판매 상품 관리</h2>
 		<table id="proList"></table>
 	</div>
 	<div id="three">
 		<select id="sellKeyCategoriList">
 			
-		</select><input type="button" value ='삭제' onclick='deleteSkcCategoriFun()'>
-		
-	
-		
+		</select><input type="button" value ='삭제' id="deleteSkcCategoribtn" onclick='deleteSkcCategoriFun()'>
 		<br/>
 		<input type="text" id='createSkcName'>
-		<input type="button" value ='추가' onclick='createSkcCategorifunction()'>
+		<input type="button" value ='추가' id="createSkcCategoribtn" onclick='createSkcCategorifunction()'>
+		<br>
+				<button id="Exit" type="button" onclick="location.href='./posmain'">메인으로</button>
 	</div>
-
+</div>
+</div>
 </body>
 <script type="text/javascript">
 	getSellKeyCategoriList();

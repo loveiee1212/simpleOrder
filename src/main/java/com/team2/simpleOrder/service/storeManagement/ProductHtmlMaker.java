@@ -118,6 +118,7 @@ public class ProductHtmlMaker {
 
 		// 판매키
 		sb = new StringBuilder();
+		sb.append("<div id='aSellCTDiv'>");
 		for (HashMap<String, Object> skc : skCatList) {
 			ArrayList<HashMap<String, String>> skc_codes = ((ArrayList<HashMap<String, String>>) skc.get("SKC_CODEList"));
 			int x = Integer.parseInt(skc.get("SKC_X").toString());
@@ -146,7 +147,7 @@ public class ProductHtmlMaker {
 							sb.append("<input type ='hidden' name ='pd_date' value ='"+pd_date+"'>");
 							sb.append("<input type ='hidden' name ='skc_code' value ='"+String.valueOf(skc_codeInfo.get("SKC_CODE"))+"'>");
 							sb.append("<input type ='hidden' name ='sk_num' value ='"+(j+1)+"'>");
-							sb.append("<input type= 'button' value='삭제' onclick='deleteSellKey(this)'");
+							sb.append("<input type= 'button' value='삭제' class='adeletebtn' onclick='deleteSellKey(this)'");
 							sb.append("</td>");
 							flag = false;
 							break;
@@ -160,14 +161,15 @@ public class ProductHtmlMaker {
 				}
 			}
 			sb.append("</tr>");
-			sb.append("<tr><td data-skc_code ='"+skc.get("SKC_CODE")+"'>").append("<input type = 'number' value = '" + skc.get("SKC_X") + "'>");
-			sb.append("<input type = 'number' value = '" + skc.get("SKC_Y") + "'>");
-			sb.append("<input type ='button' value ='사이즈 변경' onclick ='ChangeSellkeySize(this)'>");
+			sb.append("<tr><td colspan='4' data-skc_code ='"+skc.get("SKC_CODE")+"'>").append("<input type = 'number' class='anumber' value = '" + skc.get("SKC_X") + "'>");
+			sb.append("<input type = 'number' class='anumber' value = '" + skc.get("SKC_Y") + "'>");
+			sb.append("<input type ='button' value ='사이즈 변경' id='Changebtn' onclick ='ChangeSellkeySize(this)'>");
 			sb.append("</td></tr>");
 	
 			sb.append("</table>");
 		}
-		sb.append("<input type ='submit' value ='저장'>");
+		sb.append("</div>");
+		sb.append("<input type ='submit' value ='저장' id='savebtn'>");
 		hm.put("sellkeyList", sb.toString());
 		return hm;
 	}
@@ -215,7 +217,7 @@ public class ProductHtmlMaker {
 			sb.append("<td onclick ='getStockRecord(this)'>").append(stock.get("PDC_NAME")).append("</td>");
 			sb.append("<td onclick ='getStockRecord(this)'>").append(stock.get("PD_NAME")).append("</td>");
 			sb.append("<td onclick ='getStockRecord(this)'>").append(String.valueOf(stock.get("STK_STOCK"))).append("</td>");
-			sb.append("<td>").append("<input type='number'> <input type ='button' value ='추가' onclick ='updateStock(this)'>").append("</td>");
+			sb.append("<td>").append("<input type='number' class='anumber'> <input type ='button' value ='추가' class='aupdatebtn' onclick ='updateStock(this)'>").append("</td>");
 		}
 		hm.put("stockList", sb.toString());
 		return hm;
