@@ -1,6 +1,7 @@
 package com.team2.simpleOrder.controller.kiosk;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +26,7 @@ public class KioskMainController {
 	}
 
 	@PostMapping(value = "/requestcall")
-	public ModelAndView requestCall(HttpSession session, @RequestParam(value = "text") String text, ModelAndView mav) {
-		return km2.msgSave(session, text);
+	public ModelAndView requestCall(HttpSession session, @RequestParam HashMap<String, String> requestInfo, ModelAndView mav) {
+		return km2.msgSave(session, requestInfo);
 	}
 }

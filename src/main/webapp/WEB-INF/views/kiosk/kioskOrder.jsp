@@ -416,13 +416,7 @@ input:focus, button:focus {
 	}
 </script>
 </head>
-<!-- <h2>kioskOrder.jsp</h2> -->
 <body>
-	<%-- 	<h2>${sessionScope.c_code}</h2> --%>
-	<%-- 	<h2>${sessionScope.bd_date}</h2> --%>
-	<%-- 	<h2>${sessionScope.sc_code}</h2> --%>
-	<%-- 	<h2>${sessionScope.st_num}</h2> --%>
-	<%-- 	<h2>${sessionScope.oac_num}</h2> --%>
 	<div id="frame">
 		<div id="header_div">
 			<nav id="header_nav"></nav>
@@ -488,6 +482,18 @@ input:focus, button:focus {
 	</div>
 </body>
 <script type="text/javascript">
+	setInterval(() => {
+		$.ajax({
+			url : 'rest/getoacstatus',
+			type : 'post',
+			dataType : 'json',
+			success : function(data) {
+				if(data.view!=null){
+				location.href = data.view;
+				}
+			}
+		});
+	}, 3000);
 	// 장바구니 모달창 띄우기
 	$('#basket_open_btn').on('click', function() {
 		//모달창 열기

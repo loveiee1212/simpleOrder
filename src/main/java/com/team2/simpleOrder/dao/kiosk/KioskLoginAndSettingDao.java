@@ -34,6 +34,19 @@ public interface KioskLoginAndSettingDao {
 	
 	@Delete("DELETE FROM REQUEST WHERE C_CODE = #{c_code} AND RQ_NUM = #{rq_num} ")
 	void removeRequest(HashMap<String, String> requestInfo);
+
+	@Select("SELECT * "
+			+ "FROM REQUEST_LIST "
+			+ "WHERE REQUEST_TIME IN (SELECT MIN(REQUEST_TIME) "
+									+ "FROM REQUEST_LIST "
+									+ "WHERE C_CODE = #{c_code} "
+									+ "AND REQUEST_STATUS = '0')"
+			+ "AND C_CODE = #{c_code}")
+	HashMap<String, Object> getClientRequset(String c_code);
+
+	@Update("UPDATE REQUEST_LIST SET EMP_CODE = #{emp_code}, REQUEST_STATUS = '1' WHERE REQUEST_TIME = #{request_time} AND C_CODE = #{c_code}")
+	void updateClientRequest(HashMap<String, String> requestInfo);
+	
 	
 
 }

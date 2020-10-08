@@ -442,13 +442,25 @@ i {
     margin-left: 100px;
 }
 </style>
+<style type="text/css" id="park">
+	#flotBox{
+		width : 400px;
+		height : 300px;
+		position: absolute;
+		background: white;
+/*  		background: black;  */
+		transform: translate(-50%, 0%);
+		margin: 20% 50%;
+		opacity: 0.8;
+	}
+</style>
 </head>
 <body>
 
 	<div id="baseBox">
 		<div id="movediv">
 			<center>
-			<p id="movep">이동시킬 테이블을 클릭해주세요</p>
+				<p id="movep">이동시킬 테이블을 클릭해주세요</p>
 			</center>
 			<button id='cancelbutton'>취소</button>
 			<br/>
@@ -563,13 +575,72 @@ i {
 			</div>
 		</div>
 	</div>
+	<div id="flotBox" style="display: none">
+		<h2>요청 사항</h2>
+		 <div id="sc_name"></div>의 
+		 <br/>
+		 <div id="st_num"> </div>번 에서
+		 <br/>
+		  <div id="request"> </div>
+		  <br/>
+		  요청 하였습니다.
+		  <br/>
+		 <input type="button" value="진행" onclick="updateClientRequest()">
+		 <input type="button" value="무시" onclick="ClientRequestIgnore()">
+		 <input type="hidden" id="request_time">
+	</div>
 </body>
 
+<script type="text/javascript" id='park'>
+let flag = true;
 
+	setInterval(function() {
+		if(flag){
+			$.ajax({
+				url : "rest/getRequest",
+				dataType : "json",
+				success : function(data){
+					if(JSON.parse(data.newrequest)){
+						$("#sc_name").html(data.SC_NAME);
+						$("#st_num").html(data.ST_NUM);
+						$("#request").html('"'+data.REQUEST+'"');
+						$("#flotBox").css("display", "block");
+						$("#request_time").val(data.REQUEST_TIME);
+					}else{
+						$("#flotBox").css("display", "none");
+					};
+				}
+			})
+		}
+	}, 500);
+function ClientRequestIgnore() {
+	$("#flotBox").css("display", "none");
+	flag = false;
+	setTimeout(() => {
+		flag = true;
+	}, 30000);
+}
+
+
+
+
+function updateClientRequest(){
+	$.ajax({
+		url : "rest/updateClientRequest",
+		type : "post",
+		data : {
+			"request_time" : $("#request_time").val()
+		},
+		dataType : "json"
+	})
+}
+</script>
 <script>
 	clockon();
 	getTablelist();
-	console.log()
+	
+
+	
 	if ('' != '${error}') {
 		alert("주문이 정상적으로 처리 되지않았습니다. 다시 시도해 주세요");
 	}

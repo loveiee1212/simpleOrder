@@ -119,7 +119,7 @@ input:focus, button:focus {
 		<div id="header">광고&로고</div>
 		<div id="main">
 			<div id="requestList"></div>
-			<form action="requestcall" method="post" target="_blank">
+			<form action="requestcall" method="post">
 				<input type="text" id="text" name="text" placeholder="요청사항을 입력해주세요">
 				<button id="reqBtn">요청하기</button>
 			</form>
@@ -129,21 +129,19 @@ input:focus, button:focus {
 	</div>
 	<script type="text/javascript">
 		$('#reqBtn').click(function() {
-			if (confirm($('#text').val() + "을(를) 하시겠습니까?")) {
+			if (confirm($('#text').val() + "요청을(를) 하시겠습니까?")) {
 				return true;
 			}
 			return false;
 		});
 		function reqClick(req) {
 			var request = req.innerText;
-			$('#text').val(request + " 요청");
+			$('#text').val(request);
 			$('#reqBtn').trigger('click');
-			$('#text').val("");
 		}
 		function empCall() {
 			$('#text').val("직원호출");
 			$('#reqBtn').trigger('click');
-			$('#text').val("");
 		}
 	</script>
 </body>
