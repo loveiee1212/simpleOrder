@@ -65,7 +65,7 @@ body {
 	background-color: white;
 	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 350px;
+	height: 400px;
 	margin-left: 17px;
 	margin-top: 10px;
 	border-collapse: collapse;
