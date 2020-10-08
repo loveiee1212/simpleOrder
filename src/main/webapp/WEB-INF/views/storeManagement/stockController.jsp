@@ -183,12 +183,7 @@ input:focus, button:focus {
 		<h2>재고 상품 목록</h2>
 		<div id="stockListdiv">
 		<table id="stockList">
-			<tr>
-				<th>상품 카테고리</th>
-				<th>상품 명</th>
-				<th>재고 수량 </th>
-				<th>재고 추가 </th>
-			</tr>
+			
 		</table>
 		</div>
 		<button id="Exit" onclick="location.href='posmain'">나가기</button>
@@ -216,7 +211,8 @@ input:focus, button:focus {
 				"pd_date" : pd_date
 			},
 			success : function(data){
-				console.log(data);
+				getStockList();
+				getStockRecord(ele.parentNode)
 			}
 		});
 	}
@@ -248,6 +244,8 @@ input:focus, button:focus {
 			url : "rest/getStockList",
 			dataType : "json",
 			success : function(data) {
+				$("#stockList").html("");
+				$("#stockList").append("<tr><th>상품 카테고리</th><th>상품 명</th>	<th>재고 수량 </th><th>재고 추가 </th></tr>");
 				$("#stockList").append(data.stockList);
 			}
 

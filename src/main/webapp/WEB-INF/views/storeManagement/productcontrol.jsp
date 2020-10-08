@@ -480,6 +480,8 @@ input:focus, button:focus, select:focus {
 				"option[value='" + ele.dataset.pdc_code + "']").prop(
 				"selected", true));
 		$("#productControllBtn").val("수정").attr("onclick", "updateProduct()");
+		$(productControllForm).append($("<input type ='hidden' name = 'before_pdc_code' value = '"+ele.dataset.pdc_code+"'>"));
+		$(productControllForm).append($("<input type ='hidden' name = 'before_pd_code' value = '"+ele.dataset.pd_code+"'>"));
 
 	}
 
@@ -510,12 +512,13 @@ input:focus, button:focus, select:focus {
 			ele = $(ele).prev()[0];
 			$form = $("<form name ='deleteProductForm' action = 'deleteProduct' method='post' hidden = 'hidden'>");
 			$form
-					.append("<input name = 'pdc_code' value ='"+ele.dataset.pdc_code+"'>");
+					.append("<input name = 'before_pdc_code' value ='"+ele.dataset.pdc_code+"'>");
 			$form
-					.append("<input name = 'pd_code' value ='"+ele.dataset.pd_code+"'>");
+					.append("<input name = 'before_pd_code' value ='"+ele.dataset.pd_code+"'>");
 			$form
 					.append("<input name = 'pd_date' value ='"+ele.dataset.pd_date+"'>");
 			$("body").append($form);
+			
 			deleteProductForm.submit();
 		}
 	}

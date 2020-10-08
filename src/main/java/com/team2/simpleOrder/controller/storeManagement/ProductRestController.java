@@ -56,7 +56,7 @@ public class ProductRestController {
 		return pm.getStockRecord(stockInfo,session);
 	}
 	@PostMapping("/updateStock")
-	public HashMap<String, String> updateStock(@RequestParam HashMap<String, String> stockInfo,HttpSession session){
+	public String updateStock(@RequestParam HashMap<String, String> stockInfo,HttpSession session){
 		return pm.updateStock(stockInfo,session);
 	}
 
