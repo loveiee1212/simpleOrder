@@ -29,4 +29,12 @@ public interface ICreditAndPaymentDao {
 	@Insert("INSERT INTO CREDIT (C_CODE,BD_DATE,OAC_NUM,CRD_CODE,CRD_NAME,CRD_PHONE,CRD_DATE) SELECT #{c_code},#{bd_date},#{oac_num},LPAD(COUNT(CRD_CODE)+1,4,'0'),#{crd_name},#{crd_phone},NOW() FROM CREDIT WHERE C_CODE =#{c_code}")
 	boolean addcreditInfo(HashMap<String, String> updateMap);
 
+	//외상 반품처리를 위한 현금결제
+	@Insert("INSERT INTO PAYMENT_TYPE VALUES (#{c_code},TIMESTAMP(#{bd_date}),#{oac_num},NOW(),#{sendpay},#{sendpay},0)")
+	boolean insertCancelCredit(HashMap<String, Object> insertMap);
+
+	//외상 주문 반품처리 업데이트
+	@Update("UPDATE ORDER_AND_CREDIT SET OAC_STATUSCHANGETIME = NOW(),OAC_STATUS = -2 WHERE C_CODE = #{c_code} AND BD_DATE = #{bd_date} AND OAC_NUM = #{oac_num}")
+	void updateOACtocredit(HashMap<String, Object> insertMap);
+
 }

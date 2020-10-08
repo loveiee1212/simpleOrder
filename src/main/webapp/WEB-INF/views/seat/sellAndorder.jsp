@@ -65,7 +65,7 @@ body {
 	background-color: white;
 	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 400px;
+	height: 350px;
 	margin-left: 17px;
 	margin-top: 10px;
 	border-collapse: collapse;
@@ -100,9 +100,10 @@ div #listbox tr, td {
 }
 
 #moneylist {
+	border-top: none;
 	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 70px;
+	height: 120px;
 	margin-left: 17px;
 	background-color: white;
 	font-size: 20px;
@@ -111,7 +112,7 @@ div #listbox tr, td {
 #moneylist ul li {
 	list-style: none;
 	float: left;
-	margin-left: -17px;
+	margin-left: 15px;
 }
 
 li input {
@@ -201,11 +202,16 @@ li input {
 	background-color: silver;
 }
 
-#totalmoney, #endpay, #takemoney, #uctmoney {
-    margin: -20px 20px 5px 3px;
-    font-size: 20px;
-    border: none;
-    text-align: center;
+#totalmoney, #takemoney, #uctmoney {
+	width: 100px;
+	height: 40px;
+	margin-left: 10px;
+	border: none;
+	text-align: center;
+}
+
+#endpay {
+    margin-top: 5px;
 }
 
 #btn1, #btn2, #btn3 {

@@ -52,4 +52,9 @@ public class CreditAndPaymentRestController {
 	public HashMap<String, Object> getpayAmount(HttpSession session, String oac_num) {
 		return cm.getpayAmount(session, oac_num);
 	}
+	
+	@RequestMapping(value = "/cancelcredit", method = RequestMethod.POST)
+	public HashMap<String, String> cancelCredit(HttpSession session, String bd_date, String oac_num, int sendpay) {
+		return cm.cancelCredit(session,bd_date, oac_num,sendpay);
+	}
 }
