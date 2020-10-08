@@ -52,10 +52,15 @@ body {
 	font-weight: bold;
 }
 
+#empListdiv::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
 #empListdiv::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #empListdiv::-webkit-scrollbar-thumb {
@@ -63,12 +68,6 @@ body {
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
-}
-
-#empListdiv::-webkit-scrollbar-track {
-	background-color: white;
-	border-radius: 10px;
-	box-shadow: inset 0px 0px 5px grey;
 }
 
 #empList th {

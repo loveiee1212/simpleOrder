@@ -44,6 +44,7 @@ table, th, td {
     height: 800px;
     overflow: auto;
     text-align: center;
+    overflow-x: hidden;
 }
 
 #stockRecorddiv::-webkit-scrollbar-track {
@@ -83,7 +84,7 @@ table, th, td {
     border: none;
 }
 
-.number {
+.anumber {
     width: 100px;
     height: 30px;
     border: 2px solid #81d4fa;
@@ -91,7 +92,7 @@ table, th, td {
     text-align: center;
 }
 
-.updatebtn {
+.aupdatebtn {
     width: 100px;
 	height: 50px;
 	border: 3px solid white;
