@@ -118,6 +118,7 @@ public class ProductHtmlMaker {
 
 		// 판매키
 		sb = new StringBuilder();
+		sb.append("<div id='aSellCTDiv'>");
 		for (HashMap<String, Object> skc : skCatList) {
 			ArrayList<HashMap<String, String>> skc_codes = ((ArrayList<HashMap<String, String>>) skc.get("SKC_CODEList"));
 			int x = Integer.parseInt(skc.get("SKC_X").toString());
@@ -167,6 +168,7 @@ public class ProductHtmlMaker {
 	
 			sb.append("</table>");
 		}
+		sb.append("</div>");
 		sb.append("<input type ='submit' value ='저장'>");
 		hm.put("sellkeyList", sb.toString());
 		return hm;
