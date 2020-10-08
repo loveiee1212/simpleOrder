@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -96,21 +98,28 @@ public class EmpMemberMM {
 		return json;
 	}
 
+	@Transactional
 	public String updateWorkTime(HashMap<String, String> mb, HttpSession session) {
-		mb.put("c_code",session.getAttribute("c_code").toString());
-		String json = null;
-		mb.put("bd_date",mDao2.checkBd_date(mb));
-		System.out.println(mDao2.checkWorkTime(mb));
-		if(mDao2.checkWorkTime(mb)!=0) {
-			System.out.println("aaaa");
-			mDao2.deleteWorkTime(mb);
+		try {
+			mb.put("c_code",session.getAttribute("c_code").toString());
+			String json = null;
+			mb.put("bd_date",mDao2.checkBd_date(mb));
+
+			if(mDao2.checkWorkTime(mb)!=0) {
+				mDao2.deleteWorkTime(mb);
+			}
+			
+			boolean result = mDao2.updateWorkTime(mb);
+			if (result) {
+				json = new Gson().toJson("1");
+			}
+			return json;
+		} catch (Exception e) {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			System.err.println(e);
+			return new Gson().toJson("err");
 		}
 		
-		boolean result = mDao2.updateWorkTime(mb);
-		if (result) {
-			json = new Gson().toJson("1");
-		}
-		return json;
 	}
 
 	public String showWorkTime(HashMap<String, String> mb, HttpSession session) {

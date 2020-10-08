@@ -144,11 +144,11 @@ body {
 	<div id="changeBox">
 		<div id="empInfo">
 			<div id="empCode">
-				<span id="emp_code" name="emp_code">사번</span>
+				<span id="emp_code">사번</span>
 				<span id="pst_position">직위</span>
 			</div>
 			<div id="empName">
-				<span id="emp_name" name="emp_name">사원명</span>
+				<span id="emp_name">사원명</span>
 			</div>
 		</div>
 		<div id="change">
@@ -195,6 +195,8 @@ body {
 			url : "rest/getemplist",
 			dataType : "json",
 			success : function(data) {
+				$("#activation").text("");
+				$("#inactive").text("");
 				for ( var i in data) {
 					var emp_code = data[i].EMP_CODE;
 					var emp_name = data[i].EMP_NAME;
@@ -321,11 +323,10 @@ body {
 			success : function(data) {
 				if (data == "1") {
 					alert("시간이 변경되었습니다.");
-					
+					getEmpList();
+				}else if(data == "err"){
+					alert("시간변경에 실패했습니다.");
 				}
-			},
-			error : function(err) {
-				alert("시간변경에 실패했습니다.");
 			}
 		});
 	}
