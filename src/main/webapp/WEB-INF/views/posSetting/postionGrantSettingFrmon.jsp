@@ -31,13 +31,13 @@ h2 {
 }
 
 #grantList {
-	width: 2500px;
-	border: 1px solid #81d4fa;
-	border-collapse: collapse;
+    width: 2000px;
+    border: 1px solid #81d4fa;
+    border-collapse: collapse;
 }
 
 #grantList th {
-	width: 300px;
+	width: 200px;
 	height: 70px;
 	text-align: center;
 	border: 3px solid #81d4fa;
