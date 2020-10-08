@@ -280,6 +280,7 @@ li input {
 input:focus, button:focus {
 	outline: none; 
 }
+
 </style>
 </head>
 <body>
@@ -359,6 +360,7 @@ $(document).ready(function(){
 	function cancelorder(i){
 	$("#pdcnt"+i).val(0);
 	$("#pdcnt"+i).parents("tr").css("display","none");
+	totalprice();
 	}
 		
 	
@@ -434,6 +436,7 @@ $(document).ready(function(){
 								alert("남은 재고가 없습니다.");
 								return false;
 							}
+							
 							var pdc_code = tdiv.children("#pd_code").data('code');
 							console.log(pdc_code);
 							if(pdc_code==undefined){
@@ -446,6 +449,7 @@ $(document).ready(function(){
 							var $pdccode = $("input[name = 'pdcode']").length;
 							for(var i=0;i<$pdccode;i++){
 								if($("#pdcode"+i).data('code')==pdc_code&&$("#pdcode"+i).val()==pd_code){
+									$("#pdcode"+i).parents("tr").css("display",'');
 									$("#pdcnt"+i).val(Number($("#pdcnt"+i).val())+1);
 									console.log(i);
 									console.log(Number($("#hiddenprice"+i).val()));
