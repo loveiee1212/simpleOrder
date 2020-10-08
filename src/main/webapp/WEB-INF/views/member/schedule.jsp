@@ -12,8 +12,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
-<link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
+<link rel="stylesheet" href="resources/css/calendar.css?after" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?after" type="text/css">
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style>
 body {
@@ -41,7 +41,7 @@ body {
 	height: 95px;
 	margin-left: 65px;
 	margin-top: 30px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
@@ -55,7 +55,7 @@ body {
 	height: 95px;
 	margin-left: 65px;
 	margin-top: 30px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
@@ -96,7 +96,7 @@ body {
 	height: 500px;
 	margin: -50px 0 0 -194px;
 	padding: 28px 28px 0 28px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background: #fff;
 	font-size: 18px;
 	z-index: 200;
@@ -114,7 +114,7 @@ body {
 }
 
 #main_layer::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -147,13 +147,13 @@ body {
 }
 
 #emp_list {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 150px;
 	height: 40px;
 	font-size: 20px;
 }
 
-button:focus {
+input:focus, button:focus, select:focus {
 	outline: none;
 }
 </style>

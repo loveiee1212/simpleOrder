@@ -32,7 +32,7 @@ body {
 }
 
 #divOne {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 900px;
 	height: 800px;
 	float: left;
@@ -41,7 +41,7 @@ body {
 }
 
 #divTwo {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 450px;
 	height: 800px;
 	float: left;
@@ -55,7 +55,7 @@ body {
     height: 100px;
     margin-left: 49px;
     margin-top: 20px;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     font-weight: bold;
     color: white;
     font-size: 25px;
@@ -68,7 +68,7 @@ body {
     height: 100px;
     margin-left: 49px;
     margin-top: 10px;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     font-weight: bold;
     color: white;
     font-size: 25px;
@@ -92,7 +92,7 @@ h2 {
     margin: 100px 200px;
 }
 
-input:focus {
+input:focus, button:focus, select:focus {
 	outline: none;
 }
 </style>
@@ -112,7 +112,7 @@ input:focus {
 					<input type="button" id="btn2" value="직원 목록" onclick="includeAjax('empSettingFrm')"><br/> 
 					<input type="button" id="btn3" value="직급 설정" onclick="includeAjax('postisionSettingFrmOn')"><br />
 					 <input type="button" id="btn4" value="권한 설정" onclick="includeAjax('postionGrantSettingFrmOn')"><br />
-					 <input type="button" id="btn5" value="마스터 계정 비밀번호 변경" onclick="includeAjax('cSecurityCodeSettingFrmOn')"><br />
+					 <input type="button" id="btn5" value="키오스크 비밀번호 변경" onclick="includeAjax('cSecurityCodeSettingFrmOn')"><br />
 					 <input type="button" id="btn6" value="키오스크 설정" onclick="location.href = 'kioskSettingFrm'"><br /> 
 					 <input type="button" id="btn7" value="나가기" onclick="location.href = 'posmain'"><br />
 				</div>

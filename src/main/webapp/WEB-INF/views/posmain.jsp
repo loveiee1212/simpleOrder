@@ -13,7 +13,7 @@
 </head>
 <style>
 body {
-	background-color: #e3f2fd;
+    background-color: #e3f2fd;
 	font-family: 'NEXON Lv1 Gothic OTF Light';
 }
 
@@ -54,14 +54,14 @@ h2 {
     border: 2px;
     margin: 20px 35px;
     text-align: center;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     font-size: 30px;
     color: white;
     font-weight: bold;
     border-radius: 10px;
 }
 
-input:focus, button:focus {
+input:focus, button:focus, select:focus {
 	outline: none;
 }
 </style>
