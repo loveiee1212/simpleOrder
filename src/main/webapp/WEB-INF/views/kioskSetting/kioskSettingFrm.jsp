@@ -46,9 +46,15 @@ h2 {
 	background-color: white;
 }
 
+#divOne::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
 #divOne::-webkit-scrollbar {
-	width: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #divOne::-webkit-scrollbar-thumb {
@@ -56,12 +62,6 @@ h2 {
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
-}
-
-#divOne::-webkit-scrollbar-track {
-	background-color: white;
-	border-radius: 10px;
-	box-shadow: inset 0px 0px 5px grey;
 }
 
 #divTwo {

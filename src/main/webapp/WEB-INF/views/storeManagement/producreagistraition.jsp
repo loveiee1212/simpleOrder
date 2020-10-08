@@ -38,6 +38,7 @@ div#one {
     width: 740px;
     height: 60px;
     overflow: auto;
+    overflow-y: hidden; 
 }
 
 #proCategoriListdiv::-webkit-scrollbar-track {
@@ -76,25 +77,25 @@ div#one {
 	border-bottom: 3px solid #81d4fa;
 }
 
-#SKCdiv {
+#aSellCTDiv {
     width: 730px;
-    height: 500px;
+    height: 650px;
     overflow: auto;
     overflow-x: hidden;
 }
 
-#SKCdiv::-webkit-scrollbar-track {
+#aSellCTDiv::-webkit-scrollbar-track {
 	background-color: white;
 	border-radius: 10px;
 	box-shadow: inset 0px 0px 5px grey;
 }
 
-#SKCdiv::-webkit-scrollbar {
+#aSellCTDiv::-webkit-scrollbar {
 	width: 20px;
 	background-color: white;
 }
 
-#SKCdiv::-webkit-scrollbar-thumb {
+#aSellCTDiv::-webkit-scrollbar-thumb {
 	background-color: #81d4fa;
 	border-radius: 10px;
 	background-clip: padding-box;
@@ -110,12 +111,14 @@ div#one {
 
 #savebtn {
     width: 300px;
-	height: 80px;
-	border: 3px solid white;
-	background-color: #e3f2fd;
-	font-weight : bold; 
-	color : #1565c0;
-	font-size: 20px;
+    height: 60px;
+    border: 3px solid white;
+    background-color: #e3f2fd;
+    font-weight: bold;
+    color: #1565c0;
+    font-size: 20px;
+    float: right;
+    margin-right: 40px;
 }
 
 .sellKeyBasicTable {
@@ -152,7 +155,7 @@ div#one {
     border: 3px solid #81d4fa;
 }
 
-.deletebtn {
+.adeletebtn {
     width: 100px;
     height: 40px;
     font-size: 18px;
@@ -161,7 +164,7 @@ div#one {
     background-color: white;
 }
 
-.number {
+.anumber {
     width: 180px;
     height: 50px;
     font-size: 20px;
@@ -235,7 +238,7 @@ div#two td {
 }
 
 #sellKeyCategoriList {
-	width: 150px;
+	width: 250px;
 	height: 40px;
 	font-size: 20px;
 	border: 3px solid #81d4fa;
@@ -261,7 +264,7 @@ div#two td {
 }
 
 #createSkcCategoribtn {
-	width: 100px;
+	width: 150px;
 	height: 55px;
 	border: 3px solid white;
 	background-color: #e3f2fd;

@@ -31,13 +31,13 @@ h2 {
 }
 
 #grantList {
-	width: 2500px;
-	border: 1px solid #81d4fa;
-	border-collapse: collapse;
+    width: 2000px;
+    border: 1px solid #81d4fa;
+    border-collapse: collapse;
 }
 
 #grantList th {
-	width: 300px;
+	width: 200px;
 	height: 70px;
 	text-align: center;
 	border: 3px solid #81d4fa;
@@ -71,10 +71,15 @@ input[type=checkbox] {
     overflow: auto;
 }
 
+#tadiv::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
 #tadiv::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #tadiv::-webkit-scrollbar-thumb {
@@ -82,12 +87,6 @@ input[type=checkbox] {
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
-}
-
-#tadiv::-webkit-scrollbar-track {
-	background-color: white;
-	border-radius: 10px;
-	box-shadow: inset 0px 0px 5px grey;
 }
 
 #submit {

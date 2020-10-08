@@ -65,7 +65,7 @@ body {
 	background-color: white;
 	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 350px;
+	height: 400px;
 	margin-left: 17px;
 	margin-top: 10px;
 	border-collapse: collapse;
@@ -100,10 +100,9 @@ div #listbox tr, td {
 }
 
 #moneylist {
-	border-top: none;
 	border: 3px solid #81d4fa;
 	width: 700px;
-	height: 120px;
+	height: 70px;
 	margin-left: 17px;
 	background-color: white;
 	font-size: 20px;
@@ -112,7 +111,7 @@ div #listbox tr, td {
 #moneylist ul li {
 	list-style: none;
 	float: left;
-	margin-left: 15px;
+	margin-left: -17px;
 }
 
 li input {
@@ -202,16 +201,11 @@ li input {
 	background-color: silver;
 }
 
-#totalmoney, #takemoney, #uctmoney {
-	width: 100px;
-	height: 40px;
-	margin-left: 10px;
-	border: none;
-	text-align: center;
-}
-
-#endpay {
-    margin-top: 5px;
+#totalmoney, #endpay, #takemoney, #uctmoney {
+    margin: -20px 20px 5px 3px;
+    font-size: 20px;
+    border: none;
+    text-align: center;
 }
 
 #btn1, #btn2, #btn3 {
@@ -311,8 +305,8 @@ input:focus, button:focus {
 					<ul>
 						<li id="btn1" onclick="creditPayment(0,1,0)">현금결제</li>
 						<li id="btn2" onclick="creditPayment(0,2,0)">카드결제</li>
-						<li id="btn3" onclick="addcreditList()">외상결제</li>
-						<li id="btn4" onclick='sendsaoList(0)'>주문하기</li>
+						<li id="btn3" onclick="openCreditbox()">외상결제</li>
+						<li id="btn4" onclick='sendsaoList(0,0)'>주문하기</li>
 						<li id="btn5" onclick="location.href='./sellpage'">뒤로가기</li>
 					</ul>
 				</div>
@@ -338,8 +332,8 @@ input:focus, button:focus {
 			<div id='background'>
 			</div>
 			<div id = "addcreditbox">
-				<input type='text' id="crd_name"  placeholder="성함"/>
-				<input type='text' id="crd_phone" placeholder="연락처"/>
+				<input type='text' id="crd_name" maxlength="5" placeholder="성함(최대 5자)"/>
+				<input type='text' id="crd_phone" maxlength="11" placeholder="연락처(최대 11자)"/>
 				<input type='button' id='addcreditbutton' value='외상처리'/>
 			</div>
 		</div>
@@ -463,7 +457,7 @@ $(document).ready(function(){
 										+pdc_code + "' value='" + pd_code + "'/>"
 										+ "<input type='hidden' name='pddate' id='pddate"+$pdccode + "' value='" + pd_date + "'/>"
 										+ pd_name + "</td>";
-								value+="<td><p class ='price' id='totalprice'>"+pd_price+"</p>";
+								value+="<td><p class ='price' id='totalprice"+$pdccode+"'>"+pd_price+"</p>";
 								value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 										+ "'/></td>";
 								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
@@ -578,15 +572,20 @@ $(document).ready(function(){
 			data : objparam,
 			dataType : 'json',
 			success : function(result) {
-				if(paytype!=0){
-					console.log(paytype);
+				console.log(paytype);
+				if(paytype==1||paytype==2){
 					creditPayment(1,paytype,result.oac_num);
+				}else if(paytype==3){
+					console.log("in credit.");
+					addcreditList(1,result.oac_num);
 				}else{					
 				location.href = result.result;
 				}
 			}
 		});
 	}
+	
+	
 
 	function creditPayment(num,paytype,getoac_num){
 		var oac_num = $("#oac_num").val();
@@ -631,21 +630,32 @@ $(document).ready(function(){
 		dataType : 'json',
 		success : function(result){
 			alert(result.result);
-			location.reload();
+			location.href = "./sellandorder?sc_code=" + $("#sc_code").val()+ "&st_num=" + $("#st_num").val() + "&oac_num="+ oac_num;
 		} //result end
 		})//ajax end
 	
 		
 	}
 	
-	function addcreditList(){
+	function openCreditbox(){		
 		$("#background").css("display","block");
 		$("#addcreditbox").css("display","block");
-		
 		$("#addcreditbutton").click(function(){
+			 var oac_num = $("#oac_num").val();
+			 if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
+						sendsaoList(3);
+						return false;
+					 };
+				})
+		}
+	
+	function addcreditList(num,getoac_num){
 			 var crd_name = $("#crd_name").val();
 			 var crd_phone = $("#crd_phone").val();
 			 var oac_num = $("#oac_num").val();
+			 if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
+					oac_num = getoac_num
+				 };
 			 var obj = {
 					 "crd_name" : crd_name,
 					 "crd_phone" : crd_phone,
@@ -661,7 +671,6 @@ $(document).ready(function(){
 					location.href = "./posmain";
 				}
 			});
-		 });
 		
 	}
 	

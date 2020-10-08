@@ -106,10 +106,15 @@ table, tr, td, th {
 	overflow: auto;
 }
 
+#Categoridiv::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
 #Categoridiv::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #Categoridiv::-webkit-scrollbar-thumb {
@@ -117,12 +122,6 @@ table, tr, td, th {
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
-}
-
-#Categoridiv::-webkit-scrollbar-track {
-	background-color: white;
-	border-radius: 10px;
-	box-shadow: inset 0px 0px 5px grey;
 }
 
 .categoriList {
@@ -158,10 +157,15 @@ table, tr, td, th {
 	font-size: 25px;
 }
 
+#seatList::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
 #seatList::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #seatList::-webkit-scrollbar-thumb {
@@ -169,12 +173,6 @@ table, tr, td, th {
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
-}
-
-#seatList::-webkit-scrollbar-track {
-	background-color: white;
-	border-radius: 10px;
-	box-shadow: inset 0px 0px 5px grey;
 }
 
 input[type="button" i] {

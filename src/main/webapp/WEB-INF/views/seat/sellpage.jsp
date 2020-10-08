@@ -792,10 +792,12 @@ i {
 		var rsv_phone = $("#rsv_phone").val();
 		var rsv_name = $("#rsv_name").val();
 		var rsv_date = $("#rsv_date").val() + " " + $("#rsv_time").val();
+		if($("#rsv_date").val()==""||$("#rsv_time").val()==""){
+			rsv_date = "";
+		}
 		var rsvm_memo = $("#rsvm_memo").val();
 		var objparam = {
 				"rsv_code" : rsv_code,
-				"rsv_phone" : rsv_phone,
 				"rsv_phone" : rsv_phone,
 				"rsv_name" : rsv_name,
 				"rsv_date" : rsv_date,

@@ -27,10 +27,9 @@ body {
 }
 
 img {
-	width: 250px;
-	margin-top: -30px;
-	margin-right: -230px;
-	float: left;
+    width: 300px;
+    margin-left: 600px;
+    margin-bottom: 40px;
 }
 
 h2 {
@@ -51,13 +50,15 @@ h2 {
 
 #sellpagebtn, #endvcbtn, #schedulebtn, #stockbtn, #salesbtn, #creditbtn, #changevcbtn, #productbtn, #producreagistraitionbtn, #posSettingbtn, #empLogOutbtn, #emailLogoutbtn {
 	width: 300px;
-	height: 150px;
-	border: 2px;
-	margin: 20px 35px;
-	text-align: center;
-	background-color: #81d4fa;
-	font-size: 30px;
-	color: white;
+    height: 150px;
+    border: 2px;
+    margin: 20px 35px;
+    text-align: center;
+    background-color: #81d4fa;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
 }
 
 input:focus, button:focus {
@@ -69,7 +70,7 @@ input:focus, button:focus {
 		<div id="baseinnerBox">
 			<a class="navbar-brand" href="main"><img
 				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
-			<h2>PosMain</h2>
+			<div>
 			<input type="button" id="sellpagebtn" class='grantList' onclick="checkBd_date('sellpage')" value="판매">
 			<input type="button" id="endvcbtn" class='grantList' onclick="checkBd_date('endvc')" value="마감"> 
 			<input type="button" id="schedulebtn" class='grantList' onclick="checkBd_date('schedule')" value="근태">
@@ -82,6 +83,7 @@ input:focus, button:focus {
 			<input type="button" id="posSettingbtn" class='grantList' onclick="location.href = 'posSetting'" value="포스 설정">
 			<input type="button" id="empLogOutbtn" class='' onclick="location.href = 'empLogOut'" value="사용자 전환"> 
 			<button id="emailLogoutbtn" onclick="location.href ='emailLogout'">종료</button>
+		    </div>
 		</div>
 	</div>
 </body>
