@@ -613,18 +613,31 @@ $(document).ready(function(){
 		});
 	}
 	
-	
 
 	function creditPayment(num,paytype,getoac_num){
+		var pdccodeArray = [];
+		var $pdccode = $("input[name = 'pdcode']");
 		var oac_num = $("#oac_num").val();
 		if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
 		if(num!=1){
 			console.log("oac_num 이 없음 주문번호 생성으로 이동");
 			sendsaoList(paytype);
 			return false;
-		}if(oac_num!=0){			
+		}
+		if(oac_num!=0){			
 		oac_num = getoac_num;
 		}
+		}else{
+			for (var i = 0; i < $pdccode.length; i++) {
+				if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+					pdccodeArray.push($("#pdcode" + i).data('code'));
+				}
+				console.log(pdccodeArray);
+			}
+		if (pdccodeArray.length != 0) {
+			alert("주문 변경사항이 있습니다.")
+			return;
+		};
 		}
 			
 		console.log("false임에도 들어오면 출력");
@@ -674,7 +687,18 @@ $(document).ready(function(){
 						sendsaoList(3);
 						return false;
 					 }else{
-						 addcreditList(oac_num);
+						
+						for (var i = 0; i < $pdccode.length; i++) {
+							if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+							pdccodeArray.push($("#pdcode" + i).data('code'));
+							}
+							console.log(pdccodeArray);
+							}
+							if (pdccodeArray.length != 0) {
+							alert("주문 변경사항이 있습니다.")
+							return;
+							};
+							 addcreditList(oac_num);
 					 };
 				})
 		}
