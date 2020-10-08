@@ -71,11 +71,16 @@ body {
 </head>
 <body>
 	<div id="frame">
-		<div id="msg" onclick="location.href='./kioskrequest'">
+		<div id="msg">
 			<i class='fas fa-bell' style='font-size: 70px; color: black; margin-top: 50px;'></i>
-			<div id="msg2">${sc_name}</div>
-			${st_num}번 테이블 <br> ${text}하였습니다.
+			<div id="msg2">${requestInfo.sc_name}의</div>
+			${requestInfo.st_num}번 테이블에서 <br> "${requestInfo.text}"요청 하였습니다.
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	setInterval(() => {
+		location.href='./kioskrequest'
+	}, 3000);
+</script>
 </html>

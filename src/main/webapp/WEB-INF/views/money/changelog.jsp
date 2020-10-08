@@ -13,7 +13,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/basicBox.css?after">
-<link rel="stylesheet" href="resources/css/calendar.css?afte"
+<link rel="stylesheet" href="resources/css/calendar.css?after"
 	type="text/css">
 <style type="text/css">
 body {
@@ -72,7 +72,7 @@ body {
 	height: 670px;
 	margin: -150px 0 0 -194px;
 	padding: 28px 28px 0 28px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background: #fff;
 	font-size: 18px;
 	z-index: 200;
@@ -112,7 +112,7 @@ button:focus {
 	height: 80px;
 	margin-left: 49px;
 	margin-top: -80px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;

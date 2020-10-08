@@ -24,14 +24,14 @@ body {
 
 #cListOption {
 	text-align: center;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 350px;
 	height: 70px;
 	margin-left: 50px;
 	margin-top: 15px;
 	background-color: white;
 	font-weight: bold;
-	color: #81d4fa;
+	color: #2565a3;
 	font-size: 25px;
 }
 
@@ -44,7 +44,7 @@ body {
 #empList {
 	width: 800px;
 	height: 400px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
 	text-align: center;
 	font-size: 19px;
@@ -64,7 +64,7 @@ body {
 }
 
 #empListdiv::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -72,7 +72,7 @@ body {
 
 #empList th {
 	font-size: 25px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 	height: 60px;
 	width: 100px;
@@ -97,7 +97,7 @@ input[type="text" i] {
 	font-size: 20px;
 	text-align: center;
 	margin: 10px 30px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 select {
@@ -106,7 +106,7 @@ select {
 	font-size: 20px;
 	text-align: center;
 	margin: 10px 30px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 #addORupdate {
@@ -116,7 +116,7 @@ select {
 	height: 70px;
 	margin-left: 30px;
 	margin-top: -2px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
@@ -124,7 +124,7 @@ select {
 
 #delect {
 	text-align: center;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 310px;
 	height: 70px;
 	margin-left: 30px;
@@ -137,13 +137,17 @@ select {
 
 #addbtn {
 	text-align: center;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 100px;
 	height: 50px;
 	background-color: white;
 	font-weight: bold;
-	color: #81d4fa;
+	color: #2565a3;
 	font-size: 20px;
+}
+
+input:focus, button:focus {
+	outline: none;
 }
 </style>
 </head>

@@ -1,6 +1,7 @@
 package com.team2.simpleOrder.service.kiosk;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -53,15 +54,15 @@ public class KioskMM2 {
 		return mav;
 	}
 
-	public ModelAndView msgSave(HttpSession session, String text) {
+	public ModelAndView msgSave(HttpSession session, HashMap<String, String> requestInfo) {
 		mav = new ModelAndView();
-		String sc_name = kDao1.getSc_name(session.getAttribute("c_code").toString(),
-				session.getAttribute("sc_code").toString());
-		mav.addObject("sc_name", sc_name);
-		mav.addObject("st_num", session.getAttribute("st_num").toString());
-		mav.addObject("text", text);
+		
+		requestInfo.put("c_code", session.getAttribute("c_code").toString());
+		requestInfo.put("sc_name", kDao1.getSc_name(session.getAttribute("c_code").toString(), session.getAttribute("sc_code").toString()));
+		requestInfo.put("st_num", session.getAttribute("st_num").toString());
+		mav.addObject("requestInfo", requestInfo);
 		mav.setViewName("kiosk/request");
-
+		kDao1.createRequest(requestInfo);
 		return mav;
 	}
 }

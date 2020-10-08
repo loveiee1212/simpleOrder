@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mysql.cj.jdbc.interceptors.ConnectionLifecycleInterceptor;
 import com.team2.simpleOrder.dao.kiosk.KioskLoginAndSettingDao;
 import com.team2.simpleOrder.dao.money.IVaultCashDao;
 import com.team2.simpleOrder.dao.order.IOrderDao;
@@ -128,6 +129,26 @@ public class KioskLoginAndSettingMM {
 		kDao.removeRequest(requestInfo);
 		reat.addFlashAttribute("basicPath","includeAjax('requestListSettingFrm')");
 		return "redirect:/kioskSettingFrm";
+	}
+
+	public HashMap<String, Object> getRequest(HttpSession session) {
+		String c_code = session.getAttribute("c_code").toString();
+		HashMap<String , Object> clientRequset = kDao.getClientRequset(c_code);
+		
+		if(clientRequset==null) {
+			clientRequset = new HashMap<String, Object>();
+			clientRequset.put("newrequest", "false");
+		}else {
+			clientRequset.put("REQUEST_TIME", clientRequset.get("REQUEST_TIME").toString());
+			clientRequset.put("newrequest", "true");
+		}
+		return clientRequset;
+	}
+
+	public void updateClientRequest(HttpSession session, HashMap<String, String> requestInfo) {
+		requestInfo.put("c_code", session.getAttribute("c_code").toString());
+		requestInfo.put("emp_code", session.getAttribute("emp_code").toString());
+		kDao.updateClientRequest(requestInfo);
 	}
 
 }

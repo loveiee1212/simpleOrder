@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?afte"
+<link rel="stylesheet" href="resources/css/clock.css?after"
 	type="text/css">
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <title>SimpleOrder-시재변경</title>
@@ -26,7 +26,7 @@ body {
 }
 
 #cashZone {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	height: 795px;
 	width: 800px;
 	float: left;
@@ -34,7 +34,7 @@ body {
 }
 
 table, tr, td, th {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 #cashZone table {
@@ -73,7 +73,7 @@ td {
 }
 
 #vcZone table {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	font-size: 25px;
 	width: 650px;
 	height: 800px;
@@ -117,7 +117,7 @@ td {
 	height: 50px;
 	text-align: center;
 	font-size: 20px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 input:focus, button:focus {
@@ -129,7 +129,7 @@ input:focus, button:focus {
 	border: 3px solid white;
 	width: 180px;
 	height: 70px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
@@ -141,7 +141,7 @@ input:focus, button:focus {
 	width: 180px;
 	height: 70px;
 	margin-left: 20px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
@@ -149,13 +149,13 @@ input:focus, button:focus {
 
 #Exit {
 	text-align: center;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 150px;
 	height: 70px;
 	margin-left: 20px;
 	background-color: white;
 	font-weight: bold;
-	color: #81d4fa;
+	color: #2565a3;
 	font-size: 25px;
 }
 </style>
@@ -168,77 +168,77 @@ input:focus, button:focus {
 					<tr>
 						<th>100000원</th>
 						<td class="leftTd"><input id="10" class="num" type="number"
-							placeholder="갯수입력" min="0"
+							placeholder="갯수입력" min="0" maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(100000,value,'100000tx'),vctext()"></td>
 						<td><div><span id="100000tx" class="cash"></span></div></td>
 					</tr>
 					<tr>
 						<th>50000원</th>
 						<td class="leftTd"><input id="09" class="num" type="number"
-							min="0" placeholder="갯수입력"
+							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(50000,value,'50000tx'), vctext()"></td>
 						<td><div><span id="50000tx" class="cash"></span></div></td>
 					</tr>
 					<tr>
 						<th>10000원</th>
 						<td class="leftTd"><input id="08" class="num" type="number"
-							min="0" placeholder="갯수입력"
+							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(10000,value,'10000tx'), vctext()"></td>
 						<td><div><span id="10000tx" class="cash"></span></div></td>
 					</tr>
 					<tr>
 						<th>5000원</th>
 						<td class="leftTd"><input id="07" class="num" type="number"
-							min="0" placeholder="갯수입력"
+							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(5000,value,'5000tx'), vctext()"></td>
 						<td><div><span id="5000tx" class="cash"></span></div></td>
 					</tr>
 					<tr>
 						<th>1000원</th>
 						<td class="leftTd"><input id="06" class="num" type="number"
-							min="0" placeholder="갯수입력"
+							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(1000,value,'1000tx'), vctext()"></td>
 						<td><div><span id="1000tx" class="cash"></span></div></td>
 					</tr>
 					<tr>
 						<th>500원</th>
 						<td class="leftTd"><input id="05" class="num" type="number"
-							min="0" placeholder="갯수입력"
+							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(500,value,'500tx'), vctext()"></td>
 						<td><div><span id="500tx" class="cash"></span></div></td>
 					</tr>
 					<tr>
 						<th>100원</th>
 						<td class="leftTd"><input id="04" class="num" type="number"
-							min="0" placeholder="갯수입력"
+							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(100,value,'100tx'), vctext()"></td>
 						<td><div><span id="100tx" class="cash"></span></div></td>
 					</tr>
 					<tr>
 						<th>50원</th>
 						<td class="leftTd"><input id="03" class="num" type="number"
-							min="0" placeholder="갯수입력"
+							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(50,value,'50tx'), vctext()"></td>
 						<td><div><span id="50tx" class="cash"></span></div></td>
 					</tr>
 					<tr>
 						<th>10원</th>
 						<td class="leftTd"><input id="02" class="num" type="number"
-							min="0" placeholder="갯수입력"
+							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(10,value,'10tx'), vctext()"></td>
 						<td><div><span id="10tx" class="cash"></span></div></td>
 					</tr>
 					<tr>
 						<th>5원</th>
 						<td class="leftTd"><input id="01" class="num" type="number"
-							min="0" placeholder="갯수입력"
+							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(5,value,'5tx'), vctext()"></td>
 						<td><div><span id="5tx" class="cash"></span></div></td>
 					</tr>
 					<tr>
 						<th>1원</th>
 						<td class="leftTd"><input id="00" class="num" type="number"
-							value="0" min="0" placeholder="갯수입력"
+							value="0" min="0" placeholder="갯수입력"  maxlength="4" oninput="checkMaxLenth(id)"
 							onchange="carculate(1,value,'1tx'), vctext()"></td>
 						<td><div><span id="1tx" class="cash"></span></div></td>
 					</tr>
@@ -276,7 +276,7 @@ input:focus, button:focus {
 						<th colspan="2">시재 변경 사유</th>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="text" id="vcChangeText"></td>
+						<td colspan="2"><input type="text" id="vcChangeText" maxlength="100"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><button id="insertVC" onclick="insertVC()">시재저장</button>
@@ -293,6 +293,13 @@ input:focus, button:focus {
 	$(document).ready(function(){
 		getStartVC();
 	})
+	
+	//글 길이 확인
+	function checkMaxLenth(id){
+		if($("#"+id).val().length > $("#"+id).attr("maxlength")){
+			$("#"+id).val($("#"+id).val().slice(0, $("#"+id).attr("maxlength")));
+		}
+	}
 	
 	//시제 계산
 	function carculate(money, num, position) {

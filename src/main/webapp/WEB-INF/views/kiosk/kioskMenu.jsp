@@ -296,9 +296,6 @@ input:focus {
 								if(data.view!=null){
 								location.href = data.view;
 								}
-							},
-							error : function(err) {
-								console.log(err);
 							}
 						});
 
