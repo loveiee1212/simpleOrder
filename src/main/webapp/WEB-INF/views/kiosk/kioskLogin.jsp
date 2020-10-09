@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KioskLogin</title>
+<title>키오스크 로그인</title>
 <link rel="icon" href="resources/image/smallLogo.png"
 	type="image/x-icon">
 <style>
@@ -51,7 +51,7 @@ body {
 #header {
 	width: 568px;
 	height: 50px;
-	border: 3px solid #e3f2fd;
+	border: 2px solid #e3f2fd;
 	background-color: #e0e0e0;
 	margin: 10px;
 }
@@ -59,7 +59,7 @@ body {
 #securityCode {
 	width: 568px;
 	height: 50px;
-	border: 2px solid #81d4fa;
+	border: 2px solid #2565a3;
 	font-size: 20px;
 	text-align: center;
 	font-weight: bold;
@@ -71,9 +71,9 @@ body {
 	height: 60px;
 	border: 2px solid white;
 	outline: 0;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
-	font-size: 20px;
+	font-size: 25px;
 	text-align: center;
 	font-weight: bold;
 	margin-top: -100px;
@@ -82,7 +82,7 @@ body {
 #hline {
 	width: 568px;
 	height: 1px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	margin-top: 10px;
 	margin-bottom: 30px;
 }

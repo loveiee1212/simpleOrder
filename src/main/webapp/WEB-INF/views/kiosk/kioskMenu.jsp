@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KioskMenu</title>
+<title>현재 주문메뉴</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="icon" href="resources/image/smallLogo.png"
@@ -32,18 +32,27 @@ body {
 
 #header {
 	border: 3px solid #e3f2fd;
-	background-color: #e0e0e0;
-	margin: 10px;
-	height: 100px;
+    background-color: #e0e0e0;
+    height: 70px;
+    text-align: center;
+    font-size: 30px;
+    padding-top: 30px;
+}
+
+#billdiv {
+    border: 2px solid #2565a3;
+    width: 568px;
+    height: 450px;
+        margin-top: 10px;
 }
 
 #bill {
-	border: 3px solid #81d4fa;
-	width: 300px;
-	height: 400px;
-	margin: 20px 10px 20px 20px;
-	float: left;
-	overflow: auto;
+    width: 568px;
+    height: 300px;
+    float: left;
+    overflow: auto;
+    margin-top: 10px;
+    font-weight: bold;
 }
 
 #bill::-webkit-scrollbar-track {
@@ -52,30 +61,33 @@ body {
 }
 
 #bill::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #bill::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
 		.2)), color-stop(.5, transparent), to(transparent));
 }
 
 table {
-	width: 300px;
+	width: 568px;
 	border-collapse: collapse;
 }
 
 td {
 	height: 50px;
-	font-size: 22px;
+	font-size: 25px;
 }
 
 #b {
 	font-size: 30px;
-	margin: 20px 0 20px 55px;
+	text-align: center;
+	background-color: #2565a3;
+	color: white;
+	height: 60px;
+	padding-top: 20px;
 }
 
 .bill_pd_name {
@@ -83,85 +95,86 @@ td {
 }
 
 #aside {
-	width: 200px;
-	height: 450px;
-	margin: 20px 20px 20px 10px;
 	float: left;
+	height: 70px;
 }
 
 #seat {
-	border: 3px solid #81d4fa;
-	width: 200px;
-	height: 90px;
+	border: 2px solid #2565a3;
+	width: 568px;
+	height: 60px;
 	text-align: center;
-	font-size: 25px;
+	font-size: 30px;
 	padding-top: 20px;
+	font-weight: bold;
+	margin-top: 10px;
 }
 
 #billSum {
-	border: 3px solid #81d4fa;
-	width: 200px;
-	height: 100px;
+	border: none;
+	width: 560px;
+	height: 40px;
 	text-align: center;
-	margin: 18px 1px;
+	margin-top: 320px;
 	font-size: 25px;
-	padding-top: 20px;
+	padding-top: 10px;
+	font-weight: bold;
 }
 
 #clickdiv {
-	border: 3px solid #81d4fa;
-	width: 200px;
-	height: 100px;
+	border: 2px solid #2565a3;
+	width: 568px;
+	height: 70px;
 	text-align: center;
-	margin: 18px 1px;
-	font-size: 22px;
-	padding-top: 20px;
+	font-size: 25px;
+	font-weight: bold;
 }
 
 p {
 	margin-top: 1px;
+	float: left;
+	margin-left: 70px;
+}
+
+#p {
+	padding-top: 25px;
 }
 
 #clickdiv ul li {
 	display: inline;
 }
 
-#clickdiv ul {
-	margin-top: 30px;
-	margin-left: -35px;
-}
-
 #odBtn {
 	border: 2px solid white;
-	background-color: #81d4fa;
-	font-size: 20px;
+	background-color: #2565a3;
+	font-size: 25px;
 	font-weight: bold;
 	color: white;
 	height: 80px;
-	width: 170px;
-	margin: -20px 10px;
+	width: 280px;
+	margin-top: 20px;
+	margin-left: 2px;
 }
 
 #reqBtn {
 	border: 2px solid white;
-	background-color: #81d4fa;
-	font-size: 20px;
+	background-color: #2565a3;
+	font-size: 25px;
 	font-weight: bold;
 	color: white;
 	height: 80px;
-	width: 170px;
-	margin-top: -20px;
+	width: 280px;
+	margin-top: 20px;
 }
 
 #rvBtn {
 	border: 2px solid white;
-	width: 170px;
-	height: 80px;
 	background-color: #e3f2fd;
 	font-weight: bold;
-	color: #1565c0;
-	font-size: 20px;
-	margin: -20px 10px;
+	color: #2565a3;
+	font-size: 25px;
+	width: 580px;
+	height: 80px;
 }
 
 input:focus {
@@ -170,35 +183,37 @@ input:focus {
 </style>
 </head>
 <body>
-	<h2>kioskMenu.jsp</h2>
+	<%-- <h2>kioskMenu.jsp</h2>
 	<h2>${sessionScope.c_code}</h2>
 	<h2>${sessionScope.bd_date}</h2>
 	<h2>${sessionScope.sc_code}</h2>
 	<h2>${sessionScope.st_num}</h2>
-	<h2>${sessionScope.oac_num}</h2>
+	<h2>${sessionScope.oac_num}</h2> --%>
 	<div id="frame">
 		<div id="header">
 			<font>광고와 로고</font> ${resultMsg}
 		</div>
-		<div id="bill">
+		<div id="seat">
+			<p>테이블 번호</p>
+		</div>
+		<div id="billdiv">
 			<div id="b">
 				<b>현재 주문 내역</b>
 			</div>
-			<table>
-				<tbody id="billBody">
-				</tbody>
-			</table>
-		</div>
-		<div id="aside">
-			<div id="seat">
-				<p>테이블 번호</p>
+			<div id="bill">
+				<table>
+					<tbody id="billBody">
+					</tbody>
+				</table>
 			</div>
-
 			<div id="billSum">
 				<p>합계</p>
 			</div>
+		</div>
+		<br>
+		<div id="aside">
 			<div id="clickdiv">
-				<p>이용시간</p>
+				<p id="p">이용시간</p>
 				<ul>
 					<li id="hour"></li>
 					<li id="min"></li>
@@ -209,8 +224,10 @@ input:focus {
 		<input type="button" id="odBtn" value="주문추가"
 			onclick="location.href='kioskorder'"> <input type="button"
 			id="reqBtn" value="요청사항" onclick="location.href='kioskrequest'">
-		<input type="button" id="rvBtn" value="이용후기"
-			onclick="location.href='kioskreview'">
+		<div id="rvBtndiv">
+			<input type="button" id="rvBtn" value="이용후기"
+				onclick="location.href='kioskreview'">
+		</div>
 	</div>
 	<script type="text/javascript">
 		$.ajax({

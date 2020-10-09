@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<title>request</title>
+<title>요청알림</title>
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style type="text/css">
 body {
@@ -31,11 +31,11 @@ body {
 #msg {
 	width: 568px;
 	height: 500px;
-	border: 3px solid #81d4fa;
-	margin-top: 550px;
-	background-color: #e3f2fd;
+	border: 3px solid #2565a3;
+	margin-top: 200px;
+	background-color: #2565a3;
 	font-weight: bold;
-	color: #1565c0;
+	color: white;
 	font-size: 40px;
 	text-align: center;
 	animation: blink-animation 1s steps(5, start) infinite alternate;

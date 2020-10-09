@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KioskOrder</title>
+<title>주문하기</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -25,7 +25,7 @@ ul {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-family: 'NEXON Lv1 Gothic OTF Light';
 }
 
@@ -44,12 +44,12 @@ li {
 
 li a {
 	display: block;
-	color: white;
-	text-align: center;
-	padding: 30px 35px;
-	text-decoration: none;
-	font-size: 20px;
-	font-weight: bold;
+    color: white;
+    text-align: center;
+    padding: 30px 29px;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 #footer_nav {
@@ -79,41 +79,43 @@ li a {
 }
 
 #baskettable::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #baskettable::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	background-color: #81d4fa;
-}
-
-#baskettable::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
-}
-
-#billtable::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	width: 20px;
 	background-color: white;
 }
 
+#baskettable::-webkit-scrollbar-thumb {
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#billtable::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
 #billtable::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #billtable::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 #baskettable td {
-	border-bottom: 2px solid #81d4fa;
+	border-bottom: 2px solid #2565a3;
 	height: 120px;
 	font-size: 20px;
 }
@@ -146,28 +148,27 @@ i {
 
 #header_div {
 	width: 570px;
-	height: 83px;
+	height: 100px;
 	overflow-x: auto;
 	overflow-y: hidden;
 }
 
 #header_div::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: #2565a3;
 }
 
 #header_div::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
-	/* border: 2px solid transparent; */
+	border: 2px solid transparent;
 }
 
 #header_div::-webkit-scrollbar-track {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
-	/* box-shadow: inset 0px 0px 5px grey; */
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #header_div ul {
@@ -186,7 +187,7 @@ i {
 .detail_body, .soldOut {
 	width: 240px;
 	height: 300px;
-	border: solid rgb(133, 133, 133) 1px;
+	border: solid #2565a3 1px;
 	border-radius: 5px;
 	margin: 15px 20px;
 	float: left;
@@ -212,12 +213,14 @@ i {
 .pd_imgName {
 	width: 200px;
 	height: 200px;
-	margin: 17px 20px 0 20px;
+	margin: 5px;
+	overflow: hidden;
 }
 
 .pList_detail img {
-	width: 200px;
-	border-radius: 5px;
+	min-width: 100%;
+    min-height: 100%;
+    -ms-interpolation-mode: bicubic;
 }
 
 .pdc_code, .pd_code, .pd_date, .bsk_pdc_code, .bsk_pd_code, .bsk_pd_date
@@ -246,7 +249,6 @@ i {
 }
 
 p {
-	/* font-size: 35px; */
 	text-align: center;
 	margin-top: -5px;
 	color: rgb(133, 133, 133);
@@ -280,13 +282,13 @@ table {
 	width: 80px;
 	height: 50px;
 	font-size: 20px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	color: red;
 	background-color: white;
 }
 
 #cntUp, #cntDown {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
 	width: 50px;
 	height: 50px;
@@ -312,7 +314,7 @@ table {
 
 .pList {
 	height: 60px;
-	color: rgb(133, 133, 133);
+	color: #2565a3;
 	background-color: #e3f2fd;
 	clear: both;
 	font-size: 25px;
@@ -325,10 +327,10 @@ table {
 	border: 2px solid white;
 	width: 580px;
 	height: 80px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
-	font-size: 20px;
+	font-size: 25px;
 }
 
 #basket_close_btn, #bill_close_btn {
@@ -337,8 +339,8 @@ table {
 	height: 80px;
 	background-color: #e3f2fd;
 	font-weight: bold;
-	color: #1565c0;
-	font-size: 20px;
+	color: #2565a3;
+	font-size: 25px;
 	margin-bottom: 20px;
 }
 

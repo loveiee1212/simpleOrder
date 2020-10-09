@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>kioskReviewRrite</title>
+<title>리뷰쓰기</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="icon" href="resources/image/smallLogo.png"
+	type="image/x-icon">
 <style>
 body {
 	font-family: 'NEXON Lv1 Gothic OTF Light';
@@ -25,6 +27,11 @@ body {
 	width: 568px;
 	height: auto;
 	margin: auto;
+}
+
+img {
+    width: 300px;
+    margin-left: 120px;
 }
 
 #score {
@@ -79,7 +86,7 @@ body {
 }
 
 #rv_text {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin-top: 10px;
 	margin-left: 25px;
 }
@@ -88,7 +95,7 @@ textarea {
 	width: 480px;
 	height: 350px;
 	resize: none;
-	font-size: 19px;
+	font-size: 20px;
 	resize: none;
 }
 
@@ -107,7 +114,7 @@ textarea:focus {
 
 #btn1, #btn2 {
 	border: 2px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-size: 19px;
 	font-weight: bold;
 	color: white;
@@ -115,10 +122,10 @@ textarea:focus {
 }
 
 #btn3 {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
-	color: #81d4fa;
-	font-size: 19px;
+	color: #2565a3;
+	font-size: 20px;
 	font-weight: bold;
 	margin-left: 12px;
 }
@@ -129,18 +136,18 @@ textarea:focus {
 }
 
 #header {
-	border: 3px solid #e3f2fd;;
-	background-color: #e0e0e0;
-	margin: 10px;
-	height: 80px;
-	margin: 10px;
+	border: 3px solid #e3f2fd;
+    background-color: #e0e0e0;
+    height: 70px;
+    text-align: center;
+    font-size: 30px;
+    padding-top: 30px;
 }
 
 #main {
 	background-color: #e3f2fd;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin: 10px;
-	border: 3px solid #81d4fa;
 }
 
 #footer {
@@ -186,13 +193,13 @@ textarea:focus {
 	cursor: pointer;
 	border: 1px solid #ebebeb;
 	border-radius: .25em;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-color: white;
 	margin: 30px 25px 20px;
 	float: left;
 }
 
-@media ( max-width : 480px ) {
+@media ( max-width : 480px; ) {
 	#frame {
 		width: auto;
 	}
@@ -204,13 +211,14 @@ textarea:focus {
 </style>
 </head>
 <body>
-	<h2>${sessionScope.c_code}</h2>
+	<%-- <h2>${sessionScope.c_code}</h2>
 	<h2>${sessionScope.bd_date}</h2>
 	<h2>${sessionScope.sc_code}</h2>
 	<h2>${sessionScope.st_num}</h2>
-	<h2>${sessionScope.oac_num}</h2>
+	<h2>${sessionScope.oac_num}</h2> --%>
 	<div id="frame">
-		<div id="header">광고&로고</div>
+		<img src="resources/image/logo.png" alt="SimpleOrder 홈페이지">
+		<div id="header">광고</div>
 		<div id="main">
 			<form action="insertreview" id="frm" method="post"
 				enctype="multipart/form-data" onsubmit="return reviewWriteCheck()">

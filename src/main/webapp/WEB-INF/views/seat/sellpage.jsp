@@ -406,7 +406,7 @@ textarea {
 	color: #2565a3;
 }
 
-input:focus {
+input:focus, button:focus {
 	outline: none;
 }
 
@@ -416,6 +416,30 @@ input:focus {
 
 input, #rsvm_memo {
 	font-size: 20px;
+}
+
+#rsvm_memo {
+    width: 250px;
+    height: 70px;
+    overflow: auto;
+}
+
+#rsvm_memo::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#rsvm_memo::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+#rsvm_memo::-webkit-scrollbar-thumb {
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 i {
@@ -470,16 +494,52 @@ i {
 }
 </style>
 <style type="text/css" id="park">
-	#flotBox{
-		width : 400px;
-		height : 300px;
-		position: absolute;
-		background: white;
-/*  		background: black;  */
-		transform: translate(-50%, 0%);
-		margin: 20% 50%;
-		opacity: 0.8;
-	}
+#flotBox {
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    background-color: #2565a3;
+    transform: translate(-50%, 0%);
+    margin: 20% 40%;
+    opacity: 0.8;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+h2 {
+    text-align: center;
+}
+
+#sc_name {
+    margin-left: 39%;
+}
+
+#st_num {
+    margin-left: 29%;
+}
+
+#request {
+    margin-left: 23%;
+}
+
+#Requestbtn {
+    width: 150px;
+    height: 60px;
+    background-color: #81d4fa;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 20px 50px 20px 70px; 
+}
+
+#Ignorebtn {
+    width: 150px;
+    height: 60px;
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}
 </style>
 </head>
 <body>
@@ -570,9 +630,7 @@ i {
 								</tr>
 								<tr>
 									<th>메모</th>
-									<td><textarea
-											style="width: 250px; height: 70px;" name="rsvm_memo"
-											id="rsvm_memo"></textarea></td>
+									<td><textarea name="rsvm_memo" id="rsvm_memo" maxlength="100"></textarea></td>
 									<td colspan="2" id="worktd"><input type="button" id="upbtn"
 										onclick="updateReserv()" value='등록' /> <input type="reset"
 										id="rebtn" value="새로고침" /></td>
@@ -606,14 +664,15 @@ i {
 		<h2>요청 사항</h2>
 		 <div id="sc_name"></div>의 
 		 <br/>
-		 <div id="st_num"> </div>번 에서
+		 <br/>
+		 <div id="st_num"> </div>번 테이블에서
+		 <br/>
 		 <br/>
 		  <div id="request"> </div>
-		  <br/>
 		  요청 하였습니다.
 		  <br/>
-		 <input type="button" value="진행" onclick="updateClientRequest()">
-		 <input type="button" value="무시" onclick="ClientRequestIgnore()">
+		 <input type="button" value="진행" id="Requestbtn" onclick="updateClientRequest()">
+		 <input type="button" value="무시" id="Ignorebtn" onclick="ClientRequestIgnore()">
 		 <input type="hidden" id="request_time">
 	</div>
 </body>

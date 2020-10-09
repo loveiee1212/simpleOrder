@@ -6,9 +6,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>KioskReview</title>
+<title>이용후기</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="icon" href="resources/image/smallLogo.png"
+	type="image/x-icon">
 <style>
 body {
 	font-family: 'NEXON Lv1 Gothic OTF Light';
@@ -31,9 +33,11 @@ body {
 
 #header {
 	border: 3px solid #e3f2fd;
-	background-color: #e0e0e0;
-	margin: 10px;
-	height: 100px;
+    background-color: #e0e0e0;
+    height: 70px;
+    text-align: center;
+    font-size: 30px;
+    padding-top: 30px;
 }
 
 ul {
@@ -85,15 +89,15 @@ li {
 	margin: 20px;
 	margin-bottom: 30px;
 	padding-bottom: 50px;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid #2565a3;
 }
 
 .rv_text {
-	font-size: 20px;
+	font-size: 25px;
 }
 
 .rv_code_name {
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: bold;
 }
 
@@ -106,20 +110,19 @@ li {
 .rv_img::-webkit-scrollbar-track {
 	background-color: white;
 	border-radius: 10px;
-	/* box-shadow: inset 0px 0px 5px grey; */
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 .rv_img::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
+	width: 20px;
 	background-color: white;
 }
 
 .rv_img::-webkit-scrollbar-thumb {
-	background-color: white;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
-	/* border: 2px solid transparent; */
+	border: 2px solid transparent;
 }
 
 .img {
@@ -144,6 +147,7 @@ li {
 .rv_code_time {
 	float: right;
 	font-weight: bold;
+	font-size: 20px;
 }
 
 #addBtn {
@@ -153,8 +157,8 @@ li {
 	height: 70px;
 	background-color: #e3f2fd;
 	font-weight: bold;
-	color: #1565c0;
-	font-size: 20px;
+	color: #2565a3;
+	font-size: 25px;
 	margin-top: -5px;
 }
 
@@ -162,8 +166,8 @@ li {
 	width: 568px;
 	height: 60px;
 	border: 2px solid white;
-	background-color: #81d4fa;
-	font-size: 20px;
+	background-color: #2565a3;
+	font-size: 25px;
 	font-weight: bold;
 	color: white;
 }
@@ -171,11 +175,11 @@ li {
 .Exit {
 	width: 568px;
 	height: 60px;
-	border: 2px solid #81d4fa;
-	background-color: white;
-	font-size: 20px;
+	border: 2px solid #2565a3;
+	background-color: #2565a3;
+	font-size: 25px;
 	font-weight: bold;
-	color: #81d4fa;
+	color: white;
 }
 
 #footer {
@@ -194,16 +198,16 @@ button:focus {
 </head>
 
 <body>
-	<h2>${sessionScope.c_code}</h2>
+	<%-- <h2>${sessionScope.c_code}</h2>
 	<h2>${sessionScope.bd_date}</h2>
 	<h2>${sessionScope.sc_code}</h2>
 	<h2>${sessionScope.st_num}</h2>
 	<h2>${sessionScope.oac_num}</h2>
 	<h2>${sessionScope.creditOk}</h2>
-	<!-- <h2>kioskReview.jsp</h2> -->
+	<h2>kioskReview.jsp</h2> --%>
 	<div id="frame">
 		<div id="header">
-			<font>광고와 로고</font>
+			<font>광고</font>
 		</div>
 		<div id="reviewList"></div>
 		<div id="btn"></div>
