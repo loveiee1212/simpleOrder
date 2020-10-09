@@ -63,18 +63,18 @@ table, tr, td, th {
 
 #deletebtn {
     width: 100px;
-	height: 38px;
-	font-size: 20px;
-	border: 3px solid #2565a3;
-	background-color: white;
-	color: red;
-	font-weight: bold;	
+    height: 50px;
+    font-size: 25px;
+    border: 3px solid #2565a3;
+    background-color: white;
+    color: red;
+    font-weight: bold;
 }
 
 #updatebtn {
     width: 100px;
-	height: 43px;
-	font-size: 20px;
+	height: 50px;
+    font-size: 25px;
 	border: 3px solid white;
 	background-color: #2565a3;
 	color: white;
@@ -83,9 +83,9 @@ table, tr, td, th {
 
 #createbtn {
     width: 100px;
-	height: 45px;
-	font-size: 20px;
-	border: 3px solid white;
+	height: 50px;
+    font-size: 25px;
+	border: 3px solid #2565a3;
 	background-color: #e3f2fd;
 	color: #1565c0;
 	font-weight: bold;
@@ -97,7 +97,7 @@ table, tr, td, th {
 }
 
 #Categoridiv {
-    width: 800px;
+    width: auto;
 	height: 80px;
 	text-align: center;
 	color: #1565c0;
@@ -126,6 +126,7 @@ table, tr, td, th {
 
 .categoriList {
     width: 100px; 
+    font-size: 25px;
 }
 
 #seatList {
@@ -192,7 +193,7 @@ input[type="button" i] {
 
 #submitbtn {
     text-align: center;
-    border: 2px solid white;
+    border: 3px solid #2565a3;
     width: 250px;
     height: 70px;
     margin-right: 49px;
@@ -208,7 +209,7 @@ input:focus, button:focus, select:focus {
 	outline: none;
 }
 </style>
-<title>seatSettinFrm</title>
+<title>테이블 설정</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>

@@ -41,7 +41,7 @@ h2 {
 	height: 800px;
 	float: left;
 	overflow: auto;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin-right: 38px;
 	background-color: white;
 }
@@ -58,7 +58,7 @@ h2 {
 }
 
 #divOne::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -68,7 +68,7 @@ h2 {
 	width: 450px;
 	height: 800px;
 	float: left;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
 }
 
@@ -80,13 +80,13 @@ h2 {
 	height: 100px;
 	margin-left: 49px;
 	margin-top: 50px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
 }
 
-input:focus {
+input:focus, button:focus {
 	outline: none;
 }
 
@@ -97,7 +97,7 @@ input:focus {
 }
 </style>
 <meta charset="UTF-8">
-<title>kioskSetting</title>
+<title>키오스크설정</title>
 </head>
 <body>
 	<div id="baseBox">

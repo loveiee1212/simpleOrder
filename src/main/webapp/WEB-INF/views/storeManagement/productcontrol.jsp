@@ -24,7 +24,7 @@ body {
 }
 
 .innerdiv {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 840px;
 	height: 800px;
 	float: left;
@@ -50,7 +50,7 @@ body {
 }
 
 .innerdiv::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -63,9 +63,9 @@ body {
 	height: 50px;
 	margin: 30px;
 	text-align: center;
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: bold;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 }
 
@@ -104,7 +104,7 @@ body {
 .aPdelete {
 	width: 100px;
 	height: 50px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
 	color: red;
 	font-size: 20px;
@@ -113,7 +113,7 @@ body {
 }
 
 .innerdiv2 {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 640px;
 	height: 800px;
 	float: left;
@@ -135,24 +135,24 @@ body {
 #updatetable th {
 	width: 640px;
 	height: 50px;
-	font-size: 22px;
+	font-size: 25px;
 	text-align: center;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 }
 
 #select1 {
 	width: 150px;
 	height: 38px;
-	font-size: 15px;
-	border: 3px solid #81d4fa;
+	font-size: 20px;
+	border: 3px solid #2565a3;
 }
 
 #select2 {
 	width: 150px;
 	height: 38px;
-	font-size: 15px;
-	border: 3px solid #81d4fa;
+	font-size: 20px;
+	border: 3px solid #2565a3;
 	margin-left: 70px;
 }
 
@@ -161,13 +161,13 @@ body {
 	height: 40px;
 	font-size: 18px;
 	margin-left: 70px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 #delete {
 	width: 150px;
 	height: 50px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
 	color: red;
 	font-size: 20px;
@@ -189,9 +189,9 @@ body {
 #createtable th {
 	width: 640px;
 	height: 50px;
-	font-size: 20px;
+	font-size: 25px;
 	text-align: center;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 }
 
@@ -201,7 +201,7 @@ body {
 	font-size: 18px;
 	margin-top: 10px;
 	margin-left: 70px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 #add {
@@ -226,15 +226,15 @@ body {
     width: 640px;
 	height: 500px;
 	border: none;
-	border-top: 3px solid #81d4fa;
+	border-top: 3px solid #2565a3;
 }
 
 #producttable th {
 	width: 640px;
 	height: 50px;
-	font-size: 20px;
+	font-size: 25px;
 	text-align: center;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 }
 
@@ -249,9 +249,9 @@ body {
 #pd_code, #pd_name, #pd_price, #stk_stock {
 	width: 200px;
 	height: 40px;
-	font-size: 18px;
+	font-size: 20px;
 	margin-bottom: 10px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	text-align: center;
 }
 
@@ -271,13 +271,12 @@ body {
     text-align: center;
     border: none;
     width: 635px;
-    height: 38px;
+    height: 50px;
     background-color: #e3f2fd;
     font-weight: bold;
     color: #1565c0;
-    font-size: 20px;
+    font-size: 23px;
     margin-top: -10px;
-    margin-left: -5px;
 }
 
 #Exit {
@@ -285,19 +284,18 @@ body {
     border: none;
     width: 635px;
     height: 38px;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     font-weight: bold;
     color: white;
-    font-size: 20px;
+    font-size: 21px;
     margin-top: -5px;
-    margin-left: -3px;
 }
 
 input:focus, button:focus, select:focus {
 	outline: none;
 }
 </style>
-<title>productControl-상품관리</title>
+<title>상품관리</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>

@@ -29,7 +29,7 @@ h2 {
 div#one {
 	width: 740px;
 	height: 800px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	float: left;
 	background-color: white;
 }
@@ -53,7 +53,7 @@ div#one {
 }
 
 #proCategoriListdiv::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -73,8 +73,8 @@ div#one {
 
 #proCategoriList td {
 	border: none;
-	border-right: 3px solid #81d4fa;
-	border-bottom: 3px solid #81d4fa;
+	border-right: 3px solid #2565a3;
+	border-bottom: 3px solid #2565a3;
 }
 
 #aSellCTDiv {
@@ -96,23 +96,24 @@ div#one {
 }
 
 #aSellCTDiv::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
 }
 
 #aSCK_name {
-    border: 3px solid #81d4fa;
+    border: 3px solid #2565a3;
     height: 60px;
-    background-color: #81d4fa;
-    font-size: 20px;
+    background-color: #2565a3;
+    font-size: 23px;
+    color: white;
 }
 
 #savebtn {
     width: 300px;
     height: 60px;
-    border: 3px solid white;
+    border: 3px solid #2565a3;
     background-color: #e3f2fd;
     font-weight: bold;
     color: #1565c0;
@@ -140,7 +141,7 @@ div#one {
 }
 
 .sellKeyBasicTable::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -152,31 +153,32 @@ div#one {
     font-size: 20px;
     font-weight: bold;
     text-align: center;
-    border: 3px solid #81d4fa;
+    border: 3px solid #2565a3;
 }
 
 .adeletebtn {
     width: 100px;
     height: 40px;
-    font-size: 18px;
-    border: 3px solid #81d4fa;
+    font-size: 20px;
+    border: 3px solid #2565a3;
     color: red;
     background-color: white;
+    font-weight: bold;
 }
 
 .anumber {
     width: 180px;
     height: 50px;
-    font-size: 20px;
-    border: 3px solid #81d4fa;
+    font-size: 25px;
+    border: 3px solid #2565a3;
     margin-left: 20px;
     text-align: center;
 }
 
 #Changebtn {
-    border: 2px solid white;
+    border: 3px solid white;
     color: white;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     width: 200px;
     height: 70px;
     font-size: 20px;
@@ -187,11 +189,12 @@ div#one {
 div#two {
 	width: 740px;
 	height: 598px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	float: left;
 	background-color: white;
 	overflow: auto;
 	overflow-x: hidden;
+	font-weight: bold;
 }
 
 #two::-webkit-scrollbar-track {
@@ -206,7 +209,7 @@ div#two {
 }
 
 #two::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -219,7 +222,7 @@ div#two {
 div#three {
 	width: 740px;
 	height: 200px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	border-top: none;
 	float: left;
 	background-color: white;
@@ -234,60 +237,63 @@ div#two td {
 	width: 100px;
 	height: 50px;
 	font-size: 20px;
-	border-top: 2px solid #81d4fa;
 }
 
 #sellKeyCategoriList {
 	width: 250px;
 	height: 40px;
 	font-size: 20px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin: 20px;
 }
 
 #deleteSkcCategoribtn {
 	width: 100px;
-	height: 40px;
-	border: 3px solid #81d4fa;
-	background-color: white;
-	color: red;
-	font-size: 20px;
-	font-weight: bold;
+    height: 50px;
+    border: 3px solid #2565a3;
+    background-color: white;
+    color: red;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 #createSkcName {
 	width: 250px;
 	height: 40px;
 	font-size: 18px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin-left: 20px;
 }
 
 #createSkcCategoribtn {
 	width: 150px;
 	height: 55px;
-	border: 3px solid white;
+	border: 3px solid #2565a3;
 	background-color: #e3f2fd;
 	font-weight: bold;
 	color: #1565c0;
-	font-size: 20px;
+	font-size: 22px;
 }
 
 #Exit {
 	text-align: center;
-	border: 2px solid white;
-	width: 250px;
-	height: 50px;
-	background-color: #81d4fa;
-	font-weight: bold;
-	color: white;
-	font-size: 20px;
-	float: right;
-	margin-right: 20px;
+    border: 2px solid white;
+    width: 250px;
+    height: 60px;
+    background-color: #2565a3;
+    font-weight: bold;
+    color: white;
+    font-size: 22px;
+    float: right;
+    margin-right: 20px;
+}
+
+input:focus, button:focus, select:focus {
+	outline: none;
 }
 </style>
 <meta charset="UTF-8">
-<title>storeManagement</title>
+<title>판매 상품 관리</title>
 </head>
 <body>
 	<div id="baseBox">

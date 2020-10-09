@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>SimpleOrder-매출현황</title>
+<title>매출현황</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -12,8 +12,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
-<link rel="stylesheet" href="resources/css/calendar.css?after" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?after" type="text/css">
+<link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style>
 body {
@@ -144,7 +144,7 @@ td.dt {
     border: 3px solid white;
     background-color: #2565a3;
     color: white;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
     float: right;
     margin-top: -200px;

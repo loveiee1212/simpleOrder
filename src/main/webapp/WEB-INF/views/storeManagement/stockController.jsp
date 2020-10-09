@@ -23,7 +23,7 @@ body {
 }
 
 div#one, #two {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 700px;
 	height: 800px;
 	float: left;
@@ -37,6 +37,7 @@ h2 {
 table, th, td {
     border-collapse: collapse;
     font-size: 20px;
+    font-weight: bold;
 }
 
 #stockRecorddiv {
@@ -59,7 +60,7 @@ table, th, td {
 }
 
 #stockRecorddiv::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -72,11 +73,12 @@ table, th, td {
 
 #stockRecord th {
     width: 100px;
-    height: 50px;
+    height: 60px;
     text-align: center;
     border: 3px solid white;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     color: white;
+    font-size: 25px;
 }
 
 #stockRecord td {
@@ -87,7 +89,7 @@ table, th, td {
 .anumber {
     width: 100px;
     height: 30px;
-    border: 2px solid #81d4fa;
+    border: 3px solid #2565a3;
     font-size: 20px;
     text-align: center;
 }
@@ -106,6 +108,7 @@ table, th, td {
     width: 700px;
     height: 650px;
     overflow: auto;
+    overflow-x: hidden;
     text-align: center;
 }
 
@@ -121,7 +124,7 @@ table, th, td {
 }
 
 #stockListdiv::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	border-radius: 10px;
 	background-clip: padding-box;
 	border: 2px solid transparent;
@@ -133,12 +136,13 @@ table, th, td {
 }
 
 #stockList th {
-    width: 100px;
-    height: 50px;
+    width: 130px;
+    height: 60px;
     text-align: center;
     border: 3px solid white;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     color: white;
+    font-size: 25px;
 }
 
 #stockList td {
@@ -150,9 +154,9 @@ table, th, td {
     width: 300px;
 	height: 80px;
 	border: 3px solid white;
-	background-color: #e3f2fd;
+	background-color: #2565a3;
 	font-weight : bold; 
-	color : #1565c0;
+	color : white;
 	font-size: 20px;
 	float: right;
 }
@@ -163,7 +167,7 @@ input:focus, button:focus {
 
 </style>
 <meta charset="UTF-8">
-<title>stockController</title>
+<title>재고관리</title>
 
 </head>
 <body>

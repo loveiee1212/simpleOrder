@@ -4,7 +4,7 @@
 <%@ page session="false"%>
 <html>
 <head>
-<title>creditControle-외상관리</title>
+<title>외상관리</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
@@ -26,11 +26,36 @@ body {
 	font-style: normal;
 }
 
+#creditList {
+    width: 740px;
+    height: 800px;
+    overflow: auto;
+    overflow-x: hidden; 
+}
+
+#creditList::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#creditList::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+#stockListdiv::-webkit-scrollbar-thumb {
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
 #creditList th{
     width: 200px;
-    height: 50px;
-    font-size: 20px;
-    background-color: #81d4fa;
+    height: 60px;
+    font-size: 23px;
+    background-color: #2565a3;
     color: white;
 }
 
@@ -39,11 +64,12 @@ body {
     height: 50px;
     font-size: 20px;
     text-align: center;
+    font-weight: bold;
 }
 
 .innerdiv {
     background-color: white;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 740px;
 	height: 800px;
 	float: left;
@@ -51,7 +77,7 @@ body {
 }
 
 .innerdiv2 {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 740px;
 	height: 800px;
 	float: left;
@@ -65,7 +91,6 @@ button {
 }		
 
 button: focus{ 
-    outline: none;
     box-shadow: none;
 }
 
@@ -79,53 +104,53 @@ button: focus{
 
 #listbox {
 	background-color: white;
-    border: 3px solid #81d4fa;
+    border: 3px solid #2565a3;
     width: 700px;
     height: 400px;
     margin-top: 10px;
     border-collapse: collapse;
     overflow: auto;
+    overflow-x: hidden;
+    font-weight: bold;
 }
 
 #listbox::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #listbox::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #listbox::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 #listbox tr, #listbox td {
 	border: none;
-	border-bottom: 3px solid #81d4fa;
 	width: 150px;
 	height: 20px;
 	padding: 20px;
 	margin: 30px;
 	text-align: center;
-	font-size: 20px;
-}
-
-input:focus {
-    outline: none;
+	font-size: 23px;
+	font-weight: bold;
 }
 
 #moneylist {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 700px;
 	height: 70px;
 	margin-left: 17px;
 	background-color: white;
 	font-size: 20px;
+	font-weight: bold;
 }
 
 #moneylist ul li {
@@ -159,28 +184,36 @@ li input {
 	height: 30px;
 	margin-top: 10px;
 	text-align: center;
-	padding: 20px;
+	padding: 10px;
 	font-size: 25px;
 }
 
 #btn1, #btn2 {
     border: 2px solid white;
-    background-color: #81d4fa;
+    background-color: #2565a3;
     color: white;
     font-weight: bold;
 }
 
-#Exit {
-    border: 3px solid #81d4fa;
+#btn3 {
+    border: 3px solid #2565a3;
     background-color: white;
-    color: #81d4fa;
+    color: red;
+    font-weight: bold;
+
+}
+
+#Exit {
+    border: 3px solid #2565a3;
+    background-color: white;
+    color: #2565a3;
     font-weight: bold;
 }
 
 #keypad ul li {
 	list-style: none;
 	border: 1px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 	width: 30px;
 	height: 20px;
@@ -195,6 +228,10 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	{
 	-webkit-appearance: none;
 	margin: 0;
+}
+
+input:focus, button:focus, select:focus {
+	outline: none;
 }
 </style>
 </head>

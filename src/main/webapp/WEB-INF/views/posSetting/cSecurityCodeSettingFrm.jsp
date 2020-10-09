@@ -38,7 +38,7 @@ h2 {
 	height: 60px;
 	text-align: center;
 	font-size: 25px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin-top: 100px;
 	margin-left: 80px;
 }
@@ -48,7 +48,7 @@ h2 {
 	border: 2px solid white;
 	width: 300px;
 	height: 70px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;

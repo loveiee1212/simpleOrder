@@ -31,7 +31,7 @@ h2 {
 }
 
 #grantList {
-    width: 2000px;
+    width: 1500px;
     border: 1px solid #2565a3;
     border-collapse: collapse;
 }
@@ -56,7 +56,7 @@ h2 {
     border: 3px solid #e1f5fe;
     border-left-color: white;
     border-right-color: white;
-    font-size: 20px;
+    font-size: 23px;
     font-weight: bold;
 }
 
