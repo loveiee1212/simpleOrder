@@ -41,20 +41,19 @@ h2 {
 	margin-left: 470px;
 	text-decoration: underline;
 	text-underline-position: under;
-	color: #2196f3;
+	color: #2565a3;
 	font-weight: bold;
 }
 
 #createCcode {
 	width: 700px;
 	height: 700px;
-	/* border: 3px solid #81d4fa; */
 	font-size: 20px;
 	margin: 20px 400px;
 	padding-left: 70px;
 }
 
-input:focus {
+input:focus, button:focus {
 	outline: none;
 }
 
@@ -64,6 +63,7 @@ input:focus {
 	margin-top: 5px;
 	margin-left: 75px;
 	font-size: 20px;
+	border: 3px solid #2565a3;
 }
 
 #c_pw, #emp_name, #c_name {
@@ -72,6 +72,7 @@ input:focus {
 	font-size: 20px;
 	margin-left: 75px;
 	margin-top: 10px;
+	border: 3px solid #2565a3;
 }
 
 #c_phone {
@@ -80,17 +81,20 @@ input:focus {
 	font-size: 20px;
 	margin-left: 75px;
 	margin-top: 10px;
+	border: 3px solid #2565a3;
 }
 
 #zipNo, #roadAddrPart1, #addrDetail {
 	font-size: 20px;
 	margin-top: 10px;
 	margin-left: 75px;
+	border: 3px solid #2565a3;
 }
 
 #roadAddrPart2 {
 	font-size: 20px;
 	margin-left: 14px;
+	border: 3px solid #2565a3;
 }
 
 #add {
@@ -98,7 +102,7 @@ input:focus {
 	height: 70px;
 	margin-left: 14px;
 	border: 2px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	font-size: 20px;
 	color: white;
@@ -110,7 +114,7 @@ input:focus {
 	border: 2px solid white;
 	margin: 0px 20px 20px 75px;
 	outline: 0;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-size: 25px;
 	font-weight: bold;
 	color: white;
@@ -119,12 +123,12 @@ input:focus {
 #btn2 {
 	width: 250px;
 	height: 80px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin: 0px 30px 10px 13px;
 	padding: 5px 10px;
 	outline: 0;
 	background-color: white;
-	color: #81d4fa;
+	color: #2565a3;
 	font-size: 25px;
 	font-weight: bold;
 }
@@ -132,6 +136,7 @@ input:focus {
 error {
 	margin-left: 70px;
 	color: #ff3d00;
+	font-weight: bold;
 }
 
 #msg1, #msg2, #msg3, #msg4, #msg5, #msg6 {
@@ -139,6 +144,7 @@ error {
 	font-size: 18px;
 	color: #ff3d00;
 	padding-left: 80px;
+	font-weight: bold;
 }
 </style>
 <body>

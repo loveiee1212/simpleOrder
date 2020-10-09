@@ -8,7 +8,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
 <!-- <link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css"> -->
-<link rel="stylesheet" href="resources/css/clock.css?after" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <title>시재 - SimpleOrder</title>
 <style>
@@ -71,6 +71,7 @@ td.leftTd input:focus {
 td {
 	font-size: 30px;
 	text-align: center;
+	font-weight: bold;
 }
 
 #vcZone table {

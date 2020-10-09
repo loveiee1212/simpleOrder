@@ -34,7 +34,7 @@ body {
 #header {
 	width: 1490px;
 	height: 100px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	margin-top: -30px;
 	margin-left: -30px;
 }
@@ -76,14 +76,17 @@ li {
 
 .navbar-default .navbar-nav>li>a {
 	color: white;
+	font-weight: bold;
 }
 
 .navbar-default .navbar-nav>li>a:hover {
 	color: white;
+	font-weight: bold;
 }
 
 .container-fluid {
 	margin-top: 30px;
+	font-weight: bold;
 }
 
 .row {
@@ -91,13 +94,18 @@ li {
 }
 
 P {
-	font-size: 20px;
+	font-size: 25px;
 }
 
 h1 {
 	text-align: center;
 	font-size: 40px;
 	margin: 40px 500px 70px;
+	font-weight: bold;
+}
+
+h3 {
+    font-weight: bold;
 }
 </style>
 <body>

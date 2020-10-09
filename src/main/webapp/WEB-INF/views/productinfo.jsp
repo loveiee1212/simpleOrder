@@ -33,7 +33,7 @@ body {
 #header {
 	width: 1490px;
 	height: 100px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	margin-top: -30px;
 	margin-left: -30px;
 }
@@ -72,17 +72,20 @@ ul {
 .navbar-default .navbar-nav>li>a {
     padding-left: 65px;
 	color: white;
+	font-weight: bold;
 }
 
 .navbar-default .navbar-nav>li>a:hover {
 	padding-left: 65px;
 	color: white;
+	font-weight: bold;
 }
 
 h1 {
 	text-align: center;
 	font-size: 40px;
 	margin: 40px 500px 30px;
+	font-weight: bold;
 }
 
 .container-fluid {
@@ -96,6 +99,7 @@ h1 {
 h2 {
 	text-align: center;
 	margin-bottom: 30px;
+	font-weight: bold;
 }
 
 #product {
@@ -106,7 +110,8 @@ h2 {
 }
 
 li {
-margin-bottom: 30px;
+   margin-bottom: 30px;
+   font-weight: bold;
 }
 
 P {

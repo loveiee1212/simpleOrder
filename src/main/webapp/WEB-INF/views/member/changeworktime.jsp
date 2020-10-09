@@ -41,6 +41,7 @@ body {
 	font-size: 18px;
 	overflow: auto;
 	overflow-x: hidden;
+	font-weight: bold;
 }
 
 #empList::-webkit-scrollbar {
@@ -70,34 +71,37 @@ body {
 }
 
 #empCode {
-    border: 1px solid #2565a3;
+    border: 3px solid #2565a3;
 	width: 150px;
 	height: 40px;
     margin: 15px;
     font-size: 20px;
 	text-align: center;
 	padding-top: 20px;
+	font-weight: bold;
 }
 
 #empName {
-    border: 1px solid #2565a3;
+    border: 3px solid #2565a3;
 	width: 150px;
 	height: 40px;
     margin: 30px 15px 15px;
     font-size: 20px;
 	text-align: center;
 	padding-top: 20px;
+	font-weight: bold;
 }
 
 #change div {
 	display: inline-block;
-	border: 1px solid #2565a3;
+	border: 3px solid #2565a3;
 	width: 150px;
 	height: 40px;
 	margin: 20px 15px 10px;
 	font-size: 20px;
 	text-align: center;
 	padding-top: 20px;
+	font-weight: bold;
 }
 
 #change input {

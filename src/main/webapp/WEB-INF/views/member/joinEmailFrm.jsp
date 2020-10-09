@@ -33,7 +33,7 @@ body {
 #header {
 	width: 1490px;
 	height: 100px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	margin-top: -30px;
 	margin-left: -30px;
 }
@@ -75,10 +75,12 @@ li {
 
 .navbar-default .navbar-nav>li>a {
 	color: white;
+	font-weight: bold;
 }
 
 .navbar-default .navbar-nav>li>a:hover {
 	color: white;
+	font-weight: bold;
 }
 
 #joinInfo {
@@ -102,6 +104,7 @@ input:focus {
 	font-size: 18px;
 	margin-top: 15px;
 	margin-left: -30px;
+	border: 3px solid #2565a3;
 }
 
 #ce_pw, #c_code, #c_pw, #emp_name, #c_name {
@@ -109,12 +112,14 @@ input:focus {
 	height: 50px;
 	font-size: 18px;
 	margin-left: -30px;
+	border: 3px solid #2565a3;
 }
 
 #zipNo, #roadAddrPart1, #addrDetail {
 	font-size: 18px;
 	margin-left: -30px;
 	margin-bottom: 5px;
+	border: 3px solid #2565a3;
 }
 
 #add {
@@ -122,7 +127,7 @@ input:focus {
 	height: 53px;
 	margin-left: 4px;
 	border: 2px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 }
@@ -133,6 +138,7 @@ input:focus {
 	font-size: 18px;
 	margin-top: -2px;
 	margin-left: -30px;
+	border: 3px solid #2565a3;
 }
 
 #btn {
@@ -142,7 +148,7 @@ input:focus {
 	margin: -5px -30px 5px;
 	font-size: 25px;
 	outline: 0;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 }
@@ -152,6 +158,7 @@ input:focus {
 	font-size: 18px;
 	color: #ff3d00;
 	padding-left: 80px;
+	font-weight: bold;
 }
 </style>
 <body>
@@ -214,7 +221,7 @@ input:focus {
 						</tr>
 						<tr>
 							<td><input type="text" id="addrDetail" name="addrDetail" style="width: 383px; height: 50px;" value="${acountInfo.addrDetail}" placeholder="상세주소"  onkeydown="keyEvt()">
-							<input type="text" id="roadAddrPart2" style="width: 150px; height: 50px;" value="" placeholder="동" readonly value="${acountInfo.roadAddrpar2}" name="roadAddrPart2"></td>
+							<input type="text" id="roadAddrPart2" style="width: 150px; height: 50px; border: 3px solid #2565a3;" value="" placeholder="동" readonly value="${acountInfo.roadAddrpar2}" name="roadAddrPart2"></td>
 						</tr>
 						<tr><td id="msg7"></td></tr>
 						<tr>

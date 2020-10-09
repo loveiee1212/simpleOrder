@@ -43,28 +43,30 @@ div {
 }
 
 div #seat {
-    width: 1200px;
+    width: 1100px;
     height: 700px;
     clear: both;
     margin-top: 20px;
     overflow: auto;
+    overflow-x: hidden;
 }
 
 #seat::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #seat::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
+	width: 20px;
 	background-color: white;
 }
 
 #seat::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 #outerdiv {
@@ -74,7 +76,7 @@ div #seat {
 }
 
 .leftdiv {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 1200px;
 	height: 800px;
 	float: left;
@@ -105,22 +107,44 @@ div #seat {
 }
 
 .tables {
-    border: 3px solid #81d4fa;
+    border: 3px solid #2565a3;
     width: 200px;
-    height: 180px;
+    height: 150px;
     float: left;
     margin: 15px;
     opacity: 0.5;
     background-color: silver;
     font-size: 20px;
     float: left;
+    overflow: auto;
+    overflow-x: hidden;
+    color: white;
+    font-weight: bold;
+}
+
+.tables::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+.tables::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+.tables::-webkit-scrollbar-thumb {
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 #rightdiv {
 	width: 250px;
 	height: 800px;
 	background-color: white;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin-left: 10px;
 }
 
@@ -131,17 +155,17 @@ div #seat {
 	margin-left: 15px;
 	margin-top: 10px;
 	border: 1px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 	font-weight: bold;
 }
 
 .clickdiv p {
-	padding-top: 10px;
+	padding-top: 5px;
 }
 
 p {
-	font-size: 25px;
+	font-size: 28px;
 }
 
 #reservation {
@@ -192,34 +216,37 @@ p {
 }
 
 #r_middle {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 1200px;
 	height: 250px;
 	overflow: auto;
+	overflow-x: hidden;
 	border-collapse: collapse;
 }
 
 #r_middle::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #r_middle::-webkit-scrollbar {
-	width: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #r_middle::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 #r_middle th, #r_middle tr {
 	width: 300px;
 	height: 50px;
 	text-align: center;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	scrollbar-width: none;
 	border-left-color: white;
 	border-right-color: white;
@@ -252,7 +279,7 @@ p {
 #keypad ul li {
 	list-style: none;
 	border: 1px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 	width: 30px;
 	height: 20px;
@@ -282,12 +309,12 @@ p {
 #r_infotable input {
 	width: 150px;
 	height: 30px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	text-align: center;
 }
 
 textarea {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	resize: none;
 }
 
@@ -297,12 +324,12 @@ textarea {
 }
 
 #r_date {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	text-align: center;
 }
 
 .pagebutton {
-	border: 1px solid black;
+	border: 1px solid #2565a3;
 	width: 100px;
 	height: 100px;
 	float: left;
@@ -351,16 +378,16 @@ textarea {
 }
 
 #worktd input {
-	width: 90px;
-	height: 50px;
-	font-size: 18px;
-	font-weight: bold;
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 #btn1, #upbtn, #dtbtn {
 	width: 100px;
-	border: 3px solid #81d4fa;
-	background-color: #81d4fa;
+	border: 3px solid #2565a3;
+	background-color: #2565a3;
 	color: white;
 }
 
@@ -374,9 +401,9 @@ textarea {
 
 #btn2, #rebtn {
 	width: 100px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
-	color: #81d4fa;
+	color: #2565a3;
 }
 
 input:focus {
@@ -400,7 +427,7 @@ i {
 }
 
 #movediv {
-	border: 2px solid skyblue;
+	border: 2px solid #2565a3;
 	background-color: white;
 	margin-left: 320px;
 	width: 600px;
@@ -418,18 +445,18 @@ i {
 #cancelbutton {
 	width: 70px;
 	height: 50px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
-	color: #81d4fa;
+	color: #2565a3;
 	margin-left: 500px;
 }
 
 .sumorchange {
 	width: 150px;
 	height: 90px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
-	color: #81d4fa;
+	color: #2565a3;
 	margin-top : 60px;
 	margin-left: 100px;
 	display: none;

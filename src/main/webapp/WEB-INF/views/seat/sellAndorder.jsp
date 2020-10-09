@@ -29,7 +29,7 @@ body {
 }
 
 .innerdiv {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 740px;
 	height: 800px;
 	float: left;
@@ -37,21 +37,56 @@ body {
 }
 
 .innerdiv2 {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 740px;
 	height: 800px;
 	float: left;
 }
 
+#product table{
+    width: 700px;
+    height: 500px;
+}
+
+#product {
+    width: 700px;
+    height: 600px;
+    overflow: auto;
+	overflow-x: hidden;
+}
+
+#product::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#product::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+#product::-webkit-scrollbar-thumb {
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+.protd {
+    width: 150px;
+    height: 100px;
+    font-weight: bold;
+}
+
 #listbox input {
     width: 150px;
     height: 30px;
-    border: 2px solid #81d4fa;
     font-size: 20px;
     text-align: center;
 }
     
-#listbox button {
+#cancelbutton0 {
 	width: 70px;
 	height: 50px;
 	color: red;
@@ -59,60 +94,65 @@ body {
 	border: none;
 	font-size: 20px;
 	box-shadow: none;
+	font-weight: bold;
 }
 
 #listbox {
 	background-color: white;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 700px;
-	height: 350px;
+	height: 400px;
 	margin-left: 17px;
 	margin-top: 10px;
 	border-collapse: collapse;
 	overflow: auto;
+	overflow-x: hidden;
 }
 
 #listbox::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
 }
 
 #listbox::-webkit-scrollbar {
-	width: 10px;
-	background-color: #81d4fa;
+	width: 20px;
+	background-color: white;
 }
 
 #listbox::-webkit-scrollbar-thumb {
-	background-color: #81d4fa;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
-		.2)), color-stop(.5, transparent), to(transparent));
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 
 div #listbox tr, td {
 	border: none;
-	border-bottom: 3px solid #81d4fa;
 	width: 80px;
 	height: 20px;
 	padding: 20px;
 	margin: 30px;
 	text-align: center;
 	font-size: 20px;
+	font-weight: bold;
 }
 
 #moneylist {
 	border-top: none;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	width: 700px;
-	height: 120px;
+	height: 70px;
 	margin-left: 17px;
 	background-color: white;
 	font-size: 20px;
+	font-weight: bold;
 }
 
 #moneylist ul li {
 	list-style: none;
 	float: left;
-	margin-left: 15px;
+	margin-left: -17px;
 }
 
 li input {
@@ -123,16 +163,23 @@ li input {
 }
 
 .bottombox {
-	width: 300px;
+	width: 430px;
 	height: 280px;
 	margin-top: 15px;
-	margin-left: 45px;
 	float: left;
+}
+
+.bottombox2 {
+	width: 290px;
+    height: 280px;
+    margin-top: 15px;
+    margin-right: 15px;
+    float: right;
 }
 
 #paymentkind ul li {
 	list-style: none;
-	width: 80px;
+	width: 140px;
 	height: 30px;
 	margin-top: 5px;
 	margin-left: 9px;
@@ -140,13 +187,13 @@ li input {
 	text-align: center;
 	padding: 20px;
 	float: left;
-	font-size: 20px;
+	font-size: 23px;
 }
 
 #keypad ul li {
 	list-style: none;
 	border: 1px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 	width: 30px;
 	height: 20px;
@@ -162,13 +209,38 @@ li input {
 	-webkit-appearance: none;
 	margin: 0;
 } /* input 태그 안 number로 주었을 때 */
+
+#ctgtab {
+    width: 740px;
+    height: 80px;
+    overflow: auto;
+    overflow-y: hidden; 
+}
+
+#ctgtab::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#ctgtab::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+#ctgtab::-webkit-scrollbar-thumb {
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
 .tab {
-	overflow: hidden;
 	background-color: white;
 }
 
 .tab button {
-	color: #1565c0;
+	color: #2565a3;
 	font-weight: bold;
 	font-size: 20px;
 	background-color: white;
@@ -195,36 +267,31 @@ li input {
 	height: 120px;
 	margin-top: 15px;
 	margin-left: 25px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	font-size: 25px;
 	float: left;
 	opacity: 0.5;
 	background-color: silver;
 }
 
-#totalmoney, #takemoney, #uctmoney {
-	width: 100px;
-	height: 40px;
-	margin-left: 10px;
-	border: none;
-	text-align: center;
-}
-
-#endpay {
-    margin-top: 5px;
+#totalmoney, #endpay, #takemoney, #uctmoney {
+    margin: -20px 20px 5px 3px;
+    font-size: 20px;
+    border: none;
+    text-align: center;
 }
 
 #btn1, #btn2, #btn3 {
 	border: 3px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
 	font-weight: bold;
 }
 
 #btn4, #btn5 {
-    border: 3px solid #81d4fa;
+    border: 3px solid #2565a3;
     background-color: white;
-    color: #1565c0;
+    color: #2565a3;
     font-weight: bold;
 }
 
@@ -251,7 +318,7 @@ li input {
 	width : 450px;
 	height : 300px;
 	background-color: white;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin-left :32%;
 	margin-top: 17%;
 }
@@ -259,7 +326,7 @@ li input {
 #crd_name, #crd_phone {
     width: 400px;
     height: 50px;
-    border: 3px solid #81d4fa;
+    border: 3px solid #2565a3;
     text-align: center;
     font-size: 20px;
     margin: 30px 25px 5px;
@@ -268,13 +335,13 @@ li input {
 #addcreditbutton {
     width: 400px;
     height: 80px;
-    border: 2px solid white;
+    border: 3px solid #1565c0;
     background-color: #e3f2fd;
     font-weight : bold; 
 	color : #1565c0;
     margin: 20px 25px 5px;
     text-align: center;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 input:focus, button:focus {
@@ -317,7 +384,7 @@ input:focus, button:focus {
 						<li id="btn5" onclick="location.href='./sellpage'">뒤로가기</li>
 					</ul>
 				</div>
-				<div class="bottombox" id="keypad">
+				<div class="bottombox2" id="keypad">
 					<ul>
 						<li value="1">1</li>
 						<li value="2">2</li>

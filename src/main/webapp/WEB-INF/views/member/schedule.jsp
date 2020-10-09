@@ -12,8 +12,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
-<link rel="stylesheet" href="resources/css/calendar.css?after" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?after" type="text/css">
+<link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style>
 body {

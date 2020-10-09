@@ -54,7 +54,7 @@ body {
 	max-height: 100%;
 }
 
-input:focus {
+input:focus, button:focus {
 	outline: none;
 }
 
@@ -73,7 +73,7 @@ input:focus {
 	text-align: center;
 	margin-top: 0px;
 	border: 0;
-	border-bottom: 1px solid black;
+	border-bottom: 3px solid #2565a3;
 }
 
 #clogin {
@@ -83,7 +83,7 @@ input:focus {
 	margin: 10px 1px;
 	font-size: 25px;
 	outline: 0;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
 }
@@ -98,29 +98,29 @@ img {
 
 #cListInfo {
 	width: 1400px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	font-size: 20px;
 	margin-left: 50px;
 	z-index: 2;
 	border-collapse: collapse;
+	font-weight: bold;
 }
 
 #UPbtn {
 	width: 80px;
 	height: 50px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	background-color: white;
 	font-size: 18px;
 	font-weight: bold;
-	color: #81d4fa;
-	border: 3px solid #81d4fa;
+	color: #2565a3;
 }
 
 #DEbtn {
 	width: 80px;
 	height: 50px;
 	border: 2px solid white;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-size: 18px;
 	font-weight: bold;
 	color: white;
@@ -132,7 +132,7 @@ table {
 }
 
 th, td {
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 }
 
 #th, #td, #msg1 {
@@ -142,7 +142,7 @@ th, td {
 
 th {
 	background-color: white;
-	color: #81d4fa;
+	color: #2565a3;
 	width: 250px;
 	height: 40px;
 }
@@ -167,7 +167,7 @@ td:-webkit-scrollbar {
 	border: 2px solid white;
 	margin: 30px 50px 10px 48px;
 	outline: 0;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	font-size: 20px;
 	font-weight: bold;
 	color: white;
@@ -176,12 +176,12 @@ td:-webkit-scrollbar {
 #btn2 {
 	width: 650px;
 	height: 80px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin: 10px 0px 10px 47px;
 	padding: 5px 10px;
 	outline: 0;
 	background-color: white;
-	color: #81d4fa;
+	color: #2565a3;
 	font-size: 20px;
 	font-weight: bold;
 }

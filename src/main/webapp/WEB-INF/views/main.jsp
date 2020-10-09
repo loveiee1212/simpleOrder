@@ -33,7 +33,7 @@ body {
 #header {
 	width: 1490px;
 	height: 100px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	margin-top: -30px;
 	margin-left: -30px;
 }
@@ -84,10 +84,12 @@ ul {
 
 .navbar-default .navbar-nav>li>a {
 	color: white;
+	font-weight: bold;
 }
 
 .navbar-default .navbar-nav>li>a:hover {
 	color: white;
+	font-weight: bold;
 }
 
 .login {
@@ -106,7 +108,7 @@ input:focus {
 #id {
 	width: 540px;
 	height: 60px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	font-size: 18px;
 	margin: 0px -20px;
 }
@@ -114,7 +116,7 @@ input:focus {
 #pw {
 	width: 540px;
 	height: 60px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	font-size: 18px;
 	margin: 10px -20px 0px;
 }
@@ -125,26 +127,27 @@ input:focus {
 	border: 2px solid white;
 	margin: 0px 30px 10px -20px;
 	outline: 0;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	color: white;
+	font-weight: bold;
 }
 
 #btn2 {
 	width: 540px;
 	height: 60px;
-	border: 3px solid #81d4fa;
+	border: 3px solid #2565a3;
 	margin: 0px 30px 10px -20px;
 	padding: 5px 10px;
 	outline: 0;
 	background-color: white;
-	color: #81d4fa;
+	color: #2565a3;
 	font-weight: bold;
 }
 
 #line {
 	width: 540px;
 	height: 1px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	margin-top: 20px;
 	margin-bottom: 30px;
 	margin-left: -20px;
@@ -153,7 +156,7 @@ input:focus {
 #hline {
 	width: 1470px;
 	height: 1px;
-	background-color: #81d4fa;
+	background-color: #2565a3;
 	margin-top: 10px;
 	margin-bottom: 30px;
 	margin-left: -20px;
