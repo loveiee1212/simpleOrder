@@ -302,7 +302,7 @@ input:focus, button:focus, select:focus {
 					</div>
 				</div>
 				<div id="takeActionbox" class="bottombox">
-					<div class="takeAction">
+					<div class="takeAction" id='print_for_bill'>
 						<p>재출력</p>
 					</div>
 					<div class="takeAction">
@@ -311,7 +311,7 @@ input:focus, button:focus, select:focus {
 					<div class="takeAction">
 						<p>결제 변경</p>
 					</div>
-					<div class="takeAction2">
+					<div class="takeAction2" id='print_for_emp'>
 						<p>직원 재출력</p>
 					</div>
 					<div class="takeAction3" id='cancelpay'>
@@ -396,11 +396,41 @@ let obj = {};
 							$("#repay").css("color","#ddd");	
 						}
 						
+						if(oac_status==1){
+							$("#print_for_emp").css('color','#1565C0');
+						}else{
+							$("#print_for_emp").css('color','#ddd');
+						}
+						
+						
 					}
 
 		
 				 })
 	})
+	
+	$("#print_for_bill").click(function(){
+		console.log(obj);
+		var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=1";
+        var name = "popup test";
+        var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+           window.open(url, name, option);
+	})
+	
+	
+	$("#print_for_emp").click(function(){
+			console.log(obj);
+		if(oac_status!=1){
+			return false;
+		}else{
+			 var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=0";
+	         var name = "popup test";
+	         var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+	            window.open(url, name, option);
+		}
+	})
+	
+	
 	
 	$("#cancelpay").click(function(){
 		console.log(oac_status);
