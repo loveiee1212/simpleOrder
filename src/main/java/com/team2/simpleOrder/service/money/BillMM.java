@@ -139,6 +139,9 @@ public class BillMM {
 						sb.append("</tr>");
 						sb.append("<tr>");
 					}
+					sb.append("<tr>");
+					sb.append("<td colspan='4'></td>");
+					sb.append("</tr>");
 
 				}
 				break;
@@ -154,7 +157,9 @@ public class BillMM {
 						sb.append("<td class='rightT' colspan='2'>"
 								+ Integer.parseInt(payList.get(i).get("PMT_CARD").toString()) + "</td>");
 						sb.append("</tr>");
-						sb.append("<hr/>");
+						sb.append("<tr>");
+						sb.append("<td colspan='4'></td>");
+						sb.append("</tr>");
 					} else {
 						// 현금결제
 						sb.append("<tr>");
@@ -177,8 +182,13 @@ public class BillMM {
 											- (Integer.parseInt(payList.get(i).get("PMT_CASH").toString()))) + "</td>");
 							sb.append("</tr>");
 						}
-						sb.append("<hr/>");
+						sb.append("<tr>");
+						sb.append("<td colspan='4'></td>");
+						sb.append("</tr>");
 					}
+					sb.append("<tr>");
+					sb.append("<td colspan='4'></td>");
+					sb.append("</tr>");
 				}
 				sb.append("<tr>");
 				sb.append("<th class='leftT' colspan='2'>총 결제금액</th>");
@@ -198,7 +208,9 @@ public class BillMM {
 						sb.append("<td class='rightT' colspan='2'>"
 								+ Integer.parseInt(payList.get(i).get("PMT_CARD").toString()) + "</td>");
 						sb.append("</tr>");
-						sb.append("<hr/>");
+						sb.append("<tr>");
+						sb.append("<td colspan='4'></td>");
+						sb.append("</tr>");
 					} else {
 						// 현금결제
 						sb.append("<tr>");
@@ -221,8 +233,13 @@ public class BillMM {
 											- (Integer.parseInt(payList.get(i).get("PMT_CASH").toString()))) + "</td>");
 							sb.append("</tr>");
 						}
-						sb.append("<hr/>");
+						sb.append("<tr>");
+						sb.append("<td colspan='4'></td>");
+						sb.append("</tr>");
 					}
+					sb.append("<tr>");
+					sb.append("<td colspan='4'></td>");
+					sb.append("</tr>");
 				}
 				sb.append("<tr>");
 				sb.append("<th class='leftT' colspan='2'>총 결제금액</th>");
@@ -271,6 +288,9 @@ public class BillMM {
 						}
 						sb.append("<hr/>");
 					}
+					sb.append("<tr>");
+					sb.append("<td colspan='4'></td>");
+					sb.append("</tr>");
 				}
 				sb.append("<tr>");
 				sb.append("<th class='leftT' colspan='2'>총 결제금액</th>");
@@ -347,6 +367,30 @@ public class BillMM {
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		hMap.put("result", makeHtmlbList(bList));
 		return hMap;
+	}
+
+	public ModelAndView popupForPrint(HttpSession session, String bd_date, String oac_num, int oac_status, int ptype) {
+		String c_code = session.getAttribute("c_code").toString();
+		HashMap<String, Object> comList = new HashMap<String, Object>();
+		List<HashMap<String, Object>> pList = new ArrayList<HashMap<String, Object>>();
+		List<HashMap<String, Object>> payList = new ArrayList<HashMap<String, Object>>();
+		ModelAndView mav = new ModelAndView();
+		// 사업장정보 담기
+		comList = bDao.getcompanyList(c_code);
+		// 상품정보 담기
+		pList = bDao.getproductList(c_code, bd_date, oac_num);
+		String companyList = makehtmlcList(comList);
+		String productList = makehtmlproductList(pList, oac_status);
+		mav.addObject("cList",companyList);
+		mav.addObject("proList",productList);
+		// 결제정보 담기
+		if(ptype==1) {			
+			payList = bDao.getpayList(c_code, bd_date, oac_num);
+			String paymentList = makehtmlpaymentList(payList, oac_status);
+			mav.addObject("payList",paymentList);
+		}
+		mav.setViewName("money/popupForprint");
+		return mav;
 	}
 
 	
