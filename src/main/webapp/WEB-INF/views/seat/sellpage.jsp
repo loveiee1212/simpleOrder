@@ -151,9 +151,9 @@ div #seat {
 .clickdiv {
 	text-align: center;
 	width: 220px;
-	height: 100px;
+	height: 80px;
 	margin-left: 15px;
-	margin-top: 10px;
+	margin-top: 12px;
 	border: 1px solid white;
 	background-color: #2565a3;
 	color: white;
@@ -161,7 +161,7 @@ div #seat {
 }
 
 .clickdiv p {
-	padding-top: 5px;
+	padding-top: -2px;
 }
 
 p {
@@ -540,6 +540,23 @@ h2 {
     font-weight: bold;
     font-size: 20px;
 }
+#pClockDiv{
+	height : 100px;
+}
+#clientReqeustlistFlotDiv{
+	/*display : none;  */
+	width: 900px;
+    height: 800px;
+    position: absolute;
+    background-color: white;
+    transform: translate(-50%, 0%);
+    margin: 3% 40%;
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+    z-index: 100;
+	
+}
 </style>
 </head>
 <body>
@@ -560,7 +577,7 @@ h2 {
 				<div id="seat"></div>
 			</div>
 			<div id="rightdiv">
-				<div class="clickdiv">
+				<div class="clickdiv" id ='pClockDiv'>
 					<div id="Date"></div>
 					<ul>
 						<li id="hours"></li>
@@ -584,6 +601,9 @@ h2 {
 				</div>
 				<div class="clickdiv" onclick="location.href='./billcontrol'">
 					<p>영수증 관리</p>
+				</div>
+				<div class="clickdiv" id="main" onclick="getClientRequestList()">
+					<p>요청 내역 보기</p>
 				</div>
 				<div class="clickdiv" id="main" onclick="location.href='posmain'">
 					<p>나가기</p>
@@ -660,6 +680,7 @@ h2 {
 			</div>
 		</div>
 	</div>
+	<!-- 요청 사항 Div  -->
 	<div id="flotBox" style="display: none">
 		<h2>요청 사항</h2>
 		 <div id="sc_name"></div>의 
@@ -675,9 +696,40 @@ h2 {
 		 <input type="button" value="무시" id="Ignorebtn" onclick="ClientRequestIgnore()">
 		 <input type="hidden" id="request_time">
 	</div>
+	
+	<!-- 요청 내역 Div -->
+	<div id="clientReqeustlistFlotDivPar" style="display: none; height: 100%; width: 100%; position: absolute;">
+	<div id="clientReqeustlistFlotDivBg" onclick="flotBoxhidden()" style="position : absolute;height: 100% ; width: 100%;opacity: 0.0; z-index: 99;">
+	</div>
+	<div id="clientReqeustlistFlotDiv" >
+		<h2>요청 내역</h2>
+		<table id= clientRequestList>
+		</table>
+	</div>
+	</div>
 </body>
 
 <script type="text/javascript" id='park'>
+
+function flotBoxhidden(){
+	$("#clientReqeustlistFlotDivPar").css("display", "none");
+}
+
+
+function getClientRequestList(){
+	$("#clientReqeustlistFlotDivPar").css("display" , "block");
+	$.ajax({
+		url : "rest/getClientRequestList",
+		dataType : "json",
+		success : function(data){
+			$("#clientRequestList").html(data.requestList);
+			console.log(data);
+		}
+		
+		
+	})
+}
+
 let flag = true;
 
 	setInterval(function() {
@@ -707,9 +759,6 @@ function ClientRequestIgnore() {
 	}, 30000);
 }
 
-
-
-
 function updateClientRequest(){
 	$.ajax({
 		url : "rest/updateClientRequest",
@@ -720,6 +769,8 @@ function updateClientRequest(){
 		dataType : "json"
 	})
 }
+
+
 </script>
 <script>
 	clockon();

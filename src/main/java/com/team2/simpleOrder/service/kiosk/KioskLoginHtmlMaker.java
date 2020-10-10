@@ -55,5 +55,32 @@ public class KioskLoginHtmlMaker {
 
 	}
 
+	public HashMap<String, String> getClientRequestList(ArrayList<HashMap<String, String>> clientRequestList) {
+		System.out.println(clientRequestList);
+		sb.append("<tr>");
+		sb.append("<td>").append("카테고리").append("</td>");
+		sb.append("<td>").append("번호").append("</td>");
+		sb.append("<td>").append("요청 사항").append("</td>");
+		sb.append("<td>").append("응대 점원").append("</td>");
+		sb.append("<td>").append("요청 시간").append("</td>");
+		sb.append("</tr>");
+		for (HashMap<String, String> cr : clientRequestList) {
+			String sc_name = cr.get("SC_NAME");
+			String st_num = cr.get("ST_NUM");
+			String request = cr.get("REQUEST");
+			String emp_name = cr.getOrDefault("EMP_NAME","응대 전");
+			String request_time = String.valueOf(cr.get("REQUEST_TIME"));
+			sb.append("<tr>");
+			sb.append("<td>").append(sc_name).append("</td>");
+			sb.append("<td>").append(st_num).append("</td>");
+			sb.append("<td>").append(request).append("</td>");
+			sb.append("<td>").append(emp_name).append("</td>");
+			sb.append("<td>").append(request_time).append("</td>");
+			sb.append("</tr>");
+		}
+		hm.put("requestList", sb.toString());
+		return hm;
+	}
+
 
 }

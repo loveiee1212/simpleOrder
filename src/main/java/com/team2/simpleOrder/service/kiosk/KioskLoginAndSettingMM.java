@@ -125,7 +125,6 @@ public class KioskLoginAndSettingMM {
 	public String removeRequest(HashMap<String, String> requestInfo, HttpSession session, RedirectAttributes reat) {
 		requestInfo.put("c_code", session.getAttribute("c_code").toString());
 		requestInfo.put("rq_num", (Integer.parseInt(requestInfo.get("rq_num"))-1)+"");
-		System.out.println(requestInfo);
 		kDao.removeRequest(requestInfo);
 		reat.addFlashAttribute("basicPath","includeAjax('requestListSettingFrm')");
 		return "redirect:/kioskSettingFrm";
@@ -149,6 +148,12 @@ public class KioskLoginAndSettingMM {
 		requestInfo.put("c_code", session.getAttribute("c_code").toString());
 		requestInfo.put("emp_code", session.getAttribute("emp_code").toString());
 		kDao.updateClientRequest(requestInfo);
+	}
+
+	public HashMap<String, String> getClientRequestList(HttpSession session) {
+		KioskLoginHtmlMaker khm = new KioskLoginHtmlMaker();
+		return khm.getClientRequestList(kDao.getClientRequestList(session.getAttribute("c_code").toString()));
+		
 	}
 
 }

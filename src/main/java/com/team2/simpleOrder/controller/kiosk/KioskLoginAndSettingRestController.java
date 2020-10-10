@@ -44,5 +44,8 @@ public class KioskLoginAndSettingRestController {
 	public void updateClientRequest(HttpSession session , @RequestParam HashMap<String, String> requestInfo) {
 		km.updateClientRequest(session,requestInfo);
 	}
-
+	@GetMapping("/getClientRequestList")
+	public HashMap<String, String> getClientRequestList(HttpSession session) {
+		return km.getClientRequestList(session);
+	}
 }

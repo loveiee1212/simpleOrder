@@ -46,6 +46,12 @@ public interface KioskLoginAndSettingDao {
 
 	@Update("UPDATE REQUEST_LIST SET EMP_CODE = #{emp_code}, REQUEST_STATUS = '1' WHERE REQUEST_TIME = #{request_time} AND C_CODE = #{c_code}")
 	void updateClientRequest(HashMap<String, String> requestInfo);
+
+	@Select ("SELECT RL.SC_NAME, RL.ST_NUM, EMP.EMP_NAME,RL.REQUEST_TIME, RL.REQUEST "
+			+ "FROM REQUEST_LIST RL "
+			+ "LEFT OUTER JOIN EMP EMP ON RL.C_CODE = EMP.C_CODE AND RL.EMP_CODE = EMP.EMP_CODE "
+			+ "WHERE RL.C_CODE = #{c_code}")
+	ArrayList<HashMap<String, String>> getClientRequestList(String c_code);
 	
 	
 
