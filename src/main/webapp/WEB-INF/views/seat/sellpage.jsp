@@ -118,7 +118,7 @@ div #seat {
     float: left;
     overflow: auto;
     overflow-x: hidden;
-    color: white;
+    color: black;
     font-weight: bold;
 }
 

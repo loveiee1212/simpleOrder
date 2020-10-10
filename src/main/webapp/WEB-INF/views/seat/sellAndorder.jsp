@@ -701,9 +701,13 @@ $(document).ready(function(){
 				}
 				console.log(pdccodeArray);
 			}
-		if (pdccodeArray.length != 0) {
-			alert("주문 변경사항이 있습니다.")
-			return;
+		if (pdccodeArray.length != 0 && num !=1) {
+			//alert("주문 변경사항이 있습니다.")
+			if(confirm("주문 변경사항이 있습니다. 주문 내역 변경 후 결제합니다.")){
+				sendsaoList(paytype);
+			}else{				
+			return false;
+			}
 		};
 		}
 			
