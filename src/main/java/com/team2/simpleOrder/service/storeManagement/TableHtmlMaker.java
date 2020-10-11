@@ -48,7 +48,7 @@ public class TableHtmlMaker {
 			sb.append("<input type='hidden' id = 'sc_code' value='"+categori.get("SC_CODE")+"'>");
 			sb.append("<input type='number' id = 'x' value='"+categori.get("SC_X")+"'>");
 			sb.append("<input type='number' id = 'y' value='"+categori.get("SC_Y")+"'>");
-			sb.append("<input type='button' value ='저장' onclick ='updateSeatXYInfo(this)'>");
+			sb.append("<input type='button' value ='사이즈 변경' onclick ='updateSeatXYInfo(this)'>");
 			sb.append("</div>");
 			sb.append("</div>");
 		}
