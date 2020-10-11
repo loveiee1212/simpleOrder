@@ -520,7 +520,16 @@ $(document).ready(function(){
 							for(var i=0;i<$pdccode;i++){
 								if($("#pdcode"+i).data('code')==pdc_code&&$("#pdcode"+i).val()==pd_code){
 									$("#pdcode"+i).parents("tr").css("display",'');
+									if(tdiv.children("#pd_stock").data('code')!=-1){										
+									if(tdiv.children("#pd_stock").data('code')<Number($("#pdcnt"+i).val())+1){
+									alert("남은 재고 수량까지 주문 가능합니다.");
+									return false;
+									}
+									}
 									$("#pdcnt"+i).val(Number($("#pdcnt"+i).val())+1);
+									if(tdiv.children("#pd_stock").data('code')!=-1){										
+									$("#pdcnt"+i).attr('max',tdiv.children("#pd_stock").data('code'));
+									}
 									$("#totalprice"+i).text(Number($("#hiddenprice"+i).val())*Number($("#pdcnt"+i).val()));
 									totalprice();
 									return;
@@ -537,8 +546,13 @@ $(document).ready(function(){
 							value+="<td><p class ='price' id='totalprice"+$pdccode+"'>"+pd_price+"</p>";
 							value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 									+ "'/></td>";
-							value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-							+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
+							if(tdiv.children("#pd_stock").data('code')!=-1){
+								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
+								+"<input type='Number' name ='pdcnt' min='0' max='"+tdiv.children("#pd_stock").data('code')+"' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
+								}else{									
+								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
+								+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
+								}
 							value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 							value+="</tr>";
 							$("#listbox").children("center").children("table").append(value);
@@ -554,16 +568,35 @@ $(document).ready(function(){
 								value+="<td><p class ='price' id='totalprice"+$pdccode+"'>"+pd_price+"</p>";
 								value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 										+ "'/></td>";
+								if(tdiv.children("#pd_stock").data('code')!=-1){
+								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
+								+"<input type='Number' name ='pdcnt' min='0' max='"+tdiv.children("#pd_stock").data('code')+"' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
+								}else{									
 								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
 								+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
+								}
 								value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 								value+="</tr>";
 								value+="</table>";
 								$("#listbox").children("center").append(value);
 								totalprice();
 							}
-							$("tr").children($("input")).keyup(function(evt) {
+							$("tr").children($("input [name='pdcnt']")).keyup(function(evt) {
+								var $pdccode = $("input[name = 'pdcode']");
+								for(var i = 0; i<$pdccode.length;i++){
+									if($("#pdcnt"+i).attr("max")!=undefined){
+										console.log($("#pdcnt"+i).val());
+										console.log(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max")));
+										if(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max"))){
+											alert("주문한 수량이 남은 재고수량보다 큽니다.");
+											$("#pdcnt"+i).val($("#pdcnt"+i).attr("max"));
+											totalprice();
+											return false;
+										}
+									}
+								}								
 								totalprice();
+								
 							});
 						})
 					
@@ -592,10 +625,24 @@ $(document).ready(function(){
 
 	//수량변경 
 	$("tr").children($("input")).keyup(function(evt) {
+		
 		totalprice();
 	});
 
 	function totalprice() {
+		var $pdccode = $("input[name = 'pdcode']");
+		for(var i = 0; i<$pdccode.length;i++){
+			if($("#pdcnt"+i).attr("max")!=undefined){
+				if(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max"))){
+					alert("주문한 수량이 남은 재고수량보다 큽니다.");
+					$("#pdcnt"+i).val($("#pdcnt"+i).attr("max"));
+					totalprice();
+					return false;
+				}
+			}
+		}
+		
+		
 		for (var i = 0; i < $("tr").length; i++) {
 			var $pdcnt = $("#pdcnt" + i).val();
 			var $hiddenprice = $("#hiddenprice" + i).val();
@@ -622,12 +669,13 @@ $(document).ready(function(){
 			return false;
 		}
 		
-		console.log("paymentType:"+paytype);
 		var pdccodeArray = [];
 		var codeArray = [];
 		var cntArray = [];
 		var dateArray = [];
 		var $pdccode = $("input[name = 'pdcode']");
+		var isempty = [];
+		
 		
 		
 		if($("#before_num").val()!=undefined){
@@ -690,6 +738,31 @@ $(document).ready(function(){
 			"pd_code" : codeArray,
 			"oh_cnt" : cntArray
 		}
+		
+		
+		if($("#oac_num").val()!="null"||$("#oac_num").val()!=undefined){
+			for(var i = 0; i<$pdccode.length;i++){
+				if($("#pdcnt" + i).val()==0){
+					isempty.push($("#pdcnt" + i).val());
+				}
+			}
+		}
+		if(isempty.length==$pdccode.length){
+			if(confirm("주문 내역이 없습니다.해당 테이블의 주문 번호를 말소처리 하시겠습니까?")){
+				$.ajax({
+					type : 'post',
+					url : 'rest/cancelordernum',
+					data : {"oac_num" : $("#oac_num").val()},
+					dataType : 'json',
+					success : function(result){
+						alert(result.result);
+					}
+					
+				})	
+			}
+		}
+		
+		
 		$.ajax({
 			type : "post",
 			url : 'rest/sendsaolist',

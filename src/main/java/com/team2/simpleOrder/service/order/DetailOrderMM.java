@@ -31,6 +31,9 @@ public class DetailOrderMM {
 
 	@Autowired
 	private IProductDao pDao;
+	
+	@Autowired
+	private IOrderDao oDao2;
 
 	ModelAndView mav;
 
@@ -96,7 +99,6 @@ public class DetailOrderMM {
 				hMap.put("sc_code", sc_code);
 				hMap.put("st_num", st_num);
 				hMap.put("oac_num", oac_num);
-				log.info(hMap);
 				if (!oDao.createoacList(hMap)) {
 					resultMap.put("result", "errorSellpage");
 					return resultMap;
@@ -217,6 +219,21 @@ public class DetailOrderMM {
 			sb.append("</table>");
 		}
 		return sb.toString();
+	}
+
+	//주문번호 말소처리
+	public HashMap<String, String> cancelOrdernum(HttpSession session, String oac_num) {
+		HashMap<String, Object> insertMap = new HashMap<String, Object>();
+		insertMap.put("c_code", session.getAttribute("c_code").toString());
+		insertMap.put("bd_date", session.getAttribute("bd_date").toString());
+		insertMap.put("foac_num", oac_num);
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		if(!oDao2.deleteOrdernum(insertMap)) {
+			hMap.put("result", "말소 처리 실패. 다시 시도해주세요");
+		}else {
+			hMap.put("result", "말소처리 되었습니다.");
+		}
+		return hMap;
 	}
 
 	

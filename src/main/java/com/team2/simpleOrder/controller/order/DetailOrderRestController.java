@@ -39,5 +39,10 @@ public class DetailOrderRestController {
 	public HashMap<String, Object> getsellkeyList(HttpSession session) {
 		return om.getsellkeyList(session);
 	}
+	
+	@PostMapping("/cancelordernum")
+	public HashMap<String, String> cancelOrdernum(HttpSession session,String oac_num) {
+		return om.cancelOrdernum(session,oac_num);
+	}
 
 }
