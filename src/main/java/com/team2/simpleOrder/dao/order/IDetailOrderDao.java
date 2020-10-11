@@ -39,4 +39,7 @@ public interface IDetailOrderDao {
 
 	void updatestkList(HashMap<String, String> oacInfo);
 
+	//재매출
+	List<HashMap<String, Object>> resell(HashMap<String, Object> selectMap);
+
 }

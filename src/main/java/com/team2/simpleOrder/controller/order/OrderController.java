@@ -35,6 +35,7 @@ public class OrderController {
 	@RequestMapping(value = "/resell")
 	public ModelAndView reSell(HttpSession session,String bd_date,String oac_num,int oac_status) {
 		ModelAndView mav = new ModelAndView();
+		System.out.println(oac_num);
 		mav = om.reSell(session,bd_date,oac_num,oac_status);
 		return mav;
 	}

@@ -259,6 +259,20 @@ body {
 input:focus, button:focus, select:focus {
 	outline: none;
 }
+
+#cashbills{
+width : 300px;
+height : 300px;
+border : 3px solid #2565a3;
+background-color: white;
+position: absolute;
+margin-top: 17%;
+margin-left: 40%;
+display: none;
+}
+#cashname{
+margin-top: 10%;
+}
 </style>
 </head>
 <body>
@@ -305,7 +319,7 @@ input:focus, button:focus, select:focus {
 					<div class="takeAction" id='print_for_bill'>
 						<p>재출력</p>
 					</div>
-					<div class="takeAction">
+					<div class="takeAction" id='bills_for_cash'>
 						<p>현금 영수증</p>
 					</div>
 					<div class="takeAction">
@@ -323,6 +337,14 @@ input:focus, button:focus, select:focus {
 					<button id="Exit" type="button"
 						onclick="location.href='./sellpage'">뒤로가기</button>
 				</div>
+			</div>
+			<div id="cashbills">
+			<input type="radio" name='checktype'  value='1'/>개인소득공제용
+			<input type="radio" name='checktype' value='2'>사업자지출증빙용
+			<br/>
+			금액 <input type='number' id='cashbillsmoney' readonly="readonly"/><br/>
+			번호 <input type='text' id='cashname' placeholder="숫자 입력"/><br/>
+			<input type='button' onclick='sendcashbills()' id='sendcashbills' value='현금영수증 발급'>
 			</div>
 		</div>
 	</div>
@@ -354,6 +376,7 @@ let bd_date = "";
 let oac_num = "";
 let oac_status = "";
 let obj = {};
+let cashvalue = 0;
 
 	$(".bList_tr").click(function() {
 				let tr = $(this);
@@ -364,6 +387,7 @@ let obj = {};
 				bd_date = td.children("#bd_date").val();
 				oac_num = td.children("#oac_num").val();
 				oac_status = td.children("#oac_status").data('code');
+				cashvalue = Number(tr.children("#getcashvalue").text());
 				obj = {
 					"bd_date" : bd_date,
 					"oac_num" : oac_num,
@@ -375,7 +399,6 @@ let obj = {};
 					data : obj,
 					dataType : 'json',
 					success : function(data) {
-						console.log(data);
 						$("#titlename").html(data.companyName);
 						$("#companyList").html(data.companyList);
 						$("#hidden_status").val(data.oac_status);
@@ -388,10 +411,12 @@ let obj = {};
 						
 						//선택한 주문번호가 결제이거나 외상일 떄
 						if(oac_status==-1){
+							$("#bills_for_cash").css("color","white");
 						$("#cancelpay").css("color","red");
 						$("#repay").css("color","#81d4fa");
 						
 						}else{
+							$("#bills_for_cash").css("color","#ddd");
 							$("#cancelpay").css("color","#ddd");
 							$("#repay").css("color","#ddd");	
 						}
@@ -409,6 +434,26 @@ let obj = {};
 				 })
 	})
 	
+	//현금영수증
+	$("#bills_for_cash").click(function(){
+		if(oac_status!=-1){
+			return false;
+		}else{			
+		if(cashvalue<=0){
+			alert("현금 결제만 현금영수증이 가능합니다.");
+		}else{		
+				$("#cashbillsmoney").val(cashvalue);
+				$("#cashbills").css("display","block");
+			}
+		}
+	})
+	
+	
+	
+	
+	
+	
+	//프린트영수증
 	$("#print_for_bill").click(function(){
 		console.log(obj);
 		var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=1";
@@ -468,6 +513,7 @@ let obj = {};
 		}
 	} 
 	 function repay(obj){
+		 console.log(obj);
 		 if(confirm("재매출 시 해당하는 모든 상품이 반품 처리 됩니다. 재매출 처리 하시겠습니까 ?")){
 				$.ajax({
 					type : 'post',
@@ -475,7 +521,7 @@ let obj = {};
 					data : obj,
 					dataType : 'json',
 					success : function(result){
-						location.href = "./resell?oac_num=" + obj.oac_num+ "&bd_date=" + obj.bd_date + "&oac_num="+ obj.oac_num+ "&oac_status="+ obj.oac_status;
+						location.href = "./resell?bd_date=" + obj.bd_date + "&oac_num="+ obj.oac_num+ "&oac_status=-2";
 					}
 				});
 				}else{
@@ -483,5 +529,26 @@ let obj = {};
 				}
 	 
 	 }
+	 
+	 //현금영수증 작업
+	 function sendcashbills(){
+			if($('input[name="checktype"]:checked').val()==undefined){
+				alert("소득공제 또는 지출증빙 여부선택은 필수입니다.");
+				return false;
+			}
+			if(oac_status!=-1){
+				return false;
+			}
+			if($("#cashname").val()==""){
+				alert("공백 입력은 허용되지 않습니다.");
+				return false;
+			}
+			
+			 var url = "sendcashbills?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&cashamount="+$("#cashbillsmoney").val()+"&cash_name="+$("#cashname").val()+"&type="+$('input[name="checktype"]:checked').val();
+	         var name = "popup bills";
+	         var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+	            window.open(url, name, option);
+	         
+		}
 </script>
 </html>
