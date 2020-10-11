@@ -187,10 +187,6 @@ body {
 	float: left;
 }
 
-#repay {
-  color: #2565a3;
-}
-
 #takeActionbox {
 	width: 700px;
 	height: 260px;
@@ -261,17 +257,55 @@ input:focus, button:focus, select:focus {
 }
 
 #cashbills{
-width : 300px;
-height : 300px;
-border : 3px solid #2565a3;
-background-color: white;
-position: absolute;
-margin-top: 17%;
-margin-left: 40%;
-display: none;
+    width: 450px;
+    height: 300px;
+    border: 3px solid #2565a3;
+    background-color: white;
+    position: absolute;
+    margin-top: 15%;
+    margin-left: 40%;
+    display: none;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 20px;
 }
+
+input[type="radio" i] {
+    width: 30px;
+    height: 30px;
+}
+
+#cashbillsmoney {
+    width: 250px;
+    height: 50px;
+    border: 3px solid #2565a3;
+    margin-top: 30px;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+
 #cashname{
-margin-top: 10%;
+    width: 250px;
+    height: 50px;
+    border: 3px solid #2565a3;
+    margin-top: 20px;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#sendcashbills {
+    width: 350px;
+    height: 60px;
+    border: 3px solid #2565a3;
+    background-color: #2565a3;
+    color: white;
+    margin-top: 20px;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -331,7 +365,7 @@ margin-top: 10%;
 					<div class="takeAction3" id='cancelpay'>
 						<p>결제 취소</p>
 					</div>
-					<div class="takeAction2" id='repay'>
+					<div class="takeAction2" id='repay' style="color: #2565a3;">
 						<p>재매출</p>
 					</div>
 					<button id="Exit" type="button"
