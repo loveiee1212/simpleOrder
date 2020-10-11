@@ -32,27 +32,27 @@ body {
 
 #header {
 	border: 3px solid #e3f2fd;
-    background-color: #e0e0e0;
-    height: 70px;
-    text-align: center;
-    font-size: 30px;
-    padding-top: 30px;
+	background-color: #e0e0e0;
+	height: 70px;
+	text-align: center;
+	font-size: 30px;
+	padding-top: 30px;
 }
 
 #billdiv {
-    border: 2px solid #2565a3;
-    width: 568px;
-    height: 450px;
-        margin-top: 10px;
+	border: 2px solid #2565a3;
+	width: 568px;
+	height: 450px;
+	margin-top: 10px;
 }
 
 #bill {
-    width: 568px;
-    height: 300px;
-    float: left;
-    overflow: auto;
-    margin-top: 10px;
-    font-weight: bold;
+	width: 568px;
+	height: 300px;
+	float: left;
+	overflow: auto;
+	margin-top: 10px;
+	font-weight: bold;
 }
 
 #bill::-webkit-scrollbar-track {
@@ -180,15 +180,20 @@ p {
 input:focus {
 	outline: none;
 }
+
+#billMsg {
+	margin: 150px 0 0 195px;
+	font-size: 20px;
+}
 </style>
 </head>
 <body>
-	<%-- <h2>kioskMenu.jsp</h2>
+	<h2>kioskMenu.jsp</h2>
 	<h2>${sessionScope.c_code}</h2>
 	<h2>${sessionScope.bd_date}</h2>
 	<h2>${sessionScope.sc_code}</h2>
 	<h2>${sessionScope.st_num}</h2>
-	<h2>${sessionScope.oac_num}</h2> --%>
+	<h2>${sessionScope.oac_num}</h2>
 	<div id="frame">
 		<div id="header">
 			<font>광고와 로고</font> ${resultMsg}
@@ -244,13 +249,12 @@ input:focus {
 					$('#rvBtn').attr("onclick", "");
 					$('#rvBtn').remove();
 				}
-				//테이블 카테고리 적어주기
-				$('#seat').append(data.sc_name+" ");
-				$('#seat').append("${sessionScope.st_num}"+"번 테이블");
-				if(data.oac_time=="null"){
+				$('#seat').append(data.sc_name + " ");
+				$('#seat').append("${sessionScope.st_num}" + "번 테이블");
+				if (data.oac_time == "null") {
 					$("#min").html("주문을 추가해주세요");
-				}else{
-				clockOn(data.oac_time);
+				} else {
+					clockOn(data.oac_time);
 				}
 			},
 			error : function(err) {
@@ -283,40 +287,54 @@ input:focus {
 			}
 		}
 
-		/* 동적 시계 */
+		/* 동적 시계 , 테이블 번호 확인*/
 		function clockOn(oac_time) {
-			var newDate = new Date();
-			newDate.setDate(newDate.getDate());
-			var oac_hours = Number(60 * 60 * (oac_time.substring(11, 13)));
-			var oac_minutes = Number(60 * (oac_time.substring(14, 16)));
-			var oac_seconds = Number(oac_time.substring(17, 19));
-			setInterval(
-					function() {
-						var seconds = new Date().getSeconds();
-						var minutes = new Date().getMinutes();
-						var hours = new Date().getHours();
-						var now_seconds = Number(seconds < 10 ? "0" : "")
-								+ seconds;
-						var now_minutes = 60 * (Number(minutes < 10 ? "0" : "") + minutes);
-						var now_hours = 60 * 60 * (Number(hours < 10 ? "0" : "") + hours);
-						var sum = (now_hours + now_minutes + now_seconds)
-								- (oac_hours + oac_minutes + oac_seconds);
-						$("#hour").html(parseInt(sum / 3600) + "시간  ");
-						$("#min").html(parseInt((sum % 3600) / 60) + "분  ");
-						$("#sec").html(sum % 60 + "초");
+			setInterval(function() {
+				// 시작일시(주문 시간)
+				var startDate = new Date(
+						parseInt(oac_time.substring(0, 4), 10), parseInt(
+								oac_time.substring(5, 7), 10) - 1, parseInt(
+								oac_time.substring(8, 10), 10), parseInt(
+								oac_time.substring(11, 13), 10), parseInt(
+								oac_time.substring(14, 16), 10), parseInt(
+								oac_time.substring(17, 19), 10));
+				//현재 시각
+				const date = new Date();
+				const years = parseInt(date.getFullYear());
+				const months = parseInt(date.getMonth());
+				const days = parseInt(date.getDate());
+				const hours = parseInt(date.getHours());
+				const minutes = parseInt(date.getMinutes());
+				const seconds = parseInt(date.getSeconds());
+				// 종료일시
+				var endDate = new Date(years, months, days, hours, minutes,
+						seconds);
+				// 두 일자(startTime, endTime) 사이의 차이를 구한다.
+				var dateGap = endDate.getTime() - startDate.getTime();
+				var timeGap = new Date(0, 0, 0, 0, 0, 0, endDate - startDate);
 
-						$.ajax({
-							url : 'rest/getoacstatus',
-							type : 'post',
-							dataType : 'json',
-							success : function(data) {
-								if(data.view!=null){
-								location.href = data.view;
-								}
-							}
-						});
+				// 두 일자(startTime, endTime) 사이의 간격을 "일-시간-분"으로 표시한다.
+				//var diffDay = Math.floor(dateGap / (1000 * 60 * 60 * 24)); // 일수       
+				var diffHour = timeGap.getHours(); // 시간
+				var diffMin = timeGap.getMinutes(); // 분
+				var diffSec = timeGap.getSeconds(); // 초
 
-					}, 1000);
+				$("#hour").html(diffHour + "시간 ");
+				$("#min").html(diffMin + "분 ");
+				$("#sec").html(diffSec + "초 ");
+
+				$.ajax({
+					url : 'rest/getoacstatus',
+					type : 'post',
+					dataType : 'json',
+					success : function(data) {
+						if (data.view != null) {
+							location.href = data.view;
+						}
+					}
+				});
+
+			}, 1000);
 		};
 	</script>
 </body>

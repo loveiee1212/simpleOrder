@@ -40,22 +40,25 @@ public class KioskMainRestController {
 		return km1.getRequestList(session);
 	}
 
+	// 주문한 내역 리스트 출력
 	@PostMapping(value = "/getbilllist")
 	public HashMap<String, String> getBillList(HttpSession session) {
 		return km1.getBillList(session);
 	}
 
+	// 주문하기
 	@PostMapping(value = "/insertorder")
-	public String insertOrder(@RequestBody List<Map<String, String>> bArr, HttpSession session) {
-		String result = km1.insertOrder(session, bArr);
-		return new Gson().toJson(result);
+	public HashMap<String, String> insertOrder(@RequestBody List<Map<String, String>> bArr, HttpSession session) {
+		return km1.insertOrder(session, bArr);
 	}
 
+	// 메뉴페이지 정보 로딩
 	@PostMapping(value = "/kioskmainready")
 	public HashMap<String, String> kioskMainReady(HttpSession session) {
 		return km1.kioskMainReady(session);
 	}
 
+	// 주문상태 확인하기(setInterval)
 	@PostMapping(value = "/getoacstatus")
 	public HashMap<String, String> getOac_status(HttpSession session) {
 		return km1.getOac_status(session);

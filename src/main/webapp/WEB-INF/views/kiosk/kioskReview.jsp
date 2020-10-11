@@ -33,11 +33,11 @@ body {
 
 #header {
 	border: 3px solid #e3f2fd;
-    background-color: #e0e0e0;
-    height: 70px;
-    text-align: center;
-    font-size: 30px;
-    padding-top: 30px;
+	background-color: #e0e0e0;
+	height: 70px;
+	text-align: center;
+	font-size: 30px;
+	padding-top: 30px;
 }
 
 ul {
@@ -134,14 +134,14 @@ li {
 
 .orderdiv {
 	border-radius: 25px;
-    border: 1px solid rgb(133, 133, 133);
-    margin: 10px 15px 10px;
-    padding: 5px;
-    display: inline-block;
-    font-size: 15px;
-    line-height: 0.1em;
-    width: 130px;
-    text-align: center;
+	border: 1px solid rgb(133, 133, 133);
+	margin: 10px 15px 10px;
+	padding: 5px;
+	display: inline-block;
+	font-size: 15px;
+	line-height: 0.1em;
+	width: 130px;
+	text-align: center;
 }
 
 .rv_code_time {
@@ -194,6 +194,12 @@ li {
 button:focus {
 	outline: none;
 }
+
+#msg {
+	margin: 200px 50px;
+	text-align: center;
+	font-size: 30px;
+}
 </style>
 </head>
 
@@ -218,14 +224,21 @@ button:focus {
 		</div>
 	</div>
 	<script type="text/javascript">
-	if('${resultMsg}'!=""){
-		alert('${resultMsg}');
-	}
-	if('${creditOk}'!=""){
-		$('.write').css('display','inline');
-	}else{
-		$('.write').css('display','none');
-	}
+		if ('${resultMsg}' != "") {
+			alert('${resultMsg}');
+		}
+		if ('${creditOk}' != "") {
+			$('.write').css('display', 'inline');
+			$('.write').attr("onclick", "location.href='./kioskreviewwrite'");
+		} else {
+			$('.write').css('display', 'none');
+			$('.write').attr("onclick", "");
+		}
+		if ('${reviewOk}' != "") {
+			$('.Exit').css('display', 'none');
+			$('.Exit').attr("onclick", "");
+		}
+
 		getReviewList();
 		function getReviewList() {
 			$
@@ -239,12 +252,17 @@ button:focus {
 						success : function(data) {
 							console.log(data);
 							$('#reviewList').append(data.rvList);
-							if ($('.rv_detail').length % 5 == 0) {
-								$('#btn')
-										.html(
-												"<button id='addBtn' onclick='getReviewList();'>더보기</button>");
-							} else {
+							if ($('#msg').length == 1) {
 								$('#btn').html("");
+							} else {
+
+								if ($('.rv_detail').length % 5 == 0) {
+									$('#btn')
+											.html(
+													"<button id='addBtn' onclick='getReviewList();'>더보기</button>");
+								} else {
+									$('#btn').html("");
+								}
 							}
 						},
 						error : function(err) {

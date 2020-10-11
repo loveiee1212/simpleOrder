@@ -63,9 +63,17 @@ public interface IKioskDao1 {
 
 	@Select("SELECT OAC_STATUS FROM ORDER_AND_CREDIT WHERE C_CODE=#{c_code} AND BD_DATE=#{bd_date} AND OAC_NUM=#{oac_num}")
 	int getOac_status(@Param("c_code") String c_code, @Param("bd_date") String bd_date,
+			@Param("oac_num") String oac_num) ;
+
+	@Select("SELECT SC_CODE,ST_NUM FROM ORDER_AND_CREDIT WHERE C_CODE=#{c_code} AND BD_DATE=#{bd_date} AND OAC_NUM=#{oac_num}")
+	HashMap<String, String> checkTabNum(@Param("c_code") String c_code, @Param("bd_date") String bd_date,
 			@Param("oac_num") String oac_num);
-	
+
 	@Insert("INSERT INTO REQUEST_LIST VALUES (#{c_code}, #{text}, null, #{sc_name}, #{st_num}, '0', DEFAULT)")
 	void createRequest(HashMap<String, String> requestInfo);
+	
+	HashMap<String, String> checkStock(HashMap<String, String> hashMap);
+	
+
 
 }

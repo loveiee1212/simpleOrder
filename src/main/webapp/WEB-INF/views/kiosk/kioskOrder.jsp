@@ -44,12 +44,12 @@ li {
 
 li a {
 	display: block;
-    color: white;
-    text-align: center;
-    padding: 30px 29px;
-    text-decoration: none;
-    font-size: 25px;
-    font-weight: bold;
+	color: white;
+	text-align: center;
+	padding: 30px 29px;
+	text-decoration: none;
+	font-size: 25px;
+	font-weight: bold;
 }
 
 #footer_nav {
@@ -213,14 +213,12 @@ i {
 .pd_imgName {
 	width: 200px;
 	height: 200px;
-	margin: 5px;
-	overflow: hidden;
+	margin: 12px 20px 0 20px;
 }
 
 .pList_detail img {
-	min-width: 100%;
-    min-height: 100%;
-    -ms-interpolation-mode: bicubic;
+	max-width: 100%;
+	border-radius: 5px;
 }
 
 .pdc_code, .pd_code, .pd_date, .bsk_pdc_code, .bsk_pd_code, .bsk_pd_date
@@ -375,6 +373,11 @@ b {
 
 input:focus, button:focus {
 	outline: none;
+}
+
+#billMsg {
+	margin: 240px 0 0 160px;
+	font-size: 20px;
 }
 </style>
 <script type="text/javascript">
@@ -583,16 +586,16 @@ input:focus, button:focus {
 							transform : 'translate(-50%, -50%)',
 							msTransform : 'translate(-50%, -50%)',
 							webkitTransform : 'translate(-50%, -50%)'
-						}).show()
+						}).show(500)
 
 		// 닫기 버튼 처리, 배경 레이어와 모달 div 지우기
 		$('#basket_close_btn').on('click', function() {
 			bg.remove();
-			modal.hide();
+			modal.hide(500);
 		});
 		$('#bill_close_btn').on('click', function() {
 			bg.remove();
-			modal.hide();
+			modal.hide(500);
 		});
 
 	}
@@ -790,8 +793,9 @@ input:focus, button:focus {
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {
 					console.log(data);
+					alert(data.msg);
 					//return 가져온 데이터로 location.href 해주면 됨
-					location.href = data;
+					location.href = data.view;
 				},
 				error : function(err) {
 					console.log(err);

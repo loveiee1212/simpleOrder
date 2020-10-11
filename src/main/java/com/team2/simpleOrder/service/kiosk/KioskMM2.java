@@ -36,9 +36,9 @@ public class KioskMM2 {
 						rv.setRvImg_sysName(kfm.makeSysName(rv, i, rv_file.get(i).getOriginalFilename()));
 						kDao1.insertRvImg(rv);
 					}
+					session.setAttribute("reviewOk", "reviewOk");
 					session.removeAttribute("bd_date");
 					session.removeAttribute("oac_num");
-					session.removeAttribute("creditOk");
 					mav.addObject("resultMsg", "리뷰등록에 성공하였습니다");
 				} else {
 					mav.addObject("resultMsg", "리뷰등록에 실패하였습니다");
