@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.simpleOrder.dao.money.ICreditAndPaymentDao;
+import com.team2.simpleOrder.dao.order.IDetailOrderDao;
 
 import lombok.extern.log4j.Log4j;
 
@@ -21,6 +22,8 @@ import lombok.extern.log4j.Log4j;
 public class CreditAndPaymentMM {
 	@Autowired
 	ICreditAndPaymentDao cDao;
+	@Autowired
+	private IDetailOrderDao oDao;
 
 	// c_code와 주문상태코드가 0 인 데이터를 이용해 외상데이터를 받아옴
 	public HashMap<String, String> getcreditList(HttpSession session, int oac_status) {
@@ -36,8 +39,6 @@ public class CreditAndPaymentMM {
 
 	// 받아온 외상데이터를 html로 만들어주기
 	private String makeHtmlcreditList(List<HashMap<String, Object>> returnMap) {
-		log.info("returnMap:" + returnMap);
-		log.info("returnMap:" + returnMap.size());
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table id = 'crdtableList'>");
 		sb.append("<tr>");
@@ -71,7 +72,6 @@ public class CreditAndPaymentMM {
 		selecthMap.put("oac_status", oac_status);
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
 		List<HashMap<String, Object>> cList = cDao.getdetailCredit(selecthMap);
-		log.info("cList" + cList);
 		HashMap<String, Integer> total = cDao.selectpay(selecthMap);
 		if (total != null) {
 			hMap.put("endpay", total.get("TOTAL"));
@@ -117,12 +117,14 @@ public class CreditAndPaymentMM {
 			insertMap.put("bd_date", session.getAttribute("bd_date"));
 		} else {
 			insertMap.put("bd_date", bd_date);
+		}if(oac_num==null||oac_num=="null") {
+			insertMap.put("oac_num", oDao.getNewOacCode(session.getAttribute("c_code").toString(), bd_date));
+		}else {			
+			insertMap.put("oac_num", oac_num);
 		}
-		insertMap.put("oac_num", oac_num);
 		insertMap.put("get_cash", getmoney);
 		insertMap.put("money", paymoney);
 		insertMap.put("paytype", paytype);
-		log.info("insertMap:" + insertMap);
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		if (cDao.moneyPayment(insertMap)) {
 			hMap.put("result", "결제가 완료되었습니다.");
@@ -142,7 +144,6 @@ public class CreditAndPaymentMM {
 			hMap.put("bd_date", bd_date);
 		}
 		hMap.put("oac_num", oac_num);
-		log.info("hmap:" + hMap);
 		HashMap<String, String> resultMap = new HashMap<String, String>();
 		if (cDao.updateOac(hMap)) {
 			resultMap.put("result", "업데이트 성공! 메인으로 이동합니다.");
@@ -156,7 +157,6 @@ public class CreditAndPaymentMM {
 	@Transactional
 	public HashMap<String, String> addcreditList(HttpSession session, String oac_num, String crd_name, String crd_phone){
 		HashMap<String, String> hMap = new HashMap<String, String>();
-		System.out.println(crd_name +"/"+crd_phone);
 		if (oac_num == null || oac_num == "") {
 			hMap.put("result", "주문한 내역만 외상이 가능합니다. 주문 후 다시 시도하세요");
 			return hMap;

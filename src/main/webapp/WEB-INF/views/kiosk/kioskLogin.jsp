@@ -27,10 +27,14 @@ body {
 	margin: auto;
 }
 
+img {
+    width: 300px;
+    margin: 30px 130px;
+}
+
 #innerdiv {
 	width: 568px;
 	height: 500px;
-	margin-top: 200px;
 }
 
 #SecurityCodetable {
@@ -44,16 +48,11 @@ body {
 
 #header {
 	width: 568px;
-	height: 150px;
-	font-size: 30px;
-}
-
-#header {
-	width: 568px;
-	height: 50px;
+	height: 100px;
 	border: 2px solid #e3f2fd;
 	background-color: #e0e0e0;
 	margin: 10px;
+	font-size: 30px;
 }
 
 #securityCode {
@@ -76,7 +75,7 @@ body {
 	font-size: 25px;
 	text-align: center;
 	font-weight: bold;
-	margin-top: -100px;
+	margin-top: 50px;
 }
 
 #hline {
@@ -111,6 +110,7 @@ input:focus {
 					<tr>
 						<th id="header">광고</th>
 					</tr>
+					<tr><td><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></td></tr>
 					<tr>
 						<td><input type="text" id="securityCode" name='securityCode'
 							placeholder="인증번호 입력" maxlength="4"></td>

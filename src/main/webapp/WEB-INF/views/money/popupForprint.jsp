@@ -8,9 +8,8 @@
 </head>
 <body>
 ${cList}
-<div>
 ${proList}
-</div>
 ${payList}
+${cashBills}
 </body>
 </html>

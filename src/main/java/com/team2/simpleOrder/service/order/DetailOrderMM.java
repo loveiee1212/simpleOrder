@@ -31,6 +31,9 @@ public class DetailOrderMM {
 
 	@Autowired
 	private IProductDao pDao;
+	
+	@Autowired
+	private IOrderDao oDao2;
 
 	ModelAndView mav;
 
@@ -87,19 +90,15 @@ public class DetailOrderMM {
 		HashMap<String, String> resultMap = new HashMap<String, String>();
 		String c_code = session.getAttribute("c_code").toString();
 		String bd_date = session.getAttribute("bd_date").toString();
-		System.out.println(oac_num);
-		System.out.println(oac_num.equals("null"));
 		try {
 			if (oac_num.equals("null")) {
 				oac_num = oDao.getNewOacCode(c_code, bd_date);
-				log.info("oac_num 찾기 :"+oac_num);
 				HashMap<String, String> hMap = new HashMap<String, String>();
 				hMap.put("c_code", c_code);
 				hMap.put("bd_date", bd_date);
 				hMap.put("sc_code", sc_code);
 				hMap.put("st_num", st_num);
 				hMap.put("oac_num", oac_num);
-				log.info(hMap);
 				if (!oDao.createoacList(hMap)) {
 					resultMap.put("result", "errorSellpage");
 					return resultMap;
@@ -109,7 +108,6 @@ public class DetailOrderMM {
 			for (int i = 0; i < pdc_code.size(); i++) {
 				System.out.println(pd_code.get(i));
 				HashMap<String, String> oacInfo = new HashMap<String, String>();
-				// oacInfo.put("bd_date", session.getAttribute("bd_date").toString());
 				oacInfo.put("c_code", c_code);
 				oacInfo.put("bd_date", bd_date);
 				oacInfo.put("pdc_code", pdc_code.get(i));
@@ -117,7 +115,6 @@ public class DetailOrderMM {
 				oacInfo.put("pd_date", pd_date.get(i));
 				oacInfo.put("oh_cnt", oh_cnt.get(i));
 				oacInfo.put("oac_num", oac_num);
-				System.out.println("oac_info:"+oacInfo);
 				if (!oDao.sendsaoList(oacInfo)) {
 					resultMap.put("result", "errorSellpage");
 					return resultMap;
@@ -151,7 +148,6 @@ public class DetailOrderMM {
 	private String makeHtmlskList(List<HashMap<String, Object>> skcList) {
 		StringBuilder sb = new StringBuilder();
 		for(int i=0;i<skcList.size();i++) {
-			System.out.println(skcList.get(i));
 			sb.append("<div id='table" + i + "' class='tList'>");
 			sb.append("<table>");
 			int x = Integer.parseInt(skcList.get(i).get("SKC_X").toString());
@@ -184,8 +180,60 @@ public class DetailOrderMM {
 
 
 	public ModelAndView reSell(HttpSession session, String bd_date, String oac_num, int oac_status) {
-		// TODO Auto-generated method stub
-		return null;
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> selectMap = new HashMap<String, Object>();
+		selectMap.put("c_code",session.getAttribute("c_code"));
+		selectMap.put("bd_date",bd_date);
+		selectMap.put("oac_num",oac_num);
+		selectMap.put("oac_status",oac_status);
+		List<HashMap<String, Object>> pList = oDao.resell(selectMap);
+		mav.addObject("list", makeresellList(selectMap,pList));
+		mav.setViewName("seat/sellAndorder");
+		return mav;
+	}
+
+	private Object makeresellList(HashMap<String, Object> selectMap, List<HashMap<String, Object>> pList) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<input type='hidden' id='oac_num' value='" + null + "'/>");
+		sb.append("<input type='hidden' id='before_num' value='" + selectMap.get("oac_num") + "'/>");
+		sb.append("<input type='hidden' id='oac_status' value='" + selectMap.get("oac_status") + "'/>");
+		if (pList.size() > 0) {
+			sb.append("<table>");
+			for (int i = 0; i < pList.size(); i++) {
+				sb.append("<tr>");
+				sb.append("<td><input type='hidden' name='pdcode' id='pdcode" + i + "' data-code='"
+						+ pList.get(i).get("PDC_CODE") + "' value='" + pList.get(i).get("PD_CODE") + "'/>"
+						+ "<input type='hidden' name='pddate' id='pddate" + i + "' data-code='"
+						+ pList.get(i).get("PD_DATE") + "' value='" + pList.get(i).get("PD_DATE") + "'/>"
+						+ pList.get(i).get("PD_NAME") + "</td>");
+				sb.append("<td><p class ='price' id='totalprice" + i + "'></p>");
+				sb.append("<input type='hidden' id='hiddenprice" + i + "' value='" + pList.get(i).get("PD_PRICE")
+						+ "'/></td>");
+				sb.append("<td><input type='hidden' id='hiddencnt" + i + "' value='" + pList.get(i).get("OH_CNT")
+						+ "'/><input type='Number' name ='pdcnt' min='0' id='pdcnt" + i + "' onchange='totalprice()' value='"
+						+ pList.get(i).get("OH_CNT") + "'/></td>");
+				sb.append("<td><input type='button' id='cancelbutton"+i+"' onclick='cancelorder("+i+")' value='취소'/></td>");
+				sb.append("</tr>");
+
+			}
+			sb.append("</table>");
+		}
+		return sb.toString();
+	}
+
+	//주문번호 말소처리
+	public HashMap<String, String> cancelOrdernum(HttpSession session, String oac_num) {
+		HashMap<String, Object> insertMap = new HashMap<String, Object>();
+		insertMap.put("c_code", session.getAttribute("c_code").toString());
+		insertMap.put("bd_date", session.getAttribute("bd_date").toString());
+		insertMap.put("foac_num", oac_num);
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		if(!oDao2.deleteOrdernum(insertMap)) {
+			hMap.put("result", "말소 처리 실패. 다시 시도해주세요");
+		}else {
+			hMap.put("result", "말소처리 되었습니다.");
+		}
+		return hMap;
 	}
 
 	

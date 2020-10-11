@@ -43,12 +43,11 @@ div {
 }
 
 div #seat {
-    width: 1100px;
+    width: 1200px;
     height: 700px;
     clear: both;
     margin-top: 20px;
     overflow: auto;
-    overflow-x: hidden;
 }
 
 #seat::-webkit-scrollbar-track {
@@ -112,10 +111,7 @@ div #seat {
     height: 150px;
     float: left;
     margin: 15px;
-    opacity: 0.5;
-    background-color: silver;
-    font-size: 20px;
-    float: left;
+    font-size: 23px;
     overflow: auto;
     overflow-x: hidden;
     color: black;
@@ -160,12 +156,8 @@ div #seat {
 	font-weight: bold;
 }
 
-.clickdiv p {
-	padding-top: -2px;
-}
-
 p {
-	font-size: 28px;
+	font-size: 26px;
 }
 
 #reservation {
@@ -543,6 +535,7 @@ h2 {
 #pClockDiv{
 	height : 100px;
 }
+
 #clientReqeustlistFlotDiv{
 	/*display : none;  */
 	width: 900px;
@@ -555,7 +548,42 @@ h2 {
     font-weight: bold;
     font-size: 30px;
     z-index: 100;
-	
+}
+
+#clientRequestList {
+    width: 800px;
+    height: auto;
+    margin-left: 20px; 
+}
+
+#clientRequestList td {
+    width: 200px;
+    height: 90px;
+    text-align: center;
+}
+
+#clientRequestListdiv {
+    width: 900px;
+    height: 670px;
+    overflow: auto;
+}
+
+#clientRequestListdiv::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#clientRequestListdiv::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+#clientRequestListdiv::-webkit-scrollbar-thumb {
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 </style>
 </head>
@@ -593,7 +621,7 @@ h2 {
 				<div class="clickdiv">
 					<p>환전</p>
 				</div>
-				<div class="clickdiv" onclick="jointable()">
+				<div class="clickdiv" id='gropPayMent' onclick="jointable()">
 					<p>단체</p>
 				</div>
 				<div class="clickdiv" onclick='changetable()'>
@@ -703,13 +731,16 @@ h2 {
 	</div>
 	<div id="clientReqeustlistFlotDiv" >
 		<h2>요청 내역</h2>
-		<table id= clientRequestList>
+		<div id="clientRequestListdiv">
+		<table id="clientRequestList">
 		</table>
+		</div>
 	</div>
 	</div>
 </body>
 
 <script type="text/javascript" id='park'>
+let oac_list = [];
 
 function flotBoxhidden(){
 	$("#clientReqeustlistFlotDivPar").css("display", "none");
@@ -730,10 +761,11 @@ function getClientRequestList(){
 	})
 }
 
-let flag = true;
+let flag1 = true;
+let flag2 = true;
 
 	setInterval(function() {
-		if(flag){
+		if(flag1){
 			$.ajax({
 				url : "rest/getRequest",
 				dataType : "json",
@@ -750,7 +782,47 @@ let flag = true;
 				}
 			})
 		}
-	}, 500);
+		if(flag2){
+		getTablelist();
+		}
+		
+	}, 5000);
+	
+	
+	/* 단체클릭 */
+	function jointable() {
+		oac_list = [];
+		$tables = $(".tables");
+		
+		$tables.off();
+		flag2 = false;
+		$("#gropPayMent").children().eq(0).html("계산");
+		$("#gropPayMent").attr("onclick", "gropPayMent()");
+		$tables.on("click",function(ele){
+			if($(this).children("#oac_num").eq(0).val() != undefined){
+			oac_list.push($(this).children("#oac_num").eq(0).val());
+			$(this).css("border", "3px solid #0756FF");
+			}
+		})
+		
+	};
+	function gropPayMent(){
+		if(oac_list.length==0){
+			$("#gropPayMent").children().eq(0).html("단체");
+			$("#gropPayMent").attr("onclick", "jointable()");
+			flag2 = true;
+		}else{
+			$form = $("<form action = 'gropPayMent' name ='gropPayMentForm' method ='post'>");
+			for(oac_num of new Set(oac_list)){
+				$form.append($("<input type = 'hidden' name = '"+oac_num+"'>"));
+			};
+			$("body").append($form);
+			
+			console.log(gropPayMentForm);
+			console.log(gropPayMentForm.submit());
+		}
+	}
+	
 function ClientRequestIgnore() {
 	$("#flotBox").css("display", "none");
 	flag = false;
@@ -817,14 +889,13 @@ function updateClientRequest(){
 
 	/* ajax를 이용해 설정한 테이블 갯수 가져오기 */
 	function getTablelist() {
-
 		$.ajax({
 			type : "post",
 			url : "rest/gettablelist",
 			dataType : 'json',
 			success : function(result) {
-				$("div.tab").append(result.ctginfo);
-				$("#seat").append(result.tableinfo);
+				$("div.tab").html(result.ctginfo);
+				$("#seat").html(result.tableinfo);
 				for ( var a in result.list) {
 					for ( var b in result.list[a].tlist) {
 						//생성한 div가 활성화 된 테이블 번호와 같으면 css스타일 설정하기
@@ -860,7 +931,6 @@ function updateClientRequest(){
 		data : {"oac_status" : 1},
 		dataType : 'json',
 		success : function(data) {
-			console.log(data);
 			for(var i in data){
 				$("#tnum"+(data[i].sc_code)+(data[i].st_num)).append("<input type='hidden' id='oac_num' value='"+data[i].oac_num+"'/>");
 				$("#tnum"+(data[i].sc_code)+(data[i].st_num)).append("<br/>"+data[i].pd_name+" "+data[i].oh_cnt);
@@ -1086,21 +1156,12 @@ function updateClientRequest(){
 		console.log("moneychange.");
 	};
 
-	/* 단체클릭 */
-	function jointable() {
-		var $table = $(".tables");
-		var tnum = [];
-		console.log($table.length);
-		for (var i = 0; i < $table.length; i++) {
-			console.log($(".tables").data("code"));
-			tnum.push($(".tables").data("code"));
-		}
-		location.href = "./sao?tnum=" + tnum;
-	};
+
 
 	/* 이동클릭 */
 	function changetable() {
 		$(".tables").off();
+		flag2 = false;
 		$("#movediv").css('display', 'block');
 		$(".tables").on("click",function() {
 			var firstcode = $(this).data("code");

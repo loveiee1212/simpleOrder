@@ -314,6 +314,7 @@ $(document).keydown(function(data){
 }
 
 	function cLogindivon(cCode){	//모달 박스 키기, 정보 입력
+		console.log(cCode);
 		cLogin.action = 'cLogin';
 		$("#flotBoxDiv").addClass("on");
 		$("#c_code").val(cCode);

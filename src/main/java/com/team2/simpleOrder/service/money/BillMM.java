@@ -100,8 +100,8 @@ public class BillMM {
 				sb.append("<td></td>");
 				sb.append("<td></td>");
 			} else {
-				sb.append("<td>" + bList.get(i).get("TOTALCASH") + "</td>");
-				sb.append("<td id='getCashvalue'>" + bList.get(i).get("TOTALCARD") + "</td>");
+				sb.append("<td id='getcashvalue'>" + bList.get(i).get("TOTALCASH") + "</td>");
+				sb.append("<td id='getCardvalue'>" + bList.get(i).get("TOTALCARD") + "</td>");
 			}
 			sb.append("<td><input type='hidden' id ='oac_status' data-code='" + bList.get(i).get("oac_status") + "'>"
 					+ bList.get(i).get("oac_name") + "</td>");
@@ -393,6 +393,75 @@ public class BillMM {
 		return mav;
 	}
 
-	
+
+	//현금영수증 데이터 전송
+	public ModelAndView sendcashbills(HttpSession session, int cashamount, String bd_date, String oac_num,
+			int oac_status, String cash_name, int type) {
+		HashMap<String, Object> insertMap = new HashMap<String, Object>();
+		insertMap.put("c_code", session.getAttribute("c_code").toString());
+		insertMap.put("bd_date", bd_date);
+		insertMap.put("oac_num", oac_num);
+		insertMap.put("oac_status", oac_status);
+		insertMap.put("cashamount", cashamount);
+		insertMap.put("cashname", cash_name);
+		insertMap.put("type", type);
+		System.out.println("현금영수증 데이터"+insertMap);
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> comList = new HashMap<String, Object>();
+		List<HashMap<String, Object>> pList = new ArrayList<HashMap<String, Object>>();
+		Integer cash = 0;
+		comList = bDao.getcompanyList(session.getAttribute("c_code").toString());
+		pList = bDao.getproductList(session.getAttribute("c_code").toString(), bd_date, oac_num);
+		cash = bDao.getCashList(session.getAttribute("c_code").toString(),bd_date,oac_num);
+		String companyList = makehtmlcList(comList);
+		String productList = makehtmlproductList(pList, oac_status);
+		String payList = makehtmlpayList(cash);
+		mav.addObject("cList",companyList);
+		mav.addObject("proList",productList);
+		mav.addObject("payList",payList);
+		mav.addObject("cashBills", makeHtmlBillsForCash(insertMap));
+		mav.setViewName("money/popupForprint");
+		return mav;
+	}
+
+	//현금 결제내역 html 만들기
+	private String makehtmlpayList(Integer cash) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<hr/>");
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>현금결제 금액</td>");
+		sb.append("<td>"+cash+"</td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+		return sb.toString();
+	}
+
+	private String makeHtmlBillsForCash(HashMap<String, Object> insertMap) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<hr/>");
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td colspan='2'>현금영수증종류</td>");
+		if(Integer.parseInt(insertMap.get("type").toString())==1) {			
+			sb.append("<td colspan='2'>개인소득공제용</td>");
+		}else if(Integer.parseInt(insertMap.get("type").toString())==2){			
+			sb.append("<td colspan='2'>사업자지출증빙용</td>");
+		}
+		sb.append("</tr>");
+		sb.append("<td colspan='2'>결제금액</td>");
+		sb.append("<td colspan='2'>"+insertMap.get("cashamount")+"</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td colspan='2'>현금영수증번호</td>");
+		if(Integer.parseInt(insertMap.get("type").toString())==1) {				
+			sb.append("<td colspan='2'>"+insertMap.get("cashname").toString().substring(0,3)+"****"+insertMap.get("cashname").toString().substring(7)+"</td>");
+		}else {
+			sb.append("<td colspan='2'>"+insertMap.get("cashname").toString().substring(0,3)+"*****"+insertMap.get("cashname").toString().substring(8,12)+"</td>");
+		}
+		sb.append("</tr>");
+		sb.append("</table>");
+		return sb.toString();
+	}	
 
 }
