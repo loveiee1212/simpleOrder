@@ -43,12 +43,11 @@ div {
 }
 
 div #seat {
-    width: 1100px;
+    width: 1200px;
     height: 700px;
     clear: both;
     margin-top: 20px;
     overflow: auto;
-    overflow-x: hidden;
 }
 
 #seat::-webkit-scrollbar-track {
@@ -112,10 +111,7 @@ div #seat {
     height: 150px;
     float: left;
     margin: 15px;
-    opacity: 0.5;
-    background-color: silver;
-    font-size: 20px;
-    float: left;
+    font-size: 23px;
     overflow: auto;
     overflow-x: hidden;
     color: black;
@@ -160,12 +156,8 @@ div #seat {
 	font-weight: bold;
 }
 
-.clickdiv p {
-	padding-top: -2px;
-}
-
 p {
-	font-size: 28px;
+	font-size: 26px;
 }
 
 #reservation {
@@ -543,6 +535,7 @@ h2 {
 #pClockDiv{
 	height : 100px;
 }
+
 #clientReqeustlistFlotDiv{
 	/*display : none;  */
 	width: 900px;
@@ -555,7 +548,42 @@ h2 {
     font-weight: bold;
     font-size: 30px;
     z-index: 100;
-	
+}
+
+#clientRequestList {
+    width: 800px;
+    height: auto;
+    margin-left: 20px; 
+}
+
+#clientRequestList td {
+    width: 200px;
+    height: 90px;
+    text-align: center;
+}
+
+#clientRequestListdiv {
+    width: 900px;
+    height: 670px;
+    overflow: auto;
+}
+
+#clientRequestListdiv::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#clientRequestListdiv::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+#clientRequestListdiv::-webkit-scrollbar-thumb {
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 </style>
 </head>
@@ -703,8 +731,10 @@ h2 {
 	</div>
 	<div id="clientReqeustlistFlotDiv" >
 		<h2>요청 내역</h2>
-		<table id= clientRequestList>
+		<div id="clientRequestListdiv">
+		<table id="clientRequestList">
 		</table>
+		</div>
 	</div>
 	</div>
 </body>

@@ -27,10 +27,14 @@ body {
 	margin: auto;
 }
 
+img {
+    width: 300px;
+    margin: 30px 130px;
+}
+
 #innerdiv {
 	width: 568px;
 	height: 500px;
-	margin-top: 200px;
 }
 
 #SecurityCodetable {
@@ -106,6 +110,7 @@ input:focus {
 <body>
 	<div id="frame">
 		<div id="innerdiv">
+		    <img src="resources/image/logo.png" alt="SimpleOrder 홈페이지">
 			<form action="accessSecurityCode" method="post">
 				<table id="SecurityCodetable">
 					<tr>
