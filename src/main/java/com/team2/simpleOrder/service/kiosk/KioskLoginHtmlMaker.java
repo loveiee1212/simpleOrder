@@ -69,7 +69,7 @@ public class KioskLoginHtmlMaker {
 			String st_num = cr.get("ST_NUM");
 			String request = cr.get("REQUEST");
 			String emp_name = cr.getOrDefault("EMP_NAME","응대 전");
-			String request_time = String.valueOf(cr.get("REQUEST_TIME"));
+			String request_time = String.valueOf(cr.get("REQUEST_TIME")).split(" ")[1];
 			sb.append("<tr>");
 			sb.append("<td>").append(sc_name).append("</td>");
 			sb.append("<td>").append(st_num).append("</td>");

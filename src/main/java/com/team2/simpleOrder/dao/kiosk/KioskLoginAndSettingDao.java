@@ -50,7 +50,8 @@ public interface KioskLoginAndSettingDao {
 	@Select ("SELECT RL.SC_NAME, RL.ST_NUM, EMP.EMP_NAME,RL.REQUEST_TIME, RL.REQUEST "
 			+ "FROM REQUEST_LIST RL "
 			+ "LEFT OUTER JOIN EMP EMP ON RL.C_CODE = EMP.C_CODE AND RL.EMP_CODE = EMP.EMP_CODE "
-			+ "WHERE RL.C_CODE = #{c_code}")
+			+ "WHERE RL.C_CODE = #{c_code} "
+			+ "ORDER BY RL.REQUEST_TIME DESC")
 	ArrayList<HashMap<String, String>> getClientRequestList(String c_code);
 	
 	

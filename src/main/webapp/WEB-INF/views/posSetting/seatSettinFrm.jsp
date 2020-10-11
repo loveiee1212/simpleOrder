@@ -180,7 +180,7 @@ table, tr, td, th {
 input[type="button" i] {
 	text-align: center;
 	border: 2px solid white;
-	width: 150px;
+	width: 200px;
 	height: 60px;
 	margin-right: 49px;
 	margin-top: 10px;
