@@ -80,14 +80,14 @@ public class BillMM {
 	// 전체내역 html 태그 변환 출력
 	private String makeHtmlbList(List<HashMap<String, Object>> bList) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<table>");
+		sb.append("<table id='billsList'>");
 		sb.append("<tr>");
 		sb.append("<th style='width : 10px;'>No.</th>");
-		sb.append("<th>주문번호</th>");
+		sb.append("<th onclick='sortContent(1)'>주문번호</th>");
 		sb.append("<th>영업일</th>");
-		sb.append("<th>현금결제금액</th>");
-		sb.append("<th>카드결제금액</th>");
-		sb.append("<th>주문상태</th>");
+		sb.append("<th onclick='sortContent(3)'>현금결제금액</th>");
+		sb.append("<th onclick='sortContent(4)'>카드결제금액</th>");
+		sb.append("<th onclick='sortContent(5)'>주문상태</th>");
 		sb.append("</tr>");
 		for (int i = 0; i < bList.size(); i++) {
 			sb.append("<tr class='blist_tr'>");

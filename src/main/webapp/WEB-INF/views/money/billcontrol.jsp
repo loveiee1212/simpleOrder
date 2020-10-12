@@ -397,6 +397,49 @@ display : none;
 	</div>
 </body>
 <script>
+
+var sortType = 'asc'; 
+
+function sortContent(index) {
+    var table = $("#billsList");
+
+    sortType = (sortType =='asc')?'desc' : 'asc';
+
+    var checkSort = true;
+    var rows = table[0].rows;
+    console.log(rows)
+
+    while (checkSort) { // 현재와 다음만 비교하기때문에 위치변경되면 다시 정렬해준다.
+        checkSort = false;
+
+        for (var i = 1; i < (rows.length-1); i++) {
+           var fCell = rows[i].cells[index].innerHTML.toUpperCase();
+            var sCell = rows[i + 1].cells[index].innerHTML.toUpperCase();
+//var fCell = rows[i].cells[index]; 
+//var sCell = rows[i + 1].cells[index];
+console.log(fCell);
+console.log(sCell);
+
+            var row = rows[i];
+           // if (fCell.innerHTML.toLowerCase() > sCell.innerHTML.toLowerCase()) { 
+            //	row.parentNode.insertBefore(row, row); 
+            	//}
+
+            // 오름차순<->내림차순 ( 이부분이 이해 잘안됬는데 오름차순이면 >, 내림차순이면 <
+            //                        이고 if문의 내용은 동일하다 )
+            if ( (sortType == 'asc' && fCell > sCell) || 
+                    (sortType == 'desc' && fCell < sCell) ) {
+
+                row.parentNode.insertBefore(row.nextSibling, row);
+                checkSort = true;
+            }
+        }
+    }
+}
+
+
+
+
 function searchbills(){
 	var date = $("#b_date").val();
 	var code = $("#b_code").val();
@@ -411,10 +454,106 @@ function searchbills(){
 		dataType : 'json',
 		success : function(data){
 			$("#b_middlebox").html(data.result);
+			
+			let bd_date = "";
+			let oac_num = "";
+			let oac_status = "";
+			let obj = {};
+			let cashvalue = 0;
+			
+			$(".bList_tr").click(function() {
+				let tr = $(this);
+				let td = tr.children();
+				/* tr 행의 정보들을 Arr에 담음 */
+				$("tr").css('background-color', 'white');
+				tr.css('background-color', '#ddd');
+				bd_date = td.children("#bd_date").val();
+				oac_num = td.children("#oac_num").val();
+				oac_status = td.children("#oac_status").data('code');
+				cashvalue = Number(tr.children("#getcashvalue").text());
+				obj = {
+					"bd_date" : bd_date,
+					"oac_num" : oac_num,
+					"oac_status" : oac_status
+				}
+				console.log(obj);
+				 $.ajax({
+					type : 'post',
+					url : 'rest/getdetailbill',
+					data : obj,
+					dataType : 'json',
+					success : function(data) {
+						$("#titlename").html(data.companyName);
+						$("#companyList").html(data.companyList);
+						$("#hidden_status").val(data.oac_status);
+						$("#proList").html(data.productList);
+						$("#bottom_info").html(data.paymentList);
+						$("#uctcredit").html(Number($("#all_total").text())-$("#total").val());
+						
+						
+						let status = $("#hidden_status").val();
+						
+						//선택한 주문번호가 결제이거나 외상일 떄
+						if(oac_status==-1){
+							$("#bills_for_cash").css("color","white");
+						$("#cancelpay").css("color","red");
+						$("#repay").css("color","#81d4fa");
+						
+						}else{
+							$("#bills_for_cash").css("color","#ddd");
+							$("#cancelpay").css("color","#ddd");
+							$("#repay").css("color","#ddd");	
+						}
+						
+						if(oac_status==1){
+							$("#print_for_emp").css('color','#1565C0');
+						}else{
+							$("#print_for_emp").css('color','#ddd');
+						}
+						
+						
+						$("#print_for_bill").click(function(){
+							
+							var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=1";
+					        var name = "popup test";
+					        var option = "width = 350, height = 400, top = 100, left = 200, location = no"
+					           window.open(url, name, option);
+						})
+						
+						$("#print_for_emp").click(function(){
+		if(oac_status!=1){
+			return false;
+		}else{
+			 var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=0";
+	         var name = "popup test";
+	         var option = "width = 350, height = 400, top = 100, left = 200, location = no"
+	            window.open(url, name, option);
+		}
+	})
+	
+			$("#bills_for_cash").click(function(){
+		if(oac_status!=-1){
+			return false;
+		}else{			
+		if(cashvalue<=0){
+			alert("현금 결제만 현금영수증이 가능합니다.");
+		}else{		
+				$("#cashbillsmoney").val(cashvalue);
+				$("#cashbills").css("display","block");
+				$("#background").css("display","block");
+			}
+		}
+	})
+						
+					}
+
+		
+				 })
+	})
+			
 		}
 	});
 }
-
 
 
 let bd_date = "";
@@ -422,6 +561,9 @@ let oac_num = "";
 let oac_status = "";
 let obj = {};
 let cashvalue = 0;
+
+
+
 
 	$(".bList_tr").click(function() {
 				let tr = $(this);
@@ -438,6 +580,7 @@ let cashvalue = 0;
 					"oac_num" : oac_num,
 					"oac_status" : oac_status
 				}
+				console.log(obj);
 				 $.ajax({
 					type : 'post',
 					url : 'rest/getdetailbill',
@@ -501,6 +644,7 @@ let cashvalue = 0;
 	
 	//프린트영수증
 	$("#print_for_bill").click(function(){
+		
 		var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=1";
         var name = "popup test";
         var option = "width = 350, height = 400, top = 100, left = 200, location = no"
