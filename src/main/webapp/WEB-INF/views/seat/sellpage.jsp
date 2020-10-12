@@ -996,7 +996,6 @@ function updateClientRequest(){
 		tr.css('background-color', '#ddd');
 		/* tr 행의 정보들을 Arr에 담음 */
 		td.each(function(i) {tdArr.push(td.eq(i).text());});
-		console.log("배열에 담긴 값 : " + tdArr);
 		/* 배열에 담긴 값을 상세정보에 출력 */
 		var rsv_code = $(this).data("code");
 		var rsv_phone = td.eq(1).text();
@@ -1018,7 +1017,6 @@ function updateClientRequest(){
 
 	/* 특정일 조회시 검색되는 예약정보 출력  */
 	function searchReserv() {
-		console.log($("#rsv_date").val());
 		$.ajax({
 			type : "post",
 			url : "rest/searchreserv",
@@ -1102,7 +1100,6 @@ function updateClientRequest(){
 			data : {"rsv_code" : $("#rsv_code").val()},
 			dataType : 'json',
 			success : function(data) {
-				console.log(data);
 				alert(data.result);
 				reservation();
 			},
@@ -1132,7 +1129,6 @@ function updateClientRequest(){
 		if ($(this).val() == 11 || $(this).val() == 12) {
 			return;
 		}
-		console.log($(this).val());
 		str += $(this).val();
 		//console.log(str);
 		$("#rsv_phone").val(str);
@@ -1166,8 +1162,6 @@ function updateClientRequest(){
 		$(".tables").on("click",function() {
 			var firstcode = $(this).data("code");
 			var firstoac_num = $(this).children("#oac_num").val();
-			console.log("첫번째로 선택된 값:" + firstcode + firstoac_num);
-			console.log($(this).children("#oac_num").val() == null);
 			if ($(this).children("#oac_num").val() == null) {
 				$("#movep").html("주문중인 테이블만 이동이 가능합니다.");
 				return false;
@@ -1181,7 +1175,7 @@ function updateClientRequest(){
 		location.reload();
 		$(".tables").off();
 		$(".tables").on();
-		changetable()
+		changetable();
 		$("#movediv").css('display', 'none');
 		$(".tables").css("border", "3px solid #81d4fa");
 		$("#movep").text("이동시킬 테이블을 클릭해주세요");
@@ -1216,11 +1210,6 @@ function updateClientRequest(){
 		});
 	}
 		function changeseatajax(firstcode,firstoac_num,secondcode,secondoac_num,changetype){
-			console.log(firstcode);
-			console.log(secondcode);
-			console.log(firstoac_num);
-			console.log(secondoac_num);
-			console.log(changetype);
 			var objparam = {
 					"fcode" : firstcode,
 					"foac_num" :firstoac_num ,
@@ -1228,14 +1217,12 @@ function updateClientRequest(){
 					"soac_num" : secondoac_num,	
 					"type" : changetype
 			}
-			console.log("objparam:"+objparam);
 			$.ajax({
 				type : 'post',
 				url : "rest/changeseat",
 				data : objparam,
 				dataType : 'json',
 				success : function(result){
-					console.log(result);
 					$("#movep").html(result.result);
 					$("#cancelbutton").css("display","none");
 					setTimeout(function(){location.reload();},1500);
