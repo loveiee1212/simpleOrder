@@ -13,7 +13,7 @@ body {
 }
 
 #proTable {
-	width: 300px;
+	width: 350px;
 	height: 150px;
 	text-align: center;
 	margin-left: 100px;
@@ -27,6 +27,7 @@ body {
 	text-align: right;
 	font-size: 20px;
 	padding-right: 20px;
+	margin-left : 70px;
 }
 
 #payTable th {
