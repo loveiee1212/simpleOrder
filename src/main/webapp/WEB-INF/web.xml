@@ -60,13 +60,29 @@
 	<!-- 한글설정 END -->
 	<filter>
 		<filter-name>hiddenHttpMethodFilter</filter-name>
-		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter
+		</filter-class>
 	</filter>
 
 	<filter-mapping>
 		<filter-name>hiddenHttpMethodFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	<!-- 에러페이지 처리 -->
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/error</location>
+	</error-page>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error</location>
+	</error-page>
 
 	<tracking-mode>COOKIE</tracking-mode>
 
