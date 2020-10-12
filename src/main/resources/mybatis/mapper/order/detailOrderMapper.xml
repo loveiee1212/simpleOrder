@@ -45,7 +45,7 @@
 			OH.OAC_NUM = #{oac_num} AND
 			OH.PDC_CODE = #{pdc_code}
 			AND
-			OH.PD_CODE = #{pd_code} AND STK.STK_STOCK >=0
+			OH.PD_CODE = #{pd_code} AND STK.STK_STOCK NOT IN (-1)
 	</update>
 
 	<select id="getSellKeyList" parameterType="string"
