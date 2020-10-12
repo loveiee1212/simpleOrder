@@ -386,7 +386,11 @@ getCreditList();
 		var endpay = $("#endpay").val();
 		var oac_num = $("#sendoac_num").val();
 		var bd_date = $("#sendbd_date").val();
-		
+		if($("#takemoney").val()==0){
+			if(confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")){
+				$("#takemoney").val($("#totalmoney").val()-endpay);
+			}
+		}
 		var getmoney = $("#takemoney").val();
 		
 		if($("#takemoney").val()-($("#totalmoney").val()-endpay)>0){

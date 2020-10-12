@@ -183,18 +183,18 @@ public class DetailOrderMM {
 	}
 
 
-	public ModelAndView reSell(HttpSession session, String bd_date, String oac_num, int oac_status) {
-		ModelAndView mav = new ModelAndView();
-		HashMap<String, Object> selectMap = new HashMap<String, Object>();
-		selectMap.put("c_code",session.getAttribute("c_code"));
-		selectMap.put("bd_date",bd_date);
-		selectMap.put("oac_num",oac_num);
-		selectMap.put("oac_status",oac_status);
-		List<HashMap<String, Object>> pList = oDao.resell(selectMap);
-		mav.addObject("list", makeresellList(selectMap,pList));
-		mav.setViewName("seat/sellAndorder");
-		return mav;
-	}
+//	public ModelAndView reSell(HttpSession session, String bd_date, String oac_num, int oac_status) {
+//		ModelAndView mav = new ModelAndView();
+//		HashMap<String, Object> selectMap = new HashMap<String, Object>();
+//		selectMap.put("c_code",session.getAttribute("c_code"));
+//		selectMap.put("bd_date",bd_date);
+//		selectMap.put("oac_num",oac_num);
+//		selectMap.put("oac_status",oac_status);
+//		List<HashMap<String, Object>> pList = oDao.resell(selectMap);
+//		mav.addObject("list", makeresellList(selectMap,pList));
+//		mav.setViewName("seat/sellAndorder");
+//		return mav;
+//	}
 
 	private Object makeresellList(HashMap<String, Object> selectMap, List<HashMap<String, Object>> pList) {
 		StringBuilder sb = new StringBuilder();

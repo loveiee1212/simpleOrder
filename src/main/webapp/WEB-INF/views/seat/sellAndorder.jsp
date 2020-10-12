@@ -417,11 +417,7 @@ input:focus, button:focus {
 $(document).ready(function(){	
 	getsellkeyList();
 	totalprice();
-	if($("#oac_status").val()==-2){
-		$("#btn4").css("color",'#ddd');
-		$("#endpay").val(0);
-	}
-	if($("#oac_num").val()!="null" && $("#oac_status").val()!=-2){
+	if($("#oac_num").val()!="null"){
 		if($("#totalmoney").val()!=0){			
 	getpayAmount();
 		}
@@ -663,9 +659,6 @@ $(document).ready(function(){
 	}
 
 	function sendsaoList(paytype) {
-		if($("#oac_status").val()==-2&& paytype==0){
-			return false;
-		}
 		
 		var pdccodeArray = [];
 		var codeArray = [];
@@ -690,7 +683,7 @@ $(document).ready(function(){
 			for (var i = 0; i < $pdccode.length; i++) {
 					pdccodeArray.push($("#pdcode" + i).data('code'));
 			}
-			if (pdccodeArray.length == 0 && $("#oac_status").val()!=-2) {
+			if (pdccodeArray.length == 0) {
 				alert("변경 사항이 없습니다.")
 				return;
 			};
@@ -712,7 +705,7 @@ $(document).ready(function(){
 				pdccodeArray.push($("#pdcode" + i).data('code'));
 			}
 		}
-		if (pdccodeArray.length == 0 && $("#oac_status").val()!=-2) {
+		if (pdccodeArray.length == 0) {
 			alert("변경 사항이 없습니다.")
 			return;
 		};

@@ -554,7 +554,8 @@ let cashvalue = 0;
 			alert("실행이 취소되었습니다.");
 		}
 	} 
-	 function repay(obj){
+	 
+	 /* function repay(obj){
 		 if(confirm("재매출 시 해당하는 모든 상품이 반품 처리 됩니다. 재매출 처리 하시겠습니까 ?")){
 				$.ajax({
 					type : 'post',
@@ -569,7 +570,7 @@ let cashvalue = 0;
 					alert("실행이 취소되었습니다.");
 				}
 	 
-	 }
+	 } */
 	 
 	 //현금영수증 작업
 	 function sendcashbills(){

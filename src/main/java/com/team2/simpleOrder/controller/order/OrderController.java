@@ -32,18 +32,19 @@ public class OrderController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/resell")
-	public ModelAndView reSell(HttpSession session,String bd_date,String oac_num,int oac_status) {
-		ModelAndView mav = new ModelAndView();
-		System.out.println(oac_num);
-		mav = om.reSell(session,bd_date,oac_num,oac_status);
-		return mav;
-	}
+//	@RequestMapping(value = "/resell")
+//	public ModelAndView reSell(HttpSession session,String bd_date,String oac_num,int oac_status) {
+//		ModelAndView mav = new ModelAndView();
+//		System.out.println(oac_num);
+//		mav = om.reSell(session,bd_date,oac_num,oac_status);
+//		return mav;
+//	}
 	
 	@RequestMapping(value = "/sellpage",method = RequestMethod.GET)
 	public String sellpage() {
 		return "./seat/sellpage";
 	}
+	
 	@RequestMapping(value = "/errorSellpage",method = RequestMethod.GET)
 	public String errorSellpage(RedirectAttributes reat) {
 		reat.addFlashAttribute("error","error");
