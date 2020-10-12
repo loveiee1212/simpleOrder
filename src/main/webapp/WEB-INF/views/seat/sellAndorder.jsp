@@ -546,7 +546,7 @@ $(document).ready(function(){
 								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
 								+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
 								}
-							value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
+							value+="<td><input type='button' id='cancelbutton"+$pdccode+"' class='cancelbutton_for_oac' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 							value+="</tr>";
 							$("#listbox").children("center").children("table").append(value);
 							totalprice();
@@ -568,7 +568,7 @@ $(document).ready(function(){
 								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
 								+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
 								}
-								value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
+								value+="<td><input type='button' id='cancelbutton"+$pdccode+"' class='cancelbutton_for_oac' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 								value+="</tr>";
 								value+="</table>";
 								$("#listbox").children("center").append(value);
