@@ -67,6 +67,7 @@ input:focus, button:focus, select:focus {
 </style>
 <body>
 	<div id="baseBox">
+	<button type="button" id="color" onclick = "changeTema()">black</button>
 		<div id="baseinnerBox">
 			<a class="navbar-brand" href="main"><img
 				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
@@ -88,6 +89,24 @@ input:focus, button:focus, select:focus {
 	</div>
 </body>
 <script type="text/javascript">
+temaBlack = true;/* ${temaBlack} */
+	function changeTema(){
+		if(temaBlack){
+			before = $("style").html();
+			after = before.replace("#2565a3" , "#3c3c3c");
+			after = after.replace("#e3f2fd" , "#000000");
+			$("style").html(after);
+			temaBlack = false;
+		}else{
+			before = $("style").html();
+			after = before.replace("#3c3c3c" , "#2565a3");
+			after = after.replace("#000000" , "#e3f2fd");
+			$("style").html(after);
+			temaBlack = true;
+		}
+		
+	}
+	
 	let data = ${grantList};
 	for (let i = 0; i < data.length; i++) {
 		if (!data[i]) {
