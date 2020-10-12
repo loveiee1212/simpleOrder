@@ -146,6 +146,22 @@ select {
 	font-size: 20px;
 }
 
+#msg1 {
+	width: 500px;
+    color: #ff3d00;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#msg2 {
+	width: 500px;
+	color: #ff3d00;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
 input:focus, button:focus {
 	outline: none;
 }
@@ -158,7 +174,7 @@ input:focus, button:focus {
 		<table id="empList">
 		</table>
 	</div>
-	<form name="empSettingForm" action=null id="frm" method="post">
+	<form name="empSettingForm" action=null id="frm" method="post" onsubmit="return empFrm()">
 		<input id="method" type="hidden" name="_method" value="null">
 		<table>
 			<tr>
@@ -169,19 +185,22 @@ input:focus, button:focus {
 				<td><input id="getEmpCode" name="emp_code" type="text"
 					readonly="readonly" class="empsetting"></td>
 				<td><input id="getEmpName" name="emp_name" type="text"
-					class="empsetting"></td>
+					class="empsetting" maxlength="4" onkeydown="keyEvt()"></td>
 			</tr>
+			<tr><td></td>
+			<td id="msg1"></td></tr>
 			<tr>
 				<th>직원 비밀번호</th>
 				<th>직원 직급</th>
 			</tr>
 			<tr>
 				<td><input id="getEmpPw" name="emp_pw" type="text"
-					class="empsetting"></td>
+					class="empsetting" maxlength="4" onkeydown="keyEvt()" onkeypress="onlyNum(this)" numberOnly="true"></td>
 				<td><select id="getEmpPosition" name="pst_position"
 					class="empsetting">
 				</select></td>
 			</tr>
+			<tr><td id="msg2"></td></tr>
 			<tr>${error}
 			</tr>
 
@@ -196,6 +215,10 @@ input:focus, button:focus {
 </body>
 <script type="text/javascript">
 	getEmpList(1); // 상태가 1인 emp 노출
+	
+	function empFrm() {
+		return false;
+	}
 
 	createempSetting();
 
@@ -228,10 +251,27 @@ input:focus, button:focus {
 		})
 	}
 
+	var pw = document.getElementById("getEmpPw");
 	function createEmpInfo() { // form 액션 변경 후 서비밋 (추가)
 		empSettingForm.action = 'createEmpInfo';
 		$("#method").val("post");
+		if (empFrm()==false){
+		if ($('#getEmpName').val() == "") {
+			document.getElementById("msg1").innerHTML = "직원 이름을 입력해주세요!!";
+			$('#getEmpName').focus();
+			return false;
+		}else if ($('#getEmpPw').val() == "") {
+			document.getElementById("msg2").innerHTML = "직원 비밀번호를 입력해주세요!!";
+			$('#getEmpPw').focus();
+			return false;
+		}else if (pw.value.length < 4) {
+			document.getElementById("msg2").innerHTML = "직원 비밀번호 4자리를 입력해주세요!!";
+			pw.focus();
+			return false;
+		}	
 		empSettingForm.submit();
+		return false;
+		}
 	}
 
 	function updateEmpInfo() { // form 엑션 변경 후 서브밋 (수정)
@@ -287,6 +327,21 @@ input:focus, button:focus {
 		$("#getEmpName").val($("#" + index).children()[0].innerText);
 		$("#getEmpCode").val($("#" + index).children()[1].innerText);
 		$("#getEmpPw").val($("#" + index).children()[2].innerText);
+	}
+	
+	//숫자만 입력하는 함수
+	function onlyNum(obj) {
+		if ((event.keyCode < 48) || (event.keyCode > 57))
+			event.returnValue = false;
+
+		$(document).on("keyup", "input:text[numberOnly]", function() {
+			$(this).val($(this).val().replace(/[^0-9]/gi, ""));
+		});
+	}
+	
+	function keyEvt() {
+		document.getElementById("msg1").innerHTML = " ";
+		document.getElementById("msg2").innerHTML = " ";
 	}
 </script>
 </html>

@@ -98,13 +98,14 @@ img {
 
 #cListInfo {
 	width: 1400px;
-	border: 3px solid #2565a3;
-	font-size: 20px;
-	margin-left: 50px;
-	z-index: 2;
-	border-collapse: collapse;
-	font-weight: bold;
+    height: auto;
+    border: 3px solid #2565a3;
+    font-size: 20px;
+    z-index: 2;
+    border-collapse: collapse;
+    font-weight: bold;
 }
+
 
 #UPbtn {
 	width: 80px;
@@ -126,8 +127,32 @@ img {
 	color: white;
 }
 
-table {
+#cListInfoDiv {
+    width: 1450px;
+    height: 300px;
 	margin-left: 20px;
+	overflow: auto;
+}
+
+#cListInfoDiv::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+
+#cListInfoDiv::-webkit-scrollbar {
+	width: 20px;
+	background-color: white;
+}
+
+#cListInfoDiv::-webkit-scrollbar-thumb {
+	background-color: #2565a3;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+table {
 	border: none;
 }
 
@@ -214,6 +239,7 @@ td:-webkit-scrollbar {
 		<div id="baseinnerBox">
 			<a class="navbar-brand" href="main"><img
 				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
+			<div id="cListInfoDiv">
 			<table id="cListInfo">
 				<tr>
 					<th>상호명</th>
@@ -223,6 +249,7 @@ td:-webkit-scrollbar {
 					<th colspan="2">비고</th>
 				</tr>
 			</table>
+			</div>
 			<input type="button" id="btn1"
 				onclick="location.href ='createccodefrm'" value="사업장 추가"> <input
 				type="button" id="btn2" onclick="location.href = 'emailLogout'"

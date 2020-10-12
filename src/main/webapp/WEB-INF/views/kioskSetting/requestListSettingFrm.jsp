@@ -31,26 +31,27 @@ input:focus, button:focus {
 }
 
 .reqDivList {
-   width: 300px;
-   height: 40px;
-   margin-top: 30px;
-   margin-left: 100px;
-   display: inline-block;
+    margin-top: -30px;
+    margin-left: 70px;
+    margin-bottom: 20px;
+    display: inline-block;
 }
 
 .requestList {
-   width: 300px;
-   height: 40px;
-   margin-bottom: 20px;
+   width: 150px;
+   height: 100px;
    border: 3px solid #2565a3;
-   font-size: 20px;
+   color: #2565a3;
+   font-size: 25px;
    text-align: center;
+   margin: 20px;
+   font-weight: bold;
 }
 
 #rq_kind {
    border: 3px solid #2565a3;
    width: 250px;
-   height: 40px;
+   height: 50px;
    font-size: 20px;
    margin-left: 43px;
    text-align: center;
@@ -107,22 +108,38 @@ input:focus, button:focus {
     text-align: center;
 }
 
+#msg1 {
+	width: 500px;
+	color: #ff3d00;
+	font-size: 20px;
+	margin-left: 55px;
+	font-weight: bold;
+}
 </style>
 </head>
 <body>
 	<h2>요청사항 수정</h2>
-	<form name ='requsetListCRUD' action="" method="post">
+	<form name ='requsetListCRUD' action="" method="post" onsubmit="return requsetFrm()">
 	<div id="reqList"></div>
 	
 	<input type="hidden" id='rq_num' name='rq_num'>
-	<input type="text" id = 'rq_kind' name='rq_kind' placeholder="요청사항 입력">
+	<input type="text" id='rq_kind' name='rq_kind' placeholder="요청사항 입력" onkeydown="keyEvt()">
 	<input type="button" id="addRequest" onclick="addRequests()" value ='요청사항 추가'> 
 	<input type="button" id="removeRequest" onclick="removeRequests()" value ='요청사항 제거'>
+	<div id="msg1"></div>
 	<input type="button" id="updateRequest" onclick="updateRequests()" value ='변경 내역 저장'>
 	</form>
 
 </body>
 <script type="text/javascript">
+function requsetFrm() {
+	return false;
+}
+
+function keyEvt() {
+	document.getElementById("msg1").innerHTML = " ";
+}
+
 function updateRequests(){
 	rq_num.remove();
 	$("#rq_kind").remove();
@@ -132,9 +149,17 @@ function updateRequests(){
 function addRequests(){
 	if(rq_num.value < 10){
 	requsetListCRUD.action = 'addRequest';
-	requsetListCRUD.submit();
+	/* requsetListCRUD.submit(); */
 	}else{
-		alert("요청사항은 9개까지 생성 가능합니다.")
+		alert("요청사항은 9개까지 생성 가능합니다.");
+	}
+	if (requsetFrm()==false) {
+		if ($('#rq_kind').val() == "" && rq_num.value < 10) {
+			document.getElementById("msg1").innerHTML = "요청사항을 입력해주세요!!";
+			$('#rq_kind').focus();
+			return false;
+		}
+		requsetListCRUD.submit();
 	}
 };
 function removeRequests(){
@@ -147,8 +172,11 @@ $.ajax({
 	success : function(data){
 		$("#reqList").append(data.reqList);
 		 $("#rq_num").val($(".requestList").length+1);
+         $(".requestList").attr("readonly",true);
 	}
 });
+
+
 
 </script>
 </html>
