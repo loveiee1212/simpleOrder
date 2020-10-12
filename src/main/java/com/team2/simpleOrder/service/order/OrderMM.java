@@ -108,6 +108,7 @@ public class OrderMM {
 		Order odr = new Order();
 		odr.setRsv_date(rsv_date);
 		odr.setC_code(session.getAttribute("c_code").toString());
+		System.out.println("예약일 확인 :"+odr);
 		List<Order> rList = oDao.getReservList(odr);
 		return makehtmlrList(rList);
 	}
