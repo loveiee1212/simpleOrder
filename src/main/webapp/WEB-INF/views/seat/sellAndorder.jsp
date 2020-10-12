@@ -677,6 +677,16 @@ $(document).ready(function(){
 		var isempty = [];
 		
 		
+		for(var i = 0; i<$pdccode.length;i++){
+			if($("#pdcnt"+i).attr("max")!=undefined){
+				if(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max"))){
+					alert("주문한 수량이 남은 재고수량보다 큽니다.");
+					$("#pdcnt"+i).val($("#pdcnt"+i).attr("max"));
+					totalprice();
+					return false;
+				}
+			}
+		}
 		
 		if($("#before_num").val()!=undefined){
 			for (var i = 0; i < $pdccode.length; i++) {
@@ -854,6 +864,8 @@ $(document).ready(function(){
 		$("#addcreditbox").css("display","block");
 		$("#addcreditbutton").click(function(){
 			 var oac_num = $("#oac_num").val();
+			 var $pdccode = $("input[name = 'pdcode']");
+			 var pdccodeArray = [];
 			 if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
 						sendsaoList(3);
 						return false;
