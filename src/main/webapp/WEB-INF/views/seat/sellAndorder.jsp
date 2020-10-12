@@ -839,7 +839,8 @@ $(document).ready(function(){
 		data : objparam,
 		dataType : 'json',
 		success : function(result){
-			location.href = "./sellandorder?sc_code=" + $("#sc_code").val()+ "&st_num=" + $("#st_num").val() + "&oac_num="+ oac_num;
+		//	location.href = "./sellandorder?sc_code=" + $("#sc_code").val()+ "&st_num=" + $("#st_num").val() + "&oac_num="+ oac_num;
+			location.reload();
 		} //result end
 		})//ajax end
 	
@@ -891,7 +892,7 @@ $(document).ready(function(){
 				dataType : 'json',
 				success : function (result){
 					alert(result.result);
-					location.href = "./posmain";
+					location.href = "./sellpage";
 				}
 			});
 		
