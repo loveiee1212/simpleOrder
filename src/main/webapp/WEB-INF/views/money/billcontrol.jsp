@@ -199,20 +199,19 @@ body {
 	border: 3px solid white;
 	background-color: #2565a3;
 	color: white;
-	width: 165px;
+	width: 270px;
 	height: 70px;
 	text-align: center;
 	margin: 10px;
 	margin-left: 40px;
 	float: left;
-	width: 165px;
 }
 
 .takeAction2 {
 	border: 3px solid white;
 	background-color: #e3f2fd;
 	color: #1565c0;
-	width: 165px;
+	width: 270px;
 	height: 70px;
 	text-align: center;
 	margin: 10px;
@@ -224,7 +223,7 @@ body {
 	border: 3px solid #2565a3;
 	background-color: white;
 	color: red;
-	width: 165px;
+	width: 270px;
 	height: 70px;
 	text-align: center;
 	margin: 10px;
@@ -234,7 +233,7 @@ body {
 
 .takeAction p, .takeAction2 p, .takeAction3 p {
 	margin-top: 20px;
-	font-size: 22px;
+	font-size: 25px;
 	font-weight: bold;
 }
 
@@ -246,7 +245,7 @@ body {
 	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
-	font-size: 22px;
+	font-size: 25px;
 	float: right;
 	margin-top: 10px;
 	margin-right: 50px;
@@ -307,6 +306,18 @@ input[type="radio" i] {
     text-align: center;
     font-weight: bold;
 }
+#background{
+width : 91.5%;
+height : 90.5%;
+background-color: #ddd;
+opacity: 0.5;
+position: absolute;
+display: none;
+}
+
+#repay,#changepay{
+display : none;
+}
 </style>
 </head>
 <body>
@@ -356,7 +367,7 @@ input[type="radio" i] {
 					<div class="takeAction" id='bills_for_cash'>
 						<p>현금 영수증</p>
 					</div>
-					<div class="takeAction">
+					<div class="takeAction" id='changepay'>
 						<p>결제 변경</p>
 					</div>
 					<div class="takeAction2" id='print_for_emp'>
@@ -371,6 +382,8 @@ input[type="radio" i] {
 					<button id="Exit" type="button"
 						onclick="location.href='./sellpage'">뒤로가기</button>
 				</div>
+			</div>
+			<div id="background">
 			</div>
 			<div id="cashbills">
 			<input type="radio" name='checktype'  value='1'/>개인소득공제용
@@ -387,7 +400,6 @@ input[type="radio" i] {
 function searchbills(){
 	var date = $("#b_date").val();
 	var code = $("#b_code").val();
-	console.log(date+"/"+code);
 	var obj = {
 			"date":date,
 			"code":code
@@ -398,7 +410,6 @@ function searchbills(){
 		data : obj,
 		dataType : 'json',
 		success : function(data){
-			console.log(data);
 			$("#b_middlebox").html(data.result);
 		}
 	});
@@ -478,6 +489,7 @@ let cashvalue = 0;
 		}else{		
 				$("#cashbillsmoney").val(cashvalue);
 				$("#cashbills").css("display","block");
+				$("#background").css("display","block");
 			}
 		}
 	})
@@ -489,22 +501,20 @@ let cashvalue = 0;
 	
 	//프린트영수증
 	$("#print_for_bill").click(function(){
-		console.log(obj);
 		var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=1";
         var name = "popup test";
-        var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+        var option = "width = 350, height = 400, top = 100, left = 200, location = no"
            window.open(url, name, option);
 	})
 	
 	
 	$("#print_for_emp").click(function(){
-			console.log(obj);
 		if(oac_status!=1){
 			return false;
 		}else{
 			 var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=0";
 	         var name = "popup test";
-	         var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+	         var option = "width = 350, height = 400, top = 100, left = 200, location = no"
 	            window.open(url, name, option);
 		}
 	})
@@ -512,7 +522,6 @@ let cashvalue = 0;
 	
 	
 	$("#cancelpay").click(function(){
-		console.log(oac_status);
 		if(oac_status!=-1){
 		return false;
 		}else{
@@ -529,7 +538,6 @@ let cashvalue = 0;
 		}
 	});
 	 function cancelpay(obj){
-		console.log(obj);
 		if(confirm("결제 취소 시 해당하는 모든 상품이 반품 처리 됩니다. 취소하시겠습니까 ?")){
 		$.ajax({
 			type : 'post',
@@ -537,7 +545,6 @@ let cashvalue = 0;
 			data : obj,
 			dataType : 'json',
 			success : function(result){
-				console.log(result);
 				alert(result.result);
 				location.reload();
 			}
@@ -546,8 +553,8 @@ let cashvalue = 0;
 			alert("실행이 취소되었습니다.");
 		}
 	} 
-	 function repay(obj){
-		 console.log(obj);
+	 
+	 /* function repay(obj){
 		 if(confirm("재매출 시 해당하는 모든 상품이 반품 처리 됩니다. 재매출 처리 하시겠습니까 ?")){
 				$.ajax({
 					type : 'post',
@@ -562,7 +569,7 @@ let cashvalue = 0;
 					alert("실행이 취소되었습니다.");
 				}
 	 
-	 }
+	 } */
 	 
 	 //현금영수증 작업
 	 function sendcashbills(){
@@ -577,12 +584,18 @@ let cashvalue = 0;
 				alert("공백 입력은 허용되지 않습니다.");
 				return false;
 			}
-			
+			$("#cashbills").css("display","none");
+			$("#background").css("display","none");
 			 var url = "sendcashbills?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&cashamount="+$("#cashbillsmoney").val()+"&cash_name="+$("#cashname").val()+"&type="+$('input[name="checktype"]:checked').val();
 	         var name = "popup bills";
-	         var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+	         var option = "width = 350, height = 400, top = 100, left = 200, location = no,status = no,menubar =no,directoris=no"
 	            window.open(url, name, option);
 	         
 		}
+	 
+	 $("#background").click(function(){
+		 $("#cashbills").css("display","none");
+		 $("#background").css("display","none");
+	 })
 </script>
 </html>

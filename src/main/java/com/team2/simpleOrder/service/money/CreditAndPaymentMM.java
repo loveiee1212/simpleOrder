@@ -135,7 +135,6 @@ public class CreditAndPaymentMM {
 	}
 
 	public HashMap<String, String> updatOac(HttpSession session, String bd_date, String oac_num) {
-		System.out.println("bd_Date:" + bd_date);
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		hMap.put("c_code", session.getAttribute("c_code").toString());
 		if (bd_date == null || bd_date.equals("")) {

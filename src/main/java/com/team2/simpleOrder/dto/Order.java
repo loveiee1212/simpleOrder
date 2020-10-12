@@ -31,6 +31,7 @@ public class Order {
 	 String pdc_date;
 	 String pd_code;
 	 String pd_date;
+	 int stk_stock;
 	 int oh_cnt;
 	 String pd_name;
 	 int pd_price;

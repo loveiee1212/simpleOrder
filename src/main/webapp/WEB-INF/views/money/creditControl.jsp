@@ -311,7 +311,6 @@ getCreditList();
 			data : objparam,
 			dataType : 'json',
 			success : function(result){
-				console.log(result);
 				alert(result.result);
 				location.reload();
 			}
@@ -377,7 +376,6 @@ getCreditList();
 			data : {"bd_date":bd_date,"oac_num":oac_num},
 			dataType : 'json',
 			success : function (result){
-				console.log(result);
 				alert(result.result);
 				location.href = "./posmain";
 			}
@@ -388,7 +386,11 @@ getCreditList();
 		var endpay = $("#endpay").val();
 		var oac_num = $("#sendoac_num").val();
 		var bd_date = $("#sendbd_date").val();
-		
+		if($("#takemoney").val()==0){
+			if(confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")){
+				$("#takemoney").val($("#totalmoney").val()-endpay);
+			}
+		}
 		var getmoney = $("#takemoney").val();
 		
 		if($("#takemoney").val()-($("#totalmoney").val()-endpay)>0){
@@ -448,7 +450,6 @@ getCreditList();
 
 	$("#keypad ul li").click(function() {
 	var endpay = $("#endpay").val();
-	console.log(endpay);
 	if ($(this).val() == 11 || $(this).val() == 12) {return;}
 	str += $(this).val();
 	$("#takemoney").val(Number(str));
@@ -473,7 +474,6 @@ getCreditList();
 
 	function backspace() {
 		var endpay = $("#endpay").val();
-		//	console.log("length" + str.substr(0, str.length - 1));
 		$("#takemoney").val(str.substr(0, str.length - 1));
 		$("#uctmoney").val($("#totalmoney").val()-endpay  - $("#takemoney").val());
 		str = $("#takemoney").val();

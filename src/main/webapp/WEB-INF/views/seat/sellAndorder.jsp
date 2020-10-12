@@ -86,13 +86,10 @@ body {
     text-align: center;
 }
     
-#cancelbutton0 {
-	width: 70px;
-	height: 50px;
+.cancelbutton_for_oac {
 	color: red;
 	background-color: white;
 	border: none;
-	font-size: 20px;
 	box-shadow: none;
 	font-weight: bold;
 }
@@ -417,11 +414,7 @@ input:focus, button:focus {
 $(document).ready(function(){	
 	getsellkeyList();
 	totalprice();
-	if($("#oac_status").val()==-2){
-		$("#btn4").css("color",'#ddd');
-		$("#endpay").val(0);
-	}
-	if($("#oac_num").val()!="null" && $("#oac_status").val()!=-2){
+	if($("#oac_num").val()!="null"){
 		if($("#totalmoney").val()!=0){			
 	getpayAmount();
 		}
@@ -553,7 +546,7 @@ $(document).ready(function(){
 								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
 								+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
 								}
-							value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
+							value+="<td><input type='button' id='cancelbutton"+$pdccode+"' class='cancelbutton_for_oac' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 							value+="</tr>";
 							$("#listbox").children("center").children("table").append(value);
 							totalprice();
@@ -575,7 +568,7 @@ $(document).ready(function(){
 								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
 								+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
 								}
-								value+="<td><input type='button' id='cancelbutton"+$pdccode+"' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
+								value+="<td><input type='button' id='cancelbutton"+$pdccode+"' class='cancelbutton_for_oac' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
 								value+="</tr>";
 								value+="</table>";
 								$("#listbox").children("center").append(value);
@@ -585,8 +578,6 @@ $(document).ready(function(){
 								var $pdccode = $("input[name = 'pdcode']");
 								for(var i = 0; i<$pdccode.length;i++){
 									if($("#pdcnt"+i).attr("max")!=undefined){
-										console.log($("#pdcnt"+i).val());
-										console.log(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max")));
 										if(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max"))){
 											alert("주문한 수량이 남은 재고수량보다 큽니다.");
 											$("#pdcnt"+i).val($("#pdcnt"+i).attr("max"));
@@ -665,9 +656,6 @@ $(document).ready(function(){
 	}
 
 	function sendsaoList(paytype) {
-		if($("#oac_status").val()==-2&& paytype==0){
-			return false;
-		}
 		
 		var pdccodeArray = [];
 		var codeArray = [];
@@ -677,12 +665,22 @@ $(document).ready(function(){
 		var isempty = [];
 		
 		
+		for(var i = 0; i<$pdccode.length;i++){
+			if($("#pdcnt"+i).attr("max")!=undefined){
+				if(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max"))){
+					alert("주문한 수량이 남은 재고수량보다 큽니다.");
+					$("#pdcnt"+i).val($("#pdcnt"+i).attr("max"));
+					totalprice();
+					return false;
+				}
+			}
+		}
 		
 		if($("#before_num").val()!=undefined){
 			for (var i = 0; i < $pdccode.length; i++) {
 					pdccodeArray.push($("#pdcode" + i).data('code'));
 			}
-			if (pdccodeArray.length == 0 && $("#oac_status").val()!=-2) {
+			if (pdccodeArray.length == 0) {
 				alert("변경 사항이 없습니다.")
 				return;
 			};
@@ -704,7 +702,7 @@ $(document).ready(function(){
 				pdccodeArray.push($("#pdcode" + i).data('code'));
 			}
 		}
-		if (pdccodeArray.length == 0 && $("#oac_status").val()!=-2) {
+		if (pdccodeArray.length == 0) {
 			alert("변경 사항이 없습니다.")
 			return;
 		};
@@ -815,7 +813,6 @@ $(document).ready(function(){
 				$("#takemoney").val($("#totalmoney").val()-endpay);
 			}
 		}
-		console.log($("#takemoney").val());
 		var getmoney = $("#takemoney").val();
 		if($("#takemoney").val()-($("#totalmoney").val()-endpay)>0){
 		var paymoney = $("#totalmoney").val()-endpay;
@@ -854,6 +851,8 @@ $(document).ready(function(){
 		$("#addcreditbox").css("display","block");
 		$("#addcreditbutton").click(function(){
 			 var oac_num = $("#oac_num").val();
+			 var $pdccode = $("input[name = 'pdcode']");
+			 var pdccodeArray = [];
 			 if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
 						sendsaoList(3);
 						return false;
@@ -912,7 +911,6 @@ $(document).ready(function(){
 
 	$("#keypad ul li").click(function() {
 	var endpay = $("#endpay").val();
-	console.log(endpay);
 	if ($(this).val() == 11 || $(this).val() == 12) {return;}
 	str += $(this).val();
 	$("#takemoney").val(Number(str));
@@ -937,7 +935,6 @@ $(document).ready(function(){
 
 	function backspace() {
 		var endpay = $("#endpay").val();
-		//	console.log("length" + str.substr(0, str.length - 1));
 		$("#takemoney").val(str.substr(0, str.length - 1));
 		$("#uctmoney").val($("#totalmoney").val()-endpay  - $("#takemoney").val());
 		str = $("#takemoney").val();

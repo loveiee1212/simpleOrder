@@ -71,10 +71,16 @@ public class DetailOrderMM {
 				sb.append("<td><p class ='price' id='totalprice" + i + "'></p>");
 				sb.append("<input type='hidden' id='hiddenprice" + i + "' value='" + stList.get(i).getPd_price()
 						+ "'/></td>");
-				sb.append("<td><input type='hidden' id='hiddencnt" + i + "' value='" + stList.get(i).getOh_cnt()
-						+ "'/><input type='Number' name ='pdcnt' min='0' id='pdcnt" + i + "' onchange='totalprice()' value='"
-						+ stList.get(i).getOh_cnt() + "'/></td>");
-				sb.append("<td><input type='button' id='cancelbutton"+i+"' onclick='cancelorder("+i+")' value='취소'/></td>");
+				if(stList.get(i).getStk_stock()!=0) {					
+					sb.append("<td><input type='hidden' id='hiddencnt" + i + "' value='" + stList.get(i).getOh_cnt()
+							+ "'/><input type='Number' name ='pdcnt' min='0' max='"+(stList.get(i).getOh_cnt()+stList.get(i).getStk_stock())+"' id='pdcnt" + i + "' onchange='totalprice()' value='"
+							+ stList.get(i).getOh_cnt() + "'/></td>");
+				}else {					
+					sb.append("<td><input type='hidden' id='hiddencnt" + i + "' value='" + stList.get(i).getOh_cnt()
+							+ "'/><input type='Number' name ='pdcnt' min='0' id='pdcnt" + i + "' onchange='totalprice()' value='"
+							+ stList.get(i).getOh_cnt() + "'/></td>");
+				}
+				sb.append("<td><input type='button' id='cancelbutton"+i+"' class='cancelbutton_for_oac' onclick='cancelorder("+i+")' value='취소'/></td>");
 				sb.append("</tr>");
 
 			}
@@ -106,7 +112,6 @@ public class DetailOrderMM {
 			}
 
 			for (int i = 0; i < pdc_code.size(); i++) {
-				System.out.println(pd_code.get(i));
 				HashMap<String, String> oacInfo = new HashMap<String, String>();
 				oacInfo.put("c_code", c_code);
 				oacInfo.put("bd_date", bd_date);
@@ -126,7 +131,6 @@ public class DetailOrderMM {
 			resultMap.put("result", "./sellpage");
 			return resultMap;
 		} catch (Exception e) {
-			System.out.println(e);
 			resultMap.put("result", "errorSellpage");
 			return resultMap;
 		}
@@ -179,18 +183,18 @@ public class DetailOrderMM {
 	}
 
 
-	public ModelAndView reSell(HttpSession session, String bd_date, String oac_num, int oac_status) {
-		ModelAndView mav = new ModelAndView();
-		HashMap<String, Object> selectMap = new HashMap<String, Object>();
-		selectMap.put("c_code",session.getAttribute("c_code"));
-		selectMap.put("bd_date",bd_date);
-		selectMap.put("oac_num",oac_num);
-		selectMap.put("oac_status",oac_status);
-		List<HashMap<String, Object>> pList = oDao.resell(selectMap);
-		mav.addObject("list", makeresellList(selectMap,pList));
-		mav.setViewName("seat/sellAndorder");
-		return mav;
-	}
+//	public ModelAndView reSell(HttpSession session, String bd_date, String oac_num, int oac_status) {
+//		ModelAndView mav = new ModelAndView();
+//		HashMap<String, Object> selectMap = new HashMap<String, Object>();
+//		selectMap.put("c_code",session.getAttribute("c_code"));
+//		selectMap.put("bd_date",bd_date);
+//		selectMap.put("oac_num",oac_num);
+//		selectMap.put("oac_status",oac_status);
+//		List<HashMap<String, Object>> pList = oDao.resell(selectMap);
+//		mav.addObject("list", makeresellList(selectMap,pList));
+//		mav.setViewName("seat/sellAndorder");
+//		return mav;
+//	}
 
 	private Object makeresellList(HashMap<String, Object> selectMap, List<HashMap<String, Object>> pList) {
 		StringBuilder sb = new StringBuilder();

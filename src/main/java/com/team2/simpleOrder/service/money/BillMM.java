@@ -342,7 +342,12 @@ public class BillMM {
 	private String makehtmlcList(HashMap<String, Object> comList) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(comList.get("C_NAME") + "<br/>");
-		sb.append(comList.get("C_ADDRESS") + "<br/>");
+		String addrInfo ="";
+		String[]  addr =  comList.get("C_ADDRESS").toString().split("#");
+		for(String detailaddr : addr) {
+			addrInfo+=detailaddr;
+		}
+		sb.append(addrInfo+"</br>");
 		sb.append("사업자번호 | " + comList.get("C_CODE") + "<br/>");
 		sb.append("tel." + comList.get("C_PHONE") + "<br/>");
 		return sb.toString();
@@ -351,7 +356,6 @@ public class BillMM {
 	// 영수증 검색조회
 	public HashMap<String, String> searchBills(HttpSession session, String date, String code) {
 		HashMap<String, String> selectMap = new HashMap<String, String>();
-		System.out.println("주문번호 :"+code);
 		selectMap.put("c_code", session.getAttribute("c_code").toString());
 		if(date.equals("")||date==null) {
 			selectMap.put("bd_date", session.getAttribute("bd_date").toString().substring(0,10));
@@ -405,7 +409,6 @@ public class BillMM {
 		insertMap.put("cashamount", cashamount);
 		insertMap.put("cashname", cash_name);
 		insertMap.put("type", type);
-		System.out.println("현금영수증 데이터"+insertMap);
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> comList = new HashMap<String, Object>();
 		List<HashMap<String, Object>> pList = new ArrayList<HashMap<String, Object>>();
