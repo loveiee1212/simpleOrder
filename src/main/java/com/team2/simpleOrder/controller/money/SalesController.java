@@ -25,4 +25,10 @@ public class SalesController {
 		
 		return "money/salescontrol";
 	}
+	
+	@RequestMapping ("/emailsales")
+	public String emailSales() {
+		
+		return "money/emailsales";
+	}
 }

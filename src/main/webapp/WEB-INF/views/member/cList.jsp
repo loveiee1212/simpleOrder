@@ -251,8 +251,12 @@ td:-webkit-scrollbar {
 			</table>
 			</div>
 			<input type="button" id="btn1"
-				onclick="location.href ='createccodefrm'" value="사업장 추가"> <input
-				type="button" id="btn2" onclick="location.href = 'emailLogout'"
+				onclick="location.href ='createccodefrm'" value="사업장 추가"> 
+			<input
+				type="button" id="btn2" onclick="location.href = 'emailsales'"
+				value="사업장 전체 매출">	
+			<input
+				type="button" id="btn3" onclick="location.href = 'emailLogout'"
 				value="EMAIL 로그아웃">
 				<div id="flotBoxDiv">
 		<div id="flotBoxbg"></div>
@@ -320,7 +324,6 @@ function getClistInfo(){//사업자 정보 로드
 		},
 		dataType : "json",
 		success : data =>{
-			console.log(data);
 			$("#cListInfo").append(data.cListInfoHtml);
 		}
 	});
@@ -341,7 +344,6 @@ $(document).keydown(function(data){
 }
 
 	function cLogindivon(cCode){	//모달 박스 키기, 정보 입력
-		console.log(cCode);
 		cLogin.action = 'cLogin';
 		$("#flotBoxDiv").addClass("on");
 		$("#c_code").val(cCode);

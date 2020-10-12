@@ -1,7 +1,9 @@
 package com.team2.simpleOrder.service.order;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,14 +22,15 @@ public class OrderMM3 {
 	ModelAndView mav;
 
 	public String gropPayMent(HashMap<String, String> oac_num, HttpSession session) {
-		HashMap<String, Object> gropPayMent = new HashMap<String, Object>();
 		Iterator<String> it = oac_num.keySet().iterator();
-		while(oac_num.keySet().iterator().hasNext()) {
-			HashMap<String, String> hm = new HashMap<String, String>();
-			hm.put("oac_num", it.next());
-			hm.put("c_code", session.getAttribute("c_code").toString());
-//			oDao.gropPayMent(hm);
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("c_code", session.getAttribute("c_code").toString());
+		List<String> oac_list = new ArrayList<>();
+		while(it.hasNext()) {
+			oac_list.add(it.next());
 		}
+		hm.put("oac_list", oac_list);
+		System.out.println(oDao.gropPayMent(hm));
 		return null;
 	}
 	

@@ -27,4 +27,22 @@ public interface ISalesDao {
 
 	String getCashSales(HashMap<String, String> smap);
 
+	List<HashMap<String, String>> getMonthEmailSales(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getMonthEmailDetail(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getMonthEmailDetailTotalSales(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getMonthEmailDetailProduct(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getMonthEmailDetailRefundProduct(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getDayEmailSales(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getDayEmailTotalSales(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getDayEmailProduct(HashMap<String, String> smap);
+
+	List<HashMap<String, String>> getDayEmailRefundProduct(HashMap<String, String> smap);
+
 }

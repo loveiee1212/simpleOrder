@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>메일인증 실패입니다.</h2>
+<h2>처리과정중 문제가 발생하였습니다. 다시 시도해주세요.</h2>
 </body>
 </html>

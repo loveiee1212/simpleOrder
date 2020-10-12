@@ -83,11 +83,16 @@ public class ProductMM {
 			SimpleDateFormat dateFormat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 			proInfo.put("c_code", session.getAttribute("c_code").toString());
 			proInfo.put("pd_date", dateFormat.format(Calendar.getInstance().getTime()));
-		
+			System.out.println(proInfo.get("pd_price"));
+			System.out.println(proInfo.get("pd_price").equals(""));
+			if(proInfo.get("pd_price").equals("")) {
+				proInfo.put("pd_price", "0");
+			}
 			if (pdfile.getSize() == 0) { // 이미지가 없다면.
 				if(proInfo.get("pd_imgname")==null) {
 					proInfo.put("pd_imgname", "ERRORIMG");
 				}
+				System.out.println(proInfo);
 				pDao.createProduct(proInfo);
 			} else { // 이미지가 있다면
 				FileUpAndDelete fileMM = new FileUpAndDelete();
@@ -95,6 +100,9 @@ public class ProductMM {
 				pDao.createProduct(proInfo);
 			}
 			if(Boolean.parseBoolean(proInfo.get("stockUse"))) {//업로드가 끝나고 재고가 있다면
+				if(proInfo.get("stk_stock").equals("")) {
+					proInfo.put("stk_stock", "0");
+				}
 				pDao.createProStock(proInfo);
 			}
 			if(proInfo.get("update") != null) {

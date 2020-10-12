@@ -53,7 +53,6 @@ public class SalesMM {
 		smap.put("c_code", session.getAttribute("c_code").toString());
 		if(smap.get("bd_date")=="") {
 			String bd_date= session.getAttribute("bd_date").toString().substring(0,10);
-			System.out.println("bd_date is"+ bd_date);
 			smap.put("bd_date",bd_date);
 		}
 		HashMap<String,List<HashMap<String,String>>> sNpMap = new HashMap<>();
@@ -75,6 +74,54 @@ public class SalesMM {
 		smap.put("c_code", session.getAttribute("c_code").toString());
 		smap.put("bd_date", session.getAttribute("bd_date").toString());
 		return new Gson().toJson(sDao.getCashSales(smap));
+	}
+
+	public String getMonthEmailSales(HttpSession session, HashMap<String, String> smap) {
+		smap.put("c_email", session.getAttribute("ce_email").toString());
+		
+		List<HashMap<String,String>> slist = sDao.getMonthEmailSales(smap);
+		return new Gson().toJson(slist);
+	}
+
+	@Transactional
+	public String getMonthEmailDetail(HttpSession session, HashMap<String, String> smap) throws Exception{
+		try {
+			smap.put("c_email", session.getAttribute("ce_email").toString());
+			
+			HashMap<String,List<HashMap<String,String>>> sNpMap = new HashMap<>();
+			sNpMap.put("salesList", sDao.getMonthEmailDetail(smap));
+			sNpMap.put("totalSales",sDao.getMonthEmailDetailTotalSales(smap));
+			sNpMap.put("productList",sDao.getMonthEmailDetailProduct(smap));
+			sNpMap.put("refundList",sDao.getMonthEmailDetailRefundProduct(smap));
+			return new Gson().toJson(sNpMap);
+		}
+		catch(Exception e) {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			System.out.println(e);
+			return new Gson().toJson("noSales");
+		}
+	}
+
+	@Transactional
+	public String getDayEmailSales(HttpSession session, HashMap<String, String> smap) throws Exception {
+		try {
+			smap.put("c_email", session.getAttribute("ce_email").toString());
+			if(smap.get("bd_date")=="") {
+				String bd_date= session.getAttribute("bd_date").toString().substring(0,10);
+				smap.put("bd_date",bd_date);
+			}
+			HashMap<String,List<HashMap<String,String>>> sNpMap = new HashMap<>();
+			sNpMap.put("salesList", sDao.getDayEmailSales(smap));
+			sNpMap.put("totalSales",sDao.getDayEmailTotalSales(smap));
+			sNpMap.put("productList",sDao.getDayEmailProduct(smap));
+			sNpMap.put("refundList",sDao.getDayEmailRefundProduct(smap));
+			return new Gson().toJson(sNpMap);
+			}
+			catch(Exception e) {
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				System.out.println(e);
+				return new Gson().toJson("noSales");
+			}
 	}
 
 	

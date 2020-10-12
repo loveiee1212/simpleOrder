@@ -4,4 +4,16 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team2.simpleOrder.dao.order.IOrderDao3">
+	<select id="gropPayMent" resultType="hashmap" parameterType="hashmap">
+		SELECT OH.PDC_CODE, OH.PD_CODE, OH.PD_DATE, P.PD_NAME, SUM(OH.OH_CNT) AS CNT, STK_STOCK,PD_PRICE
+		FROM ORDER_HISTORY OH 
+		JOIN PRODUCT P ON P.PDC_CODE = OH.PDC_CODE AND P.PD_CODE = OH.PD_CODE AND P.PD_DATE = OH.PD_DATE AND OH.C_CODE = P.C_CODE
+		LEFT OUTER JOIN STOCK SK ON P.PDC_CODE = SK.PDC_CODE AND P.PD_CODE = SK.PD_CODE AND P.PD_DATE AND SK.PD_DATE AND P.C_CODE = SK.C_CODE 
+		WHERE OH.C_CODE = #{c_code} 
+		AND OAC_NUM IN
+			<foreach collection="oac_list" item='list' open="(" close=")" separator=","  >
+			#{list.value}
+			</foreach>
+		GROUP BY OH.PDC_CODE,OH.PD_CODE,OH.PD_DATE 
+	</select>
 </mapper>

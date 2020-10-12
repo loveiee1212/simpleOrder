@@ -46,4 +46,23 @@ public class SalesRestController {
 		
 		return sm.getCashSales(session);
 	}
+	
+	@RequestMapping("/getmonthemailsales")
+	public String getMonthEmailSales(HttpSession session,@RequestParam HashMap<String,String> smap) {
+		
+		return sm.getMonthEmailSales(session,smap);
+	}
+	
+	@RequestMapping("/getmonthemaildetail")
+	public String getMonthEmailDetail(HttpSession session,  @RequestParam HashMap<String,String> smap) throws Exception {
+
+		return sm.getMonthEmailDetail(session,smap);
+	}
+	
+	@RequestMapping("/getdayemailsales")
+	public String getDayEmailSales(HttpSession session, @RequestParam HashMap<String,String> smap) throws Exception {
+
+		return sm.getDayEmailSales(session,smap);
+	}
+	
 }
