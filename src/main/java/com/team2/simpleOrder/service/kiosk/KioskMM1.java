@@ -107,7 +107,7 @@ public class KioskMM1 {
 				for (int i = 0; i < ohList.size(); i++) {
 					HashMap<String, String> stk = kDao1.checkStock(ohList.get(i));
 					if (stk != null) {
-						hMap.put("msg", "주문하신 상품의 재고가 부족합니다");
+						hMap.put("msg", stk.get("PD_NAME")+"의 재고가 부족합니다");
 						hMap.put("view", "kioskorder");
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return hMap;
@@ -131,7 +131,7 @@ public class KioskMM1 {
 				for (int i = 0; i < ohList.size(); i++) {
 					HashMap<String, String> stk = kDao1.checkStock(ohList.get(i));
 					if (stk != null) {
-						hMap.put("msg", "주문하신 상품의 재고가 부족합니다");
+						hMap.put("msg", stk.get("PD_NAME")+"의 재고가 부족합니다");
 						hMap.put("view", "kioskorder");
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return hMap;
