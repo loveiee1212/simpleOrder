@@ -342,7 +342,8 @@ public class BillMM {
 	private String makehtmlcList(HashMap<String, Object> comList) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(comList.get("C_NAME") + "<br/>");
-		sb.append(comList.get("C_ADDRESS") + "<br/>");
+		String[]  addr =  comList.get("C_ADDRESS").toString().split("#");
+		sb.append(addr[1] + "<br/>");
 		sb.append("사업자번호 | " + comList.get("C_CODE") + "<br/>");
 		sb.append("tel." + comList.get("C_PHONE") + "<br/>");
 		return sb.toString();
@@ -405,7 +406,6 @@ public class BillMM {
 		insertMap.put("cashamount", cashamount);
 		insertMap.put("cashname", cash_name);
 		insertMap.put("type", type);
-		System.out.println("현금영수증 데이터"+insertMap);
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> comList = new HashMap<String, Object>();
 		List<HashMap<String, Object>> pList = new ArrayList<HashMap<String, Object>>();

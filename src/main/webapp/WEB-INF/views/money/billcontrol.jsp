@@ -307,6 +307,14 @@ input[type="radio" i] {
     text-align: center;
     font-weight: bold;
 }
+#background{
+width : 91.5%;
+height : 90.5%;
+background-color: #ddd;
+opacity: 0.5;
+position: absolute;
+display: none;
+}
 </style>
 </head>
 <body>
@@ -371,6 +379,8 @@ input[type="radio" i] {
 					<button id="Exit" type="button"
 						onclick="location.href='./sellpage'">뒤로가기</button>
 				</div>
+			</div>
+			<div id="background">
 			</div>
 			<div id="cashbills">
 			<input type="radio" name='checktype'  value='1'/>개인소득공제용
@@ -478,6 +488,7 @@ let cashvalue = 0;
 		}else{		
 				$("#cashbillsmoney").val(cashvalue);
 				$("#cashbills").css("display","block");
+				$("#background").css("display","block");
 			}
 		}
 	})
@@ -492,7 +503,7 @@ let cashvalue = 0;
 		console.log(obj);
 		var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=1";
         var name = "popup test";
-        var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+        var option = "width = 350, height = 400, top = 100, left = 200, location = no"
            window.open(url, name, option);
 	})
 	
@@ -504,7 +515,7 @@ let cashvalue = 0;
 		}else{
 			 var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=0";
 	         var name = "popup test";
-	         var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+	         var option = "width = 350, height = 400, top = 100, left = 200, location = no"
 	            window.open(url, name, option);
 		}
 	})
@@ -577,12 +588,18 @@ let cashvalue = 0;
 				alert("공백 입력은 허용되지 않습니다.");
 				return false;
 			}
-			
+			$("#cashbills").css("display","none");
+			$("#background").css("display","none");
 			 var url = "sendcashbills?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&cashamount="+$("#cashbillsmoney").val()+"&cash_name="+$("#cashname").val()+"&type="+$('input[name="checktype"]:checked').val();
 	         var name = "popup bills";
-	         var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+	         var option = "width = 350, height = 400, top = 100, left = 200, location = no,status = no,menubar =no,directoris=no"
 	            window.open(url, name, option);
 	         
 		}
+	 
+	 $("#background").click(function(){
+		 $("#cashbills").css("display","none");
+		 $("#background").css("display","none");
+	 })
 </script>
 </html>

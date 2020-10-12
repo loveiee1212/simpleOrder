@@ -26,6 +26,7 @@ SELECT PD.PD_NAME,PD.PD_PRICE,SUM(OH_CNT) AS OH_CNT,PD_PRICE*SUM(OH_CNT) AS TOTA
 		 AND OAC.C_CODE = PD.C_CODE AND OH.PD_DATE = PD.PD_DATE
 		WHERE OAC.C_CODE = #{c_code} AND OAC.OAC_NUM = #{oac_num} AND OAC.BD_DATE = #{bd_date} 
 		GROUP BY OH.C_CODE,OH.BD_DATE,OH.OAC_NUM,PD.PDC_CODE,PD.PD_CODE,PD.PD_DATE
+		HAVING SUM(OH_CNT) NOT IN (0)
 </select>
 
 <!-- <select id="getpayList" parameterType="string" resultType="hashMap">
