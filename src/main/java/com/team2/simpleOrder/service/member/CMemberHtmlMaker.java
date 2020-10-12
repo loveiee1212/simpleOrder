@@ -32,10 +32,10 @@ public class CMemberHtmlMaker {
 	public String empList(ArrayList<HashMap<String, String>> a) {
 		int i = 0;
 		sb.append("<tr>");
-		sb.append("<th>").append("이름");
-		sb.append("<th>").append("코드");
-		sb.append("<th>").append("비밀번호");
-		sb.append("<th>").append("직급");
+		sb.append("<th onclick='sortContent(0)'>").append("이름");
+		sb.append("<th onclick='sortContent(1)'>").append("코드");
+		sb.append("<th onclick='sortContent(2)'>").append("비밀번호");
+		sb.append("<th onclick='sortContent(3)'>").append("직급");
 		for (HashMap<String, String> empinfo : a) {
 			sb.append("<tr id = " + i + " onclick = 'empInfosetting(").append(i).append(")'>");
 			sb.append("<td>").append(empinfo.get("EMP_NAME")).append("</td>");

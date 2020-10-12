@@ -190,7 +190,7 @@ td:-webkit-scrollbar {
 	width: 650px;
 	height: 80px;
 	border: 2px solid white;
-	margin: 30px 50px 10px 48px;
+	margin: 30px 50px 10px 18px;
 	outline: 0;
 	background-color: #2565a3;
 	font-size: 20px;
@@ -209,6 +209,21 @@ td:-webkit-scrollbar {
 	color: #2565a3;
 	font-size: 20px;
 	font-weight: bold;
+}
+
+#btn3 {
+    width: 200px;
+    height: 60px;
+    border: 3px solid #2565a3;
+    margin: 150px 80px 10px 47px;
+    padding: 5px 10px;
+    outline: 0;
+    background-color: white;
+    color: #2565a3;
+    font-size: 20px;
+    font-weight: bold;
+    float: right;
+    border-radius: 50px;
 }
 
 #error {
@@ -239,6 +254,9 @@ td:-webkit-scrollbar {
 		<div id="baseinnerBox">
 			<a class="navbar-brand" href="main"><img
 				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
+			<input
+				type="button" id="btn3" onclick="location.href = 'emailLogout'"
+				value="EMAIL 로그아웃">
 			<div id="cListInfoDiv">
 			<table id="cListInfo">
 				<tr>
@@ -255,9 +273,6 @@ td:-webkit-scrollbar {
 			<input
 				type="button" id="btn2" onclick="location.href = 'emailsales'"
 				value="사업장 전체 매출">	
-			<input
-				type="button" id="btn3" onclick="location.href = 'emailLogout'"
-				value="EMAIL 로그아웃">
 				<div id="flotBoxDiv">
 		<div id="flotBoxbg"></div>
 		<div id="flotBox">

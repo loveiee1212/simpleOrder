@@ -4,6 +4,7 @@
 <html>
 <head>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <meta charset="UTF-8">
 <title>requsetListSettingFrm</title>
 <style type="text/css">
