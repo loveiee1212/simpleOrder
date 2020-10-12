@@ -88,7 +88,7 @@ div #seat {
 
 .category {
 	font-size: 20px;
-	background-color: white;
+	background-color: #ffffff;
 	color: #1565c0;
 	font-weight: bold;
 	float: left;
@@ -486,8 +486,8 @@ i {
     height: 700px;
     margin-left: 100px;
 }
-</style>
-<style type="text/css" id="park">
+
+/* 현준 */
 #flotBox {
     width: 500px;
     height: 400px;
@@ -592,6 +592,7 @@ h2 {
 <body>
 
 	<div id="baseBox">
+	<button type="button" id="changeTema" onclick = "changeTema()">다크모드</button>
 		<div id="movediv">
 			<center>
 				<p id="movep">이동시킬 테이블을 클릭해주세요</p>
@@ -742,6 +743,46 @@ h2 {
 </body>
 
 <script type="text/javascript" id='park'>
+if("${temaBlack}" == ""){
+	temaBlack = false;
+}else{
+	temaBlack = JSON.parse('${temaBlack}');
+}
+changeTema();
+
+function temaChange(temaBlack){
+	$.ajax({
+		url : "rest/temaChange",
+		type : "post",
+		data : {
+			"temaBlack" : temaBlack
+		}
+	})
+	return !temaBlack;
+}
+
+function changeTema(){
+	if(temaBlack){
+		before = $("style").html();
+		after = before.replaceAll("#2565a3" , "#2B2B2B");
+		after = after.replaceAll("#e3f2fd" , "#141414");
+		after = after.replaceAll("#ffffff" , "#404040");
+		after = after.replaceAll("#1565c0" , "#F0F0F0");
+		after = after.replaceAll("#90caf9" , "#4F4F4F");
+		$("style").html(after);
+		temaBlack = temaChange(true);
+	}else{
+		before = $("style").html();
+		after = before.replaceAll("#2B2B2B" , "#2565a3");
+		after = after.replaceAll("#141414" , "#e3f2fd");
+		after = after.replaceAll("#404040" , "#ffffff");
+		after = after.replaceAll("#F0F0F0" , "#1565c0");
+		after = after.replaceAll("#4F4F4F" , "#90caf9");
+		$("style").html(after);
+		temaBlack = temaChange(false);
+	}
+}
+
 let oac_list = [];
 
 function flotBoxhidden(){
