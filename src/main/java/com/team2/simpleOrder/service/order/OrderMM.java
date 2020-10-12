@@ -117,16 +117,16 @@ public class OrderMM {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<tr>");
 		sb.append("<th style='width: 80px;'>No.</th>");
-		sb.append("<th>연락처</th>");
-		sb.append("<th>성함</th>");
-		sb.append("<th>예약일시</th>");
+		sb.append("<th onclick='sortContent(1)'>연락처</th>");
+		sb.append("<th onclick='sortContent(2)'>성함</th>");
+		sb.append("<th onclick='sortContent(3)'>예약일시</th>");
 		sb.append("<th>메모</th>");
 		sb.append("</tr>");
 		if (rList != null) {
 			for (int i = 0; i < rList.size(); i++) {
 				Order odr = rList.get(i);
 				sb.append("<form action='deletereservlist' method='post'>");
-				sb.append("<tr data-code='" + odr.getRsv_code() + "'>");
+				sb.append("<tr class='reserv_tr' data-code='" + odr.getRsv_code() + "'>");
 				sb.append("<td style=\"width: 80px;\">" + (i + 1) + "</td>");
 				sb.append("<td style='width:100px;'>" + odr.getRsv_phone() + "</td>");
 				sb.append("<td>" + odr.getRsv_name() + "</td>");

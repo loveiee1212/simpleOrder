@@ -118,17 +118,17 @@ input:focus, button:focus {
 		<div id="tadiv">
 			<table id="grantList">
 				<tr>
-					<th>직급명</th>
-					<th>판매</th>
-					<th>마감</th>
-					<th>근태</th>
-					<th>재고 관리</th>
-					<th>매출 현황</th>
-					<th>외상 처리</th>
-					<th>시재 변경</th>
-					<th>상품 관리</th>
-					<th>판매키 관리</th>
-					<th>포스 설정</th>
+					<th onclick='sortContent(0)'>직급명</th>
+					<th onclick='sortContent(1)'>판매</th>
+					<th onclick='sortContent(2)'>마감</th>
+					<th onclick='sortContent(3)'>근태</th>
+					<th onclick='sortContent(4)'>재고 관리</th>
+					<th onclick='sortContent(5)'>매출 현황</th>
+					<th onclick='sortContent(6)'>외상 처리</th>
+					<th onclick='sortContent(7)'>시재 변경</th>
+					<th onclick='sortContent(8)'>상품 관리</th>
+					<th onclick='sortContent(9)'>판매키 관리</th>
+					<th onclick='sortContent(10)'>포스 설정</th>
 <!-- 				<th>키오스크 설정</th> -->
 				</tr>
 			</table>
@@ -149,5 +149,37 @@ input:focus, button:focus {
 			$(".0").attr('onclick', 'return false');
 		}
 	})
+	
+	var sortType = 'asc'; 
+
+	function sortContent(index) {
+	    var table = $("#grantList");
+
+	    sortType = (sortType =='asc')?'desc' : 'asc';
+
+	    var checkSort = true;
+	    var rows = table[0].rows;
+	    console.log(rows)
+
+	    while (checkSort) { // 현재와 다음만 비교하기때문에 위치변경되면 다시 정렬해준다.
+	        checkSort = false;
+
+	        for (var i = 1; i < (rows.length-1); i++) {
+	           var fCell = rows[i].cells[index].innerHTML.toUpperCase();
+	            var sCell = rows[i + 1].cells[index].innerHTML.toUpperCase();
+	console.log(fCell);
+	console.log(sCell);
+
+	            var row = rows[i];
+	            // 오름차순<->내림차순 ( 이부분이 이해 잘안됬는데 오름차순이면 >, 내림차순이면 < 이고 if문의 내용은 동일하다 )
+	            if ( (sortType == 'asc' && fCell > sCell) || 
+	                    (sortType == 'desc' && fCell < sCell) ) {
+
+	                row.parentNode.insertBefore(row.nextSibling, row);
+	                checkSort = true;
+	            }
+	        }
+	    }
+	}
 </script>
 </html>

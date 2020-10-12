@@ -42,10 +42,10 @@ public class CreditAndPaymentMM {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table id = 'crdtableList'>");
 		sb.append("<tr>");
-		sb.append("<th>성함</th>");
-		sb.append("<th>연락처</th>");
-		sb.append("<th>외상일</th>");
-		sb.append("<th>외상금액</th>");
+		sb.append("<th onclick='sortContent(0)'>성함</th>");
+		sb.append("<th onclick='sortContent(1)'>연락처</th>");
+		sb.append("<th onclick='sortContent(2)'>외상일</th>");
+		sb.append("<th onclick='sortContent(3)'>외상금액</th>");
 		sb.append("</tr>");
 		for (int i = 0; i < returnMap.size(); i++) {
 			sb.append("<tr class ='crdinfo'>");

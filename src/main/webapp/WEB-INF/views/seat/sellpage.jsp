@@ -888,6 +888,38 @@ function updateClientRequest(){
 	clockon();
 	getTablelist();
 	
+	
+	var sortType = 'asc'; 
+
+	function sortContent(index) {
+	    var table = $("#reservtable");
+
+	    sortType = (sortType =='asc')?'desc' : 'asc';
+
+	    var checkSort = true;
+	    var rows = table[0].rows;
+	    console.log(rows)
+
+	    while (checkSort) { // 현재와 다음만 비교하기때문에 위치변경되면 다시 정렬해준다.
+	        checkSort = false;
+
+	        for (var i = 1; i < (rows.length-1); i++) {
+	           var fCell = rows[i].cells[index].innerHTML.toUpperCase();
+	            var sCell = rows[i + 1].cells[index].innerHTML.toUpperCase();
+
+	            var row = rows[i];
+
+	            // 오름차순<->내림차순 ( 이부분이 이해 잘안됬는데 오름차순이면 >, 내림차순이면 <이고 if문의 내용은 동일하다 )
+	            if ( (sortType == 'asc' && fCell > sCell) || 
+	                    (sortType == 'desc' && fCell < sCell) ) {
+
+	                row.parentNode.insertBefore(row.nextSibling, row);
+	                checkSort = true;
+	            }
+	        }
+	    }
+	}
+	
 
 	
 	if ('' != '${error}') {
@@ -1023,7 +1055,7 @@ function updateClientRequest(){
 		success : function(result) {
 		$("#reservtable").html(result.reservList);
 		/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
-		$("#reservtable tr").click(function() {
+		$(".reserv_tr").click(function() {
 		var tdArr = new Array();
 		var tr = $(this);
 		var td = tr.children();
@@ -1031,7 +1063,7 @@ function updateClientRequest(){
 		$("#dtbtn").remove();
 		$("#worktd").append("<input type='button' id='dtbtn'  onclick='deleteReserv()' value='삭제'>");
 		//tr의 css색을 화이트로 clear
-		$("#reservtable tr").css('background-color','white');
+		$(".reserv_tr").css('background-color','white');
 		//선택한 tr의 색을 회색으로 설정
 		tr.css('background-color', '#ddd');
 		/* tr 행의 정보들을 Arr에 담음 */
@@ -1065,7 +1097,7 @@ function updateClientRequest(){
 			success : function(result) {
 			$("#reservtable").html(result.reservList);
 			/* 리스트 출력 성공 -> 특정 행 클릭 시 상세정보(수정)에 정보 출력 */
-			$("#reservtable tr").click(function() {
+			$(".reserv_tr").click(function() {
 			var tdArr = new Array();
 			var tr = $(this);
 			var td = tr.children();

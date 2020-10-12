@@ -291,6 +291,36 @@ input:focus, button:focus, select:focus {
 <script>
 getCreditList();
 
+var sortType = 'asc'; 
+
+function sortContent(index) {
+   // var table = $("#billsList");
+	var table = $("#crdtableList");
+    sortType = (sortType =='asc')?'desc' : 'asc';
+
+    var checkSort = true;
+    var rows = table[0].rows;
+
+    while (checkSort) { // 현재와 다음만 비교하기때문에 위치변경되면 다시 정렬해준다.
+        checkSort = false;
+
+        for (var i = 1; i < (rows.length-1); i++) {
+           var fCell = rows[i].cells[index].innerHTML.toUpperCase();
+            var sCell = rows[i + 1].cells[index].innerHTML.toUpperCase();
+
+            var row = rows[i];
+
+            // 오름차순<->내림차순 ( 이부분이 이해 잘안됬는데 오름차순이면 >, 내림차순이면 <이고 if문의 내용은 동일하다 )
+            if ( (sortType == 'asc' && fCell > sCell) || 
+                    (sortType == 'desc' && fCell < sCell) ) {
+
+                row.parentNode.insertBefore(row.nextSibling, row);
+                checkSort = true;
+            }
+        }
+    }
+}
+
 	//외상 및 결제 취소
 	function cancelcredit(){
 		if($("#sendoac_num").val()==undefined){
