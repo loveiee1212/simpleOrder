@@ -400,7 +400,8 @@ public class BillMM {
 
 	//현금영수증 데이터 전송
 	public ModelAndView sendcashbills(HttpSession session, int cashamount, String bd_date, String oac_num,
-			int oac_status, String cash_name, int type) {
+		int oac_status, String cash_name, int type) {
+		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> insertMap = new HashMap<String, Object>();
 		insertMap.put("c_code", session.getAttribute("c_code").toString());
 		insertMap.put("bd_date", bd_date);
@@ -409,7 +410,6 @@ public class BillMM {
 		insertMap.put("cashamount", cashamount);
 		insertMap.put("cashname", cash_name);
 		insertMap.put("type", type);
-		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> comList = new HashMap<String, Object>();
 		List<HashMap<String, Object>> pList = new ArrayList<HashMap<String, Object>>();
 		Integer cash = 0;
