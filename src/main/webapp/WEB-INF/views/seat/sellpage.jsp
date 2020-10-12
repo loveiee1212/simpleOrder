@@ -743,6 +743,7 @@ h2 {
 </body>
 
 <script type="text/javascript" id='park'>
+//테마 시작
 if("${temaBlack}" == ""){
 	temaBlack = false;
 }else{
@@ -782,6 +783,7 @@ function changeTema(){
 		temaBlack = temaChange(false);
 	}
 }
+//테마 끝
 
 let oac_list = [];
 

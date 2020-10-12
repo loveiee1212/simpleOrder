@@ -90,23 +90,46 @@ input:focus, button:focus, select:focus {
 </body>
 <script type="text/javascript">
 
-temaBlack = true;/* ${temaBlack} */
-	function changeTema(){
-		if(temaBlack){
-			before = $("style").html();
-			after = before.replace("#2565a3" , "#3c3c3c");
-			after = after.replace("#e3f2fd" , "#141414");
-			$("style").html(after);
-			temaBlack = false;
-		}else{
-			before = $("style").html();
-			after = before.replace("#3c3c3c" , "#2565a3");
-			after = after.replace("#141414" , "#e3f2fd");
-			$("style").html(after);
-			temaBlack = true;
+if("${temaBlack}" == ""){
+	temaBlack = false;
+}else{
+	temaBlack = JSON.parse('${temaBlack}');
+}
+changeTema();
+
+function temaChange(temaBlack){
+	$.ajax({
+		url : "rest/temaChange",
+		type : "post",
+		data : {
+			"temaBlack" : temaBlack
 		}
-		
+	})
+	return !temaBlack;
+}
+
+function changeTema(){
+	if(temaBlack){
+		before = $("style").html();
+		after = before.replaceAll("#2565a3" , "#2B2B2B");
+		after = after.replaceAll("#e3f2fd" , "#141414");
+		after = after.replaceAll("#ffffff" , "#404040");
+		after = after.replaceAll("#1565c0" , "#F0F0F0");
+		after = after.replaceAll("#90caf9" , "#4F4F4F");
+		$("style").html(after);
+		temaBlack = temaChange(true);
+	}else{
+		before = $("style").html();
+		after = before.replaceAll("#2B2B2B" , "#2565a3");
+		after = after.replaceAll("#141414" , "#e3f2fd");
+		after = after.replaceAll("#404040" , "#ffffff");
+		after = after.replaceAll("#F0F0F0" , "#1565c0");
+		after = after.replaceAll("#4F4F4F" , "#90caf9");
+		$("style").html(after);
+		temaBlack = temaChange(false);
 	}
+}
+
 	
 	let data = ${grantList};
 	for (let i = 0; i < data.length; i++) {

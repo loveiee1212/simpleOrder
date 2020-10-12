@@ -5,8 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
+<link rel="icon" href="resources/image/smallLogo.png"
+	type="image/x-icon">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/basicBox.css?after">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
@@ -44,9 +46,9 @@ body {
 }
 
 img {
-    width: 200px;
-    margin-top: -20px;
-    margin-left: -80px;
+	width: 200px;
+	margin-top: -20px;
+	margin-left: -80px;
 }
 
 a.navbar-brand {
@@ -212,11 +214,13 @@ li {
 </style>
 <body>
 	<div id="baseBox">
+		<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 		<div id="baseinnerBox">
 			<nav class="navbar navbar-default">
 				<div id="header">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="main"><img src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
+						<a class="navbar-brand" href="main"><img
+							src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 						<!-- 포스 메인페이지 -->
 					</div>
 					<ul class="nav navbar-nav">
@@ -228,7 +232,8 @@ li {
 						<!-- 주요 기능 페이지 -->
 					</ul>
 				</div>
-				<div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+				<div id="myCarousel" class="carousel slide text-center"
+					data-ride="carousel">
 					<ol class="carousel-indicators">
 						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 						<li data-target="#myCarousel" data-slide-to="1"></li>
@@ -245,29 +250,38 @@ li {
 							<h3>누구나 편리한 사용법</h3>
 						</div>
 					</div>
-					<a class="left-control" href="#myCarousel" role="button" data-slide="prev">
-					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span></a>
-						<a class="right-control" href="#myCarousel" role="button" data-slide="next">
-						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					<a class="left-control" href="#myCarousel" role="button"
+						data-slide="prev"> <span
+						class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span></a> <a class="right-control"
+						href="#myCarousel" role="button" data-slide="next"> <span
+						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
 				<div class="login">
-					<form action="cEmailLogin" method="post" onsubmit="return cEmailLogin()">
-						<input type="email" name="ce_email" id="id" placeholder="사업자 이메일을 입력해주세요" onkeydown="keyEvt()"	value="${requestScope.ce_email}" />
+					<form action="cEmailLogin" method="post"
+						onsubmit="return cEmailLogin()">
+						<input type="email" name="ce_email" id="id"
+							placeholder="사업자 이메일을 입력해주세요" onkeydown="keyEvt()"
+							value="${requestScope.ce_email}" />
 						<div id="msg1"></div>
-						<input type="password" name="ce_pw" id="pw" placeholder="비밀번호 특수문자 포함하여 12~20자리를 입력해주세요" onkeydown="keyEvt()"/> <br>
+						<input type="password" name="ce_pw" id="pw"
+							placeholder="비밀번호 특수문자 포함하여 12~20자리를 입력해주세요" onkeydown="keyEvt()" />
+						<br>
 						<div id="msg2"></div>
 						<div id="errorDiv">${requestScope.errorDiv}</div>
-						<br> <input type="submit" id="btn1" value="로그인"/><br>
-						<a href="#" id="a">아이디(이메일)/비밀번호 찾기 ></a>
+						<br> <input type="submit" id="btn1" value="로그인" /><br> <a
+							href="#" id="a">아이디(이메일)/비밀번호 찾기 ></a>
 						<div id="line"></div>
-						<input type="button" id="btn2" value="회원가입" onclick='location.href = "joinEmailFrm"'><br>
+						<input type="button" id="btn2" value="회원가입"
+							onclick='location.href = "joinEmailFrm"'><br>
 					</form>
 				</div>
 				<div id="hline"></div>
-				<p><b>회사정보</b></p>
+				<p>
+					<b>회사정보</b>
+				</p>
 				<p>
 					SimpleOrder(주) | 대표: HD6 | 인천광역시 미추홀구 학익동 <br> 365고객센터 |
 					전자금융거래분쟁처리담당 1234-1234 <br> 사업자 등록번호 : 123-45-00678 | email:
@@ -280,6 +294,49 @@ li {
 	</div>
 </body>
 <script type="text/javascript">
+	//테마 시작
+	if ("${temaBlack}" == "") {
+		temaBlack = false;
+	} else {
+		temaBlack = JSON.parse('${temaBlack}');
+	}
+	changeTema();
+
+	function temaChange(temaBlack) {
+		$.ajax({
+			url : "rest/temaChange",
+			type : "post",
+			data : {
+				"temaBlack" : temaBlack
+			}
+		})
+		return !temaBlack;
+	}
+
+	function changeTema() {
+		if (temaBlack) {
+			before = $("style").html();
+			after = before.replaceAll("#2565a3", "#2B2B2B");
+			after = after.replaceAll("#e3f2fd", "#141414");
+			after = after.replaceAll("#ffffff", "#404040");
+			after = after.replaceAll("#1565c0", "#F0F0F0");
+			after = after.replaceAll("#90caf9", "#4F4F4F");
+			after = after.replaceAll("#337ab7", "#ffffff");
+			$("style").html(after);
+			temaBlack = temaChange(true);
+		} else {
+			before = $("style").html();
+			after = before.replaceAll("#2B2B2B", "#2565a3");
+			after = after.replaceAll("#141414", "#e3f2fd");
+			after = after.replaceAll("#404040", "#ffffff");
+			after = after.replaceAll("#F0F0F0", "#1565c0");
+			after = after.replaceAll("#4F4F4F", "#90caf9");
+			after = after.replaceAll("#ffffff", "#337ab7");
+			$("style").html(after);
+			temaBlack = temaChange(false);
+		}
+	}
+	//테마 끝
 	function cEmailLogin() { //로그인 버튼 클릭시
 		// 이메일 정규식
 		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
