@@ -216,7 +216,7 @@ input:focus, button:focus {
 <script type="text/javascript">
 	getEmpList(1); // 상태가 1인 emp 노출
 	
-	function empFrm() {
+	function empFrm() { // 추가 버튼 누르면 액션 변경
 		return false;
 	}
 
@@ -255,7 +255,7 @@ input:focus, button:focus {
 	function createEmpInfo() { // form 액션 변경 후 서비밋 (추가)
 		empSettingForm.action = 'createEmpInfo';
 		$("#method").val("post");
-		if (empFrm()==false){
+		if (empFrm()==false){ //추가 버튼 누르면 유효성 검사
 		if ($('#getEmpName').val() == "") {
 			document.getElementById("msg1").innerHTML = "직원 이름을 입력해주세요!!";
 			$('#getEmpName').focus();
@@ -339,6 +339,7 @@ input:focus, button:focus {
 		});
 	}
 	
+	// 오류메세지 뜨고 난후 입력하면 공백처리
 	function keyEvt() {
 		document.getElementById("msg1").innerHTML = " ";
 		document.getElementById("msg2").innerHTML = " ";

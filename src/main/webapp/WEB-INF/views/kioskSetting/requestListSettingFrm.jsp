@@ -132,11 +132,11 @@ input:focus, button:focus {
 
 </body>
 <script type="text/javascript">
-function requsetFrm() {
+function requsetFrm() { // 요청사항 추가 버튼 누르면 액션변경
 	return false;
 }
 
-function keyEvt() {
+function keyEvt() { // 오류메세지 뜨고 난후 입력하면 공백처리
 	document.getElementById("msg1").innerHTML = " ";
 }
 
@@ -153,7 +153,7 @@ function addRequests(){
 	}else{
 		alert("요청사항은 9개까지 생성 가능합니다.");
 	}
-	if (requsetFrm()==false) {
+	if (requsetFrm()==false) { // 요청버튼 추가 누르면 유효성 검사
 		if ($('#rq_kind').val() == "" && rq_num.value < 10) {
 			document.getElementById("msg1").innerHTML = "요청사항을 입력해주세요!!";
 			$('#rq_kind').focus();
@@ -172,11 +172,9 @@ $.ajax({
 	success : function(data){
 		$("#reqList").append(data.reqList);
 		 $("#rq_num").val($(".requestList").length+1);
-         $(".requestList").attr("readonly",true);
+         $(".requestList").attr("readonly",true); // 요청사항 리스트 읽기전용 활성화
 	}
 });
-
-
 
 </script>
 </html>
