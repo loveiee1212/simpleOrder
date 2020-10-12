@@ -352,7 +352,6 @@ public class BillMM {
 	// 영수증 검색조회
 	public HashMap<String, String> searchBills(HttpSession session, String date, String code) {
 		HashMap<String, String> selectMap = new HashMap<String, String>();
-		System.out.println("주문번호 :"+code);
 		selectMap.put("c_code", session.getAttribute("c_code").toString());
 		if(date.equals("")||date==null) {
 			selectMap.put("bd_date", session.getAttribute("bd_date").toString().substring(0,10));

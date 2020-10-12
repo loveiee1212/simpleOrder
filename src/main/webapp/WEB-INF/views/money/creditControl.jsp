@@ -311,7 +311,6 @@ getCreditList();
 			data : objparam,
 			dataType : 'json',
 			success : function(result){
-				console.log(result);
 				alert(result.result);
 				location.reload();
 			}
@@ -377,7 +376,6 @@ getCreditList();
 			data : {"bd_date":bd_date,"oac_num":oac_num},
 			dataType : 'json',
 			success : function (result){
-				console.log(result);
 				alert(result.result);
 				location.href = "./posmain";
 			}
@@ -448,7 +446,6 @@ getCreditList();
 
 	$("#keypad ul li").click(function() {
 	var endpay = $("#endpay").val();
-	console.log(endpay);
 	if ($(this).val() == 11 || $(this).val() == 12) {return;}
 	str += $(this).val();
 	$("#takemoney").val(Number(str));
@@ -473,7 +470,6 @@ getCreditList();
 
 	function backspace() {
 		var endpay = $("#endpay").val();
-		//	console.log("length" + str.substr(0, str.length - 1));
 		$("#takemoney").val(str.substr(0, str.length - 1));
 		$("#uctmoney").val($("#totalmoney").val()-endpay  - $("#takemoney").val());
 		str = $("#takemoney").val();

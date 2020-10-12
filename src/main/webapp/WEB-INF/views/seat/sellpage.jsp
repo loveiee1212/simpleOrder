@@ -754,7 +754,6 @@ function getClientRequestList(){
 		dataType : "json",
 		success : function(data){
 			$("#clientRequestList").html(data.requestList);
-			console.log(data);
 		}
 		
 		
@@ -818,8 +817,6 @@ let flag2 = true;
 			};
 			$("body").append($form);
 			
-			console.log(gropPayMentForm);
-			console.log(gropPayMentForm.submit());
 		}
 	}
 	
@@ -1102,9 +1099,6 @@ function updateClientRequest(){
 			success : function(data) {
 				alert(data.result);
 				reservation();
-			},
-			error : function(err) {
-				console.log(err);
 			}
 		});
 	}
@@ -1130,7 +1124,6 @@ function updateClientRequest(){
 			return;
 		}
 		str += $(this).val();
-		//console.log(str);
 		$("#rsv_phone").val(str);
 	});
 
@@ -1140,7 +1133,6 @@ function updateClientRequest(){
 	}
 
 	function backspace() {
-		console.log("length" + str.substr(0, str.length - 1));
 		$("#rsv_phone").val(str.substr(0, str.length - 1));
 		str = $("#rsv_phone").val();
 	}
@@ -1149,7 +1141,6 @@ function updateClientRequest(){
 
 	/* 환전클릭 */
 	function changemoney() {
-		console.log("moneychange.");
 	};
 
 
@@ -1184,7 +1175,6 @@ function updateClientRequest(){
 
 	});
 	function movetable(firstcode, firstoac_num) {
-		console.log("넘어온 값:" + firstcode + firstoac_num)
 		$("#movep").text("이동할 위치의 테이블을 클릭해주세요");
 		$("#movebutton").css("display", 'none');
 		$("#gomove").css("display", 'block');

@@ -585,8 +585,6 @@ $(document).ready(function(){
 								var $pdccode = $("input[name = 'pdcode']");
 								for(var i = 0; i<$pdccode.length;i++){
 									if($("#pdcnt"+i).attr("max")!=undefined){
-										console.log($("#pdcnt"+i).val());
-										console.log(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max")));
 										if(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max"))){
 											alert("주문한 수량이 남은 재고수량보다 큽니다.");
 											$("#pdcnt"+i).val($("#pdcnt"+i).attr("max"));
@@ -825,7 +823,6 @@ $(document).ready(function(){
 				$("#takemoney").val($("#totalmoney").val()-endpay);
 			}
 		}
-		console.log($("#takemoney").val());
 		var getmoney = $("#takemoney").val();
 		if($("#takemoney").val()-($("#totalmoney").val()-endpay)>0){
 		var paymoney = $("#totalmoney").val()-endpay;
@@ -924,7 +921,6 @@ $(document).ready(function(){
 
 	$("#keypad ul li").click(function() {
 	var endpay = $("#endpay").val();
-	console.log(endpay);
 	if ($(this).val() == 11 || $(this).val() == 12) {return;}
 	str += $(this).val();
 	$("#takemoney").val(Number(str));
@@ -949,7 +945,6 @@ $(document).ready(function(){
 
 	function backspace() {
 		var endpay = $("#endpay").val();
-		//	console.log("length" + str.substr(0, str.length - 1));
 		$("#takemoney").val(str.substr(0, str.length - 1));
 		$("#uctmoney").val($("#totalmoney").val()-endpay  - $("#takemoney").val());
 		str = $("#takemoney").val();

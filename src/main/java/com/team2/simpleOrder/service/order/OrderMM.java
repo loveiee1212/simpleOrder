@@ -108,7 +108,6 @@ public class OrderMM {
 		Order odr = new Order();
 		odr.setRsv_date(rsv_date);
 		odr.setC_code(session.getAttribute("c_code").toString());
-		System.out.println("예약일 확인 :"+odr);
 		List<Order> rList = oDao.getReservList(odr);
 		return makehtmlrList(rList);
 	}
@@ -163,7 +162,6 @@ public class OrderMM {
 		odr.setRsv_date(rsv_date);
 		odr.setRsv_phone(rsv_phone);
 		odr.setRsvm_memo(rsvm_memo);
-		System.out.println(odr.getRsv_date());
 		odr.setC_code(session.getAttribute("c_code").toString());
 		if (odr.getRsv_code() == "") {
 			odr.setRsv_code(null);
@@ -238,7 +236,6 @@ public class OrderMM {
 		String bd_date = session.getAttribute("bd_date").toString();
 		Order odr = new Order();
 		List<Order> oList = oDao.getorderList(c_code, oac_status, bd_date);
-		log.info("oList :" + oList);
 		return oList;
 	}
 
@@ -246,15 +243,12 @@ public class OrderMM {
 	@Transactional
 	public HashMap<String, String> changeSeat(HttpSession session, String fcode, String foac_num, String scode,
 			String soac_num, int type) {
-		log.info("soac_num"+soac_num);
-		log.info("type"+type);
 		String[] splitfcode = fcode.split("-");
 		String fsc_code = splitfcode[0];
 		int fst_num = Integer.parseInt(splitfcode[1]);
 		String[] splitscode = scode.split("-");
 		String ssc_code = splitscode[0];
 		int sst_num = Integer.parseInt(splitscode[1]);
-		System.out.println("fsc_code"+fsc_code+"fst_num"+fst_num+"ssc_code"+ssc_code+"sstnum:"+sst_num);
 		HashMap<String, Object> instMap = new HashMap<String, Object>();
 		instMap.put("c_code",session.getAttribute("c_code").toString());
 		instMap.put("bd_date",session.getAttribute("bd_date").toString());

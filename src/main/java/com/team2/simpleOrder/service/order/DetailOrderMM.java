@@ -106,7 +106,6 @@ public class DetailOrderMM {
 			}
 
 			for (int i = 0; i < pdc_code.size(); i++) {
-				System.out.println(pd_code.get(i));
 				HashMap<String, String> oacInfo = new HashMap<String, String>();
 				oacInfo.put("c_code", c_code);
 				oacInfo.put("bd_date", bd_date);
@@ -126,7 +125,6 @@ public class DetailOrderMM {
 			resultMap.put("result", "./sellpage");
 			return resultMap;
 		} catch (Exception e) {
-			System.out.println(e);
 			resultMap.put("result", "errorSellpage");
 			return resultMap;
 		}

@@ -397,7 +397,6 @@ display: none;
 function searchbills(){
 	var date = $("#b_date").val();
 	var code = $("#b_code").val();
-	console.log(date+"/"+code);
 	var obj = {
 			"date":date,
 			"code":code
@@ -408,7 +407,6 @@ function searchbills(){
 		data : obj,
 		dataType : 'json',
 		success : function(data){
-			console.log(data);
 			$("#b_middlebox").html(data.result);
 		}
 	});
@@ -500,7 +498,6 @@ let cashvalue = 0;
 	
 	//프린트영수증
 	$("#print_for_bill").click(function(){
-		console.log(obj);
 		var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=1";
         var name = "popup test";
         var option = "width = 350, height = 400, top = 100, left = 200, location = no"
@@ -509,7 +506,6 @@ let cashvalue = 0;
 	
 	
 	$("#print_for_emp").click(function(){
-			console.log(obj);
 		if(oac_status!=1){
 			return false;
 		}else{
@@ -523,7 +519,6 @@ let cashvalue = 0;
 	
 	
 	$("#cancelpay").click(function(){
-		console.log(oac_status);
 		if(oac_status!=-1){
 		return false;
 		}else{
@@ -540,7 +535,6 @@ let cashvalue = 0;
 		}
 	});
 	 function cancelpay(obj){
-		console.log(obj);
 		if(confirm("결제 취소 시 해당하는 모든 상품이 반품 처리 됩니다. 취소하시겠습니까 ?")){
 		$.ajax({
 			type : 'post',
@@ -548,7 +542,6 @@ let cashvalue = 0;
 			data : obj,
 			dataType : 'json',
 			success : function(result){
-				console.log(result);
 				alert(result.result);
 				location.reload();
 			}
@@ -558,7 +551,6 @@ let cashvalue = 0;
 		}
 	} 
 	 function repay(obj){
-		 console.log(obj);
 		 if(confirm("재매출 시 해당하는 모든 상품이 반품 처리 됩니다. 재매출 처리 하시겠습니까 ?")){
 				$.ajax({
 					type : 'post',
