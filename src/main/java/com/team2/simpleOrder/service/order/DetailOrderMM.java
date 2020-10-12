@@ -80,7 +80,7 @@ public class DetailOrderMM {
 							+ "'/><input type='Number' name ='pdcnt' min='0' id='pdcnt" + i + "' onchange='totalprice()' value='"
 							+ stList.get(i).getOh_cnt() + "'/></td>");
 				}
-				sb.append("<td><input type='button' id='cancelbutton"+i+"' onclick='cancelorder("+i+")' value='취소'/></td>");
+				sb.append("<td><input type='button' id='cancelbutton"+i+"' class='cancelbutton_for_oac' onclick='cancelorder("+i+")' value='취소'/></td>");
 				sb.append("</tr>");
 
 			}

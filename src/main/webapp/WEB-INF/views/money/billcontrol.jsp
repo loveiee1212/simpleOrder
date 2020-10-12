@@ -315,6 +315,10 @@ opacity: 0.5;
 position: absolute;
 display: none;
 }
+
+#repay,#changepay{
+display : none;
+}
 </style>
 </head>
 <body>
@@ -364,7 +368,7 @@ display: none;
 					<div class="takeAction" id='bills_for_cash'>
 						<p>현금 영수증</p>
 					</div>
-					<div class="takeAction">
+					<div class="takeAction" id='changepay'>
 						<p>결제 변경</p>
 					</div>
 					<div class="takeAction2" id='print_for_emp'>
