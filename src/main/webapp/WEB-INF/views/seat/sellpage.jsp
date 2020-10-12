@@ -146,14 +146,13 @@ div #seat {
 
 .clickdiv {
 	text-align: center;
-	width: 220px;
-	height: 80px;
-	margin-left: 15px;
-	margin-top: 12px;
-	border: 1px solid white;
-	background-color: #2565a3;
-	color: white;
-	font-weight: bold;
+    width: 220px;
+    height: 84.5px;
+    margin-left: 15px;
+    margin-top: 12px;
+    background-color: #2565a3;
+    color: white;
+    font-weight: bold;
 }
 
 p {
@@ -236,13 +235,14 @@ p {
 
 #r_middle th, #r_middle tr {
 	width: 300px;
-	height: 50px;
-	text-align: center;
-	border: 3px solid #2565a3;
-	scrollbar-width: none;
-	border-left-color: white;
-	border-right-color: white;
-	font-size: 18px;
+    height: 50px;
+    text-align: center;
+    border: 3px solid #2565a3;
+    scrollbar-width: none;
+    border-left-color: white;
+    border-right-color: white;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 #r_middle th {
@@ -284,8 +284,9 @@ p {
 
 #r_infotable tr, #r_infotable th {
 	width: 150px;
-	height: 85px;
-	text-align: center;
+    height: 85px;
+    text-align: center;
+    font-size: 23px;
 }
 
 #r_infotable td {
@@ -407,7 +408,7 @@ input:focus, button:focus {
 }
 
 input, #rsvm_memo {
-	font-size: 20px;
+	font-size: 22px;
 }
 
 #rsvm_memo {
@@ -439,7 +440,8 @@ i {
 }
 
 #frm {
-	font-size: 20px;
+	font-size: 25px;
+	font-weight: bold;
 }
 
 #movediv {

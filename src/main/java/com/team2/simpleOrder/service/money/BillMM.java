@@ -342,8 +342,12 @@ public class BillMM {
 	private String makehtmlcList(HashMap<String, Object> comList) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(comList.get("C_NAME") + "<br/>");
+		String addrInfo ="";
 		String[]  addr =  comList.get("C_ADDRESS").toString().split("#");
-		sb.append(addr[1] + "<br/>");
+		for(String detailaddr : addr) {
+			addrInfo+=detailaddr;
+		}
+		sb.append(addrInfo+"</br>");
 		sb.append("사업자번호 | " + comList.get("C_CODE") + "<br/>");
 		sb.append("tel." + comList.get("C_PHONE") + "<br/>");
 		return sb.toString();

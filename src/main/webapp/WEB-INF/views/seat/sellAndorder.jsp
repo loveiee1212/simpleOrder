@@ -86,13 +86,10 @@ body {
     text-align: center;
 }
     
-#cancelbutton0 {
-	width: 70px;
-	height: 50px;
+.cancelbutton_for_oac {
 	color: red;
 	background-color: white;
 	border: none;
-	font-size: 20px;
 	box-shadow: none;
 	font-weight: bold;
 }

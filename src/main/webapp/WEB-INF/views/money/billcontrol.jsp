@@ -199,20 +199,19 @@ body {
 	border: 3px solid white;
 	background-color: #2565a3;
 	color: white;
-	width: 165px;
+	width: 270px;
 	height: 70px;
 	text-align: center;
 	margin: 10px;
 	margin-left: 40px;
 	float: left;
-	width: 165px;
 }
 
 .takeAction2 {
 	border: 3px solid white;
 	background-color: #e3f2fd;
 	color: #1565c0;
-	width: 165px;
+	width: 270px;
 	height: 70px;
 	text-align: center;
 	margin: 10px;
@@ -224,7 +223,7 @@ body {
 	border: 3px solid #2565a3;
 	background-color: white;
 	color: red;
-	width: 165px;
+	width: 270px;
 	height: 70px;
 	text-align: center;
 	margin: 10px;
@@ -234,7 +233,7 @@ body {
 
 .takeAction p, .takeAction2 p, .takeAction3 p {
 	margin-top: 20px;
-	font-size: 22px;
+	font-size: 25px;
 	font-weight: bold;
 }
 
@@ -246,7 +245,7 @@ body {
 	background-color: #2565a3;
 	font-weight: bold;
 	color: white;
-	font-size: 22px;
+	font-size: 25px;
 	float: right;
 	margin-top: 10px;
 	margin-right: 50px;
