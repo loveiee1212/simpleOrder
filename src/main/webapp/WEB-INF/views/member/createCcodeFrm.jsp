@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${ce_email}사업자 아이디 만들기</title>
+<title>SimpleOrder</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -41,7 +41,7 @@ h2 {
 	margin-left: 470px;
 	text-decoration: underline;
 	text-underline-position: under;
-	color: #2565a3;
+	color: #2563A1;
 	font-weight: bold;
 }
 
@@ -146,8 +146,19 @@ error {
 	padding-left: 80px;
 	font-weight: bold;
 }
+#changeTema {
+	width: 180px;
+	height: 50px;
+	background-color: #0D0D0D;
+	color: #fcfaff;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	float: right;
+}
 </style>
 <body>
+<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<form action="createCcodeAcount" name="form" id="form" method="post" onsubmit="return test()">
@@ -202,6 +213,55 @@ error {
 	</div>
 </body>
 <script type="text/javascript">
+//테마 시작
+if ("${temaBlack}" == "") {
+	temaBlack = false;
+} else {
+	temaBlack = JSON.parse('${temaBlack}');
+}
+changeTema();
+
+function temaChange(temaBlack) {
+	$.ajax({
+		url : "rest/temaChange",
+		type : "post",
+		data : {
+			"temaBlack" : temaBlack
+		}
+	})
+	return !temaBlack;
+}
+
+function changeTema() {
+	if (temaBlack) {
+		$('#changeTema').text("화이트모드");
+		before = $("style").html();
+		after = before.replaceAll("#0D0D0D", "#24619E");
+		after = after.replaceAll("#2565a3", "#2B2B2B");
+		after = after.replaceAll("#e3f2fd", "#141414");
+		after = after.replaceAll("#ffffff", "#404040");
+		after = after.replaceAll("#1565c0", "#F0F0F0");
+		after = after.replaceAll("#90caf9", "#4F4F4F");
+		after = after.replaceAll("#000000", "#F7F7F7");
+		after = after.replaceAll("#2563A1", "#FAFAFA");
+		$("style").html(after);
+		temaBlack = temaChange(true);
+	} else {
+		$('#changeTema').text("다크모드");
+		before = $("style").html();
+		after = before.replaceAll("#24619E", "#0D0D0D");
+		after = after.replaceAll("#2B2B2B", "#2565a3");
+		after = after.replaceAll("#141414", "#e3f2fd");
+		after = after.replaceAll("#404040", "#ffffff");
+		after = after.replaceAll("#F0F0F0", "#1565c0");
+		after = after.replaceAll("#4F4F4F", "#90caf9");
+		after = after.replaceAll("#F7F7F7", "#000000");
+		after = after.replaceAll("#FAFAFA", "#2563A1");
+		$("style").html(after);
+		temaBlack = temaChange(false);
+	}
+}
+//테마 끝
 //숫자만 입력하는 함수
 function onlyNum(obj) {
 	if ((event.keyCode < 48) || (event.keyCode > 57))

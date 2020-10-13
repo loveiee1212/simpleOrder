@@ -1,21 +1,135 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사업체 전체 매출</title>
+<title>SimpleOrder</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
-<link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
-<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/basicBox.css?after">
+<!-- <link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css"> -->
+<link rel="icon" href="resources/image/smallLogo.png"
+	type="image/x-icon">
 <style>
+/* calendar.css */
+#calendar {
+	border: 3px solid #2565a3;
+	float: left;
+	width: 1000px;
+	height: 770px;
+	margin-right: 30px;
+	padding: 15px;
+}
+
+#controller {
+	border: 2px solid #2565a3;
+	float: right;
+	width: 430px;
+	height: 800px;
+}
+
+#calendar_top {
+	text-align: right;
+	margin-top: 20px;
+}
+
+.moveButton {
+	width: 80px;
+	height: 50px;
+	background-color: #2565a3;
+	font-size: x-large;
+	font-weight: bolder;
+	border-radius: 8px;
+	border: 2px solid white;
+	color: white;
+}
+
+.moveButton:focus {
+	outline: none;
+}
+
+#calendar_main table, tr, td, th {
+	border: 3px solid #2565a3;
+	font-size: 20px;
+	border-collapse: collapse;
+	margin-top: 80px;
+}
+
+#calendar_main tr, td {
+	width: 150px;
+}
+
+th {
+	width: 200px;
+	height: 30px;
+	border: 3px solid #2565a3;
+	border-collapse: collapse;
+	margin-top: 80px;
+	background-color: #2565a3;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#yearMonth {
+	font-size: xx-large;
+	font-weight: bolder;
+	color: #2565a3;
+}
+
+pre.text {
+	width: 100px;
+	height: 75px;
+	font-size: 15px;
+	margin: 0px;
+}
+/* clock.css */
+#clock {
+	text-align: center;
+	border: 2px solid white;
+	background-color: #2565a3;
+	color: white;
+	font-weight: bold;
+	width: 300px;
+	height: 95px;
+	margin-left: 65px;
+	margin-top: 30px;
+	font-size: 20px;
+}
+
+#clock ul {
+	width: 200px;
+	list-style: none;
+	text-align: center;
+	margin-left: 10px;
+}
+
+#clock ul li {
+	display: inline;
+	font-size: 25px;
+	text-align: center;
+}
+
+#date {
+	text-align: center;
+	font-size: 25px;
+	margin-top: 10px;
+}
+
+.point {
+	position: relative;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: center;
+}
+
 body {
 	background-color: #e3f2fd;
 	font-family: 'NEXON Lv1 Gothic OTF Light';
@@ -31,18 +145,18 @@ body {
 }
 
 #calendar_main {
-    margin-top: -87px;
+	margin-top: -87px;
 }
 
 #calendar_main table {
-    margin-top: -83px;
-    margin-left: -20px;
-    width: 1100px;
-    height: 500px;
+	margin-top: -83px;
+	margin-left: -20px;
+	width: 1100px;
+	height: 500px;
 }
 
 #calendar_main th {
-    padding-top: 8px;
+	padding-top: 8px;
 }
 
 #calendar {
@@ -61,7 +175,7 @@ td.dt {
 }
 
 .salesName {
-    margin-top: -50px;
+	margin-top: -50px;
 }
 
 #view_layer {
@@ -139,71 +253,82 @@ td.dt {
 }
 
 #inputbtn {
-    width: 300px;
-    height: 80px;
-    border: 3px solid white;
-    background-color: #2565a3;
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-    float: right;
-    margin-top: -200px;
+	width: 300px;
+	height: 80px;
+	border: 3px solid white;
+	background-color: #2565a3;
+	color: white;
+	font-size: 25px;
+	font-weight: bold;
+	float: right;
+	margin-top: -200px;
 }
 
 #Exit {
-    width: 300px;
+	width: 300px;
 	height: 80px;
 	border: 3px solid white;
 	background-color: #e3f2fd;
-	font-weight : bold; 
-	color : #1565c0;
+	font-weight: bold;
+	color: #1565c0;
 	font-size: 20px;
 	float: right;
 	margin-top: -100px;
 }
 
 .salesText {
-    font-size: 15px;
-    font-weight: bold;
+	font-size: 15px;
+	font-weight: bold;
 }
 
 #monthSelect {
-    border: 3px solid #2565a3;
-    width: 300px;
-    height: 50px;
-    font-size: 20px;
-    text-align: center;
-    margin-bottom: 30px;
+	border: 3px solid #2565a3;
+	width: 300px;
+	height: 50px;
+	font-size: 20px;
+	text-align: center;
+	margin-bottom: 30px;
 }
 
 #salesList, #productList {
-    border-collapse: collapse;
-    font-weight: bold;
+	border-collapse: collapse;
+	font-weight: bold;
 }
 
 #salesList th, #productList th {
-    border: 3px solid white;
-    padding: 10px;
+	border: 3px solid white;
+	padding: 10px;
 }
 
 #productList td {
-    height: 40px;
-    border: none;
+	height: 40px;
+	border: none;
 	border-right: none;
 	border-bottom: 2px solid #2565a3;
 }
 
 #productList {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 input:focus, button:focus, select:focus {
 	outline: none;
 }
+
+#changeTema {
+	width: 180px;
+	height: 50px;
+	background-color: #0D0D0D;
+	color: #fcfaff;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	float: right;
+}
 </style>
 </head>
 <body>
-
+	<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div id="calendar">
@@ -222,17 +347,48 @@ input:focus, button:focus, select:focus {
 				<div id="view_layer">
 					<div id="bg_layer"></div>
 					<div id="main_layer">
-					<div id="month"></div>
-					<table id="salesList">
-						<tr><th>구분</th><th>결제</th><th>외상</th><th>반품</th></tr>
-						<tr><th>현금</th><td id="pay_cash"></td><td id="credit_cash"></td><td id="refund_cash"></td></tr>
-						<tr><th>카드</th><td id="pay_card"></td><td id="credit_card"></td><td id="refund_card"></td></tr>
-						<tr><th>미수금</th><td id="pay"></td><td id="credit"></td><td id="refund"></td></tr>
-						<tr><th>총금액</th><td id="pay_total"></td><td id="credit_total"></td><td id="refund_total"></td></tr>
-					</table>
-					<table id="productList">
-						<tr><th>사업자번호</th><th>상품명</th><th>판매가</th><th>판매갯수</th><th>금액</th></tr>
-					</table>
+						<div id="month"></div>
+						<table id="salesList">
+							<tr>
+								<th>구분</th>
+								<th>결제</th>
+								<th>외상</th>
+								<th>반품</th>
+							</tr>
+							<tr>
+								<th>현금</th>
+								<td id="pay_cash"></td>
+								<td id="credit_cash"></td>
+								<td id="refund_cash"></td>
+							</tr>
+							<tr>
+								<th>카드</th>
+								<td id="pay_card"></td>
+								<td id="credit_card"></td>
+								<td id="refund_card"></td>
+							</tr>
+							<tr>
+								<th>미수금</th>
+								<td id="pay"></td>
+								<td id="credit"></td>
+								<td id="refund"></td>
+							</tr>
+							<tr>
+								<th>총금액</th>
+								<td id="pay_total"></td>
+								<td id="credit_total"></td>
+								<td id="refund_total"></td>
+							</tr>
+						</table>
+						<table id="productList">
+							<tr>
+								<th>사업자번호</th>
+								<th>상품명</th>
+								<th>판매가</th>
+								<th>판매갯수</th>
+								<th>금액</th>
+							</tr>
+						</table>
 					</div>
 				</div>
 
@@ -244,6 +400,55 @@ input:focus, button:focus, select:focus {
 </body>
 
 <script type="text/javascript">
+//테마 시작
+if ("${temaBlack}" == "") {
+	temaBlack = false;
+} else {
+	temaBlack = JSON.parse('${temaBlack}');
+}
+changeTema();
+
+function temaChange(temaBlack) {
+	$.ajax({
+		url : "rest/temaChange",
+		type : "post",
+		data : {
+			"temaBlack" : temaBlack
+		}
+	})
+	return !temaBlack;
+}
+
+function changeTema() {
+	if (temaBlack) {
+		$('#changeTema').text("화이트모드");
+		before = $("style").html();
+		after = before.replaceAll("#0D0D0D", "#24619E");
+		after = after.replaceAll("#2565a3", "#2B2B2B");
+		after = after.replaceAll("#e3f2fd", "#141414");
+		after = after.replaceAll("#ffffff", "#404040");
+		after = after.replaceAll("#1565c0", "#F0F0F0");
+		after = after.replaceAll("#90caf9", "#4F4F4F");
+		after = after.replaceAll("#000000", "#F7F7F7");
+		after = after.replaceAll("#b3e5fc", "#808080");
+		$("style").html(after);
+		temaBlack = temaChange(true);
+	} else {
+		$('#changeTema').text("다크모드");
+		before = $("style").html();
+		after = before.replaceAll("#24619E", "#0D0D0D");
+		after = after.replaceAll("#2B2B2B", "#2565a3");
+		after = after.replaceAll("#141414", "#e3f2fd");
+		after = after.replaceAll("#404040", "#ffffff");
+		after = after.replaceAll("#F0F0F0", "#1565c0");
+		after = after.replaceAll("#4F4F4F", "#90caf9");
+		after = after.replaceAll("#F7F7F7", "#000000");
+		after = after.replaceAll("#808080", "#b3e5fc");
+		$("style").html(after);
+		temaBlack = temaChange(false);
+	}
+}
+//테마 끝
 	$(document).ready(function() {
 		makeCalendar();
 		resetDay();
@@ -320,7 +525,13 @@ input:focus, button:focus, select:focus {
 			if ($tdDay.eq(i).text() == today.getDate()) {
 				if (month == today.getMonth() + 1) {
 					if (year == today.getFullYear()) {
+						//if (JSON.parse('${temaBlack}') == true) {
+						//$(".dt").eq(i).css("background-color", "#808080");
+						//console.log("블랙테마");
+						//} else {
 						$(".dt").eq(i).css("background-color", "#81d4fa");
+						//console.log("화이트테마");
+						//}
 					}
 				}
 			}

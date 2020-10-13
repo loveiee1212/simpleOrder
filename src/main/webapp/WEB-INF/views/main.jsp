@@ -15,7 +15,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<title>SimpleOrder Main</title>
+<title>SimpleOrder</title>
 </head>
 <style>
 body {
@@ -103,7 +103,7 @@ ul {
 	padding: 40px 30px 0px 100px;
 }
 
-input:focus {
+input:focus, button:focus {
 	outline: none;
 }
 
@@ -211,10 +211,21 @@ li {
 	margin-left: 230px;
 	text-decoration: none;
 }
+
+#changeTema {
+	width: 180px;
+	height: 50px;
+	background-color: #0D0D0D;
+	color: #fcfaff;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	float: right;
+}
 </style>
 <body>
-	<div id="baseBox">
 		<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
+	<div id="baseBox">
 		<div id="baseinnerBox">
 			<nav class="navbar navbar-default">
 				<div id="header">
@@ -271,8 +282,8 @@ li {
 						<br>
 						<div id="msg2"></div>
 						<div id="errorDiv">${requestScope.errorDiv}</div>
-						<br> <input type="submit" id="btn1" value="로그인" /><br> <a
-							href="#" id="a">아이디(이메일)/비밀번호 찾기 ></a>
+						<br> <input type="submit" id="btn1" value="로그인" /><br>
+						<a href="#" id="a">아이디(이메일)/비밀번호 찾기 ></a>
 						<div id="line"></div>
 						<input type="button" id="btn2" value="회원가입"
 							onclick='location.href = "joinEmailFrm"'><br>
@@ -315,23 +326,25 @@ li {
 
 	function changeTema() {
 		if (temaBlack) {
+			$('#changeTema').text("화이트모드");
 			before = $("style").html();
-			after = before.replaceAll("#2565a3", "#2B2B2B");
+			after = before.replaceAll("#0D0D0D", "#24619E");
+			after = after.replaceAll("#2565a3", "#2B2B2B");
 			after = after.replaceAll("#e3f2fd", "#141414");
 			after = after.replaceAll("#ffffff", "#404040");
 			after = after.replaceAll("#1565c0", "#F0F0F0");
 			after = after.replaceAll("#90caf9", "#4F4F4F");
-			after = after.replaceAll("#337ab7", "#ffffff");
 			$("style").html(after);
 			temaBlack = temaChange(true);
 		} else {
+			$('#changeTema').text("다크모드");
 			before = $("style").html();
-			after = before.replaceAll("#2B2B2B", "#2565a3");
+			after = before.replaceAll("#24619E", "#0D0D0D");
+			after = after.replaceAll("#2B2B2B", "#2565a3");
 			after = after.replaceAll("#141414", "#e3f2fd");
 			after = after.replaceAll("#404040", "#ffffff");
 			after = after.replaceAll("#F0F0F0", "#1565c0");
 			after = after.replaceAll("#4F4F4F", "#90caf9");
-			after = after.replaceAll("#ffffff", "#337ab7");
 			$("style").html(after);
 			temaBlack = temaChange(false);
 		}

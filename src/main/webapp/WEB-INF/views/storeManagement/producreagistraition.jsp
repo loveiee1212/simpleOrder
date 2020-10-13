@@ -81,7 +81,6 @@ div#one {
     width: 730px;
     height: 650px;
     overflow: auto;
-    overflow-x: hidden;
 }
 
 #aSellCTDiv::-webkit-scrollbar-track {
@@ -126,25 +125,6 @@ div#one {
     width: 700px;
     height: 400px;
 	border-collapse: collapse;
-	overflow: auto;
-}
-
-.sellKeyBasicTable::-webkit-scrollbar-track {
-	background-color: white;
-	border-radius: 10px;
-	box-shadow: inset 0px 0px 5px grey;
-}
-
-.sellKeyBasicTable::-webkit-scrollbar {
-	width: 20px;
-	background-color: white;
-}
-
-.sellKeyBasicTable::-webkit-scrollbar-thumb {
-	background-color: #2565a3;
-	border-radius: 10px;
-	background-clip: padding-box;
-	border: 2px solid transparent;
 }
 
 .sellKeyBasicTable td {

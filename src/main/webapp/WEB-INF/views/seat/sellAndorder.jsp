@@ -4,7 +4,7 @@
 <%@ page session="false"%>
 <html>
 <head>
-<title>sellAndorder-판매</title>
+<title>SimpleOrder</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
@@ -43,15 +43,15 @@ body {
 	float: left;
 }
 
-#product table{
-    width: 700px;
-    height: 500px;
+#product table {
+	width: 700px;
+	height: 500px;
 }
 
 #product {
-    width: 700px;
-    height: 600px;
-    overflow: auto;
+	width: 700px;
+	height: 600px;
+	overflow: auto;
 	overflow-x: hidden;
 }
 
@@ -74,18 +74,18 @@ body {
 }
 
 .protd {
-    width: 150px;
-    height: 100px;
-    font-weight: bold;
+	width: 150px;
+	height: 100px;
+	font-weight: bold;
 }
 
 #listbox input {
-    width: 150px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
+	width: 150px;
+	height: 30px;
+	font-size: 20px;
+	text-align: center;
 }
-    
+
 .cancelbutton_for_oac {
 	color: red;
 	background-color: white;
@@ -153,10 +153,10 @@ div #listbox tr, td {
 }
 
 li input {
-    width: 80px;
-    font-size: 20px;
-    border: none;
-    text-align: center;
+	width: 80px;
+	font-size: 20px;
+	border: none;
+	text-align: center;
 }
 
 .bottombox {
@@ -168,10 +168,10 @@ li input {
 
 .bottombox2 {
 	width: 290px;
-    height: 280px;
-    margin-top: 15px;
-    margin-right: 15px;
-    float: right;
+	height: 280px;
+	margin-top: 15px;
+	margin-right: 15px;
+	float: right;
 }
 
 #paymentkind ul li {
@@ -206,12 +206,11 @@ li input {
 	-webkit-appearance: none;
 	margin: 0;
 } /* input 태그 안 number로 주었을 때 */
-
 #ctgtab {
-    width: 740px;
-    height: 80px;
-    overflow: auto;
-    overflow-y: hidden; 
+	width: 740px;
+	height: 80px;
+	overflow: auto;
+	overflow-y: hidden;
 }
 
 #ctgtab::-webkit-scrollbar-track {
@@ -272,10 +271,10 @@ li input {
 }
 
 #totalmoney, #endpay, #takemoney, #uctmoney {
-    margin: -20px 20px 5px 3px;
-    font-size: 20px;
-    border: none;
-    text-align: center;
+	margin: -20px 20px 5px 3px;
+	font-size: 20px;
+	border: none;
+	text-align: center;
 }
 
 #btn1, #btn2, #btn3 {
@@ -286,10 +285,10 @@ li input {
 }
 
 #btn4, #btn5 {
-    border: 3px solid #2565a3;
-    background-color: white;
-    color: #2565a3;
-    font-weight: bold;
+	border: 3px solid #2565a3;
+	background-color: #e3f2fd;
+	color: #2563A1;
+	font-weight: bold;
 }
 
 .tList {
@@ -300,54 +299,65 @@ li input {
 	display: block;
 }
 
-#background{
-    display :none;
-    position : absolute;
-    width: 92%;
-    height: 86.7%;
-    background-color: #ddd;
-    opacity: 0.5;
+#background {
+	display: none;
+	position: absolute;
+	width: 92%;
+	height: 86.7%;
+	background-color: #ddd;
+	opacity: 0.5;
 }
 
-#addcreditbox{
-	display : none;
+#addcreditbox {
+	display: none;
 	position: absolute;
-	width : 450px;
-	height : 300px;
+	width: 450px;
+	height: 300px;
 	background-color: white;
 	border: 3px solid #2565a3;
-	margin-left :32%;
+	margin-left: 32%;
 	margin-top: 17%;
 }
 
 #crd_name, #crd_phone {
-    width: 400px;
-    height: 50px;
-    border: 3px solid #2565a3;
-    text-align: center;
-    font-size: 20px;
-    margin: 30px 25px 5px;
+	width: 400px;
+	height: 50px;
+	border: 3px solid #2565a3;
+	text-align: center;
+	font-size: 20px;
+	margin: 30px 25px 5px;
 }
 
 #addcreditbutton {
-    width: 400px;
-    height: 80px;
-    border: 3px solid #1565c0;
-    background-color: #e3f2fd;
-    font-weight : bold; 
-	color : #1565c0;
-    margin: 20px 25px 5px;
-    text-align: center;
-    font-size: 25px;
+	width: 400px;
+	height: 80px;
+	border: 3px solid #1565c0;
+	background-color: #e3f2fd;
+	font-weight: bold;
+	color: #1565c0;
+	margin: 20px 25px 5px;
+	text-align: center;
+	font-size: 25px;
 }
 
 input:focus, button:focus {
-	outline: none; 
+	outline: none;
 }
 
+#changeTema {
+	width: 180px;
+	height: 50px;
+	background-color: #0D0D0D;
+	color: #fcfaff;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	float: right;
+}
 </style>
 </head>
 <body>
+	<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div class="innerdiv">
@@ -364,10 +374,8 @@ input:focus, button:focus {
 					<ul>
 						<li>총금액 <input type="number" readonly="readonly"
 							id="totalmoney"></li>
-						<li>결제금액 <input type="number" readonly="readonly"
-							id="endpay"></li>
-						<li>받은금액 <input type="number" id="takemoney"
-							placeholder="0"></li>
+						<li>결제금액 <input type="number" readonly="readonly" id="endpay"></li>
+						<li>받은금액 <input type="number" id="takemoney" placeholder="0"></li>
 						<li id="Remain_money">남은금액 <input type="number"
 							readonly="readonly" id="uctmoney"></li>
 					</ul>
@@ -400,71 +408,124 @@ input:focus, button:focus {
 					</ul>
 				</div>
 			</div>
-			<div id='background'>
-			</div>
-			<div id = "addcreditbox">
-				<input type='text' id="crd_name" maxlength="5"  placeholder="성함(최대 5자)"/>
-				<input type='text' id="crd_phone" maxlength="11" placeholder="연락처(최대 11자)"/>
-				<input type='button' id='addcreditbutton' value='외상처리'/>
+			<div id='background'></div>
+			<div id="addcreditbox">
+				<input type='text' id="crd_name" maxlength="5"
+					placeholder="성함(최대 5자)" /> <input type='text' id="crd_phone"
+					maxlength="11" placeholder="연락처(최대 11자)" /> <input type='button'
+					id='addcreditbutton' value='외상처리' />
 			</div>
 		</div>
 	</div>
 </body>
 <script>
-$(document).ready(function(){	
-	getsellkeyList();
-	totalprice();
-	if($("#oac_num").val()!="null"){
-		if($("#totalmoney").val()!=0){			
-	getpayAmount();
+	//테마 시작
+	if ("${temaBlack}" == "") {
+		temaBlack = false;
+	} else {
+		temaBlack = JSON.parse('${temaBlack}');
+	}
+	changeTema();
+
+	function temaChange(temaBlack) {
+		$.ajax({
+			url : "rest/temaChange",
+			type : "post",
+			data : {
+				"temaBlack" : temaBlack
+			}
+		})
+		return !temaBlack;
+	}
+
+	function changeTema() {
+		if (temaBlack) {
+			$('#changeTema').text("화이트모드");
+			before = $("style").html();
+			after = before.replaceAll("#0D0D0D", "#24619E");
+			after = after.replaceAll("#2565a3", "#2B2B2B");
+			after = after.replaceAll("#e3f2fd", "#141414");
+			after = after.replaceAll("#ffffff", "#404040");
+			after = after.replaceAll("#1565c0", "#F0F0F0");
+			after = after.replaceAll("#90caf9", "#4F4F4F");
+			after = after.replaceAll("#000000", "#F7F7F7");
+			after = after.replaceAll("#2563A1", "#FCFCFC");
+			$("style").html(after);
+			temaBlack = temaChange(true);
+		} else {
+			$('#changeTema').text("다크모드");
+			before = $("style").html();
+			after = before.replaceAll("#24619E", "#0D0D0D");
+			after = after.replaceAll("#2B2B2B", "#2565a3");
+			after = after.replaceAll("#141414", "#e3f2fd");
+			after = after.replaceAll("#404040", "#ffffff");
+			after = after.replaceAll("#F0F0F0", "#1565c0");
+			after = after.replaceAll("#4F4F4F", "#90caf9");
+			after = after.replaceAll("#FCFCFC", "#2563A1");
+			$("style").html(after);
+			temaBlack = temaChange(false);
 		}
 	}
-})
+	//테마 끝
+	$(document).ready(function() {
+		getsellkeyList();
+		totalprice();
+		if ($("#oac_num").val() != "null") {
+			if ($("#totalmoney").val() != 0) {
+				getpayAmount();
+			}
+		}
+	})
 
-	function cancelorder(i){
-	$("#pdcnt"+i).val(0);
-	$("#pdcnt"+i).parents("tr").css("display","none");
-	totalprice();
+	function cancelorder(i) {
+		$("#pdcnt" + i).val(0);
+		$("#pdcnt" + i).parents("tr").css("display", "none");
+		totalprice();
 	}
-		
-	
-	
-	function getpayAmount(){
-			var oac_num = {"oac_num":$("#oac_num").val()};
+
+	function getpayAmount() {
+		var oac_num = {
+			"oac_num" : $("#oac_num").val()
+		};
 		$.ajax({
 			type : 'post',
 			url : 'rest/getpayamount',
 			data : oac_num,
 			dataType : 'json',
-			success : function(data){
-			if(data!=""){				
-			var a = Number(data.endpay);
-			$("#endpay").val(a);
-			$("#uctmoney").val($("#totalmoney").val()-a);
-			if($("#totalmoney").val()==a){
-				updateOac();
-			}
-			}
+			success : function(data) {
+				if (data != "") {
+					var a = Number(data.endpay);
+					$("#endpay").val(a);
+					$("#uctmoney").val($("#totalmoney").val() - a);
+					if ($("#totalmoney").val() == a) {
+						updateOac();
+					}
+				}
 			}
 		})
 	}
 
-	function updateOac(){
+	function updateOac() {
 		$.ajax({
 			type : 'post',
 			url : 'rest/updateoac',
-			data : {"bd_date":"","oac_num":$("#oac_num").val()},
+			data : {
+				"bd_date" : "",
+				"oac_num" : $("#oac_num").val()
+			},
 			dataType : 'json',
-			success : function(data){
-			alert(data.result);
-			location.href = "./sellpage";
-			
+			success : function(data) {
+				alert(data.result);
+				location.href = "./sellpage";
+
 			}
 		})
 	}
-	
+
 	function getsellkeyList() {
-		$.ajax({type : 'post',
+		$
+				.ajax({
+					type : 'post',
 					url : 'rest/getsellkeylist',
 					dataType : 'json',
 					success : function(data) {
@@ -472,10 +533,19 @@ $(document).ready(function(){
 						$("#product").html(data.divList);
 						for ( var i in data.sellkeyList) {
 							var Arrvalue = data.sellkeyList[i];
-							if(Arrvalue.STK_STOCK!=-1&&Arrvalue.STK_STOCK==0){
-							$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM).css({"color" : "#a8a8a8",'visibility' : 'visible'});
-							}else{								
-							$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM).css({"background-color" : "white",'visibility' : 'visible'});
+							if (Arrvalue.STK_STOCK != -1
+									&& Arrvalue.STK_STOCK == 0) {
+								$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM)
+										.css({
+											"color" : "#a8a8a8",
+											'visibility' : 'visible'
+										});
+							} else {
+								$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM)
+										.css({
+											"background-color" : "white",
+											'visibility' : 'visible'
+										});
 							}
 							var str = "";
 							str += "<input type='hidden' id='pd_code' data-code='"+Arrvalue.PDC_CODE+"'value='"+Arrvalue.PD_CODE+"'/>";
@@ -484,8 +554,8 @@ $(document).ready(function(){
 							str += "<input type='hidden' id='pd_stock' data-code='"+Arrvalue.STK_STOCK+"'/>";
 							str += Arrvalue.PD_NAME + "<br/>";
 							str += Arrvalue.PD_PRICE + "원<br/>";
-							if(Arrvalue.STK_STOCK!=-1){								
-							str += "남은 재고 : "+Arrvalue.STK_STOCK;
+							if (Arrvalue.STK_STOCK != -1) {
+								str += "남은 재고 : " + Arrvalue.STK_STOCK;
 							}
 							$("#tnum" + Arrvalue.SKC_CODE + Arrvalue.SK_NUM)
 									.html(str);
@@ -493,111 +563,215 @@ $(document).ready(function(){
 
 						$("#table0").attr("class", "blockCtg");
 
-						$(".protd").click(function() {
-							var td = $(this);
-							var tdiv = td.children();
-							if(tdiv.children("#pd_stock").data('code')==0){
-								alert("남은 재고가 없습니다.");
-								return false;
-							}
-							
-							var pdc_code = tdiv.children("#pd_code").data('code');
-							if(pdc_code==undefined){
-								return false;
-							}
-							var pd_code = tdiv.children("#pd_code").val();
-							var pd_date = tdiv.children("#pd_date").data('code')
-							var pd_price = tdiv.children("#pd_info").data('code');
-							var pd_name = tdiv.children("#pd_info").val();
-							var $pdccode = $("input[name = 'pdcode']").length;
-							for(var i=0;i<$pdccode;i++){
-								if($("#pdcode"+i).data('code')==pdc_code&&$("#pdcode"+i).val()==pd_code){
-									$("#pdcode"+i).parents("tr").css("display",'');
-									if(tdiv.children("#pd_stock").data('code')!=-1){										
-									if(tdiv.children("#pd_stock").data('code')<Number($("#pdcnt"+i).val())+1){
-									alert("남은 재고 수량까지 주문 가능합니다.");
-									return false;
-									}
-									}
-									$("#pdcnt"+i).val(Number($("#pdcnt"+i).val())+1);
-									if(tdiv.children("#pd_stock").data('code')!=-1){										
-									$("#pdcnt"+i).attr('max',tdiv.children("#pd_stock").data('code'));
-									}
-									$("#totalprice"+i).text(Number($("#hiddenprice"+i).val())*Number($("#pdcnt"+i).val()));
-									totalprice();
-									return;
-								}
-							}
-							
-							if($pdccode!=0){
-							var value = "";
-							value+="<tr>";
-							value+="<td><input type='hidden' name='pdcode' id='pdcode"+$pdccode + "' data-code='"
+						$(".protd")
+								.click(
+										function() {
+											var td = $(this);
+											var tdiv = td.children();
+											if (tdiv.children("#pd_stock")
+													.data('code') == 0) {
+												alert("남은 재고가 없습니다.");
+												return false;
+											}
+
+											var pdc_code = tdiv.children(
+													"#pd_code").data('code');
+											if (pdc_code == undefined) {
+												return false;
+											}
+											var pd_code = tdiv.children(
+													"#pd_code").val();
+											var pd_date = tdiv.children(
+													"#pd_date").data('code')
+											var pd_price = tdiv.children(
+													"#pd_info").data('code');
+											var pd_name = tdiv.children(
+													"#pd_info").val();
+											var $pdccode = $("input[name = 'pdcode']").length;
+											for (var i = 0; i < $pdccode; i++) {
+												if ($("#pdcode" + i).data(
+														'code') == pdc_code
+														&& $("#pdcode" + i)
+																.val() == pd_code) {
+													$("#pdcode" + i).parents(
+															"tr").css(
+															"display", '');
+													if (tdiv.children(
+															"#pd_stock").data(
+															'code') != -1) {
+														if (tdiv.children(
+																"#pd_stock")
+																.data('code') < Number($(
+																"#pdcnt" + i)
+																.val()) + 1) {
+															alert("남은 재고 수량까지 주문 가능합니다.");
+															return false;
+														}
+													}
+													$("#pdcnt" + i)
+															.val(
+																	Number($(
+																			"#pdcnt"
+																					+ i)
+																			.val()) + 1);
+													if (tdiv.children(
+															"#pd_stock").data(
+															'code') != -1) {
+														$("#pdcnt" + i)
+																.attr(
+																		'max',
+																		tdiv
+																				.children(
+																						"#pd_stock")
+																				.data(
+																						'code'));
+													}
+													$("#totalprice" + i)
+															.text(
+																	Number($(
+																			"#hiddenprice"
+																					+ i)
+																			.val())
+																			* Number($(
+																					"#pdcnt"
+																							+ i)
+																					.val()));
+													totalprice();
+													return;
+												}
+											}
+
+											if ($pdccode != 0) {
+												var value = "";
+												value += "<tr>";
+												value += "<td><input type='hidden' name='pdcode' id='pdcode"+$pdccode + "' data-code='"
 									+pdc_code + "' value='" + pd_code + "'/>"
-									+ "<input type='hidden' name='pddate' id='pddate"+$pdccode + "' value='" + pd_date + "'/>"
-									+ pd_name + "</td>";
-							value+="<td><p class ='price' id='totalprice"+$pdccode+"'>"+pd_price+"</p>";
-							value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
+														+ "<input type='hidden' name='pddate' id='pddate"+$pdccode + "' value='" + pd_date + "'/>"
+														+ pd_name + "</td>";
+												value += "<td><p class ='price' id='totalprice"+$pdccode+"'>"
+														+ pd_price + "</p>";
+												value += "<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 									+ "'/></td>";
-							if(tdiv.children("#pd_stock").data('code')!=-1){
-								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-								+"<input type='Number' name ='pdcnt' min='0' max='"+tdiv.children("#pd_stock").data('code')+"' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
-								}else{									
-								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-								+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
-								}
-							value+="<td><input type='button' id='cancelbutton"+$pdccode+"' class='cancelbutton_for_oac' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
-							value+="</tr>";
-							$("#listbox").children("center").children("table").append(value);
-							totalprice();
-							}else{
-								var value = "";
-								value+="<table>";
-								value+="<tr>";
-								value+="<td><input type='hidden' name='pdcode' id='pdcode"+$pdccode + "' data-code='"
+												if (tdiv.children("#pd_stock")
+														.data('code') != -1) {
+													value += "<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
+															+ "<input type='Number' name ='pdcnt' min='0' max='"
+															+ tdiv
+																	.children(
+																			"#pd_stock")
+																	.data(
+																			'code')
+															+ "' id='pdcnt"
+															+ $pdccode
+															+ "' onchange='totalprice()' value='"
+															+ 1 + "'/></td>";
+												} else {
+													value += "<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
+															+ "<input type='Number' name ='pdcnt' min='0' id='pdcnt"
+															+ $pdccode
+															+ "' onchange='totalprice()' value='"
+															+ 1 + "'/></td>";
+												}
+												value += "<td><input type='button' id='cancelbutton"
+														+ $pdccode
+														+ "' class='cancelbutton_for_oac' onclick='cancelorder("
+														+ $pdccode
+														+ ")' value='취소'/></td>";
+												value += "</tr>";
+												$("#listbox")
+														.children("center")
+														.children("table")
+														.append(value);
+												totalprice();
+											} else {
+												var value = "";
+												value += "<table>";
+												value += "<tr>";
+												value += "<td><input type='hidden' name='pdcode' id='pdcode"+$pdccode + "' data-code='"
 										+pdc_code + "' value='" + pd_code + "'/>"
-										+ "<input type='hidden' name='pddate' id='pddate"+$pdccode + "' value='" + pd_date + "'/>"
-										+ pd_name + "</td>";
-								value+="<td><p class ='price' id='totalprice"+$pdccode+"'>"+pd_price+"</p>";
-								value+="<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
+														+ "<input type='hidden' name='pddate' id='pddate"+$pdccode + "' value='" + pd_date + "'/>"
+														+ pd_name + "</td>";
+												value += "<td><p class ='price' id='totalprice"+$pdccode+"'>"
+														+ pd_price + "</p>";
+												value += "<input type='hidden' id='hiddenprice"+$pdccode + "' value='" + pd_price
 										+ "'/></td>";
-								if(tdiv.children("#pd_stock").data('code')!=-1){
-								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-								+"<input type='Number' name ='pdcnt' min='0' max='"+tdiv.children("#pd_stock").data('code')+"' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
-								}else{									
-								value+="<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
-								+"<input type='Number' name ='pdcnt' min='0' id='pdcnt"+$pdccode + "' onchange='totalprice()' value='" + 1 + "'/></td>";
-								}
-								value+="<td><input type='button' id='cancelbutton"+$pdccode+"' class='cancelbutton_for_oac' onclick='cancelorder("+$pdccode+")' value='취소'/></td>";
-								value+="</tr>";
-								value+="</table>";
-								$("#listbox").children("center").append(value);
-								totalprice();
-							}
-							$("tr").children($("input [name='pdcnt']")).keyup(function(evt) {
-								var $pdccode = $("input[name = 'pdcode']");
-								for(var i = 0; i<$pdccode.length;i++){
-									if($("#pdcnt"+i).attr("max")!=undefined){
-										if(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max"))){
-											alert("주문한 수량이 남은 재고수량보다 큽니다.");
-											$("#pdcnt"+i).val($("#pdcnt"+i).attr("max"));
-											totalprice();
-											return false;
-										}
-									}
-								}								
-								totalprice();
-								
-							});
-						})
-					
-						
+												if (tdiv.children("#pd_stock")
+														.data('code') != -1) {
+													value += "<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
+															+ "<input type='Number' name ='pdcnt' min='0' max='"
+															+ tdiv
+																	.children(
+																			"#pd_stock")
+																	.data(
+																			'code')
+															+ "' id='pdcnt"
+															+ $pdccode
+															+ "' onchange='totalprice()' value='"
+															+ 1 + "'/></td>";
+												} else {
+													value += "<td><input type='hidden' id='hiddencnt"+$pdccode +"' value='0'/>"
+															+ "<input type='Number' name ='pdcnt' min='0' id='pdcnt"
+															+ $pdccode
+															+ "' onchange='totalprice()' value='"
+															+ 1 + "'/></td>";
+												}
+												value += "<td><input type='button' id='cancelbutton"
+														+ $pdccode
+														+ "' class='cancelbutton_for_oac' onclick='cancelorder("
+														+ $pdccode
+														+ ")' value='취소'/></td>";
+												value += "</tr>";
+												value += "</table>";
+												$("#listbox")
+														.children("center")
+														.append(value);
+												totalprice();
+											}
+											$("tr")
+													.children(
+															$("input [name='pdcnt']"))
+													.keyup(
+															function(evt) {
+																var $pdccode = $("input[name = 'pdcode']");
+																for (var i = 0; i < $pdccode.length; i++) {
+																	if ($(
+																			"#pdcnt"
+																					+ i)
+																			.attr(
+																					"max") != undefined) {
+																		if (Number($(
+																				"#pdcnt"
+																						+ i)
+																				.val()) > Number($(
+																				"#pdcnt"
+																						+ i)
+																				.attr(
+																						"max"))) {
+																			alert("주문한 수량이 남은 재고수량보다 큽니다.");
+																			$(
+																					"#pdcnt"
+																							+ i)
+																					.val(
+																							$(
+																									"#pdcnt"
+																											+ i)
+																									.attr(
+																											"max"));
+																			totalprice();
+																			return false;
+																		}
+																	}
+																}
+																totalprice();
+
+															});
+										})
+
 					}
 				})
 
 	}
-	
-	
+
 	/* 테이블 카테고리 클릭시 오픈 */
 	function opentable(evt, categoryname) {
 		var table = $("div[id*='table']");
@@ -610,30 +784,30 @@ $(document).ready(function(){
 		}
 	};
 
-	if ($("#oac_num").val() == "null" && $("#totalmoney").val()!=0) {
+	if ($("#oac_num").val() == "null" && $("#totalmoney").val() != 0) {
 		$("#oac_num").val("");
 	}
 
 	//수량변경 
 	$("tr").children($("input")).keyup(function(evt) {
-		
+
 		totalprice();
 	});
 
 	function totalprice() {
 		var $pdccode = $("input[name = 'pdcode']");
-		for(var i = 0; i<$pdccode.length;i++){
-			if($("#pdcnt"+i).attr("max")!=undefined){
-				if(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max"))){
+		for (var i = 0; i < $pdccode.length; i++) {
+			if ($("#pdcnt" + i).attr("max") != undefined) {
+				if (Number($("#pdcnt" + i).val()) > Number($("#pdcnt" + i)
+						.attr("max"))) {
 					alert("주문한 수량이 남은 재고수량보다 큽니다.");
-					$("#pdcnt"+i).val($("#pdcnt"+i).attr("max"));
+					$("#pdcnt" + i).val($("#pdcnt" + i).attr("max"));
 					totalprice();
 					return false;
 				}
 			}
 		}
-		
-		
+
 		for (var i = 0; i < $("tr").length; i++) {
 			var $pdcnt = $("#pdcnt" + i).val();
 			var $hiddenprice = $("#hiddenprice" + i).val();
@@ -656,77 +830,80 @@ $(document).ready(function(){
 	}
 
 	function sendsaoList(paytype) {
-		
+
 		var pdccodeArray = [];
 		var codeArray = [];
 		var cntArray = [];
 		var dateArray = [];
 		var $pdccode = $("input[name = 'pdcode']");
 		var isempty = [];
-		
-		
-		for(var i = 0; i<$pdccode.length;i++){
-			if($("#pdcnt"+i).attr("max")!=undefined){
-				if(Number($("#pdcnt"+i).val())>Number($("#pdcnt"+i).attr("max"))){
+
+		for (var i = 0; i < $pdccode.length; i++) {
+			if ($("#pdcnt" + i).attr("max") != undefined) {
+				if (Number($("#pdcnt" + i).val()) > Number($("#pdcnt" + i)
+						.attr("max"))) {
 					alert("주문한 수량이 남은 재고수량보다 큽니다.");
-					$("#pdcnt"+i).val($("#pdcnt"+i).attr("max"));
+					$("#pdcnt" + i).val($("#pdcnt" + i).attr("max"));
 					totalprice();
 					return false;
 				}
 			}
 		}
-		
-		if($("#before_num").val()!=undefined){
+
+		if ($("#before_num").val() != undefined) {
 			for (var i = 0; i < $pdccode.length; i++) {
-					pdccodeArray.push($("#pdcode" + i).data('code'));
+				pdccodeArray.push($("#pdcode" + i).data('code'));
 			}
 			if (pdccodeArray.length == 0) {
 				alert("변경 사항이 없습니다.")
 				return;
-			};
+			}
+			;
 			for (var i = 0; i < $pdccode.length; i++) {
 				dateArray.push($("#pddate" + i).val());
 			}
 
-			for (var i = 0; i < $pdccode.length; i++) {			
+			for (var i = 0; i < $pdccode.length; i++) {
 				codeArray.push($("#pdcode" + i).val());
 			}
 
 			var $cnt = $("input[name='pdcnt']");
 			for (var i = 0; i < $cnt.length; i++) {
-			cntArray.push($("#pdcnt" + i).val() - $("#hiddencnt" + i).val());
-			}	
-		}else{			
-		for (var i = 0; i < $pdccode.length; i++) {
-			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
-				pdccodeArray.push($("#pdcode" + i).data('code'));
+				cntArray
+						.push($("#pdcnt" + i).val() - $("#hiddencnt" + i).val());
 			}
-		}
-		if (pdccodeArray.length == 0) {
-			alert("변경 사항이 없습니다.")
-			return;
-		};
-		for (var i = 0; i < $pdccode.length; i++) {
-			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
-				dateArray.push($("#pddate" + i).val());
+		} else {
+			for (var i = 0; i < $pdccode.length; i++) {
+				if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+					pdccodeArray.push($("#pdcode" + i).data('code'));
+				}
+			}
+			if (pdccodeArray.length == 0) {
+				alert("변경 사항이 없습니다.")
+				return;
+			}
+			;
+			for (var i = 0; i < $pdccode.length; i++) {
+				if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+					dateArray.push($("#pddate" + i).val());
+				}
+			}
+
+			for (var i = 0; i < $pdccode.length; i++) {
+				if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+					codeArray.push($("#pdcode" + i).val());
+				}
+			}
+
+			var $cnt = $("input[name='pdcnt']");
+			for (var i = 0; i < $cnt.length; i++) {
+				if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+					cntArray.push($("#pdcnt" + i).val()
+							- $("#hiddencnt" + i).val());
+				}
 			}
 		}
 
-		for (var i = 0; i < $pdccode.length; i++) {
-			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
-				codeArray.push($("#pdcode" + i).val());
-			}
-		}
-
-		var $cnt = $("input[name='pdcnt']");
-		for (var i = 0; i < $cnt.length; i++) {
-			if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
-				cntArray.push($("#pdcnt" + i).val() - $("#hiddencnt" + i).val());
-			}
-		}
-		}
-		
-		
 		var objparam = {
 			"oac_num" : $("#oac_num").val(),
 			"sc_code" : $("#sc_code").val(),
@@ -736,195 +913,215 @@ $(document).ready(function(){
 			"pd_code" : codeArray,
 			"oh_cnt" : cntArray
 		}
-		
-		
-		if($("#oac_num").val()!="null"||$("#oac_num").val()!=undefined){
-			for(var i = 0; i<$pdccode.length;i++){
-				if($("#pdcnt" + i).val()==0){
+
+		if ($("#oac_num").val() != "null" || $("#oac_num").val() != undefined) {
+			for (var i = 0; i < $pdccode.length; i++) {
+				if ($("#pdcnt" + i).val() == 0) {
 					isempty.push($("#pdcnt" + i).val());
 				}
 			}
 		}
-		if(isempty.length==$pdccode.length){
-			if(confirm("주문 내역이 없습니다.해당 테이블의 주문 번호를 말소처리 하시겠습니까?")){
+		if (isempty.length == $pdccode.length) {
+			if (confirm("주문 내역이 없습니다.해당 테이블의 주문 번호를 말소처리 하시겠습니까?")) {
 				$.ajax({
 					type : 'post',
 					url : 'rest/cancelordernum',
-					data : {"oac_num" : $("#oac_num").val()},
+					data : {
+						"oac_num" : $("#oac_num").val()
+					},
 					dataType : 'json',
-					success : function(result){
+					success : function(result) {
 						alert(result.result);
 					}
-					
-				})	
+
+				})
 			}
 		}
-		
-		
+
 		$.ajax({
 			type : "post",
 			url : 'rest/sendsaolist',
 			data : objparam,
 			dataType : 'json',
 			success : function(result) {
-				if(paytype==1||paytype==2){
-					creditPayment(1,paytype,result.oac_num);
-				}else if(paytype==3){
+				if (paytype == 1 || paytype == 2) {
+					creditPayment(1, paytype, result.oac_num);
+				} else if (paytype == 3) {
 					addcreditList(result.oac_num);
-				}else{					
-				location.href = result.result;
+				} else {
+					location.href = result.result;
 				}
 			}
 		});
 	}
-	
 
-	function creditPayment(num,paytype,getoac_num){
+	function creditPayment(num, paytype, getoac_num) {
 		var pdccodeArray = [];
 		var $pdccode = $("input[name = 'pdcode']");
 		var oac_num = $("#oac_num").val();
-		if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
-		if(num!=1){
-			sendsaoList(paytype);
-			return false;
-		}
-		if(oac_num!=0){			
-		oac_num = getoac_num;
-		}
-		}else{
+		if (oac_num == "" || oac_num == undefined || oac_num == null
+				|| oac_num == "null") {
+			if (num != 1) {
+				sendsaoList(paytype);
+				return false;
+			}
+			if (oac_num != 0) {
+				oac_num = getoac_num;
+			}
+		} else {
 			for (var i = 0; i < $pdccode.length; i++) {
 				if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
 					pdccodeArray.push($("#pdcode" + i).data('code'));
 				}
 			}
-		if (pdccodeArray.length != 0 && num !=1) {
-			//alert("주문 변경사항이 있습니다.")
-			if(confirm("주문 변경사항이 있습니다. 주문 내역 변경 후 결제합니다.")){
-				sendsaoList(paytype);
-			}else{				
-			return false;
+			if (pdccodeArray.length != 0 && num != 1) {
+				//alert("주문 변경사항이 있습니다.")
+				if (confirm("주문 변경사항이 있습니다. 주문 내역 변경 후 결제합니다.")) {
+					sendsaoList(paytype);
+				} else {
+					return false;
+				}
 			}
-		};
+			;
 		}
 		var endpay = $("#endpay").val();
 		var bd_date = $("#sendbd_date").val();
-		if($("#takemoney").val()==0){
-			if(confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")){
-				$("#takemoney").val($("#totalmoney").val()-endpay);
+		if ($("#takemoney").val() == 0) {
+			if (confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")) {
+				$("#takemoney").val($("#totalmoney").val() - endpay);
 			}
 		}
 		var getmoney = $("#takemoney").val();
-		if($("#takemoney").val()-($("#totalmoney").val()-endpay)>0){
-		var paymoney = $("#totalmoney").val()-endpay;
-		}else{
-		var paymoney = $("#takemoney").val();
+		if ($("#takemoney").val() - ($("#totalmoney").val() - endpay) > 0) {
+			var paymoney = $("#totalmoney").val() - endpay;
+		} else {
+			var paymoney = $("#takemoney").val();
 		}//결제금액이 총금액보다 큰 경우 총금액이 결제금액으로 설정
-		
+
 		var text = $("#Remain_money").text();
-		
+
 		/* if(text.match("남은금액")){
 		var totalmoney = $("#totalmoney").val($("#uctmoney").val());
 		}//남은금액이 있을경우 남은금액이 총금액의 값으로 들어가게 됨 */
-		
+
 		var objparam = {
-				"bd_date":bd_date,
-				"oac_num":oac_num,
-				"getmoney":getmoney,
-				"paymoney" : paymoney,
-				"paytype":paytype
+			"bd_date" : bd_date,
+			"oac_num" : oac_num,
+			"getmoney" : getmoney,
+			"paymoney" : paymoney,
+			"paytype" : paytype
 		}
-		 $.ajax({
-		type : 'post',
-		url : 'rest/moneypayment',
-		data : objparam,
-		dataType : 'json',
-		success : function(result){
-		//	location.href = "./sellandorder?sc_code=" + $("#sc_code").val()+ "&st_num=" + $("#st_num").val() + "&oac_num="+ oac_num;
-			location.reload();
-		} //result end
+		$.ajax({
+			type : 'post',
+			url : 'rest/moneypayment',
+			data : objparam,
+			dataType : 'json',
+			success : function(result) {
+				//	location.href = "./sellandorder?sc_code=" + $("#sc_code").val()+ "&st_num=" + $("#st_num").val() + "&oac_num="+ oac_num;
+				location.reload();
+			} //result end
 		})//ajax end
-	
-		
+
 	}
-	
-	function openCreditbox(){		
-		$("#background").css("display","block");
-		$("#addcreditbox").css("display","block");
-		$("#addcreditbutton").click(function(){
-			 var oac_num = $("#oac_num").val();
-			 var $pdccode = $("input[name = 'pdcode']");
-			 var pdccodeArray = [];
-			 if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
+
+	function openCreditbox() {
+		$("#background").css("display", "block");
+		$("#addcreditbox").css("display", "block");
+		$("#addcreditbutton").click(
+				function() {
+					var oac_num = $("#oac_num").val();
+					var $pdccode = $("input[name = 'pdcode']");
+					var pdccodeArray = [];
+					if (oac_num == "" || oac_num == undefined
+							|| oac_num == null || oac_num == "null") {
 						sendsaoList(3);
 						return false;
-					 }else{
-						
+					} else {
+
 						for (var i = 0; i < $pdccode.length; i++) {
-							if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
-							pdccodeArray.push($("#pdcode" + i).data('code'));
+							if ($("#pdcnt" + i).val()
+									- $("#hiddencnt" + i).val() != 0) {
+								pdccodeArray
+										.push($("#pdcode" + i).data('code'));
 							}
-							}
-							if (pdccodeArray.length != 0) {
+						}
+						if (pdccodeArray.length != 0) {
 							alert("주문 변경사항이 있습니다.")
 							return;
-							};
-							 addcreditList(oac_num);
-					 };
+						}
+						;
+						addcreditList(oac_num);
+					}
+					;
 				})
-		}
-	
-	function addcreditList(getoac_num){
-			 var crd_name = $("#crd_name").val();
-			 var crd_phone = $("#crd_phone").val();
-			 var oac_num = $("#oac_num").val();
-			 if(oac_num==""||oac_num==undefined||oac_num==null||oac_num=="null"){
-					oac_num = getoac_num
-				 };
-			 var obj = {
-					 "crd_name" : crd_name,
-					 "crd_phone" : crd_phone,
-					 "oac_num" : oac_num
-			 }
-			 	$.ajax({
-				type : 'post',
-				url : 'rest/addcreditlist',
-				data : obj,
-				dataType : 'json',
-				success : function (result){
-					alert(result.result);
-					location.href = "./sellpage";
-				}
-			});
-		
 	}
-	
-	$("#background").click(function(){
-		$("#background").css("display","none");
-		$("#addcreditbox").css("display","none");
+
+	function addcreditList(getoac_num) {
+		var crd_name = $("#crd_name").val();
+		var crd_phone = $("#crd_phone").val();
+		var oac_num = $("#oac_num").val();
+		if (oac_num == "" || oac_num == undefined || oac_num == null
+				|| oac_num == "null") {
+			oac_num = getoac_num
+		}
+		;
+		var obj = {
+			"crd_name" : crd_name,
+			"crd_phone" : crd_phone,
+			"oac_num" : oac_num
+		}
+		$.ajax({
+			type : 'post',
+			url : 'rest/addcreditlist',
+			data : obj,
+			dataType : 'json',
+			success : function(result) {
+				alert(result.result);
+				location.href = "./sellpage";
+			}
+		});
+
+	}
+
+	$("#background").click(function() {
+		$("#background").css("display", "none");
+		$("#addcreditbox").css("display", "none");
 	});
-	
-	 
-	
 
 	/* 키패드 */
 	var str = "";
 	$("#uctmoney").val($("#totalmoney").val());
 
-	$("#keypad ul li").click(function() {
-	var endpay = $("#endpay").val();
-	if ($(this).val() == 11 || $(this).val() == 12) {return;}
-	str += $(this).val();
-	$("#takemoney").val(Number(str));
-	$("#uctmoney").val(
-	$("#totalmoney").val()- endpay - $("#takemoney").val());
-	if (($("#totalmoney").val() -endpay  - $("#takemoney").val()) < 0) {
-	$("#Remain_money").html(
-	"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-	$("#uctmoney").val(($("#totalmoney").val()-endpay - $("#takemoney").val())* (-1));} 
-	else {$("#Remain_money").html(
-	"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-	$("#uctmoney").val(($("#totalmoney").val()-endpay - $("#takemoney").val()));}
-	});
+	$("#keypad ul li")
+			.click(
+					function() {
+						var endpay = $("#endpay").val();
+						if ($(this).val() == 11 || $(this).val() == 12) {
+							return;
+						}
+						str += $(this).val();
+						$("#takemoney").val(Number(str));
+						$("#uctmoney").val(
+								$("#totalmoney").val() - endpay
+										- $("#takemoney").val());
+						if (($("#totalmoney").val() - endpay - $("#takemoney")
+								.val()) < 0) {
+							$("#Remain_money")
+									.html(
+											"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+							$("#uctmoney").val(
+									($("#totalmoney").val() - endpay - $(
+											"#takemoney").val())
+											* (-1));
+						} else {
+							$("#Remain_money")
+									.html(
+											"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+							$("#uctmoney").val(
+									($("#totalmoney").val() - endpay - $(
+											"#takemoney").val()));
+						}
+					});
 
 	function reset() {
 		var endpay = $("#endpay").val();
@@ -932,38 +1129,61 @@ $(document).ready(function(){
 		$("#takemoney").val(Number(str));
 		$("#Remain_money").html(
 				"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-		$("#uctmoney").val($("#totalmoney").val()-endpay);}
+		$("#uctmoney").val($("#totalmoney").val() - endpay);
+	}
 
 	function backspace() {
 		var endpay = $("#endpay").val();
 		$("#takemoney").val(str.substr(0, str.length - 1));
-		$("#uctmoney").val($("#totalmoney").val()-endpay  - $("#takemoney").val());
+		$("#uctmoney").val(
+				$("#totalmoney").val() - endpay - $("#takemoney").val());
 		str = $("#takemoney").val();
 
-		if (($("#totalmoney").val()-endpay - $("#takemoney").val()) < 0) {
-			$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(($("#totalmoney").val()-endpay - $("#takemoney").val()) * (-1));
+		if (($("#totalmoney").val() - endpay - $("#takemoney").val()) < 0) {
+			$("#Remain_money")
+					.html(
+							"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(
+					($("#totalmoney").val() - endpay - $("#takemoney").val())
+							* (-1));
 		} else {
-			$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-			$("#uctmoney").val(($("#totalmoney").val()-endpay - $("#takemoney").val()));
+			$("#Remain_money")
+					.html(
+							"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+			$("#uctmoney").val(
+					($("#totalmoney").val() - endpay - $("#takemoney").val()));
 		}
 	}
 
 	/* 키패드 */
-	$("#takemoney").keyup(function(evt) {
-	var endpay = $("#endpay").val();
-	$("#uctmoney").val($("#totalmoney").val()-endpay - $("#takemoney").val());
-	if (($("#totalmoney").val()-endpay - $("#takemoney").val()) < 0) {
-	$("#Remain_money").html("거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
-	$("#uctmoney").val(($("#totalmoney").val()-endpay - $("#takemoney").val())*(-1));} 
-	else {$("#Remain_money").html("남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
-	$("#uctmoney").val($("#totalmoney").val()-endpay - $("#takemoney").val());}
-	});
+	$("#takemoney")
+			.keyup(
+					function(evt) {
+						var endpay = $("#endpay").val();
+						$("#uctmoney").val(
+								$("#totalmoney").val() - endpay
+										- $("#takemoney").val());
+						if (($("#totalmoney").val() - endpay - $("#takemoney")
+								.val()) < 0) {
+							$("#Remain_money")
+									.html(
+											"거스름돈 <input type='number' readonly='readonly' id='uctmoney'>");
+							$("#uctmoney").val(
+									($("#totalmoney").val() - endpay - $(
+											"#takemoney").val())
+											* (-1));
+						} else {
+							$("#Remain_money")
+									.html(
+											"남은금액 <input type='number' readonly='readonly' id='uctmoney'>");
+							$("#uctmoney").val(
+									$("#totalmoney").val() - endpay
+											- $("#takemoney").val());
+						}
+					});
 	$("#takemoney").focus(function() {
-	$("#takemoney").val("");
+		$("#takemoney").val("");
 	});
-	
-	
 </script>
 
 </html>

@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
+<link rel="icon" href="resources/image/smallLogo.png"
+	type="image/x-icon">
 <style type="text/css">
 body {
 	background-color: #e3f2fd;
@@ -98,14 +99,13 @@ img {
 
 #cListInfo {
 	width: 1400px;
-    height: auto;
-    border: 3px solid #2565a3;
-    font-size: 20px;
-    z-index: 2;
-    border-collapse: collapse;
-    font-weight: bold;
+	height: auto;
+	border: 3px solid #2565a3;
+	font-size: 20px;
+	z-index: 2;
+	border-collapse: collapse;
+	font-weight: bold;
 }
-
 
 #UPbtn {
 	width: 80px;
@@ -128,8 +128,8 @@ img {
 }
 
 #cListInfoDiv {
-    width: 1450px;
-    height: 300px;
+	width: 1450px;
+	height: 300px;
 	margin-left: 20px;
 	overflow: auto;
 }
@@ -212,18 +212,18 @@ td:-webkit-scrollbar {
 }
 
 #btn3 {
-    width: 200px;
-    height: 60px;
-    border: 3px solid #2565a3;
-    margin: 150px 80px 10px 47px;
-    padding: 5px 10px;
-    outline: 0;
-    background-color: white;
-    color: #2565a3;
-    font-size: 20px;
-    font-weight: bold;
-    float: right;
-    border-radius: 50px;
+	width: 200px;
+	height: 60px;
+	border: 3px solid #2565a3;
+	margin: 150px 80px 10px 47px;
+	padding: 5px 10px;
+	outline: 0;
+	background-color: white;
+	color: #2565a3;
+	font-size: 20px;
+	font-weight: bold;
+	float: right;
+	border-radius: 50px;
 }
 
 #error {
@@ -238,9 +238,22 @@ td:-webkit-scrollbar {
 	color: #ff3d00;
 	padding-left: 240px;
 }
+td{
+	color: #000000;
+}
+#changeTema {
+	width: 180px;
+	height: 50px;
+	background-color: #0D0D0D;
+	color: #fcfaff;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	float: right;
+}
 </style>
 <meta charset="UTF-8">
-<title>사업자 리스트</title>
+<title>SimpleOrder</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
@@ -248,65 +261,110 @@ td:-webkit-scrollbar {
 </head>
 <body>
 
-	
 
+<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<a class="navbar-brand" href="main"><img
-				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
-			<input
+				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a> <input
 				type="button" id="btn3" onclick="location.href = 'emailLogout'"
 				value="EMAIL 로그아웃">
 			<div id="cListInfoDiv">
-			<table id="cListInfo">
-				<tr>
-					<th>상호명</th>
-					<th>사업자번호</th>
-					<th>전화번호</th>
-					<th>주소</th>
-					<th colspan="2">비고</th>
-				</tr>
-			</table>
-			</div>
-			<input type="button" id="btn1"
-				onclick="location.href ='createccodefrm'" value="사업장 추가"> 
-			<input
-				type="button" id="btn2" onclick="location.href = 'emailsales'"
-				value="사업장 전체 매출">	
-				<div id="flotBoxDiv">
-		<div id="flotBoxbg"></div>
-		<div id="flotBox">
-			<form name="cLogin" action="" onsubmit="return cloginTest()"
-				method="post">
-				<table>
+				<table id="cListInfo">
 					<tr>
-						<th id="th">사업자 번호</th>
-						<td id="td"><input type="text" id="c_code" name="c_code"
-							readonly="readonly" style="outline: none; border: none;"></td>
-					</tr>
-					<tr>
-						<th id="th">사업자 비밀번호</th>
-						<td id="td"><input type="password" id="c_pw" name="c_pw"
-							maxlength="20" placeholder="비밀번호 12~20자리" onkeydown="keyEvt()"></td>
-					</tr>
-					<tr>
-						<td colspan="2" id="msg1"></td>
-					</tr>
-					<tr>
-						<td colspan="2" id="td"><input type="submit" id="clogin"
-							value="로그인"></td>
+						<th>상호명</th>
+						<th>사업자번호</th>
+						<th>전화번호</th>
+						<th>주소</th>
+						<th colspan="2">비고</th>
 					</tr>
 				</table>
-				<div id="error"></div>
-				<input type="text" name="ce_email" value="${ce_email}"
-					style="display: none;">
-			</form>
-		</div>
-	</div>
+			</div>
+			<input type="button" id="btn1"
+				onclick="location.href ='createccodefrm'" value="사업장 추가"> <input
+				type="button" id="btn2" onclick="location.href = 'emailsales'"
+				value="사업장 전체 매출">
+			<div id="flotBoxDiv">
+				<div id="flotBoxbg"></div>
+				<div id="flotBox">
+					<form name="cLogin" action="" onsubmit="return cloginTest()"
+						method="post">
+						<table>
+							<tr>
+								<th id="th">사업자 번호</th>
+								<td id="td"><input type="text" id="c_code" name="c_code"
+									readonly="readonly" style="outline: none; border: none;"></td>
+							</tr>
+							<tr>
+								<th id="th">사업자 비밀번호</th>
+								<td id="td"><input type="password" id="c_pw" name="c_pw"
+									maxlength="20" placeholder="비밀번호 12~20자리" onkeydown="keyEvt()"></td>
+							</tr>
+							<tr>
+								<td colspan="2" id="msg1"></td>
+							</tr>
+							<tr>
+								<td colspan="2" id="td"><input type="submit" id="clogin"
+									value="로그인"></td>
+							</tr>
+						</table>
+						<div id="error"></div>
+						<input type="text" name="ce_email" value="${ce_email}"
+							style="display: none;">
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
+//테마 시작
+if ("${temaBlack}" == "") {
+	temaBlack = false;
+} else {
+	temaBlack = JSON.parse('${temaBlack}');
+}
+changeTema();
+
+function temaChange(temaBlack) {
+	$.ajax({
+		url : "rest/temaChange",
+		type : "post",
+		data : {
+			"temaBlack" : temaBlack
+		}
+	})
+	return !temaBlack;
+}
+
+function changeTema() {
+	if (temaBlack) {
+		$('#changeTema').text("화이트모드");
+		before = $("style").html();
+		after = before.replaceAll("#0D0D0D", "#24619E");
+		after = after.replaceAll("#2565a3", "#2B2B2B");
+		after = after.replaceAll("#e3f2fd", "#141414");
+		after = after.replaceAll("#ffffff", "#404040");
+		after = after.replaceAll("#1565c0", "#F0F0F0");
+		after = after.replaceAll("#90caf9", "#4F4F4F");
+		after = after.replaceAll("#000000", "#F7F7F7");
+		$("style").html(after);
+		temaBlack = temaChange(true);
+	} else {
+		$('#changeTema').text("다크모드");
+		before = $("style").html();
+		after = before.replaceAll("#24619E", "#0D0D0D");
+		after = after.replaceAll("#2B2B2B", "#2565a3");
+		after = after.replaceAll("#141414", "#e3f2fd");
+		after = after.replaceAll("#404040", "#ffffff");
+		after = after.replaceAll("#F0F0F0", "#1565c0");
+		after = after.replaceAll("#4F4F4F", "#90caf9");
+		after = after.replaceAll("#F7F7F7", "#000000");
+		$("style").html(after);
+		temaBlack = temaChange(false);
+	}
+}
+//테마 끝
 getClistInfo();// 처음 사업체 정보 가져오기
 errorUse();//로그인 실패시
 

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>sellpage-판매</title>
+<title>SimpleOrder</title>
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -79,6 +79,7 @@ div #seat {
 	width: 1200px;
 	height: 800px;
 	float: left;
+	background-color: #ffffff;
 }
 
 .tab {
@@ -139,7 +140,7 @@ div #seat {
 #rightdiv {
 	width: 250px;
 	height: 800px;
-	background-color: white;
+	background-color: #ffffff;
 	border: 3px solid #2565a3;
 	margin-left: 10px;
 }
@@ -587,6 +588,16 @@ h2 {
 	background-clip: padding-box;
 	border: 2px solid transparent;
 }
+#changeTema {
+	width: 180px;
+	height: 50px;
+	background-color: #0D0D0D;
+	color: #fcfaff;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	float: right;
+}
 </style>
 </head>
 <body>
@@ -764,8 +775,10 @@ function temaChange(temaBlack){
 
 function changeTema(){
 	if(temaBlack){
+		$('#changeTema').text("화이트모드");
 		before = $("style").html();
-		after = before.replaceAll("#2565a3" , "#2B2B2B");
+		after = before.replaceAll("#0D0D0D", "#24619E");
+		after = after.replaceAll("#2565a3" , "#2B2B2B");
 		after = after.replaceAll("#e3f2fd" , "#141414");
 		after = after.replaceAll("#ffffff" , "#404040");
 		after = after.replaceAll("#1565c0" , "#F0F0F0");
@@ -773,8 +786,10 @@ function changeTema(){
 		$("style").html(after);
 		temaBlack = temaChange(true);
 	}else{
+		$('#changeTema').text("다크모드");
 		before = $("style").html();
-		after = before.replaceAll("#2B2B2B" , "#2565a3");
+		after = before.replaceAll("#24619E", "#0D0D0D");
+		after = after.replaceAll("#2B2B2B" , "#2565a3");
 		after = after.replaceAll("#141414" , "#e3f2fd");
 		after = after.replaceAll("#404040" , "#ffffff");
 		after = after.replaceAll("#F0F0F0" , "#1565c0");
