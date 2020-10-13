@@ -171,8 +171,7 @@ input:focus, button:focus, select:focus {
 
 	//영업일 확인
 	function checkBd_date(position) {
-		$
-				.ajax({
+		$.ajax({
 					type : "get",
 					url : "rest/checkbd_date",
 					dataType : "json",
