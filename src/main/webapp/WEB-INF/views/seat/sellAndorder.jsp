@@ -419,6 +419,9 @@ input:focus, button:focus {
 	</div>
 </body>
 <script>
+if("${gropPayMent}"!=""){
+	$("#listbox").html("${gropPayMent}");
+}
 	//테마 시작
 	if ("${temaBlack}" == "") {
 		temaBlack = false;

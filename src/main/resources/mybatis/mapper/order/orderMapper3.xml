@@ -12,7 +12,7 @@
 		WHERE OH.C_CODE = #{c_code} 
 		AND OAC_NUM IN
 			<foreach collection="oac_list" item='list' open="(" close=")" separator=","  >
-			#{list.value}
+			#{list}
 			</foreach>
 		GROUP BY OH.PDC_CODE,OH.PD_CODE,OH.PD_DATE 
 	</select>

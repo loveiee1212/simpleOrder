@@ -876,6 +876,7 @@ let flag2 = true;
 				$form.append($("<input type = 'hidden' name = '"+oac_num+"'>"));
 			};
 			$("body").append($form);
+			gropPayMentForm.submit();
 			
 		}
 	}
@@ -1006,7 +1007,7 @@ function updateClientRequest(){
 		$("#rsv_date").datepicker({});
 
 	});
-
+	basicopenCtnum = 0;
 	/* ajax를 이용해 설정한 테이블 갯수 가져오기 */
 	function getTablelist() {
 		$.ajax({
@@ -1030,7 +1031,7 @@ function updateClientRequest(){
 						$("#tnum" + result.list[a].tlist[b]).css("opacity","100");
 					}
 				}
-				$("#table0").attr("class", "blockCtg");
+				$("#table"+basicopenCtnum).attr("class", "blockCtg");
 				getorderList();
 				$(".tables").click(function() {
 				var tSplit = $(this).data("code").split("-");
@@ -1065,6 +1066,7 @@ function updateClientRequest(){
 			table[i].className = table[i].className.replace("blockCtg", "tList");
 		}
 		if ($("#" + categoryname).attr('class') == 'tList') {
+			basicopenCtnum = categoryname.substring(5);
 			$("#" + categoryname).attr('class', 'blockCtg');
 		}
 	};

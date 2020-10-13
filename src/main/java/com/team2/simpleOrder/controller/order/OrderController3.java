@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team2.simpleOrder.service.order.OrderMM;
 import com.team2.simpleOrder.service.order.DetailOrderMM;
@@ -27,8 +28,8 @@ public class OrderController3 {
 	
 	
 	@PostMapping("/gropPayMent")
-	String gropPayMent(@RequestParam HashMap<String, String> oac_num, HttpSession session) {
-		return om.gropPayMent(oac_num, session);
+	String gropPayMent(@RequestParam HashMap<String, String> oac_num, HttpSession session, RedirectAttributes reat) {
+		return om.gropPayMent(oac_num, session,reat);
 	}
 
 }

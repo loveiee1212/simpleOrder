@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public interface IOrderDao3 {
 
-	ArrayList<HashMap> gropPayMent(HashMap hm);
+	ArrayList<HashMap<String, String>> gropPayMent(HashMap hm);
 
 	
 
