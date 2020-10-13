@@ -162,10 +162,7 @@ input:focus, button:focus, select:focus {
 	}
 	//테마 끝
 
-	let data = $
-	{
-		grantList
-	};
+	let data = ${grantList};
 	for (let i = 0; i < data.length; i++) {
 		if (!data[i]) {
 			$(".grantList").eq(i).attr("hidden", "hidden")
