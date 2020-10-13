@@ -167,6 +167,11 @@ input:focus, button:focus {
 		if (confirm("새로운 직급은 권한이 없습니다. 권한설정에서 권한을 부여 후 사용해주세요")) {
 			$("#pst_name").val($("#newPst_name").val());
 			updateordelete.action = 'createPosition';
+			if($("#newPst_name").val()==""){
+				alert("직급명을 입력해주세요!!");
+				$('#newPst_name').focus();
+				return false;
+			}
 			updateordelete.submit();
 		}
 	}
