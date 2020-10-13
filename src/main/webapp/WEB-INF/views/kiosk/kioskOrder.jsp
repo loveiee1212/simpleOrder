@@ -487,19 +487,36 @@ input:focus, button:focus {
 	</div>
 </body>
 <script type="text/javascript">
-	setInterval(() => {
-		$.ajax({
-			url : 'rest/getoacstatus',
-			type : 'post',
-			dataType : 'json',
-			success : function(data) {
-				if(data.view!=null){
-				location.href = data.view;
-				}
+	$.ajax({ // 테이블 번호,주문내역,이용시간
+		url : 'rest/kioskmainready',
+		type : 'post',
+		dataType : 'json',
+		success : function(data) {
+			console.log(data);
+			if(data.oac_time !="null"){
+			setInterval(() => {
+				$.ajax({
+					url : 'rest/getoacstatus',
+					type : 'post',
+					dataType : 'json',
+					success : function(data) {
+						//리뷰 사용여부 확인
+						
+						if('-1' == data.oac_status){
+							if (data.rvUseCode == '-1') {
+								location.href = 'kioskThanks';
+							}else{
+								location.href = 'kioskreview/'+data.oac_num 
+							}
+						}
+					}
+				});
+			}, 3000);
 			}
-		});
-	}, 3000);
-	// 장바구니 모달창 띄우기
+		}
+	});
+	
+		// 장바구니 모달창 띄우기
 	$('#basket_open_btn').on('click', function() {
 		//모달창 열기
 		modal('basket');

@@ -188,12 +188,6 @@ input:focus {
 </style>
 </head>
 <body>
-	<h2>kioskMenu.jsp</h2>
-	<h2>${sessionScope.c_code}</h2>
-	<h2>${sessionScope.bd_date}</h2>
-	<h2>${sessionScope.sc_code}</h2>
-	<h2>${sessionScope.st_num}</h2>
-	<h2>${sessionScope.oac_num}</h2>
 	<div id="frame">
 		<div id="header">
 			<font>광고와 로고</font> ${resultMsg}
@@ -234,27 +228,46 @@ input:focus {
 				onclick="location.href='kioskreview'">
 		</div>
 	</div>
+</body>
 	<script type="text/javascript">
-		$.ajax({
+	function getOrderNum(){
+		setInterval(() => {
+			$.ajax({
+				url : "rest/getOrderNum",
+				dataType : "html",
+				success : function (data){
+					if(data!=""){
+						location.href = "kioskmenu";
+					};
+				}
+			})
+		}, 3000);
+	}
+	
+	
+		$.ajax({ // 테이블 번호,주문내역,이용시간
 			url : 'rest/kioskmainready',
 			type : 'post',
 			dataType : 'json',
 			success : function(data) {
-				//계산서 html 삽입
-				$('#billBody').html(data.bill);
+				$('#billBody').html(data.bill); // 계산서
 				billSum();
 				billPriceUpdate();
-
-				$('#seat').append(data.sc_name + " ");
+				
+				$('#seat').append(data.sc_name + " ");// 좌석확인
 				$('#seat').append("${sessionScope.st_num}" + "번 테이블");
-				if (data.oac_time == "null") {
+				
+				
+				if (data.oac_time == "null") { // 주문 여부 확인
 					$("#min").html("주문을 추가해주세요");
+					getOrderNum();
 				} else {
-					clockOn(data.oac_time, data.rvUseCode);
+					clockOn(data.oac_time,data.rvUseCode);
 				}
-			},
-			error : function(err) {
-				console.log(err);
+				
+				if(data.rvUseCode == '-1'){ // 리뷰 사용 여부 체크
+					$("#rvBtn").remove();
+				}
 			}
 		});
 		//계산서 안에 있는 상품 가격이랑 개수 합치기
@@ -325,17 +338,18 @@ input:focus {
 					dataType : 'json',
 					success : function(data) {
 						//리뷰 사용여부 확인
-						if (rvUseCode == '-1') {
-							$('#rvBtn').attr("onclick", "");
-							$('#rvBtn').remove();
-						} else if (data.view != null) {
-							location.href = data.view;
+						if('-1' == data.oac_status){
+							if (rvUseCode == '-1') {
+								location.href = 'kioskThanks';
+							}else{
+								location.href = 'kioskreview/'+data.oac_num 
+							}
 						}
 					}
 				});
-
 			}, 1000);
+			
 		};
 	</script>
-</body>
+
 </html>

@@ -188,14 +188,25 @@ public class KioskMM1 {
 
 	public HashMap<String, String> getOac_status(HttpSession session) {
 		HashMap<String, String> hMap = new HashMap<String, String>();
-		int oac_status = kDao1.getOac_status(session.getAttribute("c_code").toString(),
-				session.getAttribute("bd_date").toString(), session.getAttribute("oac_num").toString());
+		int oac_status = kDao1.getOac_status(session.getAttribute("c_code").toString(), session.getAttribute("bd_date").toString(), session.getAttribute("oac_num").toString());
 		if (oac_status == -1) {
-			session.setAttribute("creditOk", "creditOk");
-			session.removeAttribute("sc_code");
-			session.removeAttribute("st_num");
-			hMap.put("view", "kioskreview");
+			hMap.put("oac_status", oac_status+"");
+			hMap.put("oac_num", session.getAttribute("oac_num").toString());
+			session.removeAttribute("oac_num");
 		}
+		hMap.put("oac_status", oac_status+"");
 		return hMap;
+	}
+
+	public String getOrderNum(HttpSession session) {
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("c_code", session.getAttribute("c_code").toString());
+		hm.put("st_num", session.getAttribute("st_num").toString());
+		hm.put("sc_code", session.getAttribute("sc_code").toString());
+		String oac_num = kDao1.getOrderNum(hm);
+		if(oac_num!=null) {
+			session.setAttribute("oac_num", oac_num);
+		}
+		return oac_num;
 	}
 }
