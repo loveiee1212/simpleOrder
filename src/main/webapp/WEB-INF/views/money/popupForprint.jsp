@@ -16,18 +16,18 @@ body {
 	width: 350px;
 	height: 150px;
 	text-align: center;
-	margin-left: 100px;
+	margin-left: 150px;
 	font-size: 20px;
 	font-weight: bold;
 }
 
 #payTable {
-	width: 400px;
+	width: 600px;
 	height: 120px;
 	text-align: right;
 	font-size: 20px;
 	padding-right: 20px;
-	margin-left : 70px;
+	margin-left : 50px;
 }
 
 #payTable th {
