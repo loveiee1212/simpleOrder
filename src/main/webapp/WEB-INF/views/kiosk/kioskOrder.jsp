@@ -208,6 +208,11 @@ i {
 .pList_detail {
 	width: 200px;
 	float: left;
+	text-align: center;
+}
+
+img {
+    height: 100%;
 }
 
 .pd_imgName {
