@@ -244,17 +244,13 @@ input:focus {
 				$('#billBody').html(data.bill);
 				billSum();
 				billPriceUpdate();
-				//리뷰 사용여부 확인
-				if (data.rvUseCode == '-1') {
-					$('#rvBtn').attr("onclick", "");
-					$('#rvBtn').remove();
-				}
+
 				$('#seat').append(data.sc_name + " ");
 				$('#seat').append("${sessionScope.st_num}" + "번 테이블");
 				if (data.oac_time == "null") {
 					$("#min").html("주문을 추가해주세요");
 				} else {
-					clockOn(data.oac_time);
+					clockOn(data.oac_time, data.rvUseCode);
 				}
 			},
 			error : function(err) {
@@ -288,7 +284,7 @@ input:focus {
 		}
 
 		/* 동적 시계 , 테이블 번호 확인*/
-		function clockOn(oac_time) {
+		function clockOn(oac_time, rvUseCode) {
 			setInterval(function() {
 				// 시작일시(주문 시간)
 				var startDate = new Date(
@@ -322,13 +318,17 @@ input:focus {
 				$("#hour").html(diffHour + "시간 ");
 				$("#min").html(diffMin + "분 ");
 				$("#sec").html(diffSec + "초 ");
-
+				//주문 상태 확인하기 세션에 테이블 번호 업데이트
 				$.ajax({
 					url : 'rest/getoacstatus',
 					type : 'post',
 					dataType : 'json',
 					success : function(data) {
-						if (data.view != null) {
+						//리뷰 사용여부 확인
+						if (rvUseCode == '-1') {
+							$('#rvBtn').attr("onclick", "");
+							$('#rvBtn').remove();
+						} else if (data.view != null) {
 							location.href = data.view;
 						}
 					}

@@ -224,9 +224,11 @@ button:focus {
 		</div>
 	</div>
 	<script type="text/javascript">
+		//리뷰 등록 여부 확인
 		if ('${resultMsg}' != "") {
 			alert('${resultMsg}');
 		}
+		//결제됬는지 확인
 		if ('${creditOk}' != "") {
 			$('.write').css('display', 'inline');
 			$('.write').attr("onclick", "location.href='./kioskreviewwrite'");
@@ -234,6 +236,7 @@ button:focus {
 			$('.write').css('display', 'none');
 			$('.write').attr("onclick", "");
 		}
+		//리뷰 작성 여부 확인
 		if ('${reviewOk}' != "") {
 			$('.Exit').css('display', 'none');
 			$('.Exit').attr("onclick", "");

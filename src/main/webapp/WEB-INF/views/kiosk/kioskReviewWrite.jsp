@@ -258,7 +258,7 @@ textarea:focus {
 		function reviewWriteCheck() {
 			if (confirm("리뷰를 작성 하시겠습니까?")) {
 				var rv_file = $("#rv_file");
-				if (rv_file[0].files.length > 4) {
+				if (rv_file[0].files.length > 3) {
 					alert("사진첨부는 세개까지만 가능합니다.");
 					return false;
 				}
