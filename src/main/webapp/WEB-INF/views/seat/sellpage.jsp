@@ -909,7 +909,7 @@ function updateClientRequest(){
 	var sortType = 'asc'; 
 
 	function sortContent(index) {
-	    var table = $("#reservtable");
+	    var table = $("#clientRequestList");
 
 	    sortType = (sortType =='asc')?'desc' : 'asc';
 

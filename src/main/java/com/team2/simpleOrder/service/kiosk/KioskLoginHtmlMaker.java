@@ -58,11 +58,11 @@ public class KioskLoginHtmlMaker {
 	public HashMap<String, String> getClientRequestList(ArrayList<HashMap<String, String>> clientRequestList) {
 		System.out.println(clientRequestList);
 		sb.append("<tr>");
-		sb.append("<td>").append("카테고리").append("</td>");
-		sb.append("<td>").append("번호").append("</td>");
-		sb.append("<td>").append("요청 사항").append("</td>");
-		sb.append("<td>").append("응대 점원").append("</td>");
-		sb.append("<td>").append("요청 시간").append("</td>");
+		sb.append("<td onclick='sortContent(0)'>").append("카테고리").append("</td>");
+		sb.append("<td onclick='sortContent(1)'>").append("번호").append("</td>");
+		sb.append("<td onclick='sortContent(2)'>").append("요청 사항").append("</td>");
+		sb.append("<td onclick='sortContent(3)'>").append("응대 점원").append("</td>");
+		sb.append("<td onclick='sortContent(4)'>").append("요청 시간").append("</td>");
 		sb.append("</tr>");
 		for (HashMap<String, String> cr : clientRequestList) {
 			String sc_name = cr.get("SC_NAME");
