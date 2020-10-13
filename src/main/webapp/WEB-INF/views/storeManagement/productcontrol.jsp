@@ -59,7 +59,7 @@ body {
 #pListtable th {
 	border: none;
 	border-right: 3px solid white;
-	width: 250px;
+	width: 150px;
 	height: 50px;
 	margin: 30px;
 	text-align: center;
