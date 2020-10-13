@@ -649,7 +649,7 @@ let cashvalue = 0;
 		}else{
 			 var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=0";
 	         var name = "popup test";
-	         var option = "width = 400, height = 400, top = 100, left = 200, location = no"
+	         var option = "width = 500, height = 400, top = 100, left = 200, location = no"
 	            window.open(url, name, option);
 		}
 	})
@@ -731,7 +731,7 @@ let cashvalue = 0;
 			$("#background").css("display","none");
 			 var url = "sendcashbills?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&cashamount="+$("#cashbillsmoney").val()+"&cash_name="+$("#cashname").val()+"&type="+$('input[name="checktype"]:checked').val();
 	         var name = "popup bills";
-	         var option = "width = 400, height = 400, top = 100, left = 200, location = no,status = no,menubar =no,directoris=no"
+	         var option = "width = 500, height = 450, top = 100, left = 200, location = no,status = no,menubar =no,directoris=no"
 	            window.open(url, name, option);
 	         
 		}
