@@ -204,13 +204,6 @@ button:focus {
 </head>
 
 <body>
-	<%-- <h2>${sessionScope.c_code}</h2>
-	<h2>${sessionScope.bd_date}</h2>
-	<h2>${sessionScope.sc_code}</h2>
-	<h2>${sessionScope.st_num}</h2>
-	<h2>${sessionScope.oac_num}</h2>
-	<h2>${sessionScope.creditOk}</h2>
-	<h2>kioskReview.jsp</h2> --%>
 	<div id="frame">
 		<div id="header">
 			<font>광고</font>
@@ -224,6 +217,9 @@ button:focus {
 		</div>
 	</div>
 	<script type="text/javascript">
+	//결제 상태확인
+
+	
 		//리뷰 등록 여부 확인
 		if ('${resultMsg}' != "") {
 			alert('${resultMsg}');
@@ -244,8 +240,7 @@ button:focus {
 
 		getReviewList();
 		function getReviewList() {
-			$
-					.ajax({
+			$.ajax({
 						url : 'rest/getreviewlist',
 						type : 'post',
 						data : {

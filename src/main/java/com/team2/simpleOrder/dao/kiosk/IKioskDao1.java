@@ -73,7 +73,8 @@ public interface IKioskDao1 {
 	void createRequest(HashMap<String, String> requestInfo);
 
 	HashMap<String, String> checkStock(HashMap<String, String> hashMap);
+	@Select("SELECT OAC_NUM FROM ORDER_AND_CREDIT WHERE C_CODE = #{c_code} AND SC_CODE = #{sc_code} AND ST_NUM = #{st_num} AND OAC_STATUS = '1'")
+	String getOrderNum(HashMap<String, String> hm);
 
-	//String getOac_num(@Param("sc_code") String sc_code, @Param("st_num") String st_num);
 
 }

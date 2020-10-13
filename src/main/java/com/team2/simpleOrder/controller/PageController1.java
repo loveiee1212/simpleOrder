@@ -115,21 +115,6 @@ public class PageController1 {
 	public String stockController() {
 		return "storeManagement/stockController";
 	}
-	
-	@RequestMapping("/test")
-	public String test() {
-		return "test";
-	}
-	@PostMapping("/test2")
-	public String test(MultipartFile file, HttpSession session) throws IllegalStateException, IOException {
-		System.out.println(session.getServletContext().getRealPath("/resources/productImg/"+session.getAttribute("c_code")+"/"));
-		File dir = new File(session.getServletContext().getRealPath("/resources/productImg/"+session.getAttribute("c_code")+"/"));
-		if(!dir.isDirectory()) {
-			System.out.println("존재안함");
-			dir.mkdir();
-		}
-		file.transferTo(new File(session.getServletContext().getRealPath("/resources/productImg/"+session.getAttribute("c_code")+"/"+file.getOriginalFilename())));
-		return "redirect:test";
-	}
+
 
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,5 +62,11 @@ public class KioskMainRestController {
 	@PostMapping(value = "/getoacstatus")
 	public HashMap<String, String> getOac_status(HttpSession session) {
 		return km1.getOac_status(session);
+	}
+	
+	@GetMapping("/getOrderNum")
+	public String getOrderNum(HttpSession session){
+		System.out.println(km1.getOrderNum(session));
+		return km1.getOrderNum(session);
 	}
 }
