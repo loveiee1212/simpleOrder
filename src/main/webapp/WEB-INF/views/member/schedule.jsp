@@ -490,8 +490,7 @@ pre.text {
 			var emp_code = null;
 		}
 
-		$
-				.ajax({
+		$.ajax({
 					type : 'get',
 					url : 'rest/getTime',
 					data : {
@@ -524,33 +523,18 @@ pre.text {
 								var ad_outTime = "null";
 							}
 
-							for (var j = firstDay.getDay(); j < firstDay
-									.getDay()
-									+ lastDay.getDate(); j++) {
+							for (var j = firstDay.getDay(); j < firstDay.getDay()+ lastDay.getDate(); j++) {
 
 								if (bd_dateYM == $("#yearMonth").text()) {
 									if (bd_date == $tdDay.eq(j).text()) {
 										if (ad_outTime == "null") {
-											$tdText.eq(j).text(
-													"출근: " + ad_inTime);
+											$tdText.eq(j).text("출근: " + ad_inTime);
 										} else {
 											// moment.js 라이브러리를 이용하여 시간계산 방법
-											var difHour = moment(
-													data[i].AD_OUTTIME).diff(
-													data[i].AD_INTIME, "hours");
+											var difHour = moment(data[i].AD_OUTTIME).diff(data[i].AD_INTIME, "hours");
 
-											var difMinute = moment(
-													data[i].AD_OUTTIME).diff(
-													data[i].AD_INTIME,
-													"minutes");
-											$tdText.eq(j).text(
-													"출근: " + ad_inTime
-															+ "\r\n퇴근: "
-															+ ad_outTime
-															+ "\r\n\r\n시간: "
-															+ difHour + "시간 "
-															+ difMinute % 60
-															+ "분");
+											var difMinute = moment(data[i].AD_OUTTIME).diff(data[i].AD_INTIME,"minutes");
+											$tdText.eq(j).text("출근: " + ad_inTime+ "\r\n퇴근: "+ ad_outTime+ "\r\n\r\n시간: "+ difHour + "시간 "+ difMinute % 60+ "분");
 										}
 									}
 								}
@@ -639,41 +623,24 @@ pre.text {
 	//직원 리스트 출력
 	function getEmpList(day) {
 		if ("${position}" == "0") {
-			$
-					.ajax({
+			$.ajax({
 						type : "get",
 						url : "rest/getemplist",
 						dataType : "json",
 						success : function(data) {
 							$("#emp_codeList").text("");
-							$("#emp_codeList")
-									.append(
-											$("<select name='emp_list' id='emp_list' onchange='getTime("
-													+ day + ")'>"));
+							$("#emp_codeList").append($("<select name='emp_list' id='emp_list' onchange='getTime("+ day + ")'>"));
 							$select = $("#emp_list");
-							$select
-									.append("<option value='00000'>직원선택</option>");
-							$select
-									.append($("<optgroup label='재직' id='work'>"));
-							$select
-									.append($("<optgroup label='퇴직' id='nowork'>"));
+							$select.append("<option value='00000'>직원선택</option>");
+							$select.append($("<optgroup label='재직' id='work'>"));
+							$select.append($("<optgroup label='퇴직' id='nowork'>"));
 
 							for ( var i in data) {
 								if (data[i].EMP_STATUS == "1") {
-									$("#work")
-											.append(
-													$(
-															"<option value="+data[i].EMP_CODE+">")
-															.html(
-																	data[i].EMP_NAME));
+									$("#work").append($("<option value="+data[i].EMP_CODE+">").html(data[i].EMP_NAME));
 								}
 								if (data[i].EMP_STATUS == "-1") {
-									$("#nowork")
-											.append(
-													$(
-															"<option value="+data[i].EMP_CODE+">")
-															.html(
-																	data[i].EMP_NAME));
+									$("#nowork").append($("<option value="+data[i].EMP_CODE+">").html(data[i].EMP_NAME));
 								}
 							}
 						}
@@ -687,8 +654,7 @@ pre.text {
 		if ("${position}" == "0") {
 			//모달박스 생성
 			$("#view_layer").addClass("open");
-			$
-					.ajax({
+			$.ajax({
 						type : "get",
 						url : "rest/showworktime",
 						data : {
@@ -700,8 +666,7 @@ pre.text {
 						success : function(data) {
 							$("#main_layer").text(" ");
 							$table = $("#main_layer").append($("<table>"));
-							$table
-									.append($("<tr><th>사번</th><th>사원명</th><th>출근시간</th><th>퇴근시간</th><th>근무시간</th></tr>"));
+							$table.append($("<tr><th>사번</th><th>사원명</th><th>출근시간</th><th>퇴근시간</th><th>근무시간</th></tr>"));
 							for ( var i in data) {
 								$tr = $table.append($("<tr>"));
 								$tr.append($("<td>").html(data[i].EMP_CODE));
@@ -743,9 +708,8 @@ pre.text {
 					dataType : "json",
 					success : function(data) {
 						$("#main_layer").text(" ");
-						$table = $("#main_layer").append($("<table>"));
-						$table
-								.append($("<tr><th>사번</th><th>직급</th><th>사원명</th><th>시간으로계산</th><th>분으로계산</th></tr>"));
+						$table = $("#main_layer").append($("<table id='table'>"));
+						$table.append($("<tr><th>사번</th><th>직급</th><th>사원명</th><th>시간으로계산</th><th>분으로계산</th></tr>"));
 
 						for ( var i in data) {
 							$tr = $table.append($("<tr>"));
@@ -803,5 +767,6 @@ pre.text {
 			$("#hours").html((hours < 10 ? "0" : "") + hours);
 		}, 1000);
 	}
+	
 </script>
 </html>

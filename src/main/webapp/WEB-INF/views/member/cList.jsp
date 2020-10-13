@@ -272,11 +272,11 @@ td{
 			<div id="cListInfoDiv">
 				<table id="cListInfo">
 					<tr>
-						<th>상호명</th>
-						<th>사업자번호</th>
-						<th>전화번호</th>
-						<th>주소</th>
-						<th colspan="2">비고</th>
+						<th onclick='sortContent(0)'>상호명</th>
+						<th onclick='sortContent(1)'>사업자번호</th>
+						<th onclick='sortContent(2)'>전화번호</th>
+						<th onclick='sortContent(3)'>주소</th>
+						<th colspan="2" onclick='sortContent(4)'>비고</th>
 					</tr>
 				</table>
 			</div>
@@ -289,7 +289,7 @@ td{
 				<div id="flotBox">
 					<form name="cLogin" action="" onsubmit="return cloginTest()"
 						method="post">
-						<table>
+						<table id="cListtable">
 							<tr>
 								<th id="th">사업자 번호</th>
 								<td id="td"><input type="text" id="c_code" name="c_code"
@@ -434,6 +434,38 @@ $(document).keydown(function(data){
 	
 function keyEvt() {
 	document.getElementById("error").innerHTML = " ";
+}
+
+var sortType = 'asc'; 
+
+function sortContent(index) {
+    var table = $("#cListInfo");
+
+    sortType = (sortType =='asc')?'desc' : 'asc';
+
+    var checkSort = true;
+    var rows = table[0].rows;
+    console.log(rows)
+
+    while (checkSort) { // 현재와 다음만 비교하기때문에 위치변경되면 다시 정렬해준다.
+        checkSort = false;
+
+        for (var i = 1; i < (rows.length-1); i++) {
+           var fCell = rows[i].cells[index].innerHTML.toUpperCase();
+            var sCell = rows[i + 1].cells[index].innerHTML.toUpperCase();
+console.log(fCell);
+console.log(sCell);
+
+            var row = rows[i];
+            // 오름차순<->내림차순 ( 이부분이 이해 잘안됬는데 오름차순이면 >, 내림차순이면 < 이고 if문의 내용은 동일하다 )
+            if ( (sortType == 'asc' && fCell > sCell) || 
+                    (sortType == 'desc' && fCell < sCell) ) {
+
+                row.parentNode.insertBefore(row.nextSibling, row);
+                checkSort = true;
+            }
+        }
+    }
 }
 </script>
 
