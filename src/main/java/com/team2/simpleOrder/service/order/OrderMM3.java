@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,6 +23,7 @@ public class OrderMM3 {
 	
 	ModelAndView mav;
 
+	@Transactional
 	public String gropPayMent(HashMap<String, String> oac_num, HttpSession session, RedirectAttributes reat) {
 		Iterator<String> it = oac_num.keySet().iterator();
 		HashMap<String, Object> hm = new HashMap<>();
@@ -32,6 +34,11 @@ public class OrderMM3 {
 		}
 		hm.put("oac_list", oac_list);
 		reat.addFlashAttribute("gropPayMent", gropPayMentHtmlMaker(oDao.gropPayMent(hm)));
+		for(int i = 0; i<oac_list.size();i++) {
+			if(!oDao.changeOacStatus(oac_list.get(i),session.getAttribute("c_code").toString(),session.getAttribute("bd_date").toString())) {
+				return "redirect:sellandorder?11111";
+			}
+		}
 		return "redirect:sellandorder?sc_code=00&st_num=0&oac_num=undefined";
 	}
 
@@ -47,11 +54,14 @@ public class OrderMM3 {
 			String pd_name = gropPro.get("PD_NAME");
 			int pd_price = Integer.parseInt(String.valueOf(gropPro.get("PD_PRICE")));
 			int pd_cnt = Integer.parseInt(String.valueOf(gropPro.get("CNT")));
-			int stk_stock = Integer.parseInt(String.valueOf(gropPro.get("STK_STOCK")));
+			int stk_stock = 0;
+			if(gropPro.get("STK_STOCK")!=null) {				
+				stk_stock = Integer.parseInt(String.valueOf(gropPro.get("STK_STOCK")));
+			}
 			
 			sb.append("<center>");
 			sb.append("<input type='hidden' id='sc_code' value ='00'>");
-			sb.append("<input type='hidden' id='st_num' value ='01'>");
+			sb.append("<input type='hidden' id='st_num' value ='0'>");
 			sb.append("<input type='hidden' id='oac_num' value ='null'>");
 			sb.append("</center>");
 			
@@ -68,7 +78,7 @@ public class OrderMM3 {
 			sb.append("</td>");
 			
 			sb.append("<td>");
-			sb.append("<input type='hidden' id='hiddenctn"+cnt+"' value ='"+0+"'>");
+			sb.append("<input type='hidden' id='hiddencnt"+cnt+"' value ='"+0+"'>");
 			sb.append("<input type='number' name = 'pdcnt' min = '0' max = '"+(pd_cnt+stk_stock)+"' id='pdcnt"+cnt+"' onchange='totalprice()' value='"+pd_cnt+"'>");
 			sb.append("</td>");
 			

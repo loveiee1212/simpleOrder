@@ -98,7 +98,9 @@ public class DetailOrderMM {
 		String bd_date = session.getAttribute("bd_date").toString();
 		try {
 			if (oac_num.equals("null")) {
+				System.out.println("oac_num이 null일 경우 출력");
 				oac_num = oDao.getNewOacCode(c_code, bd_date);
+				System.out.println("Dao작업 후 oac_num:"+oac_num);
 				HashMap<String, String> hMap = new HashMap<String, String>();
 				hMap.put("c_code", c_code);
 				hMap.put("bd_date", bd_date);
@@ -120,6 +122,7 @@ public class DetailOrderMM {
 				oacInfo.put("pd_date", pd_date.get(i));
 				oacInfo.put("oh_cnt", oh_cnt.get(i));
 				oacInfo.put("oac_num", oac_num);
+				System.out.println("oacInfo값:"+oacInfo);
 				if (!oDao.sendsaoList(oacInfo)) {
 					resultMap.put("result", "errorSellpage");
 					return resultMap;

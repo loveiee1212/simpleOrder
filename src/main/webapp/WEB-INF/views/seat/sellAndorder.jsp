@@ -840,6 +840,8 @@ if("${gropPayMent}"!=""){
 		var dateArray = [];
 		var $pdccode = $("input[name = 'pdcode']");
 		var isempty = [];
+		
+		
 
 		for (var i = 0; i < $pdccode.length; i++) {
 			if ($("#pdcnt" + i).attr("max") != undefined) {
@@ -872,8 +874,7 @@ if("${gropPayMent}"!=""){
 
 			var $cnt = $("input[name='pdcnt']");
 			for (var i = 0; i < $cnt.length; i++) {
-				cntArray
-						.push($("#pdcnt" + i).val() - $("#hiddencnt" + i).val());
+				cntArray.push($("#pdcnt" + i).val() - $("#hiddencnt" + i).val());
 			}
 		} else {
 			for (var i = 0; i < $pdccode.length; i++) {
@@ -1056,11 +1057,6 @@ if("${gropPayMent}"!=""){
 			"paymoney" : paymoney,
 			"paytype" : paytype
 		}
-		console.log(objparam);
-		console.log("들어오는지 확인");
-		console.log(oac_num);
-		console.log(getoac_num);
-		console.log(num);
 		$.ajax({
 			type : 'post',
 			url : 'rest/moneypayment',
