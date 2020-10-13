@@ -635,7 +635,9 @@ let cashvalue = 0;
 	
 	//프린트영수증
 	$("#print_for_bill").click(function(){
-		
+		if(oac_status==""){
+			return false;
+		}
 		var url = "print?bd_date="+obj.bd_date+"&oac_num="+obj.oac_num+"&oac_status="+obj.oac_status+"&ptype=1";
         var name = "popup test";
         var option = "width = 500, height = 400, top = 100, left = 200, location = no"

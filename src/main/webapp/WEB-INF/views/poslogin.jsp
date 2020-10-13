@@ -151,7 +151,7 @@ error {
 	<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 	<div id="baseBox">
 		<div id="baseinnerBox">
-			<a class="navbar-brand" href="main"><img
+			<a class="navbar-brand" href="#" onclick='history.go(0)'><img
 				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 			<div id="login">
 				<form action="empAcountlogin" id="poslogin" method="post"

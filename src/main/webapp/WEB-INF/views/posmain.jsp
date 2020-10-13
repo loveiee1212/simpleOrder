@@ -83,7 +83,7 @@ input:focus, button:focus, select:focus {
 	<div id="baseBox">
 		<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 		<div id="baseinnerBox">
-			<a class="navbar-brand" href="main"><img
+			<a class="navbar-brand" href="#" onclick='history.go(0)'><img
 				src="resources/image/logo.png" alt="SimpleOrder 홈페이지"></a>
 			<div>
 				<input type="button" id="sellpagebtn" class='grantList'
@@ -162,10 +162,7 @@ input:focus, button:focus, select:focus {
 	}
 	//테마 끝
 
-	let data = $
-	{
-		grantList
-	};
+	let data = ${grantList};
 	for (let i = 0; i < data.length; i++) {
 		if (!data[i]) {
 			$(".grantList").eq(i).attr("hidden", "hidden")
@@ -174,8 +171,7 @@ input:focus, button:focus, select:focus {
 
 	//영업일 확인
 	function checkBd_date(position) {
-		$
-				.ajax({
+		$.ajax({
 					type : "get",
 					url : "rest/checkbd_date",
 					dataType : "json",
