@@ -26,6 +26,7 @@
 	height: 770px;
 	margin-right: 30px;
 	padding: 15px;
+	padding: 40px;
 }
 
 #controller {

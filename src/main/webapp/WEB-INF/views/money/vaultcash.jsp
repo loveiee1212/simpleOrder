@@ -8,9 +8,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/basicBox.css" type="text/css">
 <!-- <link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css"> -->
-<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
-<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
-<title>시재 - SimpleOrder</title>
+<!-- <link rel="stylesheet" href="resources/css/clock.css?afte"
+	type="text/css"> -->
+<link rel="icon" href="resources/image/smallLogo.png"
+	type="image/x-icon">
+<title>SimpleOrder</title>
 <style>
 body {
 	background-color: #e3f2fd;
@@ -27,11 +29,11 @@ body {
 }
 
 #cashZone {
-    border: 3px solid #2565a3;
-    height: 795px;
-    width: 900px;
-    float: left;
-    background-color: white;
+	border: 3px solid #2565a3;
+	height: 795px;
+	width: 900px;
+	float: left;
+	background-color: white;
 }
 
 table, tr, td, th {
@@ -75,13 +77,13 @@ td {
 }
 
 #vcZone table {
-    border: 3px solid #2565a3;
-    font-size: 25px;
-    width: 550px;
-    height: 800px;
-    float: right;
-    border-collapse: collapse;
-    background-color: white;
+	border: 3px solid #2565a3;
+	font-size: 25px;
+	width: 550px;
+	height: 800px;
+	float: right;
+	border-collapse: collapse;
+	background-color: white;
 }
 
 #clock {
@@ -92,8 +94,8 @@ td {
 }
 
 #date {
-    font-size: 40px;
-    margin-top: 20px;
+	font-size: 40px;
+	margin-top: 20px;
 }
 
 #clock ul {
@@ -202,8 +204,8 @@ input:focus, button:focus {
 }
 
 #salesListdiv, #productListdiv {
-    width: 680px;
-    height: auto;
+	width: 680px;
+	height: auto;
 }
 
 #salesList td {
@@ -216,36 +218,88 @@ input:focus, button:focus {
 }
 
 #salesList, #productList {
-    border-collapse: collapse;
-    width: 700px;
-    height: 700px;
-    magin-bottom: 30px;
+	border-collapse: collapse;
+	width: 700px;
+	height: 700px;
+	magin-bottom: 30px;
 }
 
 #salesList th, #productList th {
-    border: 3px solid white;
-    width: 80px;
-    height: 20px;
-    background-color: #2565a3;
+	border: 3px solid white;
+	width: 80px;
+	height: 20px;
+	background-color: #2565a3;
 }
 
 #productList td {
-    height: 20px;
-    border: none;
+	height: 20px;
+	border: none;
 	border-right: none;
 	border-bottom: 2px solid #2565a3;
 }
 
 #productList {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .pro th, .pro td {
-    height: 30px;
+	height: 30px;
+}
+/* clock.css */
+#clock {
+	text-align: center;
+	border: 2px solid white;
+	background-color: #2565a3;
+	color: white;
+	font-weight: bold;
+	width: 300px;
+	height: 95px;
+	margin-left: 116px;
+	margin-top: 1px;
+	font-size: 20px;
+	margin-top: 1px;
+}
+
+#clock ul {
+	width: 200px;
+	list-style: none;
+	text-align: center;
+	margin-left: 10px;
+}
+
+#clock ul li {
+	display: inline;
+	font-size: 25px;
+	text-align: center;
+}
+
+#date {
+	text-align: center;
+	font-size: 25px;
+	margin-top: 10px;
+}
+
+.point {
+	position: relative;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: center;
+}
+
+#changeTema {
+	width: 180px;
+	height: 50px;
+	background-color: #0D0D0D;
+	color: #fcfaff;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	float: right;
 }
 </style>
 </head>
 <body>
+	<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div id="cashZone">
@@ -253,7 +307,8 @@ input:focus, button:focus {
 					<tr>
 						<th>100000원</th>
 						<td class="leftTd"><input id="10" class="num" type="number"
-							placeholder="갯수입력" min="0" maxlength="4" oninput="checkMaxLenth(id)"
+							placeholder="갯수입력" min="0" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(100000,value,'100000tx'),vctext()"></td>
 						<td><div>
 								<span id="100000tx" class="cash"></span>
@@ -262,7 +317,8 @@ input:focus, button:focus {
 					<tr>
 						<th>50000원</th>
 						<td class="leftTd"><input id="09" class="num" type="number"
-							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
+							min="0" placeholder="갯수입력" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(50000,value,'50000tx'), vctext()"></td>
 						<td><div>
 								<span id="50000tx" class="cash"></span>
@@ -271,7 +327,8 @@ input:focus, button:focus {
 					<tr>
 						<th>10000원</th>
 						<td class="leftTd"><input id="08" class="num" type="number"
-							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
+							min="0" placeholder="갯수입력" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(10000,value,'10000tx'), vctext()"></td>
 						<td><div>
 								<span id="10000tx" class="cash"></span>
@@ -280,7 +337,8 @@ input:focus, button:focus {
 					<tr>
 						<th>5000원</th>
 						<td class="leftTd"><input id="07" class="num" type="number"
-							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
+							min="0" placeholder="갯수입력" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(5000,value,'5000tx'), vctext()"></td>
 						<td><div>
 								<span id="5000tx" class="cash"></span>
@@ -289,7 +347,8 @@ input:focus, button:focus {
 					<tr>
 						<th>1000원</th>
 						<td class="leftTd"><input id="06" class="num" type="number"
-							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
+							min="0" placeholder="갯수입력" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(1000,value,'1000tx'), vctext()"></td>
 						<td><div>
 								<span id="1000tx" class="cash"></span>
@@ -298,7 +357,8 @@ input:focus, button:focus {
 					<tr>
 						<th>500원</th>
 						<td class="leftTd"><input id="05" class="num" type="number"
-							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
+							min="0" placeholder="갯수입력" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(500,value,'500tx'), vctext()"></td>
 						<td><div>
 								<span id="500tx" class="cash"></span>
@@ -307,7 +367,8 @@ input:focus, button:focus {
 					<tr>
 						<th>100원</th>
 						<td class="leftTd"><input id="04" class="num" type="number"
-							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
+							min="0" placeholder="갯수입력" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(100,value,'100tx'), vctext()"></td>
 						<td><div>
 								<span id="100tx" class="cash"></span>
@@ -316,7 +377,8 @@ input:focus, button:focus {
 					<tr>
 						<th>50원</th>
 						<td class="leftTd"><input id="03" class="num" type="number"
-							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
+							min="0" placeholder="갯수입력" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(50,value,'50tx'), vctext()"></td>
 						<td><div>
 								<span id="50tx" class="cash"></span>
@@ -325,7 +387,8 @@ input:focus, button:focus {
 					<tr>
 						<th>10원</th>
 						<td class="leftTd"><input id="02" class="num" type="number"
-							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
+							min="0" placeholder="갯수입력" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(10,value,'10tx'), vctext()"></td>
 						<td><div>
 								<span id="10tx" class="cash"></span>
@@ -334,7 +397,8 @@ input:focus, button:focus {
 					<tr>
 						<th>5원</th>
 						<td class="leftTd"><input id="01" class="num" type="number"
-							min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
+							min="0" placeholder="갯수입력" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(5,value,'5tx'), vctext()"></td>
 						<td><div>
 								<span id="5tx" class="cash"></span>
@@ -343,7 +407,8 @@ input:focus, button:focus {
 					<tr>
 						<th>1원</th>
 						<td class="leftTd"><input id="00" class="num" type="number"
-							value="0" min="0" placeholder="갯수입력" maxlength="4" oninput="checkMaxLenth(id)"
+							value="0" min="0" placeholder="갯수입력" maxlength="4"
+							oninput="checkMaxLenth(id)"
 							onchange="carculate(1,value,'1tx'), vctext()"></td>
 						<td><div>
 								<span id="1tx" class="cash"></span>
@@ -397,32 +462,110 @@ input:focus, button:focus {
 					</tr>
 				</table>
 			</div>
-				<!-- 모달박스 -->
-				<div id="view_layer">
-					<div id="bg_layer"></div>
-					<div id="main_layer">
+			<!-- 모달박스 -->
+			<div id="view_layer">
+				<div id="bg_layer"></div>
+				<div id="main_layer">
 					<div id="month"></div>
-					<div id="salesListdiv"><table id="salesList">
-						<tr><th>구분</th><th>결제</th><th>외상</th><th>반품</th></tr>
-						<tr><th>현금</th><td id="pay_cash"></td><td id="credit_cash"></td><td id="refund_cash"></td></tr>
-						<tr><th>카드</th><td id="pay_card"></td><td id="credit_card"></td><td id="refund_card"></td></tr>
-						<tr><th>미수금</th><td id="pay"></td><td id="credit"></td><td id="refund"></td></tr>
-						<tr><th>총금액</th><td id="pay_total"></td><td id="credit_total"></td><td id="refund_total"></td></tr>
-					</table>
+					<div id="salesListdiv">
+						<table id="salesList">
+							<tr>
+								<th>구분</th>
+								<th>결제</th>
+								<th>외상</th>
+								<th>반품</th>
+							</tr>
+							<tr>
+								<th>현금</th>
+								<td id="pay_cash"></td>
+								<td id="credit_cash"></td>
+								<td id="refund_cash"></td>
+							</tr>
+							<tr>
+								<th>카드</th>
+								<td id="pay_card"></td>
+								<td id="credit_card"></td>
+								<td id="refund_card"></td>
+							</tr>
+							<tr>
+								<th>미수금</th>
+								<td id="pay"></td>
+								<td id="credit"></td>
+								<td id="refund"></td>
+							</tr>
+							<tr>
+								<th>총금액</th>
+								<td id="pay_total"></td>
+								<td id="credit_total"></td>
+								<td id="refund_total"></td>
+							</tr>
+						</table>
 					</div>
 					<div id="productListdiv">
-					<table id="productList">
-						<tr><th>상품명</th><th>판매가</th><th>판매갯수</th><th>금액</th></tr>
-					</table>
-					</div>
+						<table id="productList">
+							<tr>
+								<th>상품명</th>
+								<th>판매가</th>
+								<th>판매갯수</th>
+								<th>금액</th>
+							</tr>
+						</table>
 					</div>
 				</div>
-				<div></div>
+			</div>
+			<div></div>
 		</div>
 	</div>
 </body>
 
 <script type="text/javascript">
+//테마 시작
+if ("${temaBlack}" == "") {
+	temaBlack = false;
+} else {
+	temaBlack = JSON.parse('${temaBlack}');
+}
+changeTema();
+
+function temaChange(temaBlack) {
+	$.ajax({
+		url : "rest/temaChange",
+		type : "post",
+		data : {
+			"temaBlack" : temaBlack
+		}
+	})
+	return !temaBlack;
+}
+
+function changeTema() {
+	if (temaBlack) {
+		$('#changeTema').text("화이트모드");
+		before = $("style").html();
+		after = before.replaceAll("#0D0D0D", "#24619E");
+		after = after.replaceAll("#2565a3", "#2B2B2B");
+		after = after.replaceAll("#e3f2fd", "#141414");
+		after = after.replaceAll("#ffffff", "#404040");
+		after = after.replaceAll("#1565c0", "#F0F0F0");
+		after = after.replaceAll("#90caf9", "#4F4F4F");
+		after = after.replaceAll("#000000", "#F7F7F7");
+		$("style").html(after);
+		temaBlack = temaChange(true);
+	} else {
+		$('#changeTema').text("다크모드");
+		before = $("style").html();
+		after = before.replaceAll("#24619E", "#0D0D0D");
+		after = after.replaceAll("#2B2B2B", "#2565a3");
+		after = after.replaceAll("#141414", "#e3f2fd");
+		after = after.replaceAll("#404040", "#ffffff");
+		after = after.replaceAll("#F0F0F0", "#1565c0");
+		after = after.replaceAll("#4F4F4F", "#90caf9");
+		after = after.replaceAll("#F7F7F7", "#000000");
+		$("style").html(after);
+		temaBlack = temaChange(false);
+	}
+}
+//테마 끝
 //글 길이 확인
 function checkMaxLenth(id){
 	if($("#"+id).val().length > $("#"+id).attr("maxlength")){

@@ -37,7 +37,7 @@ body {
 	height: 800px;
 	float: left;
 	margin-right: 38px;
-	background-color: white;
+	background-color: #ffffff;
 }
 
 #divTwo {
@@ -45,32 +45,32 @@ body {
 	width: 450px;
 	height: 800px;
 	float: left;
-	background-color: white;
+	background-color: #ffffff;
 }
 
 #btn1 {
     text-align: center;
-    border: 2px solid white;
+    border: 2px solid #ffffff;
     width: 350px;
     height: 100px;
     margin-left: 49px;
     margin-top: 20px;
     background-color: #2565a3;
     font-weight: bold;
-    color: white;
+    color: #ffffff;
     font-size: 25px;
 }
 
 #btn2, #btn3, #btn4, #btn5, #btn6, #btn7 {
     text-align: center;
-    border: 2px solid white;
+    border: 2px solid #ffffff;
     width: 350px;
     height: 100px;
     margin-left: 49px;
     margin-top: 10px;
     background-color: #2565a3;
     font-weight: bold;
-    color: white;
+    color: #ffffff;
     font-size: 25px;
 }
 
@@ -81,7 +81,7 @@ h2 {
 	text-align: center;
 	width: 300px;
 	height: 30px;
-	background-color: white;
+	background-color: #ffffff;
 	margin-left: 250px;
 	padding: 40px;
 }
@@ -95,11 +95,22 @@ h2 {
 input:focus, button:focus, select:focus {
 	outline: none;
 }
+#changeTema {
+	width: 180px;
+	height: 50px;
+	background-color: #0D0D0D;
+	color: #fcfaff;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	float: right;
+}
 </style>
 <meta charset="UTF-8">
-<title>posSetting</title>
+<title>SimpleOrder</title>
 </head>
 <body>
+<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div id="totalDiv">
@@ -121,6 +132,53 @@ input:focus, button:focus, select:focus {
 	</div>
 </body>
 <script type="text/javascript" id="basicIncludeService">
+//테마 시작
+if ("${temaBlack}" == "") {
+	temaBlack = false;
+} else {
+	temaBlack = JSON.parse('${temaBlack}');
+}
+changeTema();
+
+function temaChange(temaBlack) {
+	$.ajax({
+		url : "rest/temaChange",
+		type : "post",
+		data : {
+			"temaBlack" : temaBlack
+		}
+	})
+	return !temaBlack;
+}
+
+function changeTema() {
+	if (temaBlack) {
+		$('#changeTema').text("화이트모드");
+		before = $("style").html();
+		after = before.replaceAll("#0D0D0D", "#24619E");
+		after = after.replaceAll("#2565a3", "#CCCCCC");
+		after = after.replaceAll("#e3f2fd", "#141414");
+		after = after.replaceAll("#ffffff", "#404040");
+		after = after.replaceAll("#1565c0", "#F0F0F0");
+		after = after.replaceAll("#90caf9", "#4F4F4F");
+		after = after.replaceAll("#000000", "#F7F7F7");
+		$("style").html(after);
+		temaBlack = temaChange(true);
+	} else {
+		$('#changeTema').text("다크모드");
+		before = $("style").html();
+		after = before.replaceAll("#24619E", "#0D0D0D");
+		after = after.replaceAll("#CCCCCC", "#2565a3");
+		after = after.replaceAll("#141414", "#e3f2fd");
+		after = after.replaceAll("#404040", "#ffffff");
+		after = after.replaceAll("#F0F0F0", "#1565c0");
+		after = after.replaceAll("#4F4F4F", "#90caf9");
+		after = after.replaceAll("#F7F7F7", "#000000");
+		$("style").html(after);
+		temaBlack = temaChange(false);
+	}
+}
+//테마 끝
 	${basicPath}
 	
 	

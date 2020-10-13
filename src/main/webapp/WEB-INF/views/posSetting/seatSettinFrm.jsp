@@ -36,7 +36,7 @@ h2 {
 	text-align: center;
 	width: 200px;
 	height: 30px;
-	background-color: white;
+	background-color: #ffffff;
 	margin-left: 310px;
 	padding: 40px;
 }
@@ -66,7 +66,7 @@ table, tr, td, th {
     height: 50px;
     font-size: 25px;
     border: 3px solid #2565a3;
-    background-color: white;
+    background-color: #ffffff;
     color: red;
     font-weight: bold;
 }
@@ -75,7 +75,7 @@ table, tr, td, th {
     width: 100px;
 	height: 50px;
     font-size: 25px;
-	border: 3px solid white;
+	border: 3px solid #ffffff;
 	background-color: #2565a3;
 	color: white;
 	font-weight: bold;
@@ -107,14 +107,14 @@ table, tr, td, th {
 }
 
 #Categoridiv::-webkit-scrollbar-track {
-	background-color: white;
+	background-color: #ffffff;
 	border-radius: 10px;
 	box-shadow: inset 0px 0px 5px grey;
 }
 
 #Categoridiv::-webkit-scrollbar {
 	width: 20px;
-	background-color: white;
+	background-color: #ffffff;
 }
 
 #Categoridiv::-webkit-scrollbar-thumb {
@@ -147,7 +147,7 @@ table, tr, td, th {
     font-size: 20px;
     text-align: center;
     font-weight: bold;
-    color: white;
+    color: #ffffff;
 }
 
 #x, #y {
@@ -160,14 +160,14 @@ table, tr, td, th {
 }
 
 #seatList::-webkit-scrollbar-track {
-	background-color: white;
+	background-color: #ffffff;
 	border-radius: 10px;
 	box-shadow: inset 0px 0px 5px grey;
 }
 
 #seatList::-webkit-scrollbar {
 	width: 20px;
-	background-color: white;
+	background-color: #ffffff;
 }
 
 #seatList::-webkit-scrollbar-thumb {
@@ -179,14 +179,14 @@ table, tr, td, th {
 
 input[type="button" i] {
 	text-align: center;
-	border: 2px solid white;
+	border: 2px solid #ffffff;
 	width: 200px;
 	height: 60px;
 	margin-right: 49px;
 	margin-top: 10px;
 	background-color: #2565a3;
 	font-weight: bold;
-	color: white;
+	color: #ffffff;
 	font-size: 25px;
 	float: right;
 }
@@ -238,6 +238,60 @@ ${msg}
 	</form>
 
 	<script type="text/javascript">
+	
+	//테마 시작
+	if ("${temaBlack}" == "") {
+		temaBlack = false;
+	} else {
+		temaBlack = JSON.parse('${temaBlack}');
+	}
+	changeTema();
+
+	function temaChange(temaBlack) {
+		$.ajax({
+			url : "rest/temaChange",
+			type : "post",
+			data : {
+				"temaBlack" : temaBlack
+			}
+		})
+		return !temaBlack;
+	}
+
+	function changeTema() {
+		for(let i = 0 ; i < $("style").length ; i++){
+			if (temaBlack) {
+				$('#changeTema').text("화이트모드");
+				before = $("style").eq(i).html();
+				after = before.replaceAll("#0D0D0D", "#24619E");
+				after = after.replaceAll("#2565a3", "#2B2B2B");
+				after = after.replaceAll("#e3f2fd", "#141414");
+				after = after.replaceAll("#ffffff", "#404040");
+				after = after.replaceAll("#1565c0", "#F0F0F0");
+				after = after.replaceAll("#90caf9", "#4F4F4F");
+				after = after.replaceAll("#000000", "#F7F7F7");
+				$("style").eq(i).html(after);
+			} else {
+				$('#changeTema').text("다크모드");
+				before = $("style").eq(i).html();
+				after = before.replaceAll("#24619E", "#0D0D0D");
+				after = after.replaceAll("#2B2B2B", "#2565a3");
+				after = after.replaceAll("#141414", "#e3f2fd");
+				after = after.replaceAll("#404040", "#ffffff");
+				after = after.replaceAll("#F0F0F0", "#1565c0");
+				after = after.replaceAll("#4F4F4F", "#90caf9");
+				after = after.replaceAll("#F7F7F7", "#000000");
+				$("style").eq(i).html(after);
+			}
+		}
+			if(temaBlack){
+				temaBlack = temaChange(true);
+			}else {
+				temaBlack = temaChange(false);
+			}
+	}
+	//테마 끝
+	
 	var selectedCTval = "01";	
 	getScatlist();
 		
