@@ -959,13 +959,40 @@ input:focus, button:focus {
 		var pdccodeArray = [];
 		var $pdccode = $("input[name = 'pdcode']");
 		var oac_num = $("#oac_num").val();
+		var endpay = $("#endpay").val();
+		var bd_date = $("#sendbd_date").val();
 		if (oac_num == "" || oac_num == undefined || oac_num == null
 				|| oac_num == "null") {
-			if (num != 1) {
+			for (var i = 0; i < $pdccode.length; i++) {
+				if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
+					pdccodeArray.push($("#pdcode" + i).data('code'));
+				}
+			}
+			console.log("주문번호 없음");
+			console.log("코드arr길이:"+pdccodeArray.length)
+			if (pdccodeArray.length != 0 && num != 1) {
+				//alert("주문 변경사항이 있습니다.")
+				if (confirm("주문 변경사항이 있습니다. 주문 내역 변경 후 결제합니다.")) {
+					if ($("#takemoney").val() == 0) {
+						if (confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")) {
+							$("#takemoney").val($("#totalmoney").val() - endpay);	
+							sendsaoList(paytype);
+						}else{
+							location.reload();
+							return false;
+					}
+					}
+					sendsaoList(paytype);
+				} else {
+					return false;
+				
+				}
+			}
+			/* if (num != 1) {
 				sendsaoList(paytype);
 				return false;
-			}
-			if (oac_num != 0) {
+			} */
+			if (num != 0) {
 				oac_num = getoac_num;
 			}
 		} else {
@@ -977,18 +1004,29 @@ input:focus, button:focus {
 			if (pdccodeArray.length != 0 && num != 1) {
 				//alert("주문 변경사항이 있습니다.")
 				if (confirm("주문 변경사항이 있습니다. 주문 내역 변경 후 결제합니다.")) {
+					if ($("#takemoney").val() == 0) {
+						if (confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")) {
+							$("#takemoney").val($("#totalmoney").val() - endpay);	
+							sendsaoList(paytype);
+						}else{
+							location.reload();
+							return false;
+					}
+				}
 					sendsaoList(paytype);
 				} else {
 					return false;
 				}
+			
 			}
-			;
 		}
-		var endpay = $("#endpay").val();
-		var bd_date = $("#sendbd_date").val();
+		
 		if ($("#takemoney").val() == 0) {
 			if (confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")) {
 				$("#takemoney").val($("#totalmoney").val() - endpay);
+			}else{
+				location.reload();
+				return false;
 			}
 		}
 		var getmoney = $("#takemoney").val();
@@ -1017,8 +1055,17 @@ input:focus, button:focus {
 			data : objparam,
 			dataType : 'json',
 			success : function(result) {
-				//	location.href = "./sellandorder?sc_code=" + $("#sc_code").val()+ "&st_num=" + $("#st_num").val() + "&oac_num="+ oac_num;
+				console.log("get"+getoac_num);
+				console.log("nom"+oac_num);
+				console.log(getoac_num=="0")
+				console.log(getoac_num==0)
+				console.log(getoac_num!=0)
+				console.log(getoac_num!="0")
+				if(getoac_num!="0"){
+				location.href = "./sellandorder?sc_code=" + $("#sc_code").val()+ "&st_num=" + $("#st_num").val() + "&oac_num="+ getoac_num;
+				}else{					
 				location.reload();
+				}
 			} //result end
 		})//ajax end
 
