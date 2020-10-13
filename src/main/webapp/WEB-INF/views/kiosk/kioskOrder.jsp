@@ -191,6 +191,7 @@ i {
 	border-radius: 5px;
 	margin: 15px 20px;
 	float: left;
+	text-align: center;
 }
 
 .text_detail div {
@@ -208,7 +209,6 @@ i {
 .pList_detail {
 	width: 200px;
 	float: left;
-	text-align: center;
 }
 
 img {
