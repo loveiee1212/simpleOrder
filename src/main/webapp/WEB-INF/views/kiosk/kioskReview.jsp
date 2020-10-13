@@ -152,14 +152,15 @@ li {
 
 #addBtn {
 	text-align: center;
-	border: 2px solid white;
-	width: 568px;
-	height: 70px;
-	background-color: #e3f2fd;
-	font-weight: bold;
-	color: #2565a3;
-	font-size: 25px;
-	margin-top: -5px;
+    border: 2px solid white;
+    width: 568px;
+    height: 70px;
+    background-color: #e3f2fd;
+    font-weight: bold;
+    color: #2565a3;
+    font-size: 25px;
+    margin-top: -5px;
+    margin-bottom: 50px;
 }
 
 .write {

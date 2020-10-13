@@ -86,27 +86,6 @@ td {
 	background-color: white;
 }
 
-#clock {
-	margin-top: 5px;
-	margin-left: 70px;
-	width: 400px;
-	height: 150px;
-}
-
-#date {
-	font-size: 40px;
-	margin-top: 20px;
-}
-
-#clock ul {
-	width: 400px;
-	margin-left: -40px;
-}
-
-#clock ul li {
-	font-size: 40px;
-}
-
 #insertVC {
 	text-align: center;
 	border: 2px solid white;
@@ -252,31 +231,30 @@ input:focus, button:focus {
 	background-color: #2565a3;
 	color: white;
 	font-weight: bold;
-	width: 300px;
-	height: 95px;
-	margin-left: 116px;
-	margin-top: 1px;
 	font-size: 20px;
-	margin-top: 1px;
+    margin-top: 5px;
+	margin-left: 70px;
+	width: 400px;
+	height: 150px;
 }
 
 #clock ul {
-	width: 200px;
+	width: 400px;
 	list-style: none;
 	text-align: center;
-	margin-left: 10px;
+	margin-left: -40px;
 }
 
 #clock ul li {
 	display: inline;
-	font-size: 25px;
+	font-size: 40px;
 	text-align: center;
 }
 
 #date {
 	text-align: center;
-	font-size: 25px;
-	margin-top: 10px;
+	font-size: 40px;
+	margin-top: 20px;
 }
 
 .point {
