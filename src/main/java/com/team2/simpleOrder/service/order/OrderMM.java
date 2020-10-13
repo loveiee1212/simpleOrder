@@ -117,9 +117,9 @@ public class OrderMM {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<tr>");
 		sb.append("<th style='width: 80px;'>No.</th>");
-		sb.append("<th onclick='sortContent(1)'>연락처</th>");
-		sb.append("<th onclick='sortContent(2)'>성함</th>");
-		sb.append("<th onclick='sortContent(3)'>예약일시</th>");
+		sb.append("<th onclick='sortContent2(1)'>연락처</th>");
+		sb.append("<th onclick='sortContent2(2)'>성함</th>");
+		sb.append("<th onclick='sortContent2(3)'>예약일시</th>");
 		sb.append("<th>메모</th>");
 		sb.append("</tr>");
 		if (rList != null) {
