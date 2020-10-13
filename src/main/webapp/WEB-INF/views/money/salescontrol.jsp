@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +11,14 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/css/basicBox.css?after">
-<link rel="stylesheet" href="resources/css/calendar.css?afte" type="text/css">
-<link rel="stylesheet" href="resources/css/clock.css?afte" type="text/css">
-<link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/basicBox.css?after">
+<link rel="stylesheet" href="resources/css/calendar.css?afte"
+	type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte"
+	type="text/css">
+<link rel="icon" href="resources/image/smallLogo.png"
+	type="image/x-icon">
 <style>
 body {
 	background-color: #e3f2fd;
@@ -31,18 +35,18 @@ body {
 }
 
 #calendar_main {
-    margin-top: -87px;
+	margin-top: -87px;
 }
 
 #calendar_main table {
-    margin-top: -83px;
-    margin-left: -20px;
-    width: 1100px;
-    height: 500px;
+	margin-top: -83px;
+	margin-left: -20px;
+	width: 1100px;
+	height: 500px;
 }
 
 #calendar_main th {
-    padding-top: 8px;
+	padding-top: 8px;
 }
 
 #calendar {
@@ -61,7 +65,7 @@ td.dt {
 }
 
 .salesName {
-    margin-top: -50px;
+	margin-top: -50px;
 }
 
 #view_layer {
@@ -139,68 +143,67 @@ td.dt {
 }
 
 #inputbtn {
-    width: 300px;
-    height: 80px;
-    border: 3px solid white;
-    background-color: #2565a3;
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-    float: right;
-    margin-top: -200px;
+	width: 300px;
+	height: 80px;
+	border: 3px solid white;
+	background-color: #2565a3;
+	color: white;
+	font-size: 25px;
+	font-weight: bold;
+	float: right;
+	margin-top: -200px;
 }
 
 #Exit {
-    width: 300px;
+	width: 300px;
 	height: 80px;
 	border: 3px solid white;
 	background-color: #e3f2fd;
-	font-weight : bold; 
-	color : #1565c0;
+	font-weight: bold;
+	color: #1565c0;
 	font-size: 20px;
 	float: right;
 	margin-top: -100px;
 }
 
 .salesText {
-    font-size: 15px;
-    font-weight: bold;
+	font-size: 15px;
+	font-weight: bold;
 }
 
 #monthSelect {
-    border: 3px solid #2565a3;
-    width: 300px;
-    height: 50px;
-    font-size: 20px;
-    text-align: center;
-    margin-bottom: 30px;
+	border: 3px solid #2565a3;
+	width: 300px;
+	height: 50px;
+	font-size: 20px;
+	text-align: center;
+	margin-bottom: 30px;
 }
 
 #salesList, #productList {
-    border-collapse: collapse;
-    font-weight: bold;
+	border-collapse: collapse;
+	font-weight: bold;
 }
 
 #salesList th, #productList th {
-    border: 3px solid white;
-    padding: 10px;
+	border: 3px solid white;
+	padding: 10px;
 }
 
 #productList td {
-    height: 40px;
-    border: none;
+	height: 40px;
+	border: none;
 	border-right: none;
 	border-bottom: 2px solid #2565a3;
 }
 
 #productList {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 input:focus, button:focus, select:focus {
 	outline: none;
 }
-
 #changeTema {
 	width: 180px;
 	height: 50px;
@@ -211,12 +214,11 @@ input:focus, button:focus, select:focus {
 	border-radius: 20px;
 	float: right;
 }
-
 </style>
 </head>
 <body>
 
-<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
+	<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div id="calendar">
@@ -235,17 +237,47 @@ input:focus, button:focus, select:focus {
 				<div id="view_layer">
 					<div id="bg_layer"></div>
 					<div id="main_layer">
-					<div id="month"></div>
-					<table id="salesList">
-						<tr><th>구분</th><th>결제</th><th>외상</th><th>반품</th></tr>
-						<tr><th>현금</th><td id="pay_cash"></td><td id="credit_cash"></td><td id="refund_cash"></td></tr>
-						<tr><th>카드</th><td id="pay_card"></td><td id="credit_card"></td><td id="refund_card"></td></tr>
-						<tr><th>미수금</th><td id="pay"></td><td id="credit"></td><td id="refund"></td></tr>
-						<tr><th>총금액</th><td id="pay_total"></td><td id="credit_total"></td><td id="refund_total"></td></tr>
-					</table>
-					<table id="productList">
-						<tr><th>상품명</th><th>판매가</th><th>판매갯수</th><th>금액</th></tr>
-					</table>
+						<div id="month"></div>
+						<table id="salesList">
+							<tr>
+								<th>구분</th>
+								<th>결제</th>
+								<th>외상</th>
+								<th>반품</th>
+							</tr>
+							<tr>
+								<th>현금</th>
+								<td id="pay_cash"></td>
+								<td id="credit_cash"></td>
+								<td id="refund_cash"></td>
+							</tr>
+							<tr>
+								<th>카드</th>
+								<td id="pay_card"></td>
+								<td id="credit_card"></td>
+								<td id="refund_card"></td>
+							</tr>
+							<tr>
+								<th>미수금</th>
+								<td id="pay"></td>
+								<td id="credit"></td>
+								<td id="refund"></td>
+							</tr>
+							<tr>
+								<th>총금액</th>
+								<td id="pay_total"></td>
+								<td id="credit_total"></td>
+								<td id="refund_total"></td>
+							</tr>
+						</table>
+						<table id="productList">
+							<tr>
+								<th>상품명</th>
+								<th>판매가</th>
+								<th>판매갯수</th>
+								<th>금액</th>
+							</tr>
+						</table>
 					</div>
 				</div>
 
@@ -286,8 +318,7 @@ function changeTema() {
 		after = after.replaceAll("#e3f2fd", "#141414");
 		after = after.replaceAll("#ffffff", "#404040");
 		after = after.replaceAll("#1565c0", "#F0F0F0");
-		after = after.replaceAll("#90caf9", "#4F4F4F");
-		after = after.replaceAll("#000000", "#F7F7F7");
+		
 		$("style").html(after);
 		temaBlack = temaChange(true);
 	} else {
@@ -298,8 +329,7 @@ function changeTema() {
 		after = after.replaceAll("#141414", "#e3f2fd");
 		after = after.replaceAll("#404040", "#ffffff");
 		after = after.replaceAll("#F0F0F0", "#1565c0");
-		after = after.replaceAll("#4F4F4F", "#90caf9");
-		after = after.replaceAll("#F7F7F7", "#000000");	
+	
 		$("style").html(after);
 		temaBlack = temaChange(false);
 	}
@@ -310,6 +340,9 @@ function changeTema() {
 		makeCalendar();
 		resetDay();
 		showDay();
+		
+		
+	
 		
 	});
 
@@ -347,6 +380,8 @@ function changeTema() {
 		}
 		table += "</table>"
 		$("#calendar_main").html(table);
+		
+		
 	}
 
 	function resetDay() {
@@ -361,6 +396,8 @@ function changeTema() {
 		$tdDay = $(".day");
 		$tdText = $(".text");
 		dayCount = 0;
+		
+		
 	}
 
 	function showDay() {
@@ -398,6 +435,9 @@ function changeTema() {
 		for (var i = 6; i < 42; i += 7) {
 			$tdDay.eq(i).css("color", "blue");
 		}
+	
+	
+	
 	}
 
 	function movePrevMonth() {
@@ -434,6 +474,11 @@ function changeTema() {
 </script>
 
 <script type="text/javascript">
+
+
+
+
+
 	//한달 매출 불러오기
 	function getMonthSales(day){
 		$.ajax({
@@ -492,6 +537,9 @@ function changeTema() {
 					}
 				
 				salesCalculator();
+			
+				
+			
 			}
 		});
 	}
@@ -622,7 +670,7 @@ function changeTema() {
 				
 				if(data == "noSales") {
 					alert("매출불러오기를 실패했습니다");
-				}
+				}			
 			}
 		}); 
 	}

@@ -200,7 +200,6 @@ input:focus, button:focus, select:focus {
 	border-collapse: collapse;
 	margin-top: 80px;
 }
-
 #calendar_main tr, td {
 	width: 150px;
 }
@@ -269,6 +268,15 @@ pre.text {
 	padding-right: 10px;
 	text-align: center;
 }
+#changeTema {
+	width: 180px;
+	height: 50px;
+	background-color: #0D0D0D;
+	color: #fcfaff;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	float: right;
 }
 </style>
 </head>
@@ -322,6 +330,7 @@ pre.text {
 </body>
 <script type="text/javascript">
 	//테마 시작
+
 	if ("${temaBlack}" == "") {
 		temaBlack = false;
 	} else {
@@ -342,8 +351,10 @@ pre.text {
 
 	function changeTema() {
 		if (temaBlack) {
+			$('#changeTema').text("화이트모드");
 			before = $("style").html();
-			after = before.replaceAll("#2565a3", "#2B2B2B");
+			after = before.replaceAll("#0D0D0D", "#24619E");
+			after = after.replaceAll("#2565a3", "#2B2B2B");
 			after = after.replaceAll("#e3f2fd", "#141414");
 			after = after.replaceAll("#ffffff", "#404040");
 			after = after.replaceAll("#1565c0", "#F0F0F0");
@@ -351,12 +362,13 @@ pre.text {
 			$("style").html(after);
 			temaBlack = temaChange(true);
 		} else {
+			$('#changeTema').text("다크모드");
 			before = $("style").html();
-			after = before.replaceAll("#2B2B2B", "#2565a3");
+			after = before.replaceAll("#24619E", "#0D0D0D");
+			after = after.replaceAll("#2B2B2B", "#2565a3");
 			after = after.replaceAll("#141414", "#e3f2fd");
 			after = after.replaceAll("#404040", "#ffffff");
 			after = after.replaceAll("#F0F0F0", "#1565c0");
-			after = after.replaceAll("#4F4F4F", "#90caf9");
 			$("style").html(after);
 			temaBlack = temaChange(false);
 		}
@@ -397,6 +409,10 @@ pre.text {
 		}
 		table += "</table>"
 		$("#calendar_main").html(table);
+		
+		
+		
+		
 	}
 
 	function resetDay() {
@@ -540,6 +556,8 @@ pre.text {
 								}
 							}
 						}
+						
+					
 					},
 					error : function(err) {
 						console.log(err);
@@ -695,16 +713,14 @@ pre.text {
 	function showAllWorkTime(day) {
 		$("#view_layer").addClass("open");
 
-		$
-				.ajax({
-					type : "get",
-					url : "rest/showallworktime",
-					data : {
-						'f_date' : moment($("#yearMonth").text() + "-" + 01)
-								.format("YYYY-MM-DD"),
-						'l_date' : moment($("#yearMonth").text() + "-" + day)
-								.format("YYYY-MM-DD")
-					},
+		$.ajax({
+			type : "get",
+			url : "rest/showallworktime",
+			data : {'f_date' : moment($("#yearMonth").text() + "-" + 01)
+					  .format("YYYY-MM-DD"),
+					  'l_date' : moment($("#yearMonth").text() + "-" + day)
+					  .format("YYYY-MM-DD")
+					     },
 					dataType : "json",
 					success : function(data) {
 						$("#main_layer").text(" ");
@@ -717,11 +733,8 @@ pre.text {
 							$tr.append($("<td>").html(data[i].PST_NAME));
 							$tr.append($("<td>").html(data[i].EMP_NAME));
 							if (data[i].HOUR != null) {
-								$tr
-										.append($("<td>").html(
-												data[i].HOUR + "시간 "));
-								$tr.append($("<td>").html(
-										Math.floor(data[i].MINUTE / 60) + "시간 "
+								$tr.append($("<td>").html(data[i].HOUR + "시간 "));
+								$tr.append($("<td>").html(Math.floor(data[i].MINUTE / 60) + "시간 "
 												+ data[i].MINUTE % 60 + "분"));
 							}
 							$tr.append($("</tr>"));
