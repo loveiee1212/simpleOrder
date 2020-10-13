@@ -17,15 +17,15 @@ public class ProductHtmlMaker {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<tr>");
 		sb.append("<th>" + "카테고리" + "</th>");
-		sb.append("<th>" + "상품" + "</th>");
-		sb.append("<th>" + "상품가격" + "</th>");
-		sb.append("<th>" + "재고" + "</th>");
+		sb.append("<th onclick='sortContent(1)'>" + "상품" + "</th>");
+		sb.append("<th onclick='sortContent(2)'>" + "상품가격" + "</th>");
+		sb.append("<th onclick='sortContent(3)'>" + "재고" + "</th>");
 		sb.append("<th colspan = '2'>" + "비고" + "</th>");
 		sb.append("</tr>");
 		System.out.println(pList.size());
 		for (int i = 0; i < pList.size(); i++) {
 			StoreManagement pd = pList.get(i);
-			sb.append("<tr>");
+			sb.append("<tr id='sort_tr'>");
 			sb.append("<td>" + pd.getPdc_name() + "</td>");
 			sb.append("<td>" + pd.getPd_name() + "</td>");
 			sb.append("<td>" + pd.getPd_price() + "</td>");
@@ -34,7 +34,7 @@ public class ProductHtmlMaker {
 			} else {
 				sb.append("<td>" + pd.getStk_stock() + "</td>");
 			}
-			sb.append("<td onclick ='getProInfo(this)' "
+			sb.append("<td id='sort_tr' onclick ='getProInfo(this)' "
 					+ "data-pdc_code ='"+pd.getPdc_code()+"' "
 					+ "data-pd_code ='"+pd.getPd_code()+"' "
 					+ "data-pd_date ='"+pd.getPd_date()+"' "
@@ -228,9 +228,9 @@ public class ProductHtmlMaker {
 		int cnt = 0;
 		String plus;
 		sb.append("<tr>");
-		sb.append("<th>").append("상품명").append("</th>");
-		sb.append("<th>").append("변경 시간").append("</th>");
-		sb.append("<th>").append("변경 수량").append("</th>");
+		sb.append("<th >").append("상품명").append("</th>");
+		sb.append("<th onclick='sortContent(1)'>").append("변경 시간").append("</th>");
+		sb.append("<th onclick='sortContent(2)'>").append("변경 수량").append("</th>");
 		sb.append("</tr>");
 		for(HashMap<String, String> record : stockRecord) {
 			sb.append("<tr>");
