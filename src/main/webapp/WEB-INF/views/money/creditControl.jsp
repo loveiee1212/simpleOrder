@@ -476,6 +476,9 @@ function sortContent(index) {
 		if($("#takemoney").val()==0){
 			if(confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")){
 				$("#takemoney").val($("#totalmoney").val()-endpay);
+			}else{
+				location.reload();
+				return false;
 			}
 		}
 		var getmoney = $("#takemoney").val();
