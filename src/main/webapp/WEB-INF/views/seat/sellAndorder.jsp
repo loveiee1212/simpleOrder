@@ -374,7 +374,7 @@ input:focus, button:focus {
 					<ul>
 						<li>총금액 <input type="number" readonly="readonly"
 							id="totalmoney"></li>
-						<li>결제금액 <input type="number" readonly="readonly" id="endpay"></li>
+						<li>결제금액 <input type="number" readonly="readonly" id="endpay" value='0'></li>
 						<li>받은금액 <input type="number" id="takemoney" placeholder="0"></li>
 						<li id="Remain_money">남은금액 <input type="number"
 							readonly="readonly" id="uctmoney"></li>
@@ -959,17 +959,15 @@ input:focus, button:focus {
 		var pdccodeArray = [];
 		var $pdccode = $("input[name = 'pdcode']");
 		var oac_num = $("#oac_num").val();
-		var endpay = $("#endpay").val();
+		var endpay = Number($("#endpay").val());
 		var bd_date = $("#sendbd_date").val();
 		if (oac_num == "" || oac_num == undefined || oac_num == null
-				|| oac_num == "null") {
+				|| oac_num == "null" && num!=1) {
 			for (var i = 0; i < $pdccode.length; i++) {
 				if ($("#pdcnt" + i).val() - $("#hiddencnt" + i).val() != 0) {
 					pdccodeArray.push($("#pdcode" + i).data('code'));
 				}
 			}
-			console.log("주문번호 없음");
-			console.log("코드arr길이:"+pdccodeArray.length)
 			if (pdccodeArray.length != 0 && num != 1) {
 				//alert("주문 변경사항이 있습니다.")
 				if (confirm("주문 변경사항이 있습니다. 주문 내역 변경 후 결제합니다.")) {
@@ -977,22 +975,25 @@ input:focus, button:focus {
 						if (confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")) {
 							$("#takemoney").val($("#totalmoney").val() - endpay);	
 							sendsaoList(paytype);
+							return false;
 						}else{
-							location.reload();
+							//location.reload();
 							return false;
 					}
-					}
+				}
 					sendsaoList(paytype);
+					return false;
 				} else {
 					return false;
-				
 				}
+			
 			}
 			/* if (num != 1) {
 				sendsaoList(paytype);
 				return false;
 			} */
-			if (num != 0) {
+			if (oac_num == "" || oac_num == undefined || oac_num == null
+					|| oac_num == "null" && num != 0) {
 				oac_num = getoac_num;
 			}
 		} else {
@@ -1008,12 +1009,14 @@ input:focus, button:focus {
 						if (confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")) {
 							$("#takemoney").val($("#totalmoney").val() - endpay);	
 							sendsaoList(paytype);
+							return false;
 						}else{
-							location.reload();
+							//location.reload();
 							return false;
 					}
 				}
 					sendsaoList(paytype);
+					return false;
 				} else {
 					return false;
 				}
@@ -1022,12 +1025,7 @@ input:focus, button:focus {
 		}
 		
 		if ($("#takemoney").val() == 0) {
-			if (confirm("받은 금액이 0원입니다. 전액 결제 처리하시겠습니까?")) {
 				$("#takemoney").val($("#totalmoney").val() - endpay);
-			}else{
-				location.reload();
-				return false;
-			}
 		}
 		var getmoney = $("#takemoney").val();
 		if ($("#takemoney").val() - ($("#totalmoney").val() - endpay) > 0) {
@@ -1037,11 +1035,17 @@ input:focus, button:focus {
 		}//결제금액이 총금액보다 큰 경우 총금액이 결제금액으로 설정
 
 		var text = $("#Remain_money").text();
-
+		
+		if (num != 0) {
+			oac_num = getoac_num;
+		}
+		console.log(oac_num);
+		console.log(getoac_num);
+		
+		
 		/* if(text.match("남은금액")){
 		var totalmoney = $("#totalmoney").val($("#uctmoney").val());
 		}//남은금액이 있을경우 남은금액이 총금액의 값으로 들어가게 됨 */
-
 		var objparam = {
 			"bd_date" : bd_date,
 			"oac_num" : oac_num,
@@ -1049,18 +1053,17 @@ input:focus, button:focus {
 			"paymoney" : paymoney,
 			"paytype" : paytype
 		}
+		console.log(objparam);
+		console.log("들어오는지 확인");
+		console.log(oac_num);
+		console.log(getoac_num);
+		console.log(num);
 		$.ajax({
 			type : 'post',
 			url : 'rest/moneypayment',
 			data : objparam,
 			dataType : 'json',
 			success : function(result) {
-				console.log("get"+getoac_num);
-				console.log("nom"+oac_num);
-				console.log(getoac_num=="0")
-				console.log(getoac_num==0)
-				console.log(getoac_num!=0)
-				console.log(getoac_num!="0")
 				if(getoac_num!="0"){
 				location.href = "./sellandorder?sc_code=" + $("#sc_code").val()+ "&st_num=" + $("#st_num").val() + "&oac_num="+ getoac_num;
 				}else{					

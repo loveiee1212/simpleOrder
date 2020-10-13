@@ -156,10 +156,6 @@ public class CreditAndPaymentMM {
 	@Transactional
 	public HashMap<String, String> addcreditList(HttpSession session, String oac_num, String crd_name, String crd_phone){
 		HashMap<String, String> hMap = new HashMap<String, String>();
-		if (oac_num == null || oac_num == "") {
-			hMap.put("result", "주문한 내역만 외상이 가능합니다. 주문 후 다시 시도하세요");
-			return hMap;
-		}
 		if(crd_name == null || crd_phone ==null) {
 			hMap.put("result", "정보를 입력해주세요");
 			return hMap;
