@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰쓰기</title>
+<title>SimpleOrder</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="icon" href="resources/image/smallLogo.png"
@@ -250,9 +250,7 @@ textarea:focus {
 		$('#score span').click(function() {
 			$(this).parent().children('span').removeClass('on');
 			$(this).addClass('on').prevAll('span').addClass('on');
-			// console.log($(this).html());
 			$('#rv_score').val($(this).html());
-			console.log($('#rv_score').val())
 			return false;
 		});
 		function reviewWriteCheck() {

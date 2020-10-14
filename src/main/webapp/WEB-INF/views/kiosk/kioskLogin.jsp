@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>키오스크 로그인</title>
+<title>SimpleOrder</title>
 <link rel="icon" href="resources/image/smallLogo.png"
 	type="image/x-icon">
 <style>

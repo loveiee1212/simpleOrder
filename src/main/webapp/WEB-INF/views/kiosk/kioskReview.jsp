@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>이용후기</title>
+<title>SimpleOrder</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="icon" href="resources/image/smallLogo.png"
@@ -249,7 +249,6 @@ button:focus {
 						},
 						dataType : 'json',
 						success : function(data) {
-							console.log(data);
 							$('#reviewList').append(data.rvList);
 							if ($('#msg').length == 1) {
 								$('#btn').html("");
