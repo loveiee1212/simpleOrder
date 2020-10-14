@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<title>요청알림</title>
+<title>SimpleOrder</title>
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style type="text/css">
 body {

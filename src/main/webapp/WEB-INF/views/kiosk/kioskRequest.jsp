@@ -7,7 +7,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>요청하기</title>
+<title>SimpleOrder</title>
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
@@ -107,7 +107,6 @@ input:focus, button:focus {
 		type : 'post',
 		dataType : 'json',
 		success : function(data) {
-			console.log(data);
 			$('#requestList').html(data.reqList);
 		},
 		error : function(err) {

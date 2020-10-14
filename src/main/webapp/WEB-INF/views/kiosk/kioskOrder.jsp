@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>주문하기</title>
+<title>SimpleOrder</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -392,7 +392,6 @@ input:focus, button:focus {
 		type : 'post',
 		dataType : 'json',
 		success : function(data) {
-			console.log(data.sellProList);
 			//판매키 카테고리 네비바 html삽입
 			$('#header_nav').html(data.sellCtList);
 			//판매키 카테고리 html삽입
@@ -416,7 +415,6 @@ input:focus, button:focus {
 	function proHide() {
 		var pro = $('.pro');
 		for (var i = 0; i < pro.length; i++) {
-			console.log(pro.eq(i).attr("id"));
 			$("#" + pro.eq(i).attr("id")).hide();
 		}
 		$("#" + pro.eq(0).attr("id")).show();
@@ -497,7 +495,6 @@ input:focus, button:focus {
 		type : 'post',
 		dataType : 'json',
 		success : function(data) {
-			console.log(data);
 			if(data.oac_time !="null"){
 			setInterval(() => {
 				$.ajax({
@@ -555,12 +552,9 @@ input:focus, button:focus {
 			var price = Number(bill_pd_price[i].innerText);
 			var cnt = Number(bill_oh_cnt[i].innerText);
 
-			console.log(price);
 			sum += (price * cnt);
 		}
-		console.log(sum);
 		sum = sum.toLocaleString('en');
-		console.log(sum);
 		$('#billSum').text("합계 " + sum + "원");
 	}
 	function billPriceUpdate() {
@@ -570,7 +564,6 @@ input:focus, button:focus {
 			var price = pd_price[i].innerText;
 			var cnt = oh_cnt[i].innerText;
 			price = Number(price).toLocaleString('en');
-			console.log(price);
 			pd_price[i].innerText = price + "원";
 			oh_cnt[i].innerText = cnt + "개";
 		}
@@ -646,7 +639,6 @@ input:focus, button:focus {
 				})
 
 		$('.soldOut').on("click", function() {
-			console.log("품절");
 			alert("죄송합니다 품절 상품입니다");
 		});
 		$('.pList').on("click", function() {
@@ -666,7 +658,6 @@ input:focus, button:focus {
 		//장바구니에 상품이 이미 담겨 있는지 확인
 		var result = insertCheck(pdc_code, pd_code);
 		if (result) {
-			console.log('그냥 인서트');
 			var str = '';
 			str += "<tr id = '" + pdc_code + pd_code + "'>";
 			str += "<td class='bsk_pdc_code'>" + pdc_code + "</td>";
@@ -686,7 +677,6 @@ input:focus, button:focus {
 			bskSum();
 			return true;
 		} else {
-			console.log('개수 추가');
 			return false;
 		}
 
@@ -747,7 +737,6 @@ input:focus, button:focus {
 		if (confirm("주문목록에서 삭제 하시겠습니까?")) {
 			elem.closest('tr').remove();
 			bskSum();
-			console.log($('#bskBody').children().length);
 			if ($('#bskBody').children().length == 0) {
 				$('#bskText').show();
 				$('#bskSum').hide();
@@ -766,25 +755,15 @@ input:focus, button:focus {
 			Number(price);
 			var cnt = Number(bsk_oh_cnt[i].innerText);
 
-			console.log(price);
-			console.log(cnt);
 			sum += (price * cnt);
-			console.log(sum);
 		}
 
 		sum = Number(sum).toLocaleString('en');
 		$('#bskSum').text("합계 " + sum + "원");
-		console.log($('#bskText').text());
-		console.log($('#bskBody').children().length);
-		if ($('#bskBody').children().length === 0) {
-			console.log(sum + "원");
-
-		}
 	}
 	//주문하기
 	function order() {
 		if (confirm("주문 하시겠습니까?")) {
-			console.log($('#bskBody').children().length);
 			if ($('#bskBody').children().length === 0) {
 				alert("장바구니가 비어있습니다");
 				return false;
@@ -803,9 +782,6 @@ input:focus, button:focus {
 				obj.oh_cnt = bsk_oh_cnt[i].innerText;
 				bskArr.push(obj);
 			}
-			for (var i = 0; i < bskArr.length; i++) {
-				console.log(bskArr[i]);
-			}
 			var bArr = JSON.stringify(bskArr);
 			$.ajax({
 				url : 'rest/insertorder',
@@ -814,7 +790,6 @@ input:focus, button:focus {
 				dataType : 'json',
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {
-					console.log(data);
 					alert(data.msg);
 					//return 가져온 데이터로 location.href 해주면 됨
 					location.href = data.view;
