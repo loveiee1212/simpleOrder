@@ -31,7 +31,7 @@ body {
 }
 
 #flotBoxbg {
-	background-color: black;
+	/* background-color: black; */
 	width: 1600px;
 	height: 1000px;
 	position: absolute;
