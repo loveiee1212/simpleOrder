@@ -476,10 +476,6 @@ function changeTema() {
 
 <script type="text/javascript">
 
-
-
-
-
 	//한달 매출 불러오기
 	function getMonthSales(day){
 		$.ajax({
@@ -492,7 +488,8 @@ function changeTema() {
 			dataType : "json",
 			success : function(data) {
 				$tdText.text("");
-				
+				console.log(data);
+				console.log("aaaa");
 				var cash = 0;
 				var card = 0;
 				var get_pay = 0;
@@ -508,16 +505,16 @@ function changeTema() {
 					}
 					
 					if(data[i].CASH != null){
-					cash += (data[i].CASH)*1;
+					cash = (data[i].CASH)*1;
 					}
 					if(data[i].CARD != null){
-					card += (data[i].CARD)*1;
+					card = (data[i].CARD)*1;
 					}
 					
 					if (data[i].OAC_NAME == "외상") {
 						credit = data[i].TOTAL_PAY
 					}
-				}
+				
 
 					for (var j = firstDay.getDay(); j < firstDay.getDay()
 							+ lastDay.getDate(); j++) {
@@ -536,7 +533,7 @@ function changeTema() {
 							}
 						}
 					}
-				
+				}
 				salesCalculator();
 			
 				
@@ -617,7 +614,7 @@ function changeTema() {
 			success : function(data) {
 				$("#salesList").find("td").text("");
 				$(".pro").remove();
-				
+
 				for(var sales of data.salesList){
 					var cash = sales.CASH;
 					var card = sales.CARD;
@@ -696,6 +693,7 @@ function changeTema() {
 				$(".pro").remove();
 				
 				for(var sales of data.salesList){
+					
 					var cash = sales.CASH;
 					var card = sales.CARD;
 					if (sales.OAC_NAME == "결제"){
