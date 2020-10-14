@@ -239,7 +239,7 @@ ${msg}
 
 	<script type="text/javascript">
 	
-	//테마 시작
+/* 	//테마 시작
 	if ("${temaBlack}" == "") {
 		temaBlack = false;
 	} else {
@@ -290,7 +290,7 @@ ${msg}
 				temaBlack = temaChange(false);
 			}
 	}
-	//테마 끝
+	//테마 끝 */
 	
 	var selectedCTval = "01";	
 	getScatlist();

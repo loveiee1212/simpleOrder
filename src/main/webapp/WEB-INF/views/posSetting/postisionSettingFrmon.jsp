@@ -145,7 +145,7 @@ input:focus, button:focus {
 </body>
 <script>
 
-//테마 시작
+/* //테마 시작
 if ("${temaBlack}" == "") {
 	temaBlack = false;
 } else {
@@ -196,7 +196,7 @@ function changeTema() {
 			temaBlack = temaChange(false);
 		}
 }
-//테마 끝
+//테마 끝 */
 
 	function updatePosition(element) {
 		pst_position = element.parentNode.parentNode.getAttribute('id');

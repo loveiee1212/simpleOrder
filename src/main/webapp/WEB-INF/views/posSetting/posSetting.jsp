@@ -132,7 +132,7 @@ input:focus, button:focus, select:focus {
 	</div>
 </body>
 <script type="text/javascript" id="basicIncludeService">
-//테마 시작
+/* //테마 시작
 if ("${temaBlack}" == "") {
 	temaBlack = false;
 } else {
@@ -178,7 +178,7 @@ function changeTema() {
 		temaBlack = temaChange(false);
 	}
 }
-//테마 끝
+//테마 끝 */
 	${basicPath}
 	
 	

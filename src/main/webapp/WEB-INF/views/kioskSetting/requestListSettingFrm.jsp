@@ -134,7 +134,7 @@ input:focus, button:focus {
 </body>
 <script type="text/javascript">
 
-//테마 시작
+/* //테마 시작
 if ("${temaBlack}" == "") {
 	temaBlack = false;
 } else {
@@ -180,7 +180,7 @@ function changeTema() {
 		temaBlack = temaChange(false);
 	}
 }
-//테마 끝
+//테마 끝 */
 function requsetFrm() { // 요청사항 추가 버튼 누르면 액션변경
 	return false;
 }

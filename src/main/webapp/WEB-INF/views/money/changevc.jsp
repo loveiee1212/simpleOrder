@@ -302,7 +302,7 @@ input:focus, button:focus {
 </body>
 
 <script type="text/javascript">
-//테마 시작
+/* //테마 시작
 if ("${temaBlack}" == "") {
 	temaBlack = false;
 } else {
@@ -348,7 +348,7 @@ function changeTema() {
 		temaBlack = temaChange(false);
 	}
 }
-//테마 끝
+//테마 끝 */
 	$(document).ready(function(){
 		getStartVC();
 	})

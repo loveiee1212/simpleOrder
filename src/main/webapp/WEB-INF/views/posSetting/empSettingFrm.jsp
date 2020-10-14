@@ -214,7 +214,7 @@ input:focus, button:focus {
 	</form>
 </body>
 <script type="text/javascript">
-//테마 시작
+/* //테마 시작
 if ("${temaBlack}" == "") {
 	temaBlack = false;
 } else {
@@ -260,7 +260,7 @@ function changeTema() {
 		temaBlack = temaChange(false);
 	}
 }
-//테마 끝
+//테마 끝 */
 	getEmpList(1); // 상태가 1인 emp 노출
 	
 	function empFrm() { // 추가 버튼 누르면 액션 변경

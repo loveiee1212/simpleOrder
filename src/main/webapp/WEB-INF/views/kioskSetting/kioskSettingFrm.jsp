@@ -96,7 +96,7 @@ input:focus, button:focus {
 	margin: 100px 200px;
 }
 
-#changeTema {
+/* #changeTema {
 	width: 180px;
 	height: 50px;
 	background-color: #0D0D0D;
@@ -105,13 +105,13 @@ input:focus, button:focus {
 	font-weight: bold;
 	border-radius: 20px;
 	float: right;
-}
+} */
 </style>
 <meta charset="UTF-8">
 <title>키오스크설정</title>
 </head>
 <body>
-<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
+<!-- <button type="button" id="changeTema" onclick="changeTema()">다크모드</button> -->
 	<div id="baseBox">
 		<div id="baseinnerBox">
 			<div id="totalDiv">
@@ -135,7 +135,7 @@ input:focus, button:focus {
 	</div>
 </body>
 <script type="text/javascript" id="basicIncludeService">
-//테마 시작
+/* //테마 시작
 if ("${temaBlack}" == "") {
 	temaBlack = false;
 } else {
@@ -181,7 +181,7 @@ function changeTema() {
 		temaBlack = temaChange(false);
 	}
 }
-//테마 끝
+//테마 끝 */
 
 	${basicPath}
 	function includeAjax(url) {

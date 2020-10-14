@@ -11,6 +11,10 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<link rel="stylesheet" href="resources/css/calendar.css?afte"
+	type="text/css">
+<link rel="stylesheet" href="resources/css/clock.css?afte"
+	type="text/css">
 <link rel="stylesheet" type="text/css"
 	href="resources/css/basicBox.css?after">
 <link rel="icon" href="resources/image/smallLogo.png"
@@ -157,117 +161,7 @@ input:focus, button:focus, select:focus {
 	outline: none;
 }
 
-/* calender.css */
-#calendar {
-	border: 3px solid #2565a3;
-	float: left;
-	width: 1000px;
-	height: 770px;
-	margin-right: 30px;
-	padding: 15px;
-}
 
-#controller {
-	border: 2px solid #2565a3;
-	float: right;
-	width: 430px;
-	height: 800px;
-}
-
-#calendar_top {
-	text-align: right;
-	margin-top: 20px;
-}
-
-.moveButton {
-	width: 80px;
-	height: 50px;
-	background-color: #2565a3;
-	font-size: x-large;
-	font-weight: bolder;
-	border-radius: 8px;
-	border: 2px solid white;
-	color: white;
-}
-
-.moveButton:focus {
-	outline: none;
-}
-
-#calendar_main table, tr, td, th {
-	border: 3px solid #2565a3;
-	font-size: 20px;
-	border-collapse: collapse;
-	margin-top: 80px;
-}
-#calendar_main tr, td {
-	width: 150px;
-}
-
-th {
-	width: 200px;
-	height: 30px;
-	border: 3px solid #2565a3;
-	border-collapse: collapse;
-	margin-top: 80px;
-	background-color: #2565a3;
-	color: white;
-	font-weight: bold;
-	font-size: 20px;
-}
-
-#yearMonth {
-	font-size: xx-large;
-	font-weight: bolder;
-	color: #2565a3;
-}
-
-pre.text {
-	width: 100px;
-	height: 75px;
-	font-size: 15px;
-	margin: 0px;
-}
-
-/* clock.css */
-#clock {
-	text-align: center;
-	border: 2px solid white;
-	background-color: #2565a3;
-	color: white;
-	font-weight: bold;
-	width: 300px;
-	height: 95px;
-	margin-left: 65px;
-	margin-top: 30px;
-	font-size: 20px;
-}
-
-#clock ul {
-	width: 200px;
-	list-style: none;
-	text-align: center;
-	margin-left: 10px;
-}
-
-#clock ul li {
-	display: inline;
-	font-size: 25px;
-	text-align: center;
-}
-
-#date {
-	text-align: center;
-	font-size: 25px;
-	margin-top: 10px;
-}
-
-.point {
-	position: relative;
-	padding-left: 10px;
-	padding-right: 10px;
-	text-align: center;
-}
 #changeTema {
 	width: 180px;
 	height: 50px;
@@ -281,6 +175,7 @@ pre.text {
 </style>
 </head>
 <body>
+<!-- <button type="button" id="changeTema" onclick="changeTema()">다크모드</button> -->
 	<div id="baseBox">
 	<button type="button" id="changeTema" onclick="changeTema()">다크모드</button>
 		<div id="baseinnerBox">
@@ -329,7 +224,7 @@ pre.text {
 	</div>
 </body>
 <script type="text/javascript">
-	//테마 시작
+	/* //테마 시작
 
 	if ("${temaBlack}" == "") {
 		temaBlack = false;
@@ -373,7 +268,7 @@ pre.text {
 			temaBlack = temaChange(false);
 		}
 	}
-	//테마 끝
+	//테마 끝 */
 	$(document)
 			.ready(
 					function() {
