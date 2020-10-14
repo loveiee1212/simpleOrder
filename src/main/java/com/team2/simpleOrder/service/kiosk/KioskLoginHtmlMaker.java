@@ -33,7 +33,7 @@ public class KioskLoginHtmlMaker {
 			for (int j = i; j < i + 3; j++) {
 				if (j < tlist.size()) {
 					sb.append("<td>").append(
-							"<img alt='qr코드' src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=http://121.65.47.76:3001/simpleOrder/kioskLogin/"
+							"<img alt='qr코드' src='https://chart.googleapis.com/chart?cht=qr&chs=225x225&chl=http://121.65.47.76:3001/simpleOrder/kioskLogin/"
 									+ c_code + "/" + tlist.get(j).getSc_code() + "/" + tlist.get(j).getSt_num() + "'>")
 							.append("</td>");
 				}

@@ -612,16 +612,16 @@ function changeTema() {
 					}
 					
 					if(data[i].CASH != null){
-					cash += (data[i].CASH)*1;
+					cash = (data[i].CASH)*1;
 					}
 					if(data[i].CARD != null){
-					card += (data[i].CARD)*1;
+					card = (data[i].CARD)*1;
 					}
 					
 					if (data[i].OAC_NAME == "외상") {
 						credit = data[i].TOTAL_PAY
 					}
-				}
+				
 
 					for (var j = firstDay.getDay(); j < firstDay.getDay()
 							+ lastDay.getDate(); j++) {
@@ -640,7 +640,7 @@ function changeTema() {
 							}
 						}
 					}
-				
+				}
 				salesCalculator();
 			}
 		});
