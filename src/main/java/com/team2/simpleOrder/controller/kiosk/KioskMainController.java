@@ -21,12 +21,16 @@ public class KioskMainController {
 	private KioskMM2 km2;
 
 	@PostMapping(value = "/insertreview")
-	public ModelAndView insertreview(@RequestParam ArrayList<MultipartFile> rv_file, HttpSession session, Review rv) {
+	public ModelAndView insertreview(@RequestParam ArrayList<MultipartFile> rv_file, @RequestParam String oac_num,
+			HttpSession session, Review rv) {
+		System.out.println(oac_num);
+		rv.setOac_num(oac_num);
 		return km2.insertReview(rv_file, rv, session);
 	}
 
 	@PostMapping(value = "/requestcall")
-	public ModelAndView requestCall(HttpSession session, @RequestParam HashMap<String, String> requestInfo, ModelAndView mav) {
+	public ModelAndView requestCall(HttpSession session, @RequestParam HashMap<String, String> requestInfo,
+			ModelAndView mav) {
 		return km2.msgSave(session, requestInfo);
 	}
 }

@@ -39,19 +39,29 @@ public class PageController4 {
 	@RequestMapping(value = "/kioskreview/{oac_num}", method = RequestMethod.GET)
 	public String kioskReview_path(@PathVariable("oac_num") String oac_num, RedirectAttributes reat) {
 		reat.addFlashAttribute("oac_num", oac_num);
-		reat.addFlashAttribute("creditOk" , oac_num);
+		reat.addFlashAttribute("creditOk", oac_num);
 		return "redirect:/kioskreview";
 	}
+
 	@RequestMapping("/kioskreview")
 	public String KioskReview() {
+		logger.info("kioskReview.jsp으로 이동");
 		return "kiosk/kioskReview";
 	}
 
-	@RequestMapping(value = "/kioskreviewwrite", method = RequestMethod.GET)
+	@RequestMapping(value = "/kioskreviewwrite/{oac_num}", method = RequestMethod.GET)
+	public String kioskReviewWrite_path(@PathVariable("oac_num") String oac_num, RedirectAttributes reat) {
+		System.out.println(oac_num);
+		reat.addFlashAttribute("oac_num",oac_num);
+		return "redirect:/kioskreviewwrite";
+	}
+
+	@RequestMapping(value = "/kioskreviewwrite")
 	public String kioskReviewWrite() {
 		logger.info("kioskReviewWrite.jsp으로 이동");
 		return "kiosk/kioskReviewWrite";
 	}
+
 	@RequestMapping("/kioskThanks")
 	public String kioskThankyou(HttpSession session) {
 		session.removeAttribute("oac_num");

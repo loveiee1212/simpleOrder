@@ -88,8 +88,7 @@ li {
 .rv_detail {
 	margin: 20px;
 	margin-bottom: 30px;
-	padding-bottom: 50px;
-	border-bottom: 1px solid #2565a3;
+	padding-bottom: 70px;
 }
 
 .rv_text {
@@ -152,15 +151,15 @@ li {
 
 #addBtn {
 	text-align: center;
-    border: 2px solid white;
-    width: 568px;
-    height: 70px;
-    background-color: #e3f2fd;
-    font-weight: bold;
-    color: #2565a3;
-    font-size: 25px;
-    margin-top: -5px;
-    margin-bottom: 50px;
+	border: 2px solid white;
+	width: 568px;
+	height: 70px;
+	background-color: #e3f2fd;
+	font-weight: bold;
+	color: #2565a3;
+	font-size: 25px;
+	margin-top: -5px;
+	margin-bottom: 50px;
 }
 
 .write {
@@ -212,15 +211,14 @@ button:focus {
 		<div id="reviewList"></div>
 		<div id="btn"></div>
 		<div id="footer">
-			<button class="write" onclick="location.href='./kioskreviewwrite'">리뷰작성</button>
+			<button class="write" onclick="location.href='./kioskreviewwrite/${oac_num}'">리뷰작성</button>
 			<button class="Exit" type="button"
 				onclick="location.href='./kioskmenu'">나가기</button>
 		</div>
 	</div>
 	<script type="text/javascript">
-	//결제 상태확인
+		//결제 상태확인
 
-	
 		//리뷰 등록 여부 확인
 		if ('${resultMsg}' != "") {
 			alert('${resultMsg}');
@@ -228,7 +226,7 @@ button:focus {
 		//결제됬는지 확인
 		if ('${creditOk}' != "") {
 			$('.write').css('display', 'inline');
-			$('.write').attr("onclick", "location.href='./kioskreviewwrite'");
+			$('.write').attr("onclick", "location.href='./kioskreviewwrite/${oac_num}'");
 		} else {
 			$('.write').css('display', 'none');
 			$('.write').attr("onclick", "");
@@ -241,7 +239,8 @@ button:focus {
 
 		getReviewList();
 		function getReviewList() {
-			$.ajax({
+			$
+					.ajax({
 						url : 'rest/getreviewlist',
 						type : 'post',
 						data : {

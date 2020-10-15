@@ -26,8 +26,8 @@ public class KioskMM2 {
 
 			mav = new ModelAndView();
 			rv.setC_code(session.getAttribute("c_code").toString())
-					.setBd_date(session.getAttribute("bd_date").toString())
-					.setOac_num(session.getAttribute("oac_num").toString());
+					.setBd_date(session.getAttribute("bd_date").toString());
+					
 			if (kDao1.insertReview(rv)) { // 등록이 됐다면
 				if (rv_file.size() != 0) {
 					KioskFileManager kfm = new KioskFileManager();
@@ -38,7 +38,6 @@ public class KioskMM2 {
 					}
 					session.setAttribute("reviewOk", "reviewOk");
 					session.removeAttribute("bd_date");
-					session.removeAttribute("oac_num");
 					mav.addObject("resultMsg", "리뷰등록에 성공하였습니다");
 				} else {
 					mav.addObject("resultMsg", "리뷰등록에 실패하였습니다");

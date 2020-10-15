@@ -211,11 +211,6 @@ textarea:focus {
 </style>
 </head>
 <body>
-	<%-- <h2>${sessionScope.c_code}</h2>
-	<h2>${sessionScope.bd_date}</h2>
-	<h2>${sessionScope.sc_code}</h2>
-	<h2>${sessionScope.st_num}</h2>
-	<h2>${sessionScope.oac_num}</h2> --%>
 	<div id="frame">
 		<img src="resources/image/logo.png" alt="SimpleOrder 홈페이지">
 		<div id="header">광고</div>
@@ -223,6 +218,7 @@ textarea:focus {
 			<form action="insertreview" id="frm" method="post"
 				enctype="multipart/form-data" onsubmit="return reviewWriteCheck()">
 				<div>
+						<input type="hidden" name="oac_num" id="oac_num" value="${oac_num}">
 					<div id="score">
 						<input type="hidden" name="rv_score" id="rv_score" value="0">
 						<span class="starR1 on">0</span> <span class="starR2">1</span> <span
