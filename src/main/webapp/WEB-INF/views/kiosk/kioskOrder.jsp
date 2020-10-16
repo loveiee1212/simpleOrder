@@ -38,6 +38,10 @@ ul {
 	font-style: normal;
 }
 
+.pro {
+	width: 568px;
+}
+
 li {
 	float: left;
 }
@@ -212,7 +216,7 @@ i {
 }
 
 img {
-    height: 100%;
+	height: 100%;
 }
 
 .pd_imgName {
@@ -237,18 +241,6 @@ img {
 
 #orderbtn {
 	margin-left: 15px;
-}
-
-#pro01, #pro02 {
-	height: 50px;
-	font-size: 25px;
-	margin-left: 20px;
-	padding-top: 10px;
-}
-
-#skc01, #skc02 {
-	height: 60px;
-	background-color: #e3f2fd;
 }
 
 p {

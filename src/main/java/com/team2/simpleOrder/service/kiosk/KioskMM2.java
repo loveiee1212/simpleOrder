@@ -18,7 +18,7 @@ import com.team2.simpleOrder.dto.Review;
 public class KioskMM2 {
 	ModelAndView mav;
 	@Autowired
-	private IKioskDao1 kDao1;
+	private IKioskDao1 kDao;
 
 	@Transactional
 	public ModelAndView insertReview(ArrayList<MultipartFile> rv_file, Review rv, HttpSession session) {
@@ -28,13 +28,13 @@ public class KioskMM2 {
 			rv.setC_code(session.getAttribute("c_code").toString())
 					.setBd_date(session.getAttribute("bd_date").toString());
 					
-			if (kDao1.insertReview(rv)) { // 등록이 됐다면
+			if (kDao.insertReview(rv)) { // 등록이 됐다면
 				if (rv_file.size() != 0) {
 					KioskFileManager kfm = new KioskFileManager();
 					kfm.fileUp(rv, rv_file, session);
 					for (int i = 0; i < rv_file.size(); i++) {
 						rv.setRvImg_sysName(kfm.makeSysName(rv, i, rv_file.get(i).getOriginalFilename()));
-						kDao1.insertRvImg(rv);
+						kDao.insertRvImg(rv);
 					}
 					session.setAttribute("reviewOk", "reviewOk");
 					session.removeAttribute("bd_date");
@@ -57,11 +57,12 @@ public class KioskMM2 {
 		mav = new ModelAndView();
 		
 		requestInfo.put("c_code", session.getAttribute("c_code").toString());
-		requestInfo.put("sc_name", kDao1.getSc_name(session.getAttribute("c_code").toString(), session.getAttribute("sc_code").toString()));
+		requestInfo.put("sc_name", kDao.getSc_name(session.getAttribute("c_code").toString(), session.getAttribute("sc_code").toString()));
 		requestInfo.put("st_num", session.getAttribute("st_num").toString());
 		mav.addObject("requestInfo", requestInfo);
 		mav.setViewName("kiosk/request");
-		kDao1.createRequest(requestInfo);
+		System.out.println(requestInfo);
+		kDao.createRequest(requestInfo);
 		return mav;
 	}
 }

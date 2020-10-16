@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>SimpleOrder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <link rel="icon" href="resources/image/smallLogo.png" type="image/x-icon">
 <style type="text/css">

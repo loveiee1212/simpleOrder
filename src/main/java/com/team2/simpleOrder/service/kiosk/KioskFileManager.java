@@ -15,7 +15,6 @@ public class KioskFileManager {
 	public void fileUp(Review rv, ArrayList<MultipartFile> rv_file, HttpSession session) {
 		try {
 			String root = session.getServletContext().getRealPath("/resources/reviewImg/"+session.getAttribute("c_code").toString()+"/");
-			System.out.println(root);
 			File dir = new File(root);
 			if(!dir.isDirectory()) {
 				dir.mkdir();
