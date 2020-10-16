@@ -69,7 +69,7 @@ public interface IKioskDao1 {
 	HashMap<String, String> checkTabNum(@Param("c_code") String c_code, @Param("bd_date") String bd_date,
 			@Param("oac_num") String oac_num);
 
-	@Insert("INSERT INTO REQUEST_LIST VALUES (#{c_code}, DEFAULT,#{text}, DEFAULT, #{sc_name}, #{st_num}, '1')")
+	@Insert("INSERT INTO REQUEST_LIST VALUES (#{c_code}, DEFAULT,#{text}, DEFAULT, #{sc_name}, #{st_num}, '0')")
 	void createRequest(HashMap<String, String> requestInfo);
 
 	HashMap<String, String> checkStock(HashMap<String, String> hashMap);
