@@ -30,6 +30,7 @@ public class KioskMM1 {
 		List<HashMap<String, Object>> skcList = kDao.getSkcList(session.getAttribute("c_code").toString());
 		// 판매 등록 된 상품리스트 가져오기
 		List<SellProduct> sellProList = kDao.getSellProList(session.getAttribute("c_code").toString());
+		// 가져온 데이터로 Html만들기
 		return new KioskMakeHtml().makeSellProListHtml(skcList, sellProList, session.getAttribute("c_code").toString());
 	}
 
@@ -58,7 +59,7 @@ public class KioskMM1 {
 		// 요청사항 리스트 가져오기
 		List<String> reqList = kDao.getRequestList(session.getAttribute("c_code").toString());
 		// 주문번호 기준으로 테이블번호 재설정
-		if(session.getAttribute("oac_num")!=null) {
+		if (session.getAttribute("oac_num") != null) {
 			HashMap<String, String> tabInfo = kDao.checkTabNum(session.getAttribute("c_code").toString(),
 					session.getAttribute("bd_date").toString(), session.getAttribute("oac_num").toString());
 			session.setAttribute("sc_code", tabInfo.get("SC_CODE"));
@@ -92,12 +93,10 @@ public class KioskMM1 {
 			// 주문번호가 저장유무 확인 (주문번호가 없다/있다)
 			if (session.getAttribute("oac_num") == null) {
 				String oac_num = oDao.getNewOacCode(c_code, bd_date);
-				System.out.println(oac_num);
 				// 주문번호가 없으므로 손님은 최초주문(oac,oh 인서트)
 				// order_and_credit안에 인서트 해줄 데이터들을 해쉬맵에 넣는다
 				HashMap<String, String> oac = kn.getOac(c_code, bd_date, oac_num,
 						session.getAttribute("sc_code").toString(), session.getAttribute("st_num").toString());
-				System.out.println(oac);
 				// order_and_credit insert
 				if (!oDao.createoacList(oac)) {
 					hMap.put("msg", "주문에 실패하였습니다 다시 시도해주세요");
@@ -109,7 +108,7 @@ public class KioskMM1 {
 				for (int i = 0; i < ohList.size(); i++) {
 					HashMap<String, String> stk = kDao.checkStock(ohList.get(i));
 					if (stk != null) {
-						hMap.put("msg", stk.get("PD_NAME")+"의 재고가 부족합니다");
+						hMap.put("msg", stk.get("PD_NAME") + "의 재고가 부족합니다");
 						hMap.put("view", "kioskorder");
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return hMap;
@@ -133,7 +132,7 @@ public class KioskMM1 {
 				for (int i = 0; i < ohList.size(); i++) {
 					HashMap<String, String> stk = kDao.checkStock(ohList.get(i));
 					if (stk != null) {
-						hMap.put("msg", stk.get("PD_NAME")+"의 재고가 부족합니다");
+						hMap.put("msg", stk.get("PD_NAME") + "의 재고가 부족합니다");
 						hMap.put("view", "kioskorder");
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return hMap;
@@ -190,13 +189,14 @@ public class KioskMM1 {
 
 	public HashMap<String, String> getOac_status(HttpSession session) {
 		HashMap<String, String> hMap = new HashMap<String, String>();
-		int oac_status = kDao.getOac_status(session.getAttribute("c_code").toString(), session.getAttribute("bd_date").toString(), session.getAttribute("oac_num").toString());
+		int oac_status = kDao.getOac_status(session.getAttribute("c_code").toString(),
+				session.getAttribute("bd_date").toString(), session.getAttribute("oac_num").toString());
 		if (oac_status == -1) {
-			hMap.put("oac_status", oac_status+"");
+			hMap.put("oac_status", oac_status + "");
 			hMap.put("oac_num", session.getAttribute("oac_num").toString());
 			session.removeAttribute("oac_num");
 		}
-		hMap.put("oac_status", oac_status+"");
+		hMap.put("oac_status", oac_status + "");
 		return hMap;
 	}
 
@@ -206,7 +206,7 @@ public class KioskMM1 {
 		hm.put("st_num", session.getAttribute("st_num").toString());
 		hm.put("sc_code", session.getAttribute("sc_code").toString());
 		String oac_num = kDao.getOrderNum(hm);
-		if(oac_num!=null) {
+		if (oac_num != null) {
 			session.setAttribute("oac_num", oac_num);
 		}
 		return oac_num;

@@ -18,19 +18,18 @@ import com.team2.simpleOrder.service.kiosk.KioskMM2;
 @Controller
 public class KioskMainController {
 	@Autowired
-	private KioskMM2 km2;
+	private KioskMM2 km;
 
 	@PostMapping(value = "/insertreview")
 	public ModelAndView insertreview(@RequestParam ArrayList<MultipartFile> rv_file, @RequestParam String oac_num,
 			HttpSession session, Review rv) {
-		System.out.println(oac_num);
 		rv.setOac_num(oac_num);
-		return km2.insertReview(rv_file, rv, session);
+		return km.insertReview(rv_file, rv, session);
 	}
 
 	@PostMapping(value = "/requestcall")
 	public ModelAndView requestCall(HttpSession session, @RequestParam HashMap<String, String> requestInfo,
 			ModelAndView mav) {
-		return km2.msgSave(session, requestInfo);
+		return km.msgSave(session, requestInfo);
 	}
 }

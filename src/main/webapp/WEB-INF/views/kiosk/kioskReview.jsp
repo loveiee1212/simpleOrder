@@ -239,8 +239,7 @@ button:focus {
 
 		getReviewList();
 		function getReviewList() {
-			$
-					.ajax({
+					$.ajax({
 						url : 'rest/getreviewlist',
 						type : 'post',
 						data : {

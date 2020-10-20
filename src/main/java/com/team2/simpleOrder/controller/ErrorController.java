@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class errorController {
+public class ErrorController {
 
 	@RequestMapping("/error")
 	public String handleError(HttpServletRequest req, RedirectAttributes redirect) {
@@ -18,7 +18,6 @@ public class errorController {
 		if (status != null) {
 			Integer statusCode = Integer.valueOf(status.toString());
 			redirect.addAttribute("errorCode", statusCode);
-
 		}
 		return "redirect:/errorpage";
 	}

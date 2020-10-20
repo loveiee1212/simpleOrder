@@ -38,7 +38,7 @@ img {
 #login {
 	width: 1400px;
 	height: 500px;
-	border: 3px solid #2565a3;
+	
 	font-size: 20px;
 	margin: 20px 20px;
 	padding-left: 60px;

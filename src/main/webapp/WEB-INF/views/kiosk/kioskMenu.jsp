@@ -322,8 +322,7 @@ input:focus {
 				var dateGap = endDate.getTime() - startDate.getTime();
 				var timeGap = new Date(0, 0, 0, 0, 0, 0, endDate - startDate);
 
-				// 두 일자(startTime, endTime) 사이의 간격을 "일-시간-분"으로 표시한다.
-				//var diffDay = Math.floor(dateGap / (1000 * 60 * 60 * 24)); // 일수       
+				// 두 일자(startTime, endTime) 사이의 간격
 				var diffHour = timeGap.getHours(); // 시간
 				var diffMin = timeGap.getMinutes(); // 분
 				var diffSec = timeGap.getSeconds(); // 초
