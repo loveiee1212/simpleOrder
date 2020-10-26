@@ -83,8 +83,6 @@ public class ProductMM {
 			SimpleDateFormat dateFormat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 			proInfo.put("c_code", session.getAttribute("c_code").toString());
 			proInfo.put("pd_date", dateFormat.format(Calendar.getInstance().getTime()));
-			System.out.println(proInfo.get("pd_price"));
-			System.out.println(proInfo.get("pd_price").equals(""));
 			if(proInfo.get("pd_price").equals("")) {
 				proInfo.put("pd_price", "0");
 			}
@@ -92,7 +90,6 @@ public class ProductMM {
 				if(proInfo.get("pd_imgname")==null) {
 					proInfo.put("pd_imgname", "ERRORIMG");
 				}
-				System.out.println(proInfo);
 				pDao.createProduct(proInfo);
 			} else { // 이미지가 있다면
 				FileUpAndDelete fileMM = new FileUpAndDelete();

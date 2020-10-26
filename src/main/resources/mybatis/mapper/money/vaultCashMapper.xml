@@ -17,7 +17,9 @@
 	
 	<!-- 시재여부 확인 -->
 	<select id="checkVc_code" parameterType="string" resultType="object">
-		SELECT VC_CODE FROM VAULT_CASH WHERE VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) FROM VAULT_CASH WHERE C_CODE=#{c_code})
+		SELECT VC_CODE FROM VAULT_CASH 
+		WHERE VC_CHANGETIME IN (SELECT MAX(VC_CHANGETIME) 
+		FROM VAULT_CASH WHERE C_CODE=#{c_code})
 	</select>
 	
 	<!-- 주문 여부 확인 -->

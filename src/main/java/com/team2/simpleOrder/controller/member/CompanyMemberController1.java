@@ -87,7 +87,7 @@ public class CompanyMemberController1 {
 		return mm.fireEmpInfo(session, empInfo,reat);
 	}
 	
-	@RequestMapping("/updatePositionGrant") // 직급 변경
+	@RequestMapping("/updatePositionGrant") // 직급 권한 변경
 	public String updateGrantPosition(@RequestParam HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) {
 		mm.updatePositionGrant(positionInfo,session,reat);
 		

@@ -114,13 +114,12 @@ public class CompanyMemberMM {
 	@Transactional
 	public String createCcodeAcount(HashMap<String, String> cCodeInfo, HttpSession session, RedirectAttributes reat) { // 사업체계정 생성
 		try {
-		cCodeInfo.put("emp_code", "0");
-		cCodeInfo.put("pst_position", "00");
-		cCodeInfo.put("emp_pw", "0000");
-		cCodeInfo.put("emp_name", "대표");
-		cCodeInfo.put("pst_name", "대표");
-		System.out.println(cCodeInfo);
-		if (cDao.createCcodeAcount(cCodeInfo)) {
+			if (cDao.createCcodeAcount(cCodeInfo)) {
+				cCodeInfo.put("emp_code", "0");
+				cCodeInfo.put("pst_position", "00");
+				cCodeInfo.put("emp_pw", "0000");
+				cCodeInfo.put("emp_name", "대표");
+				cCodeInfo.put("pst_name", "대표");
 				cDao.creatPosition(cCodeInfo); // 해당 사업체 번호로 대표 직급 생성
 				cDao.createBasicProCategori(cCodeInfo); // 기본 상품 카테고리 생성
 				cDao.createBasicSkct(cCodeInfo); // 기본 판매키 생성
@@ -320,6 +319,7 @@ public class CompanyMemberMM {
 			}
 		} catch (Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			reat.addFlashAttribute("error", "포지션 가져오기 오류 관리자 문의 요청");
 			System.out.println(e);
 		}
 
@@ -368,6 +368,7 @@ public class CompanyMemberMM {
 	}
 
 	public String createPosition(HashMap<String, String> positionInfo, HttpSession session, RedirectAttributes reat) { // 직급 생성
+		reat.addFlashAttribute("basicPath", "includeAjax('postisionSettingFrmOn')");
 		try {
 			String PositionCode = cDao.getNewPositionCode(session.getAttribute("c_code").toString());
 
@@ -375,11 +376,10 @@ public class CompanyMemberMM {
 			positionInfo.put("c_code", (String) session.getAttribute("c_code"));
 
 			cDao.createPosition(positionInfo);
-			reat.addFlashAttribute("basicPath", "includeAjax('postisionSettingFrmOn')");
 			return "redirect:/posSetting";
 		} catch (Exception e) {
 			System.out.println(e);
-			reat.addFlashAttribute("basicPath", "includeAjax('postisionSettingFrmOn')");
+			reat.addFlashAttribute("error", "직급 생성간 오류발생 관리자 문의 요청");
 			return "redirect:/posSetting";
 		}
 	}

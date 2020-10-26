@@ -69,6 +69,7 @@ public interface IProductDao {
 
 	@Insert("INSERT INTO STOCK VALUES(#{c_code},#{pdc_code},#{pd_code},#{pd_date},#{stk_stock})")
 	void createProStock(HashMap<String, String> proInfo);
+	
 	@Delete("DELETE FROM SELLKEY WHERE C_CODE = #{c_code}")
 	void deletesellKey(String c_code);
 	@Insert("INSERT INTO SELLKEY VALUES(#{c_code}, #{pdc_code},#{pd_code},#{pd_date},#{skc_code},#{sk_num})")
